@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useThunkDispatch, RootState } from './store';
+import { fetchArticles } from './features/test/testSlice';
+import { useSelector } from 'react-redux';
 
 const App: React.FC = () => {
+  const dispatch = useThunkDispatch();
+  const { articles } = useSelector((state: RootState) => state.test.data)
+
+  useEffect(() => {
+    dispatch(fetchArticles()).then(console.log)
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log(`Pobrano ${articles.length} artykulow`);
+  }, [articles.length])
+
   return (
     <div className="App">
       <header className="App-header">
