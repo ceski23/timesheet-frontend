@@ -1,13 +1,14 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface AsyncState {
   loading: boolean;
-  error?: any;
+  error?: object;
 }
 
 export const initialState: AsyncState = {
   loading: false,
-  error: null
+  error: undefined,
 };
 
 export const createStatusSlice = (prefix: string) => createSlice({
@@ -16,15 +17,15 @@ export const createStatusSlice = (prefix: string) => createSlice({
   reducers: {
     requestStart(state) {
       state.loading = true;
-      state.error = null;
+      state.error = undefined;
     },
     requestSuccess(state) {
       state.loading = false;
-      state.error = null;
+      state.error = undefined;
     },
-    requestError(state, { payload }: PayloadAction<any>) {
+    requestError(state, { payload }: PayloadAction<object>) {
       state.loading = false;
       state.error = payload;
-    }
-  }
-})
+    },
+  },
+});

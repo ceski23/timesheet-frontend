@@ -1,7 +1,8 @@
 import Axios from 'axios';
 
+// eslint-disable-next-line import/prefer-default-export
 export const client = Axios.create({
-  baseURL: 'http://127.0.0.1:3000'
+  baseURL: 'http://127.0.0.1:3000',
 });
 
 export interface FindParams {

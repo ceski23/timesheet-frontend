@@ -17,6 +17,7 @@
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
     "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "typescript": "3.7.2"
   },
   "scripts": {
@@ -25,7 +26,33 @@
     "test": "craco test"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "parser":  "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "extends":  [
+      "airbnb",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
+      "@typescript-eslint/indent": "off",
+      "linebreak-style": "off",
+      "react/jsx-one-expression-per-line": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "import/prefer-default-export": "off",
+      "arrow-parens": ["error", "as-needed"]
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [".js", ".jsx", ".ts", ".tsx"],
+          "paths": ["src"]
+        }
+      }
+    },
+    "env": {
+      "browser": true,
+      "jest": true
+    }
   },
   "cracoConfig": "craco.config.ts",
   "browserslist": {

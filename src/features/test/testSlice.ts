@@ -1,11 +1,12 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import localforage from 'localforage';
 import { createStatusSlice } from '../../shared/slices/statusSlice';
 import { createPaginationSlice } from '../../shared/slices/paginationSlice';
 import { findArticles } from './api';
 import { FindParams } from '../../api';
 import { AppThunk } from '../../store';
-import { persistReducer } from 'redux-persist';
-import localforage from 'localforage';
 
 export interface Article {
   id: string;
@@ -33,31 +34,33 @@ const articlesSlice = createSlice({
   reducers: {
     setArticles(state, { payload }: PayloadAction<Article[]>) {
       state.articles = payload;
-    }
-  }
+    },
+  },
 });
 
-export const fetchArticles = (params?: FindParams): AppThunk<Promise<Article[]>> => async dispatch => {
+export const fetchArticles = (
+  params?: FindParams,
+): AppThunk<Promise<Article[]>> => async dispatch => {
   const { requestError, requestStart, requestSuccess } = status.actions;
   const { updatePagination } = pagination.actions;
-  
+
   dispatch(requestStart());
   try {
-    const { data, ...pagination } = await findArticles(params || {});
+    const { data, ...paginationData } = await findArticles(params || {});
     dispatch(articlesSlice.actions.setArticles(data));
-    dispatch(updatePagination(pagination));
+    dispatch(updatePagination(paginationData));
     dispatch(requestSuccess());
     return data;
   } catch (err) {
     dispatch(requestError(err));
     throw err;
   }
-}
+};
 
 const reducer = combineReducers({
   data: articlesSlice.reducer,
   status: status.reducer,
-  pagination: pagination.reducer
+  pagination: pagination.reducer,
 });
 
 // const persistedReducer = persistReducer({
