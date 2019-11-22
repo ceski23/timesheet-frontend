@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^5.6.2",
     "@reduxjs/toolkit": "^1.0.4",
     "@types/jest": "24.0.23",
     "@types/node": "12.12.11",
@@ -19,14 +20,14 @@
     "typescript": "3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "cracoConfig": "craco.config.ts",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -40,6 +41,12 @@
     ]
   },
   "devDependencies": {
-    "@types/react-redux": "^7.1.5"
+    "@types/react-redux": "^7.1.5",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "react-refresh": "^0.7.0",
+    "react-refresh-webpack-plugin": "git+https://github.com/pmmmwh/react-refresh-webpack-plugin.git"
   }
 }
