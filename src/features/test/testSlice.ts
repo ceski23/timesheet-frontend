@@ -52,7 +52,7 @@ export const fetchArticles = (
     dispatch(requestSuccess());
     return data;
   } catch (err) {
-    dispatch(requestError(err));
+    dispatch(requestError(err.message));
     throw err;
   }
 };
