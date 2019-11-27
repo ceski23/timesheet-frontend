@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card,
 } from '@material-ui/core';
@@ -16,14 +16,10 @@ const StyledCard = styled(Card)(({ theme }) => ({
 export const RegistrationScreen: FC = () => {
   const dispatch = useThunkDispatch();
 
-  const [registerError, setRegisterError] = useState();
-
-  const handleRegister = async (values: RegisterData, actions: FormikHelpers<RegisterData>) => {
-    setRegisterError(undefined);
-
-    return dispatch(register(values))
-      .catch(error => formErrorHandler(error, setRegisterError, actions.setErrors));
-  };
+  const handleRegister = async (values: RegisterData, actions: FormikHelpers<RegisterData>) => (
+    dispatch(register(values))
+      .catch(error => formErrorHandler(error, actions.setErrors))
+  );
 
   const registerFormInitialValues = {
     email: '',
@@ -39,7 +35,6 @@ export const RegistrationScreen: FC = () => {
           <Typography gutterBottom variant="h6">Rejestracja</Typography>
           <RegisterForm
             handleSubmit={handleRegister}
-            error={registerError}
             initialValues={registerFormInitialValues}
           />
         </CardContent>

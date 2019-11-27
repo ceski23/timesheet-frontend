@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import Button from '@material-ui/core/Button';
-import { Typography } from '@material-ui/core';
 import { Credentials } from 'features/auth/types';
 import { FormParams } from 'shared/types';
 import { FormField } from 'shared/components/FormField';
 
 export const LoginForm: FC<FormParams<Credentials>> = ({
-  handleSubmit, error, initialValues, className,
+  handleSubmit, initialValues, className,
 }) => (
   <Formik
     initialValues={initialValues}
@@ -15,7 +14,6 @@ export const LoginForm: FC<FormParams<Credentials>> = ({
   >
     {({ isSubmitting }) => (
       <Form style={{ display: 'flex', flexDirection: 'column' }} className={className}>
-        {error && <Typography>{error}</Typography>}
         <FormField
           type="password"
           autoComplete="current-password"

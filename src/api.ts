@@ -1,5 +1,6 @@
 import Axios, { AxiosError } from 'axios';
 import store from 'store';
+import Snackbar from 'utils/snackbar';
 
 export interface FindParams {
   limit?: number;
@@ -51,15 +52,16 @@ export const subscribeToToken = () => {
   return store.subscribe(updateAuthHeader);
 };
 
-// client.interceptors.response.use(
-//   response => response,
-//   error => {
-//     if (!error || (error.response && error.response.status === 500)) {
-//       return Promise.reject('DUPA');
-//     }
-//     return Promise.reject(error);
-//   },
-// );
+client.interceptors.response.use(
+  response => response,
+  error => {
+    if (!error || (error.response && error.response.status === 500)) {
+      Snackbar.error('Wystąpił błąd serwera, spróbuj ponownie później');
+      return Promise.reject(Error('Wystąpił błąd serwera, spróbuj ponownie później'));
+    }
+    return Promise.reject(error);
+  },
+);
 
 export function handleApiError<T>(error: object): ApiError<T> {
   const err = error as AxiosError<ApiError<T>>;

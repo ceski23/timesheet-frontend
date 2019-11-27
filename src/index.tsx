@@ -9,14 +9,19 @@ import { CssBaseline } from '@material-ui/core';
 import store, { persistor } from 'store';
 import 'i18n';
 import { BrowserRouter } from 'react-router-dom';
+import { SnackbarProvider } from 'notistack';
+import { SnackbarUtilsConfigurator } from 'utils/snackbar';
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <ThemeContainer>
-          <CssBaseline />
-          <App />
+          <SnackbarProvider>
+            <SnackbarUtilsConfigurator />
+            <CssBaseline />
+            <App />
+          </SnackbarProvider>
         </ThemeContainer>
       </BrowserRouter>
     </PersistGate>

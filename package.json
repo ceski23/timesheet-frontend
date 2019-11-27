@@ -19,6 +19,7 @@
     "i18next-browser-languagedetector": "^4.0.1",
     "localforage": "^1.7.3",
     "lodash-es": "^4.17.15",
+    "notistack": "^0.9.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-i18next": "^11.2.2",

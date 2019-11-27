@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Button,
 } from '@material-ui/core';
@@ -10,6 +10,7 @@ import { useThunkDispatch } from 'store';
 import { LoginForm } from 'components/LoginForm';
 import { Link } from 'react-router-dom';
 import { ROUTE_REGISTER } from 'routes';
+import snackbar from 'utils/snackbar';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -18,14 +19,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
 export const LoginScreen: FC = () => {
   const dispatch = useThunkDispatch();
 
-  const [loginError, setLoginError] = useState();
-
-  const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => {
-    setLoginError(undefined);
-
-    return dispatch(login(values))
-      .catch(error => formErrorHandler(error, setLoginError, actions.setErrors));
-  };
+  const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => (
+    dispatch(login(values))
+      .then(() => { snackbar.success('Zostałeś zalogowany!'); })
+      .catch(error => formErrorHandler(error, actions.setErrors))
+  );
 
   const loginFormInitialValues = {
     email: '',
@@ -39,7 +37,6 @@ export const LoginScreen: FC = () => {
           <Typography gutterBottom variant="h6">Logowanie</Typography>
           <LoginForm
             handleSubmit={handleSubmit}
-            error={loginError}
             initialValues={loginFormInitialValues}
           />
           <Button
