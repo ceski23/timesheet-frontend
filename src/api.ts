@@ -1,4 +1,5 @@
 import Axios, { AxiosError } from 'axios';
+import store from 'store';
 
 export interface FindParams {
   limit?: number;
@@ -31,10 +32,34 @@ export interface ApiError<T> {
 }
 
 
-// eslint-disable-next-line import/prefer-default-export
 export const client = Axios.create({
   baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
+
+export const subscribeToToken = () => {
+  const updateAuthHeader = () => {
+    const { accessToken } = store.getState().auth.data;
+    if (accessToken) {
+      client.defaults.headers.Authorization = `Bearer ${accessToken}`;
+    } else delete client.defaults.headers.Authorization;
+  };
+
+  updateAuthHeader();
+  return store.subscribe(updateAuthHeader);
+};
+
+// client.interceptors.response.use(
+//   response => response,
+//   error => {
+//     if (!error || (error.response && error.response.status === 500)) {
+//       return Promise.reject('DUPA');
+//     }
+//     return Promise.reject(error);
+//   },
+// );
 
 export function handleApiError<T>(error: object): ApiError<T> {
   const err = error as AxiosError<ApiError<T>>;

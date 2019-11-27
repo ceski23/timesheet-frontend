@@ -1,0 +1,10 @@
+{
+  "themeSwitcher": {
+    "title": "Motyw"
+  },
+  "themeType": {
+    "dark": "Ciemny",
+    "light": "Jasny",
+    "system": "Systemowy"
+  }
+}

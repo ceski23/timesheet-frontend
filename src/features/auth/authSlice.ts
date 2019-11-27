@@ -2,10 +2,13 @@
 import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
+import { pick } from 'lodash-es';
 import { createStatusSlice } from '../../shared/slices/statusSlice';
-import { loginUser } from './api';
+import { loginUser, registerUser } from './api';
 import { AppThunk } from '../../store';
-import { AuthState, Tokens, Credentials } from './types';
+import {
+  AuthState, Tokens, Credentials, RegisterData, User,
+} from './types';
 
 const initialState: AuthState = {
   accessToken: undefined,
@@ -24,12 +27,14 @@ const authSlice = createSlice({
       state.accessToken = payload.accessToken;
       state.refreshToken = payload.refreshToken;
     },
+    logout(state) {
+      state.accessToken = undefined;
+      state.refreshToken = undefined;
+    },
   },
 });
 
-export const login = (
-  credentials: Credentials,
-): AppThunk<Promise<Tokens>> => async dispatch => {
+export const login = (credentials: Credentials): AppThunk<Promise<Tokens>> => async dispatch => {
   const { requestError, requestStart, requestSuccess } = status.actions;
 
   dispatch(requestStart());
@@ -38,6 +43,23 @@ export const login = (
     dispatch(authSlice.actions.setTokens(tokens));
     dispatch(requestSuccess());
     return tokens;
+  } catch (err) {
+    dispatch(requestError(err.message));
+    throw err;
+  }
+};
+
+export const register = (
+  regData: RegisterData,
+): AppThunk<Promise<User & Tokens>> => async dispatch => {
+  const { requestError, requestStart, requestSuccess } = status.actions;
+
+  dispatch(requestStart());
+  try {
+    const data = await registerUser(regData);
+    dispatch(authSlice.actions.setTokens(pick(data, ['refreshToken', 'accessToken'])));
+    dispatch(requestSuccess());
+    return data;
   } catch (err) {
     dispatch(requestError(err.message));
     throw err;
@@ -54,5 +76,5 @@ const reducer = combineReducers({
   status: status.reducer,
 });
 
-export const { setTokens } = authSlice.actions;
+export const { setTokens, logout } = authSlice.actions;
 export default reducer;
