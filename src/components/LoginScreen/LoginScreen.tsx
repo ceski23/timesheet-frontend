@@ -10,7 +10,7 @@ import { useThunkDispatch } from 'store';
 import { LoginForm } from 'components/LoginForm';
 import { Link } from 'react-router-dom';
 import { ROUTE_REGISTER } from 'routes';
-import snackbar from 'utils/snackbar';
+import Notificator from 'utils/Notificator';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -21,7 +21,7 @@ export const LoginScreen: FC = () => {
 
   const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => (
     dispatch(login(values))
-      .then(() => { snackbar.success('Zostałeś zalogowany!'); })
+      .then(() => { Notificator.success('Zostałeś zalogowany!'); })
       .catch(error => formErrorHandler(error, actions.setErrors))
   );
 

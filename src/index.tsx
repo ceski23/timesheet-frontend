@@ -10,7 +10,7 @@ import store, { persistor } from 'store';
 import 'i18n';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import { SnackbarUtilsConfigurator } from 'utils/snackbar';
+import { SnackbarUtilsConfigurator } from 'utils/Notificator';
 
 ReactDOM.render(
   <Provider store={store}>

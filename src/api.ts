@@ -1,6 +1,6 @@
 import Axios, { AxiosError } from 'axios';
 import store from 'store';
-import Snackbar from 'utils/snackbar';
+import Notificator from 'utils/Notificator';
 
 export interface FindParams {
   limit?: number;
@@ -37,6 +37,7 @@ export const client = Axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
+    'Accept-Language': 'en',
   },
 });
 
@@ -55,8 +56,12 @@ export const subscribeToToken = () => {
 client.interceptors.response.use(
   response => response,
   error => {
-    if (!error || (error.response && error.response.status === 500)) {
-      Snackbar.error('Wystąpił błąd serwera, spróbuj ponownie później');
+    if (
+      !error
+      || (error.response && error.response.status === 500)
+      || !error.response
+    ) {
+      Notificator.error('Wystąpił błąd serwera, spróbuj ponownie później');
       return Promise.reject(Error('Wystąpił błąd serwera, spróbuj ponownie później'));
     }
     return Promise.reject(error);
