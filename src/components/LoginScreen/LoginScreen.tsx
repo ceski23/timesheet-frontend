@@ -11,6 +11,7 @@ import { LoginForm } from 'components/LoginForm';
 import { Link } from 'react-router-dom';
 import { ROUTE_REGISTER } from 'routes';
 import Notificator from 'utils/Notificator';
+import { useTranslation } from 'react-i18next';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -18,10 +19,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 export const LoginScreen: FC = () => {
   const dispatch = useThunkDispatch();
+  const { t } = useTranslation();
 
   const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => (
     dispatch(login(values))
-      .then(() => { Notificator.success('Zostałeś zalogowany!'); })
+      .then(() => { Notificator.success(t('login.success_message')); })
       .catch(error => formErrorHandler(error, actions.setErrors))
   );
 
@@ -34,7 +36,7 @@ export const LoginScreen: FC = () => {
     <>
       <StyledCard>
         <CardContent>
-          <Typography gutterBottom variant="h6">Logowanie</Typography>
+          <Typography gutterBottom variant="h6">{t('login.title')}</Typography>
           <LoginForm
             handleSubmit={handleSubmit}
             initialValues={loginFormInitialValues}
@@ -47,7 +49,7 @@ export const LoginScreen: FC = () => {
             component={Link}
             to={ROUTE_REGISTER}
           >
-            Rejestracja
+            {t('login.register_link')}
           </Button>
         </CardContent>
       </StyledCard>

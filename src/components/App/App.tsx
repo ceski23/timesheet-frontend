@@ -4,8 +4,6 @@ import { styled } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { subscribeToToken } from 'api';
 import { useAuthGuard } from 'hooks/useAuthGuard';
-import { LoggedInContent } from 'components/LoggedInContent';
-import { GuestContent } from 'components/GuestContent';
 import { loggedInRoutes, guestRoutes } from 'routes';
 import { renderRoutes } from 'react-router-config';
 
@@ -26,7 +24,6 @@ export const App: React.FC = () => {
 
   return (
     <Container>
-      {/* {!loading && (loggedIn ? <LoggedInContent /> : <GuestContent />)} */}
       {!loading && renderRoutes(loggedIn ? loggedInRoutes : guestRoutes)}
     </Container>
   );
