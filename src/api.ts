@@ -18,17 +18,11 @@ export type ApiResponse<T> = {
   data: T;
 } & Pagination;
 
-export interface FieldError {
-  keyword: string;
-  message: string;
-  params: object;
-}
-
 export interface ApiError<T> {
   name: string;
   statusCode: number;
   data: {
-    [K in keyof T]: FieldError;
+    [K in keyof T]: string;
   } | string;
 }
 

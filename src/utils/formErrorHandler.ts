@@ -1,4 +1,3 @@
-import { mapValues } from 'lodash-es';
 import { ApiError } from 'api';
 import Notificator from 'utils/Notificator';
 
@@ -7,7 +6,7 @@ function formErrorHandler<T>(
   setFieldsErrors: (errors: { [K in keyof T]: string }) => void,
 ) {
   if (typeof error.data === 'string') Notificator.error(error.data);
-  else setFieldsErrors(mapValues(error.data, o => o.message));
+  else setFieldsErrors(error.data);
 }
 
 export default formErrorHandler;
