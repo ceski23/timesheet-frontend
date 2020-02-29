@@ -50,8 +50,9 @@ export const PasswordRequirements: FC<({ password: string })> = ({ password }) =
   return (
     <MuiThemeProvider theme={colortheme}>
       <div>
-        {requirements.map(({ regex, text }) => (
-          <Requirement regex={regex} pass={password} text={text} />
+        {requirements.map(({ regex, text }, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Requirement regex={regex} pass={password} text={text} key={i} />
         ))}
       </div>
     </MuiThemeProvider>

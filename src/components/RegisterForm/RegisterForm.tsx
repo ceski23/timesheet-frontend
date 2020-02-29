@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Formik, Form,
 } from 'formik';
@@ -7,6 +7,7 @@ import { RegisterData } from 'features/auth/types';
 import { FormParams } from 'shared/types';
 import { FormField } from 'shared/components/FormField';
 import { useTranslation } from 'react-i18next';
+import { Collapse } from '@material-ui/core';
 import { registerFormSchema } from './schema';
 import { PasswordRequirements } from './PasswordRequirements';
 
@@ -14,6 +15,16 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
   handleSubmit, initialValues, className,
 }) => {
   const { t } = useTranslation();
+  const [showRequirements, setShowRequirements] = useState(false);
+
+  const handlePasswordFocus = () => {
+    setShowRequirements(true);
+  };
+
+  // TODO: Add hiding requirements on blur
+  // const handlePasswordBlur = () => {
+  //   setShowRequirements(false);
+  // };
 
   return (
     <Formik
@@ -43,8 +54,13 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
             name="password"
             label={t('register.form.password')}
             required
+            onFocus={handlePasswordFocus}
           />
-          <PasswordRequirements password={values.password} />
+
+          <Collapse in={showRequirements}>
+            <PasswordRequirements password={values.password} />
+          </Collapse>
+
           <FormField
             type="password"
             autoComplete="new-password"
