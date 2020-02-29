@@ -3,8 +3,9 @@ import { LoginScreen } from 'components/LoginScreen';
 import { RegistrationScreen } from 'components/RegistrationScreen';
 import { Redirect } from 'react-router';
 import React from 'react';
-import { LoggedInContent } from 'components/LoggedInContent';
 import { Logout } from 'components/Logout';
+import { HomeScreen } from 'components/HomeScreen';
+import { NotFoundScreen } from 'components/NotFoundScreen';
 
 export const ROUTE_HOME = '/';
 export const ROUTE_LOGIN = '/logowanie';
@@ -15,7 +16,7 @@ export const loggedInRoutes = [
   {
     path: ROUTE_HOME,
     exact: true,
-    component: LoggedInContent,
+    component: HomeScreen,
     routes: [],
   },
   {
@@ -25,6 +26,9 @@ export const loggedInRoutes = [
   {
     path: [ROUTE_LOGIN, ROUTE_REGISTER],
     render: () => <Redirect to={ROUTE_HOME} />,
+  },
+  {
+    component: NotFoundScreen,
   },
 ];
 

@@ -40,6 +40,11 @@
     },
     "title": "Rejestracja"
   },
+  "navigationBar": {
+    "header": {
+      "logout": "Wyloguj"
+    }
+  },
   "themeSwitcher": {
     "title": "Motyw"
   },

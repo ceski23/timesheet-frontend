@@ -1,5 +1,4 @@
 import Axios, { AxiosError } from 'axios';
-import store from 'store';
 import Notificator from 'utils/Notificator';
 
 export interface FindParams {
@@ -35,16 +34,10 @@ export const client = Axios.create({
   },
 });
 
-export const subscribeToToken = () => {
-  const updateAuthHeader = () => {
-    const { accessToken } = store.getState().auth.data;
-    if (accessToken) {
-      client.defaults.headers.Authorization = `Bearer ${accessToken}`;
-    } else delete client.defaults.headers.Authorization;
-  };
-
-  updateAuthHeader();
-  return store.subscribe(updateAuthHeader);
+export const updateAuthHeader = (accessToken?: string) => {
+  if (accessToken) {
+    client.defaults.headers.Authorization = `Bearer ${accessToken}`;
+  } else delete client.defaults.headers.Authorization;
 };
 
 client.interceptors.response.use(

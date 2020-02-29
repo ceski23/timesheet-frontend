@@ -1,11 +1,10 @@
-import React, { useMemo } from 'react';
-import { RootState } from 'store';
-import { ThemeProvider } from '@material-ui/styles';
 import { useSelector } from 'react-redux';
-import { createMuiTheme, useMediaQuery } from '@material-ui/core';
+import { RootState } from 'store';
+import { useMediaQuery, createMuiTheme } from '@material-ui/core';
+import { useMemo } from 'react';
 import { theme as defaultTheme } from 'theme';
 
-export const ThemeContainer: React.FC = ({ children }) => {
+export const useAppTheme = () => {
   const { theme: themeType } = useSelector((state: RootState) => state.preferences);
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
@@ -14,9 +13,5 @@ export const ThemeContainer: React.FC = ({ children }) => {
     createMuiTheme(defaultTheme(themeType === 'system' ? (prefersDarkMode ? 'dark' : 'light') : themeType))
   ), [prefersDarkMode, themeType]);
 
-  return (
-    <ThemeProvider theme={theme}>
-      {children}
-    </ThemeProvider>
-  );
+  return theme;
 };
