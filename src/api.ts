@@ -14,7 +14,7 @@ export interface Pagination {
   totalItems: number;
 }
 
-export type ApiResponse<T> = {
+export type PaginatedResponse<T> = {
   data: T;
 } & Pagination;
 

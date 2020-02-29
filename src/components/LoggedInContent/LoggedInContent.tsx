@@ -9,9 +9,11 @@ import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { ROUTE_LOGOUT } from 'routes';
+import { Test } from 'components/App/Test';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
+  height: 500,
 }));
 
 export const LoggedInContent: FC = () => {
@@ -26,6 +28,8 @@ export const LoggedInContent: FC = () => {
 
   return (
     <>
+      <Test />
+
       <StyledCard>
         <CardContent>
           <Typography gutterBottom variant="h6">{t('themeSwitcher.title')}</Typography>
@@ -47,7 +51,7 @@ export const LoggedInContent: FC = () => {
             component={Link}
             to={ROUTE_LOGOUT}
           >
-        Wyloguj
+            Wyloguj
           </Button>
         </CardContent>
       </StyledCard>

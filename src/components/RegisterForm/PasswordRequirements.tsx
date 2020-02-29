@@ -36,17 +36,23 @@ export const PasswordRequirements: FC<({ password: string })> = ({ password }) =
 
   const colortheme = createMuiTheme({
     palette: {
-      primary: { main: '#7CFC00', contrastText: '#fff' },
+      primary: { main: '#24b312', contrastText: '#fff' },
     },
   });
+
+  const requirements = [
+    { regex: /.{8,}/, text: t('register.form.errors.password_min') },
+    { regex: /[0-9]+/, text: t('register.form.errors.password_digit') },
+    { regex: /[a-zA-Z]+/, text: t('register.form.errors.password_alpha') },
+    { regex: /[#?!@$%^&*-]+/, text: t('register.form.errors.password_special') },
+  ];
 
   return (
     <MuiThemeProvider theme={colortheme}>
       <div>
-        <Requirement regex={/.{8,}/} pass={password} text={t('register.form.errors.password_min')} />
-        <Requirement regex={/[0-9]+/} pass={password} text={t('register.form.errors.password_digit')} />
-        <Requirement regex={/[a-zA-Z]+/} pass={password} text={t('register.form.errors.password_alpha')} />
-        <Requirement regex={/[#?!@$%^&*-]+/} pass={password} text={t('register.form.errors.password_special')} />
+        {requirements.map(({ regex, text }) => (
+          <Requirement regex={regex} pass={password} text={text} />
+        ))}
       </div>
     </MuiThemeProvider>
   );

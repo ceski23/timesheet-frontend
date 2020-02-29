@@ -7,6 +7,7 @@ import { persistStore } from 'redux-persist';
 
 import authReducer from './features/auth/authSlice';
 import preferencesReducer from './features/preferences/preferencesSlice';
+import usersReducer from './features/users/slice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
@@ -17,6 +18,7 @@ const middleware = getDefaultMiddleware({
 const rootReducer = combineReducers({
   auth: authReducer,
   preferences: preferencesReducer,
+  users: usersReducer,
 });
 
 const store = configureStore({
@@ -29,7 +31,7 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppThunk<R> = ThunkAction<R, RootState, null, Action<string>>;
-type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 
 export const useThunkDispatch = (): AppDispatch => useDispatch<AppDispatch>();
 

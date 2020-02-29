@@ -8,7 +8,10 @@ export const registerFormSchema = loginFormSchema.shape({
     .max(50, i18next.t('register.form.errors.name_max'))
     .required(i18next.t('register.form.errors.name_required')),
   password: yup.string()
-    .matches(/^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, '\0')
+    .matches(/.{8,}/, '\0')
+    .matches(/[0-9]+/, '\0')
+    .matches(/[a-zA-Z]+/, '\0')
+    .matches(/[#?!@$%^&*-]+/, '\0')
     .required(i18next.t('login.form.errors.password_required')),
   repeatPassword: yup.string()
     .oneOf([yup.ref('password')], i18next.t('register.form.errors.password_repeat'))

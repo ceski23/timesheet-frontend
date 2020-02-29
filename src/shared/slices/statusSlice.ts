@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppDispatch, AppThunk } from 'store';
 
 export interface AsyncState {
   loading: boolean;
@@ -29,3 +30,23 @@ export const createStatusSlice = (prefix: string) => createSlice({
     },
   },
 });
+
+export function createThunk<T>(
+  statusSlice: ReturnType<typeof createStatusSlice>,
+  promise: (dispatch: AppDispatch) => Promise<T>,
+  errorHandler?: (dispatch: AppDispatch, error: Error) => void,
+) {
+  return (): AppThunk<Promise<T>> => async dispatch => {
+    const { requestError, requestStart, requestSuccess } = statusSlice.actions;
+    dispatch(requestStart());
+    try {
+      const data = await promise(dispatch);
+      dispatch(requestSuccess());
+      return data;
+    } catch (err) {
+      if (errorHandler) errorHandler(dispatch, err);
+      dispatch(requestError(err.message));
+      throw err;
+    }
+  };
+}
