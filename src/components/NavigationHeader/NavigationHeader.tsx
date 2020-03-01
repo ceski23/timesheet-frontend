@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { FC, ReactElement, useState } from 'react';
 import {
-  Avatar, Typography, styled, IconButton, Collapse, Grid,
+  Avatar, Typography, styled, IconButton, Collapse, Grid, IconButtonProps,
 } from '@material-ui/core';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -23,6 +23,19 @@ const Container = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
   transition: '0.3s',
 }));
+
+interface StyledIconButtonProps {
+  expanded: boolean;
+}
+
+const StyledIconButton = styled(({
+  expanded, ...other
+}: StyledIconButtonProps & Omit<IconButtonProps, keyof StyledIconButtonProps>) => (
+  <IconButton {...other} />
+))({
+  transition: '0.3s',
+  transform: ({ expanded }: StyledIconButtonProps) => (expanded ? 'rotate(180deg)' : 'rotate(0deg)'),
+});
 
 const Details = styled('div')({
   flex: 1,
@@ -56,9 +69,13 @@ export const NavigationHeader: FC<Props> = ({
             <Typography color="textSecondary" noWrap gutterBottom>{email}</Typography>
           </Details>
           <div>
-            <IconButton size="small" onClick={handleExpandClick}>
+            <StyledIconButton
+              size="small"
+              onClick={handleExpandClick}
+              expanded={expanded}
+            >
               <ExpandMoreIcon />
-            </IconButton>
+            </StyledIconButton>
           </div>
         </Grid>
       </Container>
