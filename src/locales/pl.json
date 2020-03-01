@@ -43,10 +43,16 @@
   "navigationBar": {
     "header": {
       "logout": "Wyloguj"
-    }
+    },
+    "dashboard": "Przegląd",
+    "employees": "Pracownicy",
+    "worktime": "Czas pracy",
+    "vacations": "Urlopy",
+    "reports": "Raporty"
   },
-  "themeSwitcher": {
-    "title": "Motyw"
+  "settings": {
+    "theme": "Motyw",
+    "language": "Język"
   },
   "themeType": {
     "dark": "Ciemny",

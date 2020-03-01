@@ -6,6 +6,7 @@ import { ThemeType, PreferencesState } from './types';
 
 const initialState: PreferencesState = {
   theme: 'system',
+  language: 'pl',
 };
 
 const name = 'preferences';
@@ -17,6 +18,9 @@ const preferencesSlice = createSlice({
     setTheme(state, { payload }: PayloadAction<ThemeType>) {
       state.theme = payload;
     },
+    setLanguage(state, { payload }: PayloadAction<string>) {
+      state.language = payload;
+    },
   },
 });
 
@@ -25,5 +29,5 @@ const persistedPreferencesReducer = persistReducer({
   storage: localforage,
 }, preferencesSlice.reducer);
 
-export const { setTheme } = preferencesSlice.actions;
+export const { setTheme, setLanguage } = preferencesSlice.actions;
 export default persistedPreferencesReducer;

@@ -1,11 +1,11 @@
-import React, { FC, ChangeEvent } from 'react';
+import React, { FC, ChangeEvent, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useThunkDispatch } from 'store';
 import {
   Typography, RadioGroup, FormControlLabel,
-  Radio, styled, Toolbar, Divider, List, ListSubheader,
+  Radio, styled, Toolbar, Divider, List, ListSubheader, Select, MenuItem,
 } from '@material-ui/core';
-import { setTheme } from 'features/preferences/preferencesSlice';
+import { setTheme, setLanguage } from 'features/preferences/preferencesSlice';
 import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
 import { loggedInRoutes, ROUTE_HOME } from 'routes';
@@ -27,6 +27,8 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
+import { selectPreferences } from 'features/preferences/selectors';
+import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
@@ -111,10 +113,9 @@ export const LoggedInContent: FC = () => {
   const dispatch = useThunkDispatch();
   const { t } = useTranslation();
   const theme = useAppTheme();
+  const { theme: themeType } = useSelector(selectPreferences);
 
-  const { theme: themeType } = useSelector((state: RootState) => state.preferences);
-
-  const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
+  const handleThemeChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setTheme(target.value as ThemeType));
   };
 
@@ -152,19 +153,19 @@ export const LoggedInContent: FC = () => {
             <Divider />
 
             <List component="nav">
-              <NavigationItem name="Przegląd" icon={<HomeIcon />} to={ROUTE_HOME} />
-              <NavigationItem name="Pracownicy" icon={<EmployeesIcon />} to="wadawd" />
-              <NavigationItem name="Czas pracy" icon={<TimeReportingIcon />} to="wadawd" />
-              <NavigationItem name="Urlopy" icon={<VacationIcon />} to="wadawd" />
-              <NavigationItem name="Raporty" icon={<ReportIcon />} to="wadawd" />
+              <NavigationItem name={t('navigationBar.dashboard')} icon={<HomeIcon />} to={ROUTE_HOME} />
+              <NavigationItem name={t('navigationBar.employees')} icon={<EmployeesIcon />} to="wadawd" />
+              <NavigationItem name={t('navigationBar.worktime')} icon={<TimeReportingIcon />} to="wadawd" />
+              <NavigationItem name={t('navigationBar.vacations')} icon={<VacationIcon />} to="wadawd" />
+              <NavigationItem name={t('navigationBar.reports')} icon={<ReportIcon />} to="wadawd" />
             </List>
 
             <Divider />
 
             <ListSubheader>
-              {t('themeSwitcher.title')}
+              {t('settings.theme')}
             </ListSubheader>
-            <StyledThemeControls value={themeType} onChange={handleChange}>
+            <StyledThemeControls value={themeType} onChange={handleThemeChange}>
               {['dark', 'light', 'system'].map(type => (
                 <FormControlLabel
                   key={type}
@@ -174,6 +175,12 @@ export const LoggedInContent: FC = () => {
                 />
               ))}
             </StyledThemeControls>
+
+            <ListSubheader>
+              {t('settings.language')}
+            </ListSubheader>
+            <LanguageSelector />
+
           </Sidebar>
 
           <Content>
