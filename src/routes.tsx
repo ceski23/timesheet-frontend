@@ -6,11 +6,13 @@ import React from 'react';
 import { Logout } from 'components/Logout';
 import { HomeScreen } from 'components/HomeScreen';
 import { NotFoundScreen } from 'components/NotFoundScreen';
+import { EmployeesScreen } from 'components/EmployeesScreen';
 
 export const ROUTE_HOME = '/';
 export const ROUTE_LOGIN = '/logowanie';
 export const ROUTE_LOGOUT = '/wyloguj';
 export const ROUTE_REGISTER = '/rejestracja';
+export const ROUTE_EMPLOYEES = '/pracownicy';
 
 export const loggedInRoutes = [
   {
@@ -18,6 +20,10 @@ export const loggedInRoutes = [
     exact: true,
     component: HomeScreen,
     routes: [],
+  },
+  {
+    path: ROUTE_EMPLOYEES,
+    component: EmployeesScreen,
   },
   {
     path: ROUTE_LOGOUT,

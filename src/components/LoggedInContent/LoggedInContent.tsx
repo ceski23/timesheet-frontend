@@ -2,13 +2,13 @@ import React, { FC, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { useThunkDispatch } from 'store';
 import {
-  Typography, RadioGroup, FormControlLabel,
+  RadioGroup, FormControlLabel,
   Radio, styled, Toolbar, Divider, List, ListSubheader,
 } from '@material-ui/core';
 import { setTheme } from 'features/preferences/preferencesSlice';
 import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
-import { loggedInRoutes, ROUTE_HOME } from 'routes';
+import { loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES } from 'routes';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
@@ -29,10 +29,22 @@ import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { selectPreferences } from 'features/preferences/selectors';
 import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
+import { EmployeesToolbar } from 'components/EmployeesScreen';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
 }));
+
+const StyledContent = styled(Content)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  background: theme.palette.background.default,
+}));
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  background: theme.palette.background.paper,
+}));
+
 
 const layoutConfig = {
   autoCollapseDisabled: false,
@@ -131,16 +143,14 @@ export const LoggedInContent: FC = () => {
         collapsed: boolean;
       }) => (
         <>
-          <Header>
-            <Toolbar>
+          <Header elevation={1}>
+            <StyledToolbar>
               <SidebarTrigger className={headerStyles.leftTrigger}>
                 {opened ? <ChevronLeftIcon /> : <MenuIcon />}
               </SidebarTrigger>
 
-              <Typography variant="h6">
-                Grafik Pracy
-              </Typography>
-            </Toolbar>
+              <EmployeesToolbar />
+            </StyledToolbar>
           </Header>
 
           <Sidebar>
@@ -154,7 +164,7 @@ export const LoggedInContent: FC = () => {
 
             <List component="nav">
               <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={ROUTE_HOME} />
-              <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to="wadawd" />
+              <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={ROUTE_EMPLOYEES} badge />
               <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to="wadawd" />
               <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
               <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" />
@@ -183,9 +193,9 @@ export const LoggedInContent: FC = () => {
 
           </Sidebar>
 
-          <Content>
+          <StyledContent>
             {renderRoutes(loggedInRoutes)}
-          </Content>
+          </StyledContent>
         </>
       )}
     </Root>
