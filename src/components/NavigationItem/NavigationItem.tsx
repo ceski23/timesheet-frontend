@@ -3,7 +3,7 @@ import React, {
   FC, ReactElement, ComponentType,
 } from 'react';
 import {
-  ListItem, ListItemIcon, ListItemText, styled, IconProps, fade,
+  ListItem, ListItemIcon, ListItemText, styled, IconProps, fade, Badge,
 } from '@material-ui/core';
 import { Link as RouterLink, LinkProps as RouterLinkProps, useRouteMatch } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ interface Props {
   name: string;
   icon: ComponentType<IconProps>;
   to: string;
+  badge?: boolean;
 }
 
 const StyledLink = styled(RouterLink)(({ theme }) => ({
@@ -24,7 +25,9 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
   },
 }));
 
-export const NavigationItem: FC<Props> = ({ name, icon: Icon, to }): ReactElement => {
+export const NavigationItem: FC<Props> = ({
+  name, icon: Icon, to, badge,
+}): ReactElement => {
   const match = useRouteMatch({
     path: to,
     exact: true,
@@ -42,7 +45,9 @@ export const NavigationItem: FC<Props> = ({ name, icon: Icon, to }): ReactElemen
     <ListItem component={renderLink} button selected={!!match}>
       {Icon && (
         <ListItemIcon>
-          <Icon color={match ? 'primary' : 'default'} />
+          <Badge variant="dot" color="primary" invisible={!badge}>
+            <Icon color={match ? 'primary' : 'inherit'} />
+          </Badge>
         </ListItemIcon>
       )}
 
