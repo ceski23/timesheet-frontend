@@ -1,11 +1,11 @@
-import React, { FC, ChangeEvent, useEffect } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, useThunkDispatch } from 'store';
+import { useThunkDispatch } from 'store';
 import {
   Typography, RadioGroup, FormControlLabel,
-  Radio, styled, Toolbar, Divider, List, ListSubheader, Select, MenuItem,
+  Radio, styled, Toolbar, Divider, List, ListSubheader,
 } from '@material-ui/core';
-import { setTheme, setLanguage } from 'features/preferences/preferencesSlice';
+import { setTheme } from 'features/preferences/preferencesSlice';
 import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
 import { loggedInRoutes, ROUTE_HOME } from 'routes';
@@ -153,11 +153,11 @@ export const LoggedInContent: FC = () => {
             <Divider />
 
             <List component="nav">
-              <NavigationItem name={t('navigationBar.dashboard')} icon={<HomeIcon />} to={ROUTE_HOME} />
-              <NavigationItem name={t('navigationBar.employees')} icon={<EmployeesIcon />} to="wadawd" />
-              <NavigationItem name={t('navigationBar.worktime')} icon={<TimeReportingIcon />} to="wadawd" />
-              <NavigationItem name={t('navigationBar.vacations')} icon={<VacationIcon />} to="wadawd" />
-              <NavigationItem name={t('navigationBar.reports')} icon={<ReportIcon />} to="wadawd" />
+              <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={ROUTE_HOME} />
+              <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to="wadawd" />
+              <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to="wadawd" />
+              <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
+              <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" />
             </List>
 
             <Divider />

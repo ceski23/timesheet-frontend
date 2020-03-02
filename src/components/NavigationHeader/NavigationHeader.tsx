@@ -83,7 +83,7 @@ export const NavigationHeader: FC<Props> = ({
       <Collapse in={expanded} timeout="auto">
         <NavigationItem
           name={t('navigationBar.header.logout')}
-          icon={<LogoutIcon />}
+          icon={LogoutIcon}
           to={ROUTE_LOGOUT}
         />
       </Collapse>
