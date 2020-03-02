@@ -58,5 +58,15 @@
     "dark": "Ciemny",
     "light": "Jasny",
     "system": "Systemowy"
+  },
+  "employees": {
+    "filters": {
+      "all": "Wszyscy",
+      "activated": "Aktywowani",
+      "deactivated": "Nie aktywowani"
+    },
+    "search": "Wpisz nazwę...",
+    "dummyButton": "Dodaj",
+    "title": "Pracownicy"
   }
 }

@@ -58,5 +58,15 @@
     "dark": "Dark",
     "light": "Light",
     "system": "System"
+  },
+  "employees": {
+    "filters": {
+      "all": "All",
+      "activated": "Activated",
+      "deactivated": "Not activated"
+    },
+    "search": "Type name...",
+    "dummyButton": "Add",
+    "title": "Employees"
   }
 }

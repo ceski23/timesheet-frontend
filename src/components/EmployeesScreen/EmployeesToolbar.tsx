@@ -9,6 +9,7 @@ import { useThunkDispatch } from 'store';
 import { useDebounce } from 'use-lodash-debounce';
 import { setUsersQuery } from 'features/users/slice';
 import AddIcon from '@material-ui/icons/AddOutlined';
+import { useTranslation } from 'react-i18next';
 
 const SearchBox = styled(TextField)(({ theme }) => ({
   margin: `0 ${theme.spacing(3)}px`,
@@ -18,6 +19,7 @@ export const EmployeesToolbar: FC = (): ReactElement => {
   const dispatch = useThunkDispatch();
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 700);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(setUsersQuery(debouncedQuery || undefined));
@@ -30,7 +32,7 @@ export const EmployeesToolbar: FC = (): ReactElement => {
   return (
     <>
       <Typography variant="h6" style={{ flex: 1 }}>
-        Pracownicy
+        {t('employees.title')}
       </Typography>
 
       <SearchBox
@@ -45,7 +47,7 @@ export const EmployeesToolbar: FC = (): ReactElement => {
             </InputAdornment>
           ),
         }}
-        placeholder="Wpisz nazwę..."
+        placeholder={t('employees.search')}
       />
 
       <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
@@ -54,7 +56,7 @@ export const EmployeesToolbar: FC = (): ReactElement => {
           color="secondary"
           startIcon={<AddIcon />}
         >
-          Dodaj
+          {t('employees.dummyButton')}
         </Button>
       </div>
     </>

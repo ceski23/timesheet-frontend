@@ -20,6 +20,7 @@ import { UsersFilter } from 'features/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { FilterChip } from 'components/FilterChip';
 import { Loader } from 'components/Loader';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -59,6 +60,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
   const { currentPage, totalPages } = useSelector(selectUsersPagination);
   const { loading } = useSelector(selectUsersStatus);
   const { filter: usersFilter, users, query: usersQuery } = useSelector(selectUsersData);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(changePage(1));
@@ -66,9 +68,9 @@ export const EmployeesScreen: FC = (): ReactElement => {
   }, [usersQuery]);
 
   const filters = [
-    { filter: UsersFilter.ALL, icon: <AllUsersIcon />, label: 'Wszyscy' },
-    { filter: UsersFilter.ACTIVATED, icon: <ActivatedIcon />, label: 'Aktywowani' },
-    { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: 'Nie aktywowani' },
+    { filter: UsersFilter.ALL, icon: <AllUsersIcon />, label: t('employees.filters.all') },
+    { filter: UsersFilter.ACTIVATED, icon: <ActivatedIcon />, label: t('employees.filters.activated') },
+    { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: t('employees.filters.deactivated') },
   ];
 
   const handlePageChange = (_event: Event, value: number) => {
