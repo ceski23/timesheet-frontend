@@ -4,14 +4,15 @@ import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { ThemeProvider, styled } from '@material-ui/core';
 
-const Container = styled('div')({
+const Container = styled('div')(({ theme }) => ({
   width: '100vw',
   height: '100vh',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
-});
+  background: theme.palette.background.default,
+}));
 
 export const GuestContent: FC = () => {
   const theme = useAppTheme();

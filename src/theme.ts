@@ -5,7 +5,7 @@ import { green, deepPurple } from '@material-ui/core/colors';
 export const theme = (type: PaletteType): ThemeOptions => ({
   palette: {
     primary: {
-      main: green.A400,
+      main: green.A700,
     },
     secondary: {
       main: deepPurple.A700,
