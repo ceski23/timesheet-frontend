@@ -1,6 +1,7 @@
 import { client, handleApiError } from 'api';
+import { User } from 'features/users/types';
 import {
-  Tokens, Credentials, RegisterData, User,
+  Tokens, Credentials, RegisterData,
 } from './types';
 
 export const loginUser = async (credentials: Credentials): Promise<Tokens> => client

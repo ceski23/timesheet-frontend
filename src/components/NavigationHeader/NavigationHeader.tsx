@@ -42,8 +42,8 @@ const Details = styled('div')({
 });
 
 interface Props {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   avatar?: string;
 }
 

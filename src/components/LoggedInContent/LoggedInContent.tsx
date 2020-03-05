@@ -30,6 +30,7 @@ import { useAppTheme } from 'hooks/useAppTheme';
 import { selectPreferences } from 'features/preferences/selectors';
 import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
 import { EmployeesToolbar } from 'components/EmployeesScreen';
+import { selectAuthData } from 'features/auth/selectors';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
@@ -126,6 +127,7 @@ export const LoggedInContent: FC = () => {
   const { t } = useTranslation();
   const theme = useAppTheme();
   const { theme: themeType } = useSelector(selectPreferences);
+  const { user } = useSelector(selectAuthData);
 
   const handleThemeChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setTheme(target.value as ThemeType));
@@ -155,9 +157,8 @@ export const LoggedInContent: FC = () => {
 
           <Sidebar>
             <NavigationHeader
-              name="Cezary Bober"
-              email="ceski23@gmail.com"
-              avatar="https://avatars0.githubusercontent.com/u/2845072?s=460&v=4"
+              name={user?.name}
+              email={user?.email}
             />
 
             <Divider />

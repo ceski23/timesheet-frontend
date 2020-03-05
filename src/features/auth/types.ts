@@ -1,3 +1,5 @@
+import { User } from 'features/users/types';
+
 export interface Tokens {
   accessToken: string;
   refreshToken: string;
@@ -6,6 +8,7 @@ export interface Tokens {
 export interface AuthState {
   accessToken?: string;
   refreshToken?: string;
+  user?: User;
 }
 
 export interface Credentials {
@@ -17,11 +20,3 @@ export type RegisterData = {
   name: string;
   repeatPassword: string;
 } & Credentials
-
-
-// TODO: Move
-export interface User {
-  name: string;
-  email: string;
-  role: 'admin' | 'user';
-}

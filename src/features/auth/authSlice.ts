@@ -3,16 +3,18 @@ import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
 import { pick } from 'lodash-es';
+import { User } from 'features/users/types';
 import { createStatusSlice } from '../../shared/slices/statusSlice';
 import { loginUser, registerUser } from './api';
 import { AppThunk } from '../../store';
 import {
-  AuthState, Tokens, Credentials, RegisterData, User,
+  AuthState, Tokens, Credentials, RegisterData,
 } from './types';
 
 const initialState: AuthState = {
   accessToken: undefined,
   refreshToken: undefined,
+  user: undefined,
 };
 
 const name = 'auth';
@@ -30,6 +32,10 @@ const authSlice = createSlice({
     logout(state) {
       state.accessToken = undefined;
       state.refreshToken = undefined;
+      state.user = undefined;
+    },
+    setUser(state, { payload }: PayloadAction<User>) {
+      state.user = payload;
     },
   },
 });
@@ -76,5 +82,5 @@ const reducer = combineReducers({
   status: status.reducer,
 });
 
-export const { setTokens, logout } = authSlice.actions;
+export const { setTokens, logout, setUser } = authSlice.actions;
 export default reducer;
