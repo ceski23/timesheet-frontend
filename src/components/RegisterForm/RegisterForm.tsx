@@ -21,10 +21,9 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
     setShowRequirements(true);
   };
 
-  // TODO: Add hiding requirements on blur
-  // const handlePasswordBlur = () => {
-  //   setShowRequirements(false);
-  // };
+  const handlePasswordBlur = () => {
+    setShowRequirements(false);
+  };
 
   return (
     <Formik
@@ -55,6 +54,9 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
             label={t('register.form.password')}
             required
             onFocus={handlePasswordFocus}
+            inputProps={{
+              onBlur: handlePasswordBlur,
+            }}
           />
 
           <Collapse in={showRequirements}>
