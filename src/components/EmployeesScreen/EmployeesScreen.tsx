@@ -21,6 +21,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { FilterChip } from 'components/FilterChip';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
+import { setScreen } from 'features/appState/slice';
 
 const Container = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -61,6 +62,10 @@ export const EmployeesScreen: FC = (): ReactElement => {
   const { loading } = useSelector(selectUsersStatus);
   const { filter: usersFilter, users, query: usersQuery } = useSelector(selectUsersData);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(setScreen('employees'));
+  }, []);
 
   useEffect(() => {
     dispatch(changePage(1));

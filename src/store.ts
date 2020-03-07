@@ -8,6 +8,7 @@ import { persistStore } from 'redux-persist';
 import authReducer from './features/auth/authSlice';
 import preferencesReducer from './features/preferences/preferencesSlice';
 import usersReducer from './features/users/slice';
+import appReducer from './features/appState/slice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   preferences: preferencesReducer,
   users: usersReducer,
+  app: appReducer,
 });
 
 const store = configureStore({

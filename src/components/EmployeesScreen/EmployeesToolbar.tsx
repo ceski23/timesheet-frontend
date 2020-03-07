@@ -50,15 +50,13 @@ export const EmployeesToolbar: FC = (): ReactElement => {
         placeholder={t('employees.search')}
       />
 
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<AddIcon />}
-        >
-          {t('employees.dummyButton')}
-        </Button>
-      </div>
+      <Button
+        variant="contained"
+        color="secondary"
+        startIcon={<AddIcon />}
+      >
+        {t('employees.dummyButton')}
+      </Button>
     </>
   );
 };

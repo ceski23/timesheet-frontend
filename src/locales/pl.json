@@ -68,5 +68,10 @@
     "search": "Wpisz nazwę...",
     "dummyButton": "Dodaj",
     "title": "Pracownicy"
+  },
+  "notfound": {
+    "title": "Nie znaleziono",
+    "text": "Nie znaleziono strony",
+    "goback": "Powrót"
   }
 }

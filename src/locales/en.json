@@ -68,5 +68,10 @@
     "search": "Type name...",
     "dummyButton": "Add",
     "title": "Employees"
+  },
+  "notfound": {
+    "title": "Not found",
+    "text": "Page not found",
+    "goback": "Go back"
   }
 }

@@ -31,6 +31,8 @@ import { selectPreferences } from 'features/preferences/selectors';
 import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
 import { EmployeesToolbar } from 'components/EmployeesScreen';
 import { selectAuthData } from 'features/auth/selectors';
+import { DefaultToolbar } from 'components/DefaultToolbar';
+import { selectAppState, ScreenType } from 'features/appState/slice';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
@@ -128,9 +130,23 @@ export const LoggedInContent: FC = () => {
   const theme = useAppTheme();
   const { theme: themeType } = useSelector(selectPreferences);
   const { user } = useSelector(selectAuthData);
+  const { screen } = useSelector(selectAppState);
 
   const handleThemeChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setTheme(target.value as ThemeType));
+  };
+
+  const renderToolbarContent = (screenId: ScreenType) => {
+    switch (screenId) {
+      case 'employees':
+        return <EmployeesToolbar />;
+
+      case 'notfound':
+        return <DefaultToolbar title={t('notfound.title')} />;
+
+      default:
+        return <DefaultToolbar />;
+    }
   };
 
   return (
@@ -151,7 +167,7 @@ export const LoggedInContent: FC = () => {
                 {opened ? <ChevronLeftIcon /> : <MenuIcon />}
               </SidebarTrigger>
 
-              <EmployeesToolbar />
+              {renderToolbarContent(screen)}
             </StyledToolbar>
           </Header>
 
