@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
 import { createPaginationSlice } from 'shared/slices/paginationSlice';
 import { createStatusSlice, createThunk } from '../../shared/slices/statusSlice';
-import { fetchUsers } from './api';
+import { fetchUsers, deleteUser } from './api';
 import store from '../../store';
 import {
   UsersState, User, UsersFilter,
@@ -53,6 +53,14 @@ export const getUsers = createThunk<User[]>(
     dispatch(slice.actions.setUsers(data));
     dispatch(pagination.actions.updatePagination(paginate));
     return data;
+  },
+);
+
+export const removeUser = createThunk<User[], string>(
+  status,
+  async (dispatch, id) => {
+    await deleteUser(id);
+    return dispatch(getUsers());
   },
 );
 

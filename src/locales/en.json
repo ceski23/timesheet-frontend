@@ -1,11 +1,19 @@
 {
     "employees": {
+        "deleteDialog": {
+            "confirm": "Remove",
+            "text": "Are you sure you want to remove employee {{name}}?",
+            "title": "Removing an employee"
+        },
+        "deleteError": "An error occurred while removing employee",
         "dummyButton": "Add",
+        "employeeDeleted": "Employee {{name}} removed",
         "filters": {
             "activated": "Activated",
             "all": "All",
             "deactivated": "Not activated"
         },
+        "findError": "An error occurred while loading employees",
         "search": "Type name...",
         "title": "Employees"
     },

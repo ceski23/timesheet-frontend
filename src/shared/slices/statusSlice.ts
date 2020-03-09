@@ -31,16 +31,16 @@ export const createStatusSlice = (prefix: string) => createSlice({
   },
 });
 
-export function createThunk<T>(
+export function createThunk<T, U = void>(
   statusSlice: ReturnType<typeof createStatusSlice>,
-  promise: (dispatch: AppDispatch) => Promise<T>,
+  promise: (dispatch: AppDispatch, args: U) => Promise<T>,
   errorHandler?: (dispatch: AppDispatch, error: Error) => void,
 ) {
-  return (): AppThunk<Promise<T>> => async dispatch => {
+  return (args: U): AppThunk<Promise<T>> => async dispatch => {
     const { requestError, requestStart, requestSuccess } = statusSlice.actions;
     dispatch(requestStart());
     try {
-      const data = await promise(dispatch);
+      const data = await promise(dispatch, args);
       dispatch(requestSuccess());
       return data;
     } catch (err) {

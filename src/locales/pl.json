@@ -1,11 +1,19 @@
 {
     "employees": {
+        "deleteDialog": {
+            "confirm": "Usuń",
+            "text": "Czy na pewno chcesz usunąć pracownika {{name}}?",
+            "title": "Usuwanie pracownika"
+        },
+        "deleteError": "Wystąpił błąd podczas usuwania pracownika",
         "dummyButton": "Dodaj",
+        "employeeDeleted": "Usunięto pracownika {{name}}",
         "filters": {
             "activated": "Aktywowani",
             "all": "Wszyscy",
             "deactivated": "Nie aktywowani"
         },
+        "findError": "Wystąpił błąd podczas wczytywania pracowników",
         "search": "Wpisz nazwę...",
         "title": "Pracownicy"
     },

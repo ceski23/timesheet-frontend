@@ -3,25 +3,29 @@ import React, {
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
-  ListItemText, Grid, Avatar, CircularProgress,
+  ListItemText, Grid, Avatar, CircularProgress, ListItemSecondaryAction, IconButton,
 } from '@material-ui/core';
 import AllUsersIcon from '@material-ui/icons/AccountCircleOutlined';
 import ActivatedIcon from '@material-ui/icons/CheckCircleOutlined';
 import DeactivatedIcon from '@material-ui/icons/ErrorOutline';
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useThunkDispatch } from 'store';
 import {
-  getUsers, setUsersFilter, changePage,
+  getUsers, setUsersFilter, changePage, removeUser,
 } from 'features/users/slice';
 import { useSelector } from 'react-redux';
 import {
   selectUsersPagination, selectUsersStatus, selectUsersData,
 } from 'features/users/selectors';
-import { UsersFilter } from 'features/users/types';
+import { UsersFilter, User } from 'features/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { FilterChip } from 'components/FilterChip';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { setScreen } from 'features/appState/slice';
+import { useDialog } from 'hooks/useDialog';
+import { ConfirmDialog } from 'components/ConfirmDialog';
+import Notificator from 'utils/Notificator';
 
 const Container = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -62,6 +66,9 @@ export const EmployeesScreen: FC = (): ReactElement => {
   const { loading } = useSelector(selectUsersStatus);
   const { filter: usersFilter, users, query: usersQuery } = useSelector(selectUsersData);
   const { t } = useTranslation();
+  const {
+    isOpen, setClose, setOpen, data,
+  } = useDialog<User>();
 
   useEffect(() => {
     dispatch(setScreen('employees'));
@@ -69,7 +76,8 @@ export const EmployeesScreen: FC = (): ReactElement => {
 
   useEffect(() => {
     dispatch(changePage(1));
-    dispatch(getUsers());
+    dispatch(getUsers())
+      .catch(() => Notificator.error(t('employees.findError')));
   }, [usersQuery]);
 
   const filters = [
@@ -80,13 +88,24 @@ export const EmployeesScreen: FC = (): ReactElement => {
 
   const handlePageChange = (_event: Event, value: number) => {
     dispatch(changePage(value));
-    dispatch(getUsers());
+    dispatch(getUsers())
+      .catch(() => Notificator.error(t('employees.findError')));
   };
 
   const handleChangeActivatedFilter = (filter: UsersFilter) => {
     dispatch(setUsersFilter(filter));
     dispatch(changePage(1));
-    dispatch(getUsers());
+    dispatch(getUsers())
+      .catch(() => Notificator.error(t('employees.findError')));
+  };
+
+  const handleEmployeeDelete = () => {
+    if (data) {
+      // eslint-disable-next-line no-underscore-dangle
+      dispatch(removeUser(data._id))
+        .then(() => Notificator.success(t('employees.employeeDeleted', { name: data.name })))
+        .catch(() => Notificator.error(t('employees.deleteError')));
+    }
   };
 
   return (
@@ -114,13 +133,22 @@ export const EmployeesScreen: FC = (): ReactElement => {
             </SpinnerContainer>
           )}
         >
-          {users.map(({ name, email }, i) => (
+          {users.map(({ name, email, ...rest }, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <ListItem button key={i}>
               <ListItemIcon>
                 <Avatar>{name[0]}</Avatar>
               </ListItemIcon>
               <ListItemText primary={name} secondary={email} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => setOpen({ name, email, ...rest })}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
             </ListItem>
           ))}
         </Loader>
@@ -131,6 +159,16 @@ export const EmployeesScreen: FC = (): ReactElement => {
         page={currentPage}
         onChange={handlePageChange}
       />
+
+      <ConfirmDialog
+        isOpen={isOpen}
+        onConfirm={handleEmployeeDelete}
+        confirmText={t('employees.deleteDialog.confirm')}
+        title={t('employees.deleteDialog.title')}
+        close={setClose}
+      >
+        {t('employees.deleteDialog.text', { name: data?.name })}
+      </ConfirmDialog>
 
     </Container>
   );
