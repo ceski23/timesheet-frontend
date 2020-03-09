@@ -42,7 +42,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'"
+    "analyze": "npm run build && source-map-explorer 'build/static/js/*.js'",
+    "i18n": "sync-i18n --files ./src/locales/*.json --primary pl",
+    "check-i18n": "npm run i18n -- --check"
   },
   "cracoConfig": "craco.config.ts",
   "browserslist": {
@@ -77,6 +79,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
+    "i18next-json-sync": "^2.3.1",
     "react-app-rewired": "^2.1.5",
     "ts-jest": "^24.2.0"
   }

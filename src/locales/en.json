@@ -1,77 +1,77 @@
 {
-  "login": {
-    "form": {
-      "email": "Email",
-      "password": "Password",
-      "errors": {
-        "email": "Incorrect email",
-        "email_required": "Email address is required",
-        "password_required": "Password is required",
-        "password_match": "The password should be at least 8 characters long, contain at least 1 digit, 1 letter and 1 special character"
-      },
-      "login_loading": "Loggining in...",
-      "login": "Log in"
+    "employees": {
+        "dummyButton": "Add",
+        "filters": {
+            "activated": "Activated",
+            "all": "All",
+            "deactivated": "Not activated"
+        },
+        "search": "Type name...",
+        "title": "Employees"
     },
-    "title": "Login",
-    "register_link": "Registration",
-    "success_message": "You are logged in!"
-  },
-  "register": {
-    "form": {
-      "name": "Full name",
-      "email": "Email",
-      "password": "Password",
-      "repeat_password": "Repeat password",
-      "errors": {
-        "email": "Incorrect email",
-        "email_required": "Email address is required",
-        "name_min": "Name should contain at least 3 characters",
-        "name_max": "Name should contain a maximum of 50 characters",
-        "name_required": "Name is required",
-        "password_required": "Password is required",
-        "password_repeat": "Passwords must match",
-        "password_min": "Password should contain at least 8 characters",
-        "password_alpha": "Password should contain at least 1 digit",
-        "password_digit": "Password should contain at least 1 letter",
-        "password_special": "Password should contain at least 1 special character (#?!@$%^&*-)"
-      },
-      "register_loading": "Registering...",
-      "register": "Register"
+    "login": {
+        "form": {
+            "email": "Email",
+            "errors": {
+                "email": "Incorrect email",
+                "email_required": "Email address is required",
+                "password_match": "The password should be at least 8 characters long, contain at least 1 digit, 1 letter and 1 special character",
+                "password_required": "Password is required"
+            },
+            "login": "Log in",
+            "login_loading": "Loggining in...",
+            "password": "Password"
+        },
+        "register_link": "Registration",
+        "success_message": "You are logged in!",
+        "title": "Login"
     },
-    "title": "Registration"
-  },
-  "navigationBar": {
-    "header": {
-      "logout": "Logout"
+    "navigationBar": {
+        "dashboard": "Dashboard",
+        "employees": "Employees",
+        "header": {
+            "logout": "Logout"
+        },
+        "reports": "Reports",
+        "vacations": "Vacations",
+        "worktime": "Worktime"
     },
-    "dashboard": "Dashboard",
-    "employees": "Employees",
-    "worktime": "Worktime",
-    "vacations": "Vacations",
-    "reports": "Reports"
-  },
-  "settings": {
-    "theme": "Theme",
-    "language": "Language"
-  },
-  "themeType": {
-    "dark": "Dark",
-    "light": "Light",
-    "system": "System"
-  },
-  "employees": {
-    "filters": {
-      "all": "All",
-      "activated": "Activated",
-      "deactivated": "Not activated"
+    "notfound": {
+        "goback": "Go back",
+        "text": "Page not found",
+        "title": "Not found"
     },
-    "search": "Type name...",
-    "dummyButton": "Add",
-    "title": "Employees"
-  },
-  "notfound": {
-    "title": "Not found",
-    "text": "Page not found",
-    "goback": "Go back"
-  }
+    "register": {
+        "form": {
+            "email": "Email",
+            "errors": {
+                "email": "Incorrect email",
+                "email_required": "Email address is required",
+                "name_max": "Name should contain a maximum of 50 characters",
+                "name_min": "Name should contain at least 3 characters",
+                "name_required": "Name is required",
+                "password_alpha": "Password should contain at least 1 digit",
+                "password_digit": "Password should contain at least 1 letter",
+                "password_min": "Password should contain at least 8 characters",
+                "password_repeat": "Passwords must match",
+                "password_required": "Password is required",
+                "password_special": "Password should contain at least 1 special character (#?!@$%^&*-)"
+            },
+            "name": "Full name",
+            "password": "Password",
+            "register": "Register",
+            "register_loading": "Registering...",
+            "repeat_password": "Repeat password"
+        },
+        "title": "Registration"
+    },
+    "settings": {
+        "language": "Language",
+        "theme": "Theme"
+    },
+    "themeType": {
+        "dark": "Dark",
+        "light": "Light",
+        "system": "System"
+    }
 }

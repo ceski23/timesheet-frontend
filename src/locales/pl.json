@@ -1,77 +1,77 @@
 {
-  "login": {
-    "form": {
-      "email": "Adres email",
-      "password": "Hasło",
-      "errors": {
-        "email": "Podaj poprawny adres email",
-        "email_required": "Adres email jest wymagany",
-        "password_required": "Hasło jest wymagane",
-        "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny"
-      },
-      "login_loading": "Logowanie...",
-      "login": "Zaloguj"
+    "employees": {
+        "dummyButton": "Dodaj",
+        "filters": {
+            "activated": "Aktywowani",
+            "all": "Wszyscy",
+            "deactivated": "Nie aktywowani"
+        },
+        "search": "Wpisz nazwę...",
+        "title": "Pracownicy"
     },
-    "title": "Logowanie",
-    "register_link": "Rejestracja",
-    "success_message": "Zostałeś zalogowany!"
-  },
-  "register": {
-    "form": {
-      "name": "Imię i nazwisko",
-      "email": "Adres email",
-      "password": "Hasło",
-      "repeat_password": "Powtórz hasło",
-      "errors": {
-        "email": "Podaj poprawny adres email",
-        "email_required": "Adres email jest wymagany",
-        "name_min": "Imię i nazwisko powinny zawierać co najmniej 3 znaki",
-        "name_max": "Imię i nazwisko powinny zawierać maksymalnie 50 znaków",
-        "name_required": "Imię i nazwisko jest wymagane",
-        "password_required": "Hasło jest wymagane",
-        "password_repeat": "Hasła muszą się zgadzać",
-        "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
-        "password_alpha": "Hasło powinno zawierać co najmniej 1 cyfrę",
-        "password_digit": "Hasło powinno zawierać co najmniej 1 literę",
-        "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
-      },
-      "register_loading": "Rejestrowanie...",
-      "register": "Zarejestruj"
+    "login": {
+        "form": {
+            "email": "Adres email",
+            "errors": {
+                "email": "Podaj poprawny adres email",
+                "email_required": "Adres email jest wymagany",
+                "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
+                "password_required": "Hasło jest wymagane"
+            },
+            "login": "Zaloguj",
+            "login_loading": "Logowanie...",
+            "password": "Hasło"
+        },
+        "register_link": "Rejestracja",
+        "success_message": "Zostałeś zalogowany!",
+        "title": "Logowanie"
     },
-    "title": "Rejestracja"
-  },
-  "navigationBar": {
-    "header": {
-      "logout": "Wyloguj"
+    "navigationBar": {
+        "dashboard": "Przegląd",
+        "employees": "Pracownicy",
+        "header": {
+            "logout": "Wyloguj"
+        },
+        "reports": "Raporty",
+        "vacations": "Urlopy",
+        "worktime": "Czas pracy"
     },
-    "dashboard": "Przegląd",
-    "employees": "Pracownicy",
-    "worktime": "Czas pracy",
-    "vacations": "Urlopy",
-    "reports": "Raporty"
-  },
-  "settings": {
-    "theme": "Motyw",
-    "language": "Język"
-  },
-  "themeType": {
-    "dark": "Ciemny",
-    "light": "Jasny",
-    "system": "Systemowy"
-  },
-  "employees": {
-    "filters": {
-      "all": "Wszyscy",
-      "activated": "Aktywowani",
-      "deactivated": "Nie aktywowani"
+    "notfound": {
+        "goback": "Powrót",
+        "text": "Nie znaleziono strony",
+        "title": "Nie znaleziono"
     },
-    "search": "Wpisz nazwę...",
-    "dummyButton": "Dodaj",
-    "title": "Pracownicy"
-  },
-  "notfound": {
-    "title": "Nie znaleziono",
-    "text": "Nie znaleziono strony",
-    "goback": "Powrót"
-  }
+    "register": {
+        "form": {
+            "email": "Adres email",
+            "errors": {
+                "email": "Podaj poprawny adres email",
+                "email_required": "Adres email jest wymagany",
+                "name_max": "Imię i nazwisko powinny zawierać maksymalnie 50 znaków",
+                "name_min": "Imię i nazwisko powinny zawierać co najmniej 3 znaki",
+                "name_required": "Imię i nazwisko jest wymagane",
+                "password_alpha": "Hasło powinno zawierać co najmniej 1 cyfrę",
+                "password_digit": "Hasło powinno zawierać co najmniej 1 literę",
+                "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
+                "password_repeat": "Hasła muszą się zgadzać",
+                "password_required": "Hasło jest wymagane",
+                "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
+            },
+            "name": "Imię i nazwisko",
+            "password": "Hasło",
+            "register": "Zarejestruj",
+            "register_loading": "Rejestrowanie...",
+            "repeat_password": "Powtórz hasło"
+        },
+        "title": "Rejestracja"
+    },
+    "settings": {
+        "language": "Język",
+        "theme": "Motyw"
+    },
+    "themeType": {
+        "dark": "Ciemny",
+        "light": "Jasny",
+        "system": "Systemowy"
+    }
 }
