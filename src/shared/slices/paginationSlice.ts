@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction, createAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Pagination } from '../../api';
 
 export type PaginationState = Pagination;

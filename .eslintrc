@@ -25,7 +25,8 @@
       "error",
       "as-needed"
     ],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "import/extensions": ["warn", "never"]
   },
   "settings": {
     "import/resolver": {

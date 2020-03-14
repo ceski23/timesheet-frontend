@@ -17,7 +17,7 @@ const Requirement: FC<({
   pass: string;
   text: string;
 })> = ({ regex, text, pass }) => {
-  const [color, setColor] = useState();
+  const [color, setColor] = useState<'primary' | 'error'>();
 
   useEffect(() => {
     setColor(regex.test(pass) ? 'primary' : 'error');
