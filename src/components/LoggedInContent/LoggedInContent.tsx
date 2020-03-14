@@ -5,10 +5,12 @@ import {
   RadioGroup, FormControlLabel,
   Radio, styled, Toolbar, Divider, List, ListSubheader,
 } from '@material-ui/core';
-import { setTheme } from 'features/preferences/preferencesSlice';
+import { setTheme, getDateLocale } from 'features/preferences/preferencesSlice';
 import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
-import { loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES } from 'routes';
+import {
+  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME,
+} from 'routes';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
@@ -33,6 +35,9 @@ import { EmployeesToolbar } from 'components/EmployeesScreen';
 import { selectAuthData } from 'features/auth/selectors';
 import { DefaultToolbar } from 'components/DefaultToolbar';
 import { selectAppState, ScreenType } from 'features/appState/slice';
+import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
@@ -42,6 +47,7 @@ const StyledContent = styled(Content)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   background: theme.palette.background.default,
+  overflow: 'auto',
 }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -128,7 +134,7 @@ export const LoggedInContent: FC = () => {
   const dispatch = useThunkDispatch();
   const { t } = useTranslation();
   const theme = useAppTheme();
-  const { theme: themeType } = useSelector(selectPreferences);
+  const { theme: themeType, language } = useSelector(selectPreferences);
   const { user } = useSelector(selectAuthData);
   const { screen } = useSelector(selectAppState);
 
@@ -144,8 +150,11 @@ export const LoggedInContent: FC = () => {
       case 'notfound':
         return <DefaultToolbar title={t('notfound.title')} />;
 
+      case 'worktime':
+        return <WorktimeToolbar />;
+
       default:
-        return <DefaultToolbar />;
+        return <DefaultToolbar title="Timesheet" />;
     }
   };
 
@@ -161,58 +170,63 @@ export const LoggedInContent: FC = () => {
         collapsed: boolean;
       }) => (
         <>
-          <Header elevation={1}>
-            <StyledToolbar>
-              <SidebarTrigger className={headerStyles.leftTrigger}>
-                {opened ? <ChevronLeftIcon /> : <MenuIcon />}
-              </SidebarTrigger>
+          <MuiPickersUtilsProvider
+            utils={DateFnsUtils}
+            locale={getDateLocale(language)}
+          >
+            <Header elevation={1}>
+              <StyledToolbar>
+                <SidebarTrigger className={headerStyles.leftTrigger}>
+                  {opened ? <ChevronLeftIcon /> : <MenuIcon />}
+                </SidebarTrigger>
 
-              {renderToolbarContent(screen)}
-            </StyledToolbar>
-          </Header>
+                {renderToolbarContent(screen)}
+              </StyledToolbar>
+            </Header>
 
-          <Sidebar>
-            <NavigationHeader
-              name={user?.name}
-              email={user?.email}
-            />
+            <Sidebar>
+              <NavigationHeader
+                name={user?.name}
+                email={user?.email}
+              />
 
-            <Divider />
+              <Divider />
 
-            <List component="nav">
-              <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={ROUTE_HOME} />
-              <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={ROUTE_EMPLOYEES} badge />
-              <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to="wadawd" />
-              <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
-              <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" />
-            </List>
+              <List component="nav">
+                <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={ROUTE_HOME} />
+                <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={ROUTE_EMPLOYEES} badge />
+                <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={ROUTE_WORKTIME} />
+                <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
+                <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" />
+              </List>
 
-            <Divider />
+              <Divider />
 
-            <ListSubheader>
-              {t('settings.theme')}
-            </ListSubheader>
-            <StyledThemeControls value={themeType} onChange={handleThemeChange}>
-              {['dark', 'light', 'system'].map(type => (
-                <FormControlLabel
-                  key={type}
-                  value={type}
-                  control={<Radio />}
-                  label={t(`themeType.${type}`)}
-                />
-              ))}
-            </StyledThemeControls>
+              <ListSubheader>
+                {t('settings.theme')}
+              </ListSubheader>
+              <StyledThemeControls value={themeType} onChange={handleThemeChange}>
+                {['dark', 'light', 'system'].map(type => (
+                  <FormControlLabel
+                    key={type}
+                    value={type}
+                    control={<Radio />}
+                    label={t(`themeType.${type}`)}
+                  />
+                ))}
+              </StyledThemeControls>
 
-            <ListSubheader>
-              {t('settings.language')}
-            </ListSubheader>
-            <LanguageSelector />
+              <ListSubheader>
+                {t('settings.language')}
+              </ListSubheader>
+              <LanguageSelector />
 
-          </Sidebar>
+            </Sidebar>
 
-          <StyledContent>
-            {renderRoutes(loggedInRoutes)}
-          </StyledContent>
+            <StyledContent>
+              {renderRoutes(loggedInRoutes)}
+            </StyledContent>
+          </MuiPickersUtilsProvider>
         </>
       )}
     </Root>

@@ -81,5 +81,15 @@
         "dark": "Dark",
         "light": "Light",
         "system": "System"
+    },
+    "worktime": {
+        "event": {
+            "close": "Close",
+            "delete": "Delete",
+            "edit": "Edit"
+        },
+        "toolbar": {
+            "today": "Today"
+        }
     }
 }

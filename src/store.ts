@@ -9,6 +9,7 @@ import authReducer from './features/auth/authSlice';
 import preferencesReducer from './features/preferences/preferencesSlice';
 import usersReducer from './features/users/slice';
 import appReducer from './features/appState/slice';
+import worktimeReducer from './features/worktime/slice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   preferences: preferencesReducer,
   users: usersReducer,
   app: appReducer,
+  worktime: worktimeReducer,
 });
 
 const store = configureStore({
