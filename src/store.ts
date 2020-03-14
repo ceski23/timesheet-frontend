@@ -12,9 +12,7 @@ import appReducer from './features/appState/slice';
 import worktimeReducer from './features/worktime/slice';
 
 const middleware = getDefaultMiddleware({
-  serializableCheck: {
-    ignoredActions: ['persist/PERSIST'],
-  },
+  serializableCheck: false,
 });
 
 const rootReducer = combineReducers({
