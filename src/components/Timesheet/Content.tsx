@@ -45,12 +45,8 @@ const Container = styled('div')({
   marginRight: 16,
 });
 
-// eslint-disable-next-line react/jsx-props-no-spreading
-const Grid = styled(props => <div {...props} />)({
+const Grid = styled('div')({
   display: 'grid',
-  gridTemplateColumns: ({ numOfDays }: Pick<Props, 'numOfDays'>) => (
-    `repeat(${numOfDays}, 1fr)`
-  ),
   flex: 1,
 });
 
@@ -76,7 +72,7 @@ export const Content: FC<Props> = ({
         ))}
       </Times>
 
-      <Grid numOfDays={numOfDays}>
+      <Grid style={{ gridTemplateColumns: `repeat(${numOfDays}, 1fr)` }}>
         {Array.from({ length: numOfDays }).map((_n, i) => (
           <Day
           // eslint-disable-next-line react/no-array-index-key
