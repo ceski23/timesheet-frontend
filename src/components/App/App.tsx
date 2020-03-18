@@ -9,12 +9,12 @@ import { Helmet } from 'react-helmet';
 import { useAppTheme } from 'hooks/useAppTheme';
 
 export const App: React.FC = () => {
-  const { accessToken } = useSelector((state: RootState) => state.auth.data);
+  // const { accessToken } = useSelector((state: RootState) => state.auth.data);
   const theme = useAppTheme();
 
-  useEffect(() => {
-    updateAuthHeader(accessToken);
-  }, [accessToken]);
+  // useEffect(() => {
+  //   updateAuthHeader(accessToken);
+  // }, [accessToken]);
 
   const { loggedIn, loading } = useAuthGuard();
 

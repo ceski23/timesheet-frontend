@@ -32,6 +32,7 @@ export const client = Axios.create({
     'Content-Type': 'application/json',
     'Accept-Language': 'en',
   },
+  withCredentials: true,
 });
 
 export const updateAuthHeader = (accessToken?: string) => {
