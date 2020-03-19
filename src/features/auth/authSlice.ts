@@ -2,19 +2,19 @@
 import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
-import { pick } from 'lodash-es';
 import { User } from 'features/users/types';
 import { createStatusSlice } from '../../shared/slices/statusSlice';
-import { loginUser, registerUser } from './api';
+import { loginUser, registerUser, logoutUser } from './api';
 import { AppThunk } from '../../store';
 import {
   AuthState, Tokens, Credentials, RegisterData,
 } from './types';
 
 const initialState: AuthState = {
-  accessToken: undefined,
-  refreshToken: undefined,
+  // accessToken: undefined,
+  // refreshToken: undefined,
   user: undefined,
+  loggedIn: false,
 };
 
 const name = 'auth';
@@ -25,30 +25,50 @@ const authSlice = createSlice({
   name,
   initialState,
   reducers: {
-    setTokens(state, { payload }: PayloadAction<Tokens>) {
-      state.accessToken = payload.accessToken;
-      state.refreshToken = payload.refreshToken;
-    },
+    // setTokens(state, { payload }: PayloadAction<Tokens>) {
+    //   state.accessToken = payload.accessToken;
+    //   state.refreshToken = payload.refreshToken;
+    // },
     logout(state) {
-      state.accessToken = undefined;
-      state.refreshToken = undefined;
+      // state.accessToken = undefined;
+      // state.refreshToken = undefined;
       state.user = undefined;
+      state.loggedIn = false;
     },
     setUser(state, { payload }: PayloadAction<User>) {
+      state.loggedIn = !!payload;
       state.user = payload;
+    },
+    login(state, { payload }: PayloadAction<User>) {
+      state.user = payload;
+      state.loggedIn = true;
     },
   },
 });
 
-export const login = (credentials: Credentials): AppThunk<Promise<Tokens>> => async dispatch => {
+export const login = (credentials: Credentials): AppThunk<Promise<User>> => async dispatch => {
   const { requestError, requestStart, requestSuccess } = status.actions;
 
   dispatch(requestStart());
   try {
-    const tokens = await loginUser(credentials);
-    dispatch(authSlice.actions.setTokens(tokens));
+    const user = await loginUser(credentials);
+    dispatch(authSlice.actions.login(user));
     dispatch(requestSuccess());
-    return tokens;
+    return user;
+  } catch (err) {
+    dispatch(requestError(err.message));
+    throw err;
+  }
+};
+
+export const logout = (): AppThunk<Promise<void>> => async dispatch => {
+  const { requestError, requestStart, requestSuccess } = status.actions;
+
+  dispatch(requestStart());
+  try {
+    await logoutUser();
+    dispatch(authSlice.actions.logout());
+    dispatch(requestSuccess());
   } catch (err) {
     dispatch(requestError(err.message));
     throw err;
@@ -63,7 +83,8 @@ export const register = (
   dispatch(requestStart());
   try {
     const data = await registerUser(regData);
-    dispatch(authSlice.actions.setTokens(pick(data, ['refreshToken', 'accessToken'])));
+    // TODO: Fix register
+    // dispatch(authSlice.actions.setTokens(pick(data, ['refreshToken', 'accessToken'])));
     dispatch(requestSuccess());
     return data;
   } catch (err) {
@@ -82,5 +103,5 @@ const reducer = combineReducers({
   status: status.reducer,
 });
 
-export const { setTokens, logout, setUser } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 export default reducer;

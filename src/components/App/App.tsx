@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react';
-import { RootState } from 'store';
-import { useSelector } from 'react-redux';
-import { updateAuthHeader } from 'api';
+import React from 'react';
 import { useAuthGuard } from 'hooks/useAuthGuard';
 import { LoggedInContent } from 'components/LoggedInContent';
 import { GuestContent } from 'components/GuestContent';

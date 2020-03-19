@@ -4,9 +4,14 @@ import {
   Tokens, Credentials, RegisterData,
 } from './types';
 
-export const loginUser = async (credentials: Credentials): Promise<Tokens> => client
+export const loginUser = async (credentials: Credentials): Promise<User> => client
   .post('login', credentials)
   .catch(err => { throw handleApiError<Credentials>(err); })
+  .then(({ data }) => data);
+
+export const logoutUser = async (): Promise<void> => client
+  .post('logout')
+  .catch(err => { throw handleApiError<void>(err); })
   .then(({ data }) => data);
 
 export const registerUser = async (regData: RegisterData): Promise<User & Tokens> => client

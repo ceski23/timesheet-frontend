@@ -1,13 +1,13 @@
-// import { useSelector } from 'react-redux';
-import { useThunkDispatch } from 'store';
+import { useSelector } from 'react-redux';
+import { useThunkDispatch, RootState } from 'store';
 import { fetchMe } from 'features/auth/api';
 import { useState, useEffect } from 'react';
-import { setUser } from 'features/auth/authSlice';
+import { setUser, logout } from 'features/auth/authSlice';
 
 export const useAuthGuard = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
-  // const { accessToken } = useSelector((state: RootState) => state.auth.data);
+  const { loggedIn } = useSelector((state: RootState) => state.auth.data);
   const dispatch = useThunkDispatch();
 
   // useEffect(() => {
@@ -24,18 +24,19 @@ export const useAuthGuard = () => {
   // }, [accessToken]);
 
   useEffect(() => {
-    setLoading(true);
-    fetchMe()
-      .then(user => {
-        dispatch(setUser(user));
-        setLoggedIn(true);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoggedIn(false);
-        setLoading(false);
-      });
-  }, []);
+    if (loggedIn) {
+      setLoading(true);
+      fetchMe()
+        .then(userData => {
+          dispatch(setUser(userData));
+          setLoading(false);
+        })
+        .catch(() => {
+          dispatch(logout());
+          setLoading(false);
+        });
+    } else setLoading(false);
+  }, [loggedIn]);
 
   return { loggedIn, loading };
 };

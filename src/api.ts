@@ -35,11 +35,11 @@ export const client = Axios.create({
   withCredentials: true,
 });
 
-export const updateAuthHeader = (accessToken?: string) => {
-  if (accessToken) {
-    client.defaults.headers.Authorization = `Bearer ${accessToken}`;
-  } else delete client.defaults.headers.Authorization;
-};
+// export const updateAuthHeader = (accessToken?: string) => {
+//   if (accessToken) {
+//     client.defaults.headers.Authorization = `Bearer ${accessToken}`;
+//   } else delete client.defaults.headers.Authorization;
+// };
 
 client.interceptors.response.use(
   response => response,

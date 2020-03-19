@@ -6,9 +6,10 @@ export interface Tokens {
 }
 
 export interface AuthState {
-  accessToken?: string;
-  refreshToken?: string;
+  // accessToken?: string;
+  // refreshToken?: string;
   user?: User;
+  loggedIn: boolean;
 }
 
 export interface Credentials {
