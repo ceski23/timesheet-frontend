@@ -1,25 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useAuthGuard } from 'hooks/useAuthGuard';
-import { LoggedInContent } from 'components/LoggedInContent';
-import { GuestContent } from 'components/GuestContent';
 import { Helmet } from 'react-helmet';
 import { useAppTheme } from 'hooks/useAppTheme';
 
-export const App: React.FC = () => {
-  // const { accessToken } = useSelector((state: RootState) => state.auth.data);
-  const theme = useAppTheme();
+const LoggedInContentX = React.lazy(() => import('components/LoggedInContent').then(({ LoggedInContent }) => ({ default: LoggedInContent })));
+const GuestContentX = React.lazy(() => import('components/GuestContent').then(({ GuestContent }) => ({ default: GuestContent })));
 
-  // useEffect(() => {
-  //   updateAuthHeader(accessToken);
-  // }, [accessToken]);
+export const App: React.FC = () => {
+  const theme = useAppTheme();
 
   const { loggedIn, loading } = useAuthGuard();
 
   return (
     <>
-      {!loading && (
-        loggedIn ? <LoggedInContent /> : <GuestContent />
-      )}
+      <Suspense fallback={<p>Ładowanie...</p>}>
+        {!loading && (
+          loggedIn ? <LoggedInContentX /> : <GuestContentX />
+        )}
+      </Suspense>
 
       <Helmet>
         <meta name="theme-color" content={theme.palette.background.paper} />

@@ -7,13 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { setLanguage } from 'features/preferences/preferencesSlice';
 import { MenuItem, Select, styled } from '@material-ui/core';
 import { useThunkDispatch } from 'store';
-import Flag from 'react-world-flags';
+import ReactCountryFlag from 'react-country-flag';
 
 const StyledSelect = styled(Select)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
 }));
 
-const FlagIcon = styled(Flag)(({ theme }) => ({
+const FlagIcon = styled(ReactCountryFlag)(({ theme }) => ({
   width: 24,
   marginRight: theme.spacing(1),
 }));
@@ -38,8 +38,8 @@ export const LanguageSelector: FC = (): ReactElement => {
       margin="dense"
       onChange={handleLanguageSelect}
     >
-      <MenuItem value="en"><FlagIcon code="gb" /> English</MenuItem>
-      <MenuItem value="pl"><FlagIcon code="pl" /> Polski</MenuItem>
+      <MenuItem value="en"><FlagIcon countryCode="gb" svg /> English</MenuItem>
+      <MenuItem value="pl"><FlagIcon countryCode="pl" svg /> Polski</MenuItem>
     </StyledSelect>
   );
 };
