@@ -7,12 +7,10 @@ import { createStatusSlice } from '../../shared/slices/statusSlice';
 import { loginUser, registerUser, logoutUser } from './api';
 import { AppThunk } from '../../store';
 import {
-  AuthState, Tokens, Credentials, RegisterData,
+  AuthState, Credentials, RegisterData,
 } from './types';
 
 const initialState: AuthState = {
-  // accessToken: undefined,
-  // refreshToken: undefined,
   user: undefined,
   loggedIn: false,
 };
@@ -25,13 +23,7 @@ const authSlice = createSlice({
   name,
   initialState,
   reducers: {
-    // setTokens(state, { payload }: PayloadAction<Tokens>) {
-    //   state.accessToken = payload.accessToken;
-    //   state.refreshToken = payload.refreshToken;
-    // },
     logout(state) {
-      // state.accessToken = undefined;
-      // state.refreshToken = undefined;
       state.user = undefined;
       state.loggedIn = false;
     },
@@ -62,22 +54,21 @@ export const login = (credentials: Credentials): AppThunk<Promise<User>> => asyn
 };
 
 export const logout = (): AppThunk<Promise<void>> => async dispatch => {
-  const { requestError, requestStart, requestSuccess } = status.actions;
+  const { requestStart, requestSuccess } = status.actions;
 
   dispatch(requestStart());
   try {
-    await logoutUser();
-    dispatch(authSlice.actions.logout());
-    dispatch(requestSuccess());
+    await logoutUser().catch();
   } catch (err) {
-    dispatch(requestError(err.message));
-    throw err;
+    //
   }
+  dispatch(authSlice.actions.logout());
+  dispatch(requestSuccess());
 };
 
 export const register = (
   regData: RegisterData,
-): AppThunk<Promise<User & Tokens>> => async dispatch => {
+): AppThunk<Promise<void>> => async dispatch => {
   const { requestError, requestStart, requestSuccess } = status.actions;
 
   dispatch(requestStart());

@@ -10,6 +10,8 @@ import { useThunkDispatch } from 'store';
 import { RegisterForm } from 'components/RegisterForm';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router';
+import Notificator from 'utils/Notificator';
+import { ROUTE_HOME } from 'routes';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
@@ -26,6 +28,12 @@ export const RegistrationScreen: FC = () => {
   const handleRegister = async (values: RegisterData, actions: FormikHelpers<RegisterData>) => (
     dispatch(register(values))
       .catch(error => formErrorHandler(error, actions.setErrors))
+      .then(() => {
+        Notificator.success('Konto zostało utworzone.\nZalogowanie będzie możliwe po aktywowaniu go przez administratora', {
+          autoHideDuration: 10000,
+        });
+        history.replace(ROUTE_HOME);
+      })
   );
 
   const handleBackClick = () => {

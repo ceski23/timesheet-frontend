@@ -1,8 +1,6 @@
 import { client, handleApiError } from 'api';
 import { User } from 'features/users/types';
-import {
-  Tokens, Credentials, RegisterData,
-} from './types';
+import { Credentials, RegisterData } from './types';
 
 export const loginUser = async (credentials: Credentials): Promise<User> => client
   .post('login', credentials)
@@ -14,7 +12,7 @@ export const logoutUser = async (): Promise<void> => client
   .catch(err => { throw handleApiError<void>(err); })
   .then(({ data }) => data);
 
-export const registerUser = async (regData: RegisterData): Promise<User & Tokens> => client
+export const registerUser = async (regData: RegisterData): Promise<void> => client
   .post('register', regData)
   .catch(err => { throw handleApiError<RegisterData>(err); })
   .then(({ data }) => data);

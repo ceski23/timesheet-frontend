@@ -1,6 +1,8 @@
 // https://github.com/iamhosseindhv/notistack/issues/30#issuecomment-542863653
 
-import { useSnackbar, VariantType, WithSnackbarProps } from 'notistack';
+import {
+  useSnackbar, VariantType, WithSnackbarProps, OptionsObject,
+} from 'notistack';
 import React from 'react';
 
 interface Props {
@@ -23,19 +25,23 @@ export const SnackbarUtilsConfigurator = () => (
 );
 
 export default {
-  success(msg: string) {
-    this.toast(msg, 'success');
+  success(msg: string, options?: OptionsObject) {
+    this.toast(msg, 'success', options);
   },
-  warning(msg: string) {
-    this.toast(msg, 'warning');
+  warning(msg: string, options?: OptionsObject) {
+    this.toast(msg, 'warning', options);
   },
-  info(msg: string) {
-    this.toast(msg, 'info');
+  info(msg: string, options?: OptionsObject) {
+    this.toast(msg, 'info', options);
   },
-  error(msg: string) {
-    this.toast(msg, 'error');
+  error(msg: string, options?: OptionsObject) {
+    this.toast(msg, 'error', options);
   },
-  toast(msg: string, variant: VariantType = 'default') {
-    useSnackbarRef.enqueueSnackbar(msg, { variant });
+  toast(msg: string, variant: VariantType = 'default', options?: OptionsObject) {
+    useSnackbarRef.enqueueSnackbar(msg, {
+      variant,
+      style: { whiteSpace: 'pre-line' },
+      ...options,
+    });
   },
 };
