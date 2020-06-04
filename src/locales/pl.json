@@ -56,8 +56,8 @@
                 "token": "Podaj poprawny kod",
                 "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
                 "password_required": "Hasło jest wymagane",
-                "password_alpha": "Hasło powinno zawierać co najmniej 1 cyfrę",
-                "password_digit": "Hasło powinno zawierać co najmniej 1 literę",
+                "password_alpha": "Hasło powinno zawierać co najmniej 1 literę",
+                "password_digit": "Hasło powinno zawierać co najmniej 1 cyfrę",
                 "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
                 "password_repeat": "Hasła muszą się zgadzać",
                 "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
