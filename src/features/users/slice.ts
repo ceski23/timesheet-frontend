@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
 import { createPaginationSlice } from 'shared/slices/paginationSlice';
-import { createStatusSlice, createThunk } from '../../shared/slices/statusSlice';
+import { createStatusSlice, createThunk } from 'shared/slices/statusSlice';
+import store from 'store';
 import { fetchUsers, deleteUser } from './api';
-import store from '../../store';
 import {
   UsersState, User, UsersFilter,
 } from './types';
