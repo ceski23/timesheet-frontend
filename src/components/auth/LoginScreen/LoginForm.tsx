@@ -5,6 +5,9 @@ import { Credentials } from 'features/auth/types';
 import { FormParams } from 'shared/types';
 import { FormField } from 'shared/components/FormField';
 import { useTranslation } from 'react-i18next';
+import { InputAdornment } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
+import LockOutlined from '@material-ui/icons/LockOutlined';
 import { loginFormSchema } from './schema';
 
 export const LoginForm: FC<FormParams<Credentials>> = ({
@@ -25,12 +28,26 @@ export const LoginForm: FC<FormParams<Credentials>> = ({
             autoComplete="email"
             name="email"
             label={t('login.form.email')}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
           />
           <FormField
             type="password"
             autoComplete="current-password"
             name="password"
             label={t('login.form.password')}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockOutlined />
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             variant="contained"

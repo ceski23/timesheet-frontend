@@ -3,15 +3,15 @@ import {
   Formik, Form,
 } from 'formik';
 import Button from '@material-ui/core/Button';
-import { RegisterData } from 'features/auth/types';
+import { ResetPasswordData } from 'features/auth/types';
 import { FormParams } from 'shared/types';
 import { FormField } from 'shared/components/FormField';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from '@material-ui/core';
-import { registerFormSchema } from './schema';
-import { PasswordRequirements } from './PasswordRequirements';
+import { resetPasswordFormSchema } from './schema';
+import { PasswordRequirements } from '../ForgotPasswordScreen';
 
-export const RegisterForm: FC<FormParams<RegisterData>> = ({
+export const ResetPasswordForm: FC<FormParams<ResetPasswordData>> = ({
   handleSubmit, initialValues, className,
 }) => {
   const { t } = useTranslation();
@@ -29,29 +29,22 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={registerFormSchema}
+      validationSchema={resetPasswordFormSchema}
+      enableReinitialize
     >
       {({ isSubmitting, values }) => (
         <Form style={{ display: 'flex', flexDirection: 'column' }} className={className}>
           <FormField
             type="text"
-            autoComplete="name"
-            name="name"
-            label={t('register.form.name')}
-            required
-          />
-          <FormField
-            type="text"
-            autoComplete="email"
-            name="email"
-            label={t('register.form.email')}
+            name="token"
+            label={t('reset_password.form.token')}
             required
           />
           <FormField
             type="password"
             autoComplete="new-password"
             name="password"
-            label={t('register.form.password')}
+            label={t('reset_password.form.password')}
             required
             onFocus={handlePasswordFocus}
             inputProps={{
@@ -60,14 +53,22 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
           />
 
           <Collapse in={showRequirements}>
-            <PasswordRequirements password={values.password} />
+            <PasswordRequirements
+              password={values.password}
+              requirements={[
+                { regex: /.{8,}/, text: t('reset_password.form.errors.password_min') },
+                { regex: /[0-9]+/, text: t('reset_password.form.errors.password_digit') },
+                { regex: /[a-zA-Z]+/, text: t('reset_password.form.errors.password_alpha') },
+                { regex: /[#?!@$%^&*-]+/, text: t('reset_password.form.errors.password_special') },
+              ]}
+            />
           </Collapse>
 
           <FormField
             type="password"
             autoComplete="new-password"
             name="repeatPassword"
-            label={t('register.form.repeat_password')}
+            label={t('reset_password.form.repeat_password')}
             required
           />
           <Button
@@ -75,9 +76,9 @@ export const RegisterForm: FC<FormParams<RegisterData>> = ({
             color="primary"
             disabled={isSubmitting}
             type="submit"
-            style={{ marginTop: 40 }}
+            style={{ marginTop: 32 }}
           >
-            {isSubmitting ? t('register.form.register_loading') : t('register.form.register')}
+            {isSubmitting ? t('reset_password.form.loading') : t('reset_password.form.send')}
           </Button>
         </Form>
       )}

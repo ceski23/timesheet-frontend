@@ -7,14 +7,52 @@ import { FormikHelpers } from 'formik';
 import { login } from 'features/auth/authSlice';
 import formErrorHandler from 'utils/formErrorHandler';
 import { useThunkDispatch } from 'store';
-import { LoginForm } from 'components/LoginForm';
 import { Link } from 'react-router-dom';
-import { ROUTE_REGISTER } from 'routes';
+import { ROUTE_FORGOT_PASSWORD } from 'routes';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as LoginImage } from 'assets/login_image.svg';
+import AppLogo from 'assets/logo.png';
+import { LoginForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
+  width: '30%',
+  [theme.breakpoints.down('sm')]: {
+    width: '80%',
+  },
+}));
+
+const MainImage = styled(LoginImage)(({ theme }) => ({
+  width: '30%',
+  height: '100%',
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+}));
+
+const Logo = styled('img')(({ theme }) => ({
+  position: 'fixed',
+  left: theme.spacing(5),
+  top: theme.spacing(5),
+  height: 40,
+}));
+
+const Container = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  height: '100%',
+  justifyContent: 'space-evenly',
+  alignItems: 'center',
+});
+
+const Desc = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+}));
+
+const Title = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
 }));
 
 export const LoginScreen: FC = () => {
@@ -33,10 +71,13 @@ export const LoginScreen: FC = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Logo src={AppLogo} />
+      <MainImage />
       <StyledCard>
         <CardContent>
-          <Typography gutterBottom variant="h6">{t('login.title')}</Typography>
+          <Title gutterBottom variant="h5">{t('login.title')}</Title>
+          <Desc gutterBottom variant="subtitle1">{t('login.subtitle')}</Desc>
           <LoginForm
             handleSubmit={handleSubmit}
             initialValues={loginFormInitialValues}
@@ -47,12 +88,12 @@ export const LoginScreen: FC = () => {
             type="button"
             style={{ marginTop: 10 }}
             component={Link}
-            to={ROUTE_REGISTER}
+            to={ROUTE_FORGOT_PASSWORD}
           >
-            {t('login.register_link')}
+            {t('login.forgot_password')}
           </Button>
         </CardContent>
       </StyledCard>
-    </>
+    </Container>
   );
 };

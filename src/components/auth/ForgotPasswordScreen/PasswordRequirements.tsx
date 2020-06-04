@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Typography, styled, createMuiTheme, MuiThemeProvider,
 } from '@material-ui/core';
@@ -31,21 +30,22 @@ const Requirement: FC<({
   );
 };
 
-export const PasswordRequirements: FC<({ password: string })> = ({ password }) => {
-  const { t } = useTranslation();
+export interface PasswordReqItem {
+  regex: RegExp;
+  text: string;
+}
 
+export interface Props {
+  password: string;
+  requirements: PasswordReqItem[];
+}
+
+export const PasswordRequirements: FC<Props> = ({ password, requirements }) => {
   const colortheme = createMuiTheme({
     palette: {
       primary: { main: '#24b312', contrastText: '#fff' },
     },
   });
-
-  const requirements = [
-    { regex: /.{8,}/, text: t('register.form.errors.password_min') },
-    { regex: /[0-9]+/, text: t('register.form.errors.password_digit') },
-    { regex: /[a-zA-Z]+/, text: t('register.form.errors.password_alpha') },
-    { regex: /[#?!@$%^&*-]+/, text: t('register.form.errors.password_special') },
-  ];
 
   return (
     <MuiThemeProvider theme={colortheme}>

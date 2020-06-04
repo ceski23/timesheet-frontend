@@ -1,23 +1,37 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
+import {
+  createSlice, PayloadAction, combineReducers, createAsyncThunk,
+} from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
 import { User } from 'features/users/types';
+import { ApiError } from 'api';
 import { createStatusSlice } from '../../shared/slices/statusSlice';
-import { loginUser, registerUser, logoutUser } from './api';
+import {
+  loginUser, logoutUser, requestPasswordReset as rpr,
+  resetPassword as rp,
+} from './api';
 import { AppThunk } from '../../store';
 import {
-  AuthState, Credentials, RegisterData,
+  AuthState, Credentials, ResetPasswordData,
 } from './types';
 
 const initialState: AuthState = {
   user: undefined,
   loggedIn: false,
+
+  loading: false,
 };
 
 const name = 'auth';
 
 const status = createStatusSlice(name);
+
+export const requestPasswordReset = createAsyncThunk('requestPasswordReset', rpr);
+
+export const resetPassword = createAsyncThunk('resetPassword', async (data: ResetPasswordData, { rejectWithValue }) => (
+  rp(data).catch((err: ApiError) => rejectWithValue(err))
+));
 
 const authSlice = createSlice({
   name,
@@ -35,6 +49,24 @@ const authSlice = createSlice({
       state.user = payload;
       state.loggedIn = true;
     },
+  },
+  extraReducers: builder => {
+    [requestPasswordReset, resetPassword].forEach(actionType => {
+      builder.addCase(actionType.pending, state => {
+        state.loading = true;
+      });
+    });
+    [requestPasswordReset, resetPassword].forEach(actionType => {
+      builder.addCase(actionType.rejected, state => {
+        state.loading = false;
+      });
+    });
+    builder.addCase(requestPasswordReset.fulfilled, state => {
+      state.loading = false;
+    });
+    builder.addCase(resetPassword.fulfilled, state => {
+      state.loading = false;
+    });
   },
 });
 
@@ -64,24 +96,6 @@ export const logout = (): AppThunk<Promise<void>> => async dispatch => {
   }
   dispatch(authSlice.actions.logout());
   dispatch(requestSuccess());
-};
-
-export const register = (
-  regData: RegisterData,
-): AppThunk<Promise<void>> => async dispatch => {
-  const { requestError, requestStart, requestSuccess } = status.actions;
-
-  dispatch(requestStart());
-  try {
-    const data = await registerUser(regData);
-    // TODO: Fix register
-    // dispatch(authSlice.actions.setTokens(pick(data, ['refreshToken', 'accessToken'])));
-    dispatch(requestSuccess());
-    return data;
-  } catch (err) {
-    dispatch(requestError(err.message));
-    throw err;
-  }
 };
 
 const persistedAuthReducer = persistReducer({

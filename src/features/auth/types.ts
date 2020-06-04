@@ -6,10 +6,10 @@ export interface Tokens {
 }
 
 export interface AuthState {
-  // accessToken?: string;
-  // refreshToken?: string;
   user?: User;
   loggedIn: boolean;
+
+  loading: boolean;
 }
 
 export interface Credentials {
@@ -21,3 +21,13 @@ export type RegisterData = {
   name: string;
   repeatPassword: string;
 } & Credentials
+
+export type ForgotPasswordData = {
+  email: string;
+}
+
+export type ResetPasswordData = {
+  password: string;
+  repeatPassword: string;
+  token: string;
+}

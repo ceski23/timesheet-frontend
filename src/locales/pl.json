@@ -30,9 +30,46 @@
             "login_loading": "Logowanie...",
             "password": "Hasło"
         },
-        "register_link": "Rejestracja",
+        "forgot_password": "Zapomniałeś(aś) hasła?",
         "success_message": "Zostałeś zalogowany!",
-        "title": "Logowanie"
+        "title": "Logowanie",
+        "subtitle": "Witaj w aplikacji do prowadzenia ewidencji czasu pracy Timesheet. Aby korzystać z aplikacji zaloguj się na swoje konto."
+    },
+    "forgot_password": {
+        "form": {
+            "email": "Adres email",
+            "errors": {
+                "email": "Podaj poprawny adres email",
+                "email_required": "Adres email jest wymagany"
+            },
+            "send": "Wyślij link",
+            "loading": "Wysyłanie..."
+        },
+        "title": "Resetowanie hasła",
+        "subtitle": "Podaj swój adres email, a wyślemy na niego link do resetowania hasła.",
+        "success": "Na podany email został wysłany link do zresetowania hasła."
+    },
+    "reset_password": {
+        "form": {
+            "errors": {
+                "token_required": "Kod jest wymagany",
+                "token": "Podaj poprawny kod",
+                "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
+                "password_required": "Hasło jest wymagane",
+                "password_alpha": "Hasło powinno zawierać co najmniej 1 cyfrę",
+                "password_digit": "Hasło powinno zawierać co najmniej 1 literę",
+                "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
+                "password_repeat": "Hasła muszą się zgadzać",
+                "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
+            },
+            "token": "Kod z maila",
+            "password": "Nowe hasło",
+            "repeat_password": "Powtórz hasło",
+            "send": "Zmień hasło",
+            "loading": "Ładowanie..."
+        },
+        "reset_success": "Twoje hasło zostało zresetowane!",
+        "title": "Resetowanie hasła"
     },
     "navigationBar": {
         "dashboard": "Przegląd",
@@ -48,30 +85,6 @@
         "goback": "Powrót",
         "text": "Nie znaleziono strony",
         "title": "Nie znaleziono"
-    },
-    "register": {
-        "form": {
-            "email": "Adres email",
-            "errors": {
-                "email": "Podaj poprawny adres email",
-                "email_required": "Adres email jest wymagany",
-                "name_max": "Imię i nazwisko powinny zawierać maksymalnie 50 znaków",
-                "name_min": "Imię i nazwisko powinny zawierać co najmniej 3 znaki",
-                "name_required": "Imię i nazwisko jest wymagane",
-                "password_alpha": "Hasło powinno zawierać co najmniej 1 cyfrę",
-                "password_digit": "Hasło powinno zawierać co najmniej 1 literę",
-                "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
-                "password_repeat": "Hasła muszą się zgadzać",
-                "password_required": "Hasło jest wymagane",
-                "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
-            },
-            "name": "Imię i nazwisko",
-            "password": "Hasło",
-            "register": "Zarejestruj",
-            "register_loading": "Rejestrowanie...",
-            "repeat_password": "Powtórz hasło"
-        },
-        "title": "Rejestracja"
     },
     "settings": {
         "language": "Język",

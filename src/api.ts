@@ -17,7 +17,7 @@ export type PaginatedResponse<T> = {
   data: T;
 } & Pagination;
 
-export interface ApiError<T> {
+export interface ApiError<T = never> {
   name: string;
   statusCode: number;
   data: {
