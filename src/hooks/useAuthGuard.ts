@@ -1,12 +1,12 @@
 import { useSelector } from 'react-redux';
-import { useThunkDispatch, RootState } from 'store';
+import { useThunkDispatch } from 'store';
 import { fetchMe } from 'features/auth/api';
 import { useState, useEffect } from 'react';
-import { setUser, logout } from 'features/auth/authSlice';
+import { setUser, logout, selectLoggedIn } from 'features/auth/slice';
 
 export const useAuthGuard = () => {
   const [loading, setLoading] = useState(true);
-  const { loggedIn } = useSelector((state: RootState) => state.auth.data);
+  const loggedIn = useSelector(selectLoggedIn);
   const dispatch = useThunkDispatch();
 
   useEffect(() => {

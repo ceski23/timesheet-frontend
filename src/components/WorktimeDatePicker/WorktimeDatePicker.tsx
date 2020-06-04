@@ -8,8 +8,7 @@ import { useDateFormatter } from 'hooks/useDateFormatter';
 import { useSelector } from 'react-redux';
 import { selectWorktimeState, setDays, getFirstDate } from 'features/worktime/slice';
 import { useThunkDispatch } from 'store';
-import { getDateLocale } from 'features/preferences/preferencesSlice';
-import { selectPreferences } from 'features/preferences/selectors';
+import { getDateLocale, selectLanguage } from 'features/preferences/slice';
 
 const Container = styled(Button)({
   margin: '0 8px',
@@ -19,7 +18,7 @@ const Container = styled(Button)({
 export const WorktimeDatePicker: FC = (): ReactElement => {
   const { format } = useDateFormatter();
   const { firstDay, lastDay, numOfDays } = useSelector(selectWorktimeState);
-  const { language } = useSelector(selectPreferences);
+  const language = useSelector(selectLanguage);
   const {
     isOpen, setClose, setOpen, data,
   } = useDialog<Element>();

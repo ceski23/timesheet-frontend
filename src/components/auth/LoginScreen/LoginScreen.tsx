@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import { Credentials } from 'features/auth/types';
 import { FormikHelpers } from 'formik';
-import { login } from 'features/auth/authSlice';
+import { login } from 'features/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
+import { ApiError } from 'api';
 import { LoginForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -59,11 +60,14 @@ export const LoginScreen: FC = () => {
   const dispatch = useThunkDispatch();
   const { t } = useTranslation();
 
-  const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => (
-    dispatch(login(values))
-      .then(() => { Notificator.success(t('login.success_message')); })
-      .catch(error => formErrorHandler(error, actions.setErrors))
-  );
+  const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => {
+    const result = await dispatch(login(values));
+    if (login.fulfilled.match(result)) {
+      Notificator.success(t('login.success_message'));
+    } else {
+      formErrorHandler(result.payload as ApiError, actions.setErrors);
+    }
+  };
 
   const loginFormInitialValues = {
     email: '',

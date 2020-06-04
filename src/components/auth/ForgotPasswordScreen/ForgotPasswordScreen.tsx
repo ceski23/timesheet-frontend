@@ -9,7 +9,7 @@ import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.sv
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
-import { requestPasswordReset } from 'features/auth/authSlice';
+import { requestPasswordReset } from 'features/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import Notificator from 'utils/Notificator';
 import { ROUTE_HOME } from 'routes';

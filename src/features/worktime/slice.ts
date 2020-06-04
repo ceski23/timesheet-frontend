@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from 'store';
 import { Event } from 'components/Timesheet/Content';
 import { addDays, subDays, startOfWeek } from 'date-fns';
-import { getDateLocale } from 'features/preferences/preferencesSlice';
+import { getDateLocale } from 'features/preferences/slice';
 
 interface Pos {
   x: number;

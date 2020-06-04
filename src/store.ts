@@ -5,8 +5,8 @@ import { ThunkAction } from 'redux-thunk';
 import { useDispatch } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
-import authReducer from './features/auth/authSlice';
-import preferencesReducer from './features/preferences/preferencesSlice';
+import authReducer from './features/auth/slice';
+import preferencesReducer from './features/preferences/slice';
 import usersReducer from './features/users/slice';
 import appReducer from './features/appState/slice';
 import worktimeReducer from './features/worktime/slice';

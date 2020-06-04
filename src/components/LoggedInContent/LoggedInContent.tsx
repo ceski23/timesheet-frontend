@@ -5,7 +5,9 @@ import {
   RadioGroup, FormControlLabel,
   Radio, styled, Toolbar, Divider, List, ListSubheader,
 } from '@material-ui/core';
-import { setTheme, getDateLocale } from 'features/preferences/preferencesSlice';
+import {
+  setTheme, getDateLocale, selectTheme, selectLanguage,
+} from 'features/preferences/slice';
 import { ThemeType } from 'features/preferences/types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -29,15 +31,14 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { selectPreferences } from 'features/preferences/selectors';
 import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
 import { EmployeesToolbar } from 'components/EmployeesScreen';
-import { selectAuthData } from 'features/auth/selectors';
 import { DefaultToolbar } from 'components/DefaultToolbar';
-import { selectAppState, ScreenType } from 'features/appState/slice';
+import { ScreenType, selectScreenType } from 'features/appState/slice';
 import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { selectUser } from 'features/auth/slice';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
@@ -134,9 +135,10 @@ export const LoggedInContent: FC = () => {
   const dispatch = useThunkDispatch();
   const { t } = useTranslation();
   const theme = useAppTheme();
-  const { theme: themeType, language } = useSelector(selectPreferences);
-  const { user } = useSelector(selectAuthData);
-  const { screen } = useSelector(selectAppState);
+  const themeType = useSelector(selectTheme);
+  const language = useSelector(selectLanguage);
+  const user = useSelector(selectUser);
+  const screen = useSelector(selectScreenType);
 
   const handleThemeChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     dispatch(setTheme(target.value as ThemeType));

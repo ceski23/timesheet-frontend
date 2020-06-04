@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
 import { enGB, pl } from 'date-fns/locale';
+import { RootState } from 'store';
 import { ThemeType, PreferencesState } from './types';
 
 const initialState: PreferencesState = {
@@ -43,3 +44,8 @@ const persistedPreferencesReducer = persistReducer({
 
 export const { setTheme, setLanguage } = preferencesSlice.actions;
 export default persistedPreferencesReducer;
+
+const getPreferencesState = (state: RootState) => state.preferences;
+
+export const selectTheme = createSelector(getPreferencesState, state => state.theme);
+export const selectLanguage = createSelector(getPreferencesState, state => state.language);

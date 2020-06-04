@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 
 export type ScreenType = 'employees' | 'notfound' | 'home' | 'worktime';
@@ -25,4 +25,6 @@ const slice = createSlice({
 export const { setScreen } = slice.actions;
 export default slice.reducer;
 
-export const selectAppState = (state: RootState) => state.app;
+const getAppState = (state: RootState) => state.app;
+
+export const selectScreenType = createSelector(getAppState, state => state.screen);
