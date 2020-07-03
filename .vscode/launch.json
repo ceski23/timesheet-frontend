@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Chrome",
+      "name": "Debug frontend",
       "type": "edge",
       "request": "launch",
       "version": "dev",
@@ -13,14 +13,11 @@
       }
     },
     {
-      "type": "edge",
-      "request": "attach",
-      "name": "Attach to Edge",
-      "port": 9222,
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMapPathOverrides": {
-        "webpack:///src/*": "${webRoot}/*"
-      }
+      "type": "node-terminal",
+      "name": "Start frontend in dev",
+      "request": "launch",
+      "command": "npm run start",
+      "cwd": "${workspaceFolder}"
     }
   ]
 }
