@@ -1,0 +1,6 @@
+{
+  "i18n-ally.localesPaths": "src/locales",
+  "i18n-ally.dirStructure": "dir",
+  "i18n-ally.pathMatcher": "{locale}.{ext}",
+  "i18n-ally.namespace": true
+}
