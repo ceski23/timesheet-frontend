@@ -1,5 +1,5 @@
 import React, {
-  FC, ReactElement, useEffect,
+  FC, ReactElement, useEffect, ChangeEvent,
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
@@ -86,7 +86,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
     { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: t('employees.filters.deactivated') },
   ];
 
-  const handlePageChange = (_event: Event, value: number) => {
+  const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     dispatch(changePage(value));
     dispatch(getUsers())
       .catch(() => Notificator.error(t('employees.findError')));

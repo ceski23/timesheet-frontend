@@ -9,13 +9,13 @@ const GuestContentX = React.lazy(() => import('components/GuestContent').then(({
 export const App: React.FC = () => {
   const theme = useAppTheme();
 
-  const { loggedIn, loading } = useAuthGuard();
+  const { status, loading } = useAuthGuard();
 
   return (
     <>
       <Suspense fallback={<p>Ładowanie...</p>}>
         {!loading && (
-          loggedIn ? <LoggedInContentX /> : <GuestContentX />
+          status ? <LoggedInContentX /> : <GuestContentX />
         )}
       </Suspense>
 

@@ -14,7 +14,7 @@ import {
 
 const initialState: AuthState = {
   user: undefined,
-  loggedIn: false,
+  status: 'unknown',
 
   loading: false,
 };
@@ -38,7 +38,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     setUser(state, { payload }: PayloadAction<User>) {
-      state.loggedIn = !!payload;
+      state.status = 'authorized';
       state.user = payload;
     },
   },
@@ -62,12 +62,12 @@ const slice = createSlice({
     builder.addCase(login.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.user = payload;
-      state.loggedIn = true;
+      state.status = 'authorized';
     });
     builder.addCase(logout.fulfilled, state => {
       state.loading = false;
       state.user = undefined;
-      state.loggedIn = false;
+      state.status = 'unauthorized';
     });
   },
 });
@@ -82,5 +82,5 @@ export default persistedAuthReducer;
 
 const getAuthState = (state: RootState) => state.auth;
 
-export const selectLoggedIn = createSelector(getAuthState, state => state.loggedIn);
+export const selectAuthStatus = createSelector(getAuthState, state => state.status);
 export const selectUser = createSelector(getAuthState, state => state.user);

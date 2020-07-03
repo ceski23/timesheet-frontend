@@ -2,15 +2,15 @@ import { useSelector } from 'react-redux';
 import { useThunkDispatch } from 'store';
 import { fetchMe } from 'features/auth/api';
 import { useState, useEffect } from 'react';
-import { setUser, logout, selectLoggedIn } from 'features/auth/slice';
+import { logout, setUser, selectAuthStatus } from 'features/auth/slice';
 
 export const useAuthGuard = () => {
   const [loading, setLoading] = useState(true);
-  const loggedIn = useSelector(selectLoggedIn);
+  const status = useSelector(selectAuthStatus);
   const dispatch = useThunkDispatch();
 
   useEffect(() => {
-    if (loggedIn) {
+    if (status === 'authorized') {
       setLoading(true);
       fetchMe()
         .then(userData => {
@@ -22,7 +22,7 @@ export const useAuthGuard = () => {
           setLoading(false);
         });
     } else setLoading(false);
-  }, [loggedIn]);
+  }, [status]);
 
-  return { loggedIn, loading };
+  return { status, loading };
 };

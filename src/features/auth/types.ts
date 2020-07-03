@@ -5,9 +5,11 @@ export interface Tokens {
   refreshToken: string;
 }
 
+export type AuthStatus = 'authorized' | 'unauthorized' | 'unknown';
+
 export interface AuthState {
   user?: User;
-  loggedIn: boolean;
+  status: AuthStatus;
 
   loading: boolean;
 }
