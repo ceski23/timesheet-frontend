@@ -1,20 +1,21 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  styled, Toolbar, Divider, List, ListSubheader,
+  styled, Toolbar, Divider, List,
 } from '@material-ui/core';
 import {
   getDateLocale, selectLanguage,
 } from 'features/preferences/slice';
 import { useTranslation } from 'react-i18next';
 import {
-  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME,
+  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME, ROUTE_SETTINGS,
 } from 'routes';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
 import VacationIcon from '@material-ui/icons/WorkOutlineOutlined';
 import EmployeesIcon from '@material-ui/icons/PeopleAltOutlined';
 import ReportIcon from '@material-ui/icons/TimelineOutlined';
+import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import {
   Root, getHeader, getDrawerSidebar, getContent,
   getSidebarTrigger,
@@ -23,7 +24,6 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { LanguageSelector } from 'components/LanguageSelector/LanguageSelector';
 import { EmployeesToolbar } from 'components/EmployeesScreen';
 import { DefaultToolbar } from 'components/DefaultToolbar';
 import { ScreenType, selectScreenType } from 'features/appState/slice';
@@ -39,6 +39,7 @@ const Content = styled(getContent(styled))(({ theme }) => ({
   flexDirection: 'column',
   background: theme.palette.background.default,
   overflow: 'auto',
+  height: '100%',
 }));
 
 const AppToolbar = styled(Toolbar)(({ theme }) => ({
@@ -102,15 +103,9 @@ export const LoggedInContent: FC = () => {
                 <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={ROUTE_WORKTIME} />
                 <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
                 <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" badge />
+                <Divider />
+                <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={ROUTE_SETTINGS} />
               </List>
-
-              <Divider />
-
-              <ListSubheader>
-                {t('settings.language')}
-              </ListSubheader>
-              <LanguageSelector />
-
             </DrawerSidebar>
 
             <Content>

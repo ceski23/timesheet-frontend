@@ -9,6 +9,7 @@ import { NotFoundScreen } from 'components/NotFoundScreen';
 import { EmployeesScreen } from 'components/EmployeesScreen';
 import { WorktimeScreen } from 'components/WorktimeScreen';
 import { ResetPasswordScreen } from 'components/auth/ResetPasswordScreen';
+import { SettingsScreen } from 'components/settings/SettingsScreen';
 
 export const ROUTE_HOME = '/';
 export const ROUTE_LOGIN = '/logowanie';
@@ -17,6 +18,7 @@ export const ROUTE_FORGOT_PASSWORD = '/zapomnialem-hasla';
 export const ROUTE_EMPLOYEES = '/pracownicy';
 export const ROUTE_WORKTIME = '/czaspracy';
 export const ROUTE_PASSWORD_RESET = '/resetowanie-hasla';
+export const ROUTE_SETTINGS = '/ustawienia';
 
 export const loggedInRoutes = [
   {
@@ -36,6 +38,10 @@ export const loggedInRoutes = [
   {
     path: ROUTE_LOGOUT,
     component: Logout,
+  },
+  {
+    path: ROUTE_SETTINGS,
+    component: SettingsScreen,
   },
   {
     path: [ROUTE_LOGIN, ROUTE_FORGOT_PASSWORD],

@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 
-export type ScreenType = 'employees' | 'notfound' | 'home' | 'worktime';
+export type ScreenType = 'employees' | 'notfound' | 'home' | 'worktime' | 'settings';
 
 interface AppState {
   screen: ScreenType;

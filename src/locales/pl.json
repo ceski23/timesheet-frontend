@@ -1,108 +1,110 @@
 {
-    "employees": {
-        "deleteDialog": {
-            "confirm": "Usuń",
-            "text": "Czy na pewno chcesz usunąć pracownika {{name}}?",
-            "title": "Usuwanie pracownika"
-        },
-        "deleteError": "Wystąpił błąd podczas usuwania pracownika",
-        "dummyButton": "Dodaj",
-        "employeeDeleted": "Usunięto pracownika {{name}}",
-        "filters": {
-            "activated": "Aktywowani",
-            "all": "Wszyscy",
-            "deactivated": "Nie aktywowani"
-        },
-        "findError": "Wystąpił błąd podczas wczytywania pracowników",
-        "search": "Wpisz nazwę...",
-        "title": "Pracownicy"
+  "employees": {
+    "deleteDialog": {
+      "confirm": "Usuń",
+      "text": "Czy na pewno chcesz usunąć pracownika {{name}}?",
+      "title": "Usuwanie pracownika"
     },
-    "login": {
-        "form": {
-            "email": "Adres email",
-            "errors": {
-                "email": "Podaj poprawny adres email",
-                "email_required": "Adres email jest wymagany",
-                "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
-                "password_required": "Hasło jest wymagane"
-            },
-            "login": "Zaloguj",
-            "login_loading": "Logowanie...",
-            "password": "Hasło"
-        },
-        "forgot_password": "Zapomniałeś(aś) hasła?",
-        "success_message": "Zostałeś zalogowany!",
-        "title": "Logowanie",
-        "subtitle": "Witaj w aplikacji do prowadzenia ewidencji czasu pracy Timesheet. Aby korzystać z aplikacji zaloguj się na swoje konto."
+    "deleteError": "Wystąpił błąd podczas usuwania pracownika",
+    "dummyButton": "Dodaj",
+    "employeeDeleted": "Usunięto pracownika {{name}}",
+    "filters": {
+      "activated": "Aktywowani",
+      "all": "Wszyscy",
+      "deactivated": "Nie aktywowani"
     },
-    "forgot_password": {
-        "form": {
-            "email": "Adres email",
-            "errors": {
-                "email": "Podaj poprawny adres email",
-                "email_required": "Adres email jest wymagany"
-            },
-            "send": "Wyślij link",
-            "loading": "Wysyłanie..."
-        },
-        "title": "Resetowanie hasła",
-        "subtitle": "Podaj swój adres email, a wyślemy na niego link do resetowania hasła.",
-        "success": "Na podany email został wysłany link do zresetowania hasła."
+    "findError": "Wystąpił błąd podczas wczytywania pracowników",
+    "search": "Wpisz nazwę...",
+    "title": "Pracownicy"
+  },
+  "login": {
+    "form": {
+      "email": "Adres email",
+      "errors": {
+        "email": "Podaj poprawny adres email",
+        "email_required": "Adres email jest wymagany",
+        "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
+        "password_required": "Hasło jest wymagane"
+      },
+      "login": "Zaloguj",
+      "login_loading": "Logowanie...",
+      "password": "Hasło"
     },
-    "reset_password": {
-        "form": {
-            "errors": {
-                "token_required": "Kod jest wymagany",
-                "token": "Podaj poprawny kod",
-                "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
-                "password_required": "Hasło jest wymagane",
-                "password_alpha": "Hasło powinno zawierać co najmniej 1 literę",
-                "password_digit": "Hasło powinno zawierać co najmniej 1 cyfrę",
-                "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
-                "password_repeat": "Hasła muszą się zgadzać",
-                "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
-            },
-            "token": "Kod z maila",
-            "password": "Nowe hasło",
-            "repeat_password": "Powtórz hasło",
-            "send": "Zmień hasło",
-            "loading": "Ładowanie..."
-        },
-        "reset_success": "Twoje hasło zostało zresetowane!",
-        "title": "Resetowanie hasła"
+    "forgot_password": "Zapomniałeś(aś) hasła?",
+    "success_message": "Zostałeś zalogowany!",
+    "title": "Logowanie",
+    "subtitle": "Witaj w aplikacji do prowadzenia ewidencji czasu pracy Timesheet. Aby korzystać z aplikacji zaloguj się na swoje konto."
+  },
+  "forgot_password": {
+    "form": {
+      "email": "Adres email",
+      "errors": {
+        "email": "Podaj poprawny adres email",
+        "email_required": "Adres email jest wymagany"
+      },
+      "send": "Wyślij link",
+      "loading": "Wysyłanie..."
     },
-    "navigationBar": {
-        "dashboard": "Przegląd",
-        "employees": "Pracownicy",
-        "header": {
-            "logout": "Wyloguj"
-        },
-        "reports": "Raporty",
-        "vacations": "Urlopy",
-        "worktime": "Czas pracy"
+    "title": "Resetowanie hasła",
+    "subtitle": "Podaj swój adres email, a wyślemy na niego link do resetowania hasła.",
+    "success": "Na podany email został wysłany link do zresetowania hasła."
+  },
+  "reset_password": {
+    "form": {
+      "errors": {
+        "token_required": "Kod jest wymagany",
+        "token": "Podaj poprawny kod",
+        "password_match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
+        "password_required": "Hasło jest wymagane",
+        "password_alpha": "Hasło powinno zawierać co najmniej 1 literę",
+        "password_digit": "Hasło powinno zawierać co najmniej 1 cyfrę",
+        "password_min": "Hasło powinno zawierać co najmniej 8 znaków",
+        "password_repeat": "Hasła muszą się zgadzać",
+        "password_special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
+      },
+      "token": "Kod z maila",
+      "password": "Nowe hasło",
+      "repeat_password": "Powtórz hasło",
+      "send": "Zmień hasło",
+      "loading": "Ładowanie..."
     },
-    "notfound": {
-        "goback": "Powrót",
-        "text": "Nie znaleziono strony",
-        "title": "Nie znaleziono"
+    "reset_success": "Twoje hasło zostało zresetowane!",
+    "title": "Resetowanie hasła"
+  },
+  "navigationBar": {
+    "dashboard": "Przegląd",
+    "employees": "Pracownicy",
+    "header": {
+      "logout": "Wyloguj"
     },
-    "settings": {
-        "language": "Język",
-        "theme": "Motyw"
+    "reports": "Raporty",
+    "vacations": "Urlopy",
+    "worktime": "Czas pracy",
+    "settings": "Ustawienia"
+  },
+  "notfound": {
+    "goback": "Powrót",
+    "text": "Nie znaleziono strony",
+    "title": "Nie znaleziono"
+  },
+  "settings": {
+    "language": "Język",
+    "theme": "Motyw",
+    "appearance": "Wygląd"
+  },
+  "themeType": {
+    "dark": "Ciemny",
+    "light": "Jasny",
+    "system": "Systemowy"
+  },
+  "worktime": {
+    "event": {
+      "close": "Zamknij",
+      "delete": "Usuń",
+      "edit": "Edytuj"
     },
-    "themeType": {
-        "dark": "Ciemny",
-        "light": "Jasny",
-        "system": "Systemowy"
-    },
-    "worktime": {
-        "event": {
-            "close": "Zamknij",
-            "delete": "Usuń",
-            "edit": "Edytuj"
-        },
-        "toolbar": {
-            "today": "Dzisiaj"
-        }
+    "toolbar": {
+      "today": "Dzisiaj"
     }
+  }
 }
