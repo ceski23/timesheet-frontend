@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { guestRoutes } from 'routes';
 import { renderRoutes } from 'react-router-config';
-import { useAppTheme } from 'hooks/useAppTheme';
-import { ThemeProvider, styled } from '@material-ui/core';
+import { styled } from '@material-ui/core';
 
 const Container = styled('div')(({ theme }) => ({
   width: '100vw',
@@ -14,14 +13,8 @@ const Container = styled('div')(({ theme }) => ({
   background: theme.palette.background.default,
 }));
 
-export const GuestContent: FC = () => {
-  const theme = useAppTheme();
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        {renderRoutes(guestRoutes)}
-      </Container>
-    </ThemeProvider>
-  );
-};
+export const GuestContent: FC = () => (
+  <Container>
+    {renderRoutes(guestRoutes)}
+  </Container>
+);
