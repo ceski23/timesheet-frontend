@@ -1,1 +1,1 @@
-export { GuestContent } from './GuestContent';
+export { GuestContent as default } from './GuestContent';

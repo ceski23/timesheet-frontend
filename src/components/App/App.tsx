@@ -5,9 +5,10 @@ import { useAppTheme } from 'hooks/useAppTheme';
 import { ThemeProvider } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import { SnackbarUtilsConfigurator } from 'utils/Notificator';
+import { AppLoadingScreen } from 'components/app/AppLoadingScreen';
 
-const LoggedInContentX = React.lazy(() => import('components/LoggedInContent').then(({ LoggedInContent }) => ({ default: LoggedInContent })));
-const GuestContentX = React.lazy(() => import('components/GuestContent').then(({ GuestContent }) => ({ default: GuestContent })));
+const LoggedInContentX = React.lazy(() => import('components/LoggedInContent'));
+const GuestContentX = React.lazy(() => import('components/GuestContent'));
 
 export const App: React.FC = () => {
   const theme = useAppTheme();
@@ -18,8 +19,7 @@ export const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <SnackbarProvider>
         <SnackbarUtilsConfigurator />
-
-        <Suspense fallback={<p>Ładowanie...</p>}>
+        <Suspense fallback={<AppLoadingScreen />}>
           {!loading && (
             status ? <LoggedInContentX /> : <GuestContentX />
           )}

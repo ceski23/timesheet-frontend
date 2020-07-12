@@ -1,1 +1,1 @@
-export { LoggedInContent } from './LoggedInContent';
+export { LoggedInContent as default } from './LoggedInContent';
