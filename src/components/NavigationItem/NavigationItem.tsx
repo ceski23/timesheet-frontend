@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement, ComponentType,
+  FC, ReactElement,
 } from 'react';
 import {
-  ListItem, ListItemIcon, ListItemText, styled, IconProps, fade, Badge,
+  ListItem, ListItemIcon, ListItemText, styled, fade, Badge, SvgIconProps,
 } from '@material-ui/core';
 import { Link as RouterLink, LinkProps as RouterLinkProps, useRouteMatch } from 'react-router-dom';
 
 interface Props {
   name: string;
-  icon: ComponentType<IconProps>;
+  icon: (props: SvgIconProps) => JSX.Element;
   to: string;
   badge?: boolean;
 }

@@ -10,9 +10,14 @@ import { useTranslation } from 'react-i18next';
 import { NavigationItem } from 'components/NavigationItem';
 import { ROUTE_LOGOUT } from 'routes';
 
-const AccountAvatar = styled(Avatar)({
-  width: 48,
-  height: 48,
+interface AvatarProps {
+  collapsed?: boolean;
+}
+
+const AccountAvatar = styled(({ collapsed, ...props }) => <Avatar {...props} />)({
+  width: ({ collapsed }: AvatarProps) => (collapsed ? 32 : 48),
+  height: ({ collapsed }: AvatarProps) => (collapsed ? 32 : 48),
+  transition: '0.3s',
 });
 
 const Spacer = styled('div')(({ theme }) => ({
@@ -45,10 +50,11 @@ interface Props {
   name?: string;
   email?: string;
   avatar?: string;
+  collapsed?: boolean;
 }
 
 export const NavigationHeader: FC<Props> = ({
-  name, email, avatar,
+  name, email, avatar, collapsed,
 }): ReactElement => {
   const [expanded, setExpanded] = useState(false);
   const { t } = useTranslation();
@@ -60,7 +66,7 @@ export const NavigationHeader: FC<Props> = ({
   return (
     <>
       <Container>
-        <AccountAvatar alt={name} src={avatar} />
+        <AccountAvatar alt={name} src={avatar} collapsed={collapsed} />
         <Spacer />
 
         <Grid container direction="row" alignItems="center">
