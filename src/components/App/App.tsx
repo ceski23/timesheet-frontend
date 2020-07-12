@@ -21,7 +21,7 @@ export const App: React.FC = () => {
         <SnackbarUtilsConfigurator />
         <Suspense fallback={<AppLoadingScreen />}>
           {!loading && (
-            status ? <LoggedInContentX /> : <GuestContentX />
+            status === 'authorized' ? <LoggedInContentX /> : <GuestContentX />
           )}
         </Suspense>
 
