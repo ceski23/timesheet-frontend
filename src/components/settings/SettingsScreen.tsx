@@ -22,6 +22,7 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
+// TODO: Fix content not centered vertially
 const Summary = styled(AccordionSummary)({
   '& .MuiExpansionPanelSummary-content': {
     alignItems: 'center',
