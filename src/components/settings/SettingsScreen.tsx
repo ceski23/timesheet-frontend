@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useEffect } from 'react';
 import { useThunkDispatch } from 'store';
 import { setScreen } from 'store/appState/slice';
 import {
-  styled, Typography, useTheme, useMediaQuery,
+  styled, Typography, useTheme, useMediaQuery, withStyles,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Accordion from '@material-ui/core/ExpansionPanel';
@@ -22,12 +22,11 @@ const Container = styled('div')(({ theme }) => ({
   },
 }));
 
-// TODO: Fix content not centered vertially
-const Summary = styled(AccordionSummary)({
-  '& .MuiExpansionPanelSummary-content': {
+const Summary = withStyles({
+  content: {
     alignItems: 'center',
   },
-});
+})(AccordionSummary);
 
 export const SettingsScreen: FC = (): ReactElement => {
   const dispatch = useThunkDispatch();
