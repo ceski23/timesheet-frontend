@@ -1,6 +1,6 @@
 import {
   client, handleApiError, PaginatedResponse, FindParams,
-} from 'api';
+} from 'utils/api';
 import { User, UsersFindParams } from './types';
 
 export const fetchUsers = async (

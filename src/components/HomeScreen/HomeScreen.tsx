@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { useThunkDispatch } from 'store';
-import { setScreen } from 'features/appState/slice';
+import { setScreen } from 'store/appState/slice';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

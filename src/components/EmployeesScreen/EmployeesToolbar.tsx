@@ -7,7 +7,7 @@ import {
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 import { useThunkDispatch } from 'store';
 import { useDebounce } from 'use-lodash-debounce';
-import { setUsersQuery } from 'features/users/slice';
+import { setUsersQuery } from 'store/users/slice';
 import AddIcon from '@material-ui/icons/AddOutlined';
 import { useTranslation } from 'react-i18next';
 

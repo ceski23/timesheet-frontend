@@ -4,8 +4,8 @@ import {
 } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
-import { User } from 'features/users/types';
-import { ApiError } from 'api';
+import { User } from 'store/users/types';
+import { ApiError } from 'utils/api';
 import { RootState } from 'store';
 import * as API from './api';
 import {

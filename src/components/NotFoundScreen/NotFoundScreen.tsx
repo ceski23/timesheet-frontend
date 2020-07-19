@@ -1,6 +1,6 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { useThunkDispatch } from 'store';
-import { setScreen } from 'features/appState/slice';
+import { setScreen } from 'store/appState/slice';
 import { Typography, Button, styled } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';

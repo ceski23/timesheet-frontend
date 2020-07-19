@@ -3,7 +3,7 @@ import { styled, Popover } from '@material-ui/core';
 import { Header } from 'components/Timesheet/Header';
 import { Content, Event } from 'components/Timesheet/Content';
 import { useDialog } from 'hooks/useDialog';
-import { selectWorktimeState, NumOfDays } from 'features/worktime/slice';
+import { selectWorktimeState, NumOfDays } from 'store/worktime/slice';
 import { useSelector } from 'react-redux';
 import { EventInfo } from './EventInfo';
 

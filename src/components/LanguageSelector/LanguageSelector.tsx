@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setLanguage, selectLanguage } from 'features/preferences/slice';
+import { setLanguage, selectLanguage } from 'store/preferences/slice';
 import { MenuItem, Select, styled } from '@material-ui/core';
 import { useThunkDispatch } from 'store';
 import ReactCountryFlag from 'react-country-flag';

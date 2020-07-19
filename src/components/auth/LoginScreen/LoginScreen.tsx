@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Button,
 } from '@material-ui/core';
-import { Credentials } from 'features/auth/types';
+import { Credentials } from 'store/auth/types';
 import { FormikHelpers } from 'formik';
-import { login } from 'features/auth/slice';
+import { login } from 'store/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
-import { ApiError } from 'api';
+import { ApiError } from 'utils/api';
 import { LoginForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({

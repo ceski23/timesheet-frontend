@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import i18next from 'i18n';
+import i18next from 'utils/i18n';
 
 export const resetPasswordFormSchema = yup.object().shape({
   token: yup.string()

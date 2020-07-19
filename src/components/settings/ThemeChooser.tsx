@@ -4,8 +4,8 @@ import {
 } from '@material-ui/core';
 import { useThunkDispatch } from 'store';
 import { useSelector } from 'react-redux';
-import { selectTheme, setTheme } from 'features/preferences/slice';
-import { ThemeType } from 'features/preferences/types';
+import { selectTheme, setTheme } from 'store/preferences/slice';
+import { ThemeType } from 'store/preferences/types';
 import { useTranslation } from 'react-i18next';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({

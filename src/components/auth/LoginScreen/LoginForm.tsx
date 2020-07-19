@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import Button from '@material-ui/core/Button';
-import { Credentials } from 'features/auth/types';
+import { Credentials } from 'store/auth/types';
 import { FormParams } from 'shared/types';
-import { FormField } from 'shared/components/FormField';
+import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
 import { InputAdornment } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';

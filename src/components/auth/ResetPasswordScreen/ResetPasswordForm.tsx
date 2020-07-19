@@ -3,9 +3,9 @@ import {
   Formik, Form,
 } from 'formik';
 import Button from '@material-ui/core/Button';
-import { ResetPasswordData } from 'features/auth/types';
+import { ResetPasswordData } from 'store/auth/types';
 import { FormParams } from 'shared/types';
-import { FormField } from 'shared/components/FormField';
+import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from '@material-ui/core';
 import { resetPasswordFormSchema } from './schema';

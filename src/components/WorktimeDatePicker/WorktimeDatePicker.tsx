@@ -6,9 +6,9 @@ import { useDialog } from 'hooks/useDialog';
 import { DatePicker } from '@material-ui/pickers';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { useSelector } from 'react-redux';
-import { selectWorktimeState, setDays, getFirstDate } from 'features/worktime/slice';
+import { selectWorktimeState, setDays, getFirstDate } from 'store/worktime/slice';
 import { useThunkDispatch } from 'store';
-import { getDateLocale, selectLanguage } from 'features/preferences/slice';
+import { getDateLocale, selectLanguage } from 'store/preferences/slice';
 
 const Container = styled(Button)({
   margin: '0 8px',

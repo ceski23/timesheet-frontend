@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import {
   getDateLocale, selectLanguage,
-} from 'features/preferences/slice';
+} from 'store/preferences/slice';
 import { useTranslation } from 'react-i18next';
 import {
   loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME, ROUTE_SETTINGS,
@@ -26,11 +26,11 @@ import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { EmployeesToolbar } from 'components/EmployeesScreen';
 import { DefaultToolbar } from 'components/DefaultToolbar';
-import { ScreenType, selectScreenType } from 'features/appState/slice';
+import { ScreenType, selectScreenType } from 'store/appState/slice';
 import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { selectUser } from 'features/auth/slice';
+import { selectUser } from 'store/auth/slice';
 import layoutScheme from './layoutScheme';
 
 

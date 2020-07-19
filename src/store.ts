@@ -5,11 +5,11 @@ import { ThunkAction } from 'redux-thunk';
 import { useDispatch } from 'react-redux';
 import { persistStore } from 'redux-persist';
 
-import authReducer from './features/auth/slice';
-import preferencesReducer from './features/preferences/slice';
-import usersReducer from './features/users/slice';
-import appReducer from './features/appState/slice';
-import worktimeReducer from './features/worktime/slice';
+import authReducer from './store/auth/slice';
+import preferencesReducer from './store/preferences/slice';
+import usersReducer from './store/users/slice';
+import appReducer from './store/appState/slice';
+import worktimeReducer from './store/worktime/slice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: false,

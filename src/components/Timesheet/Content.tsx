@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { add, getTime } from 'date-fns';
 import { useDateFormatter } from 'hooks/useDateFormatter';
-import { NumOfDays } from 'features/worktime/slice';
+import { NumOfDays } from 'store/worktime/slice';
 import { Day } from './Day';
 
 export interface Event {

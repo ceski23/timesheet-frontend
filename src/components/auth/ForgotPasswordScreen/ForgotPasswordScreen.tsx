@@ -2,19 +2,19 @@ import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Grid, IconButton,
 } from '@material-ui/core';
-import { ForgotPasswordData } from 'features/auth/types';
+import { ForgotPasswordData } from 'store/auth/types';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router';
 import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.svg';
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
-import { requestPasswordReset } from 'features/auth/slice';
+import { requestPasswordReset } from 'store/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import Notificator from 'utils/Notificator';
 import { ROUTE_HOME } from 'routes';
 import { FormikHelpers } from 'formik';
-import { ApiError } from 'api';
+import { ApiError } from 'utils/api';
 import { ForgotPasswordForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({

@@ -1,5 +1,5 @@
-import { client, handleApiError } from 'api';
-import { User } from 'features/users/types';
+import { client, handleApiError } from 'utils/api';
+import { User } from 'store/users/types';
 import {
   Credentials, RegisterData, ForgotPasswordData, ResetPasswordData,
 } from './types';

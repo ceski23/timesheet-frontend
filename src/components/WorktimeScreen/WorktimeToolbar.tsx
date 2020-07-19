@@ -2,7 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import { IconButton, Button } from '@material-ui/core';
 import LeftIcon from '@material-ui/icons/ChevronLeftOutlined';
 import RightIcon from '@material-ui/icons/ChevronRightOutlined';
-import { prevDays, nextDays, nowDay } from 'features/worktime/slice';
+import { prevDays, nextDays, nowDay } from 'store/worktime/slice';
 import { useThunkDispatch } from 'store';
 import TodayIcon from '@material-ui/icons/TodayOutlined';
 import { WorktimeDatePicker } from 'components/WorktimeDatePicker';

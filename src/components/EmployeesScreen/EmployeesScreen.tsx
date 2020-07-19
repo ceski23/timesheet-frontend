@@ -12,17 +12,17 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useThunkDispatch } from 'store';
 import {
   getUsers, setUsersFilter, changePage, removeUser,
-} from 'features/users/slice';
+} from 'store/users/slice';
 import { useSelector } from 'react-redux';
 import {
   selectUsersPagination, selectUsersStatus, selectUsersData,
-} from 'features/users/selectors';
-import { UsersFilter, User } from 'features/users/types';
+} from 'store/users/selectors';
+import { UsersFilter, User } from 'store/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { FilterChip } from 'components/FilterChip';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
-import { setScreen } from 'features/appState/slice';
+import { setScreen } from 'store/appState/slice';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
 import Notificator from 'utils/Notificator';

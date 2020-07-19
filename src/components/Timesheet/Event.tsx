@@ -8,7 +8,7 @@ import { useDateFormatter } from 'hooks/useDateFormatter';
 import { differenceInMinutes } from 'date-fns';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { useThunkDispatch } from 'store';
-import { openEventPopover } from 'features/worktime/slice';
+import { openEventPopover } from 'store/worktime/slice';
 import { Event as E } from './Content';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { ApiError } from 'api';
+import { ApiError } from 'utils/api';
 import Notificator from 'utils/Notificator';
 
 function formErrorHandler<T>(

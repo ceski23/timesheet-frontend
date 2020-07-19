@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { useMediaQuery, createMuiTheme } from '@material-ui/core';
 import { useMemo } from 'react';
-import { theme as defaultTheme } from 'theme';
+import { theme as defaultTheme } from 'utils/theme';
 
 export const useAppTheme = () => {
   const { theme: themeType } = useSelector((state: RootState) => state.preferences);

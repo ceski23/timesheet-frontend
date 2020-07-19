@@ -1,6 +1,6 @@
 import { format as formatDate } from 'date-fns';
 import { useSelector } from 'react-redux';
-import { getDateLocale, selectLanguage } from 'features/preferences/slice';
+import { getDateLocale, selectLanguage } from 'store/preferences/slice';
 
 export const useDateFormatter = () => {
   const language = useSelector(selectLanguage);

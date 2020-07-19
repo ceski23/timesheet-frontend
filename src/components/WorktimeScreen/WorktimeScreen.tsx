@@ -1,9 +1,9 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { Timesheet } from 'components/Timesheet/Timesheet';
 import { useThunkDispatch } from 'store';
-import { setScreen } from 'features/appState/slice';
+import { setScreen } from 'store/appState/slice';
 import { useSelector } from 'react-redux';
-import { selectWorktimeState, nowDay } from 'features/worktime/slice';
+import { selectWorktimeState, nowDay } from 'store/worktime/slice';
 import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Event } from 'components/Timesheet/Content';
 
