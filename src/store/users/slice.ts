@@ -1,31 +1,60 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit';
-import { createPaginationSlice } from 'shared/slices/paginationSlice';
-import { createStatusSlice, createThunk } from 'shared/slices/statusSlice';
-import store from 'store';
-import { fetchUsers, deleteUser } from './api';
 import {
-  UsersState, User, UsersFilter,
+  createSelector, createAsyncThunk, createSlice, PayloadAction, combineReducers,
+} from '@reduxjs/toolkit';
+import { RootState } from 'store';
+import { createPaginatedReducer, PaginatedSuccess } from 'store/pagination';
+import { PaginatedResponse, FindParams } from 'utils/api';
+import * as api from './api';
+import {
+  User, UsersFiltersState, UsersFilter, UsersFindParams,
 } from './types';
 
-const initialState: UsersState = {
-  users: [],
-  filter: UsersFilter.ALL,
-  query: undefined,
+const mapResponse = <T extends object>(response: PaginatedResponse<T>): PaginatedSuccess<T> => {
+  const {
+    data, totalItems, currentPage, totalPages,
+  } = response;
+  return {
+    items: data,
+    totalItems,
+    currentPage,
+    totalPages,
+  };
 };
 
 const name = 'users';
+const limit = 5;
 
-const status = createStatusSlice(name);
-const pagination = createPaginationSlice(name);
+type FetchParams = Exclude<FindParams & UsersFindParams, 'limit'>;
+export const fetchUsers = createAsyncThunk<PaginatedSuccess<User>, FetchParams>(
+  `${name}/fetch`, async params => (
+    api.fetchUsers({ ...params, limit }).then(mapResponse)
+  ),
+);
+
+export const removeUser = createAsyncThunk<void, string>(
+  `${name}/remove`, async id => api.deleteUser(id),
+);
+
+const fetchedUsers = createPaginatedReducer<User>({
+  limit,
+  types: {
+    pending: fetchUsers.pending.type,
+    fulfilled: fetchUsers.fulfilled.type,
+    rejected: fetchUsers.rejected.type,
+  },
+});
+
+
+const initialState: UsersFiltersState = {
+  filter: UsersFilter.ALL,
+  query: undefined,
+};
 
 const slice = createSlice({
   name,
   initialState,
   reducers: {
-    setUsers(state, { payload }: PayloadAction<User[]>) {
-      state.users = payload;
-    },
     setUsersFilter(state, { payload }: PayloadAction<UsersFilter>) {
       state.filter = payload;
     },
@@ -35,42 +64,27 @@ const slice = createSlice({
   },
 });
 
-export const getUsers = createThunk<User[]>(
-  status,
-  async dispatch => {
-    const { currentPage } = store.getState().users.pagination;
-    const { filter, query } = store.getState().users.data;
-    const { data, ...paginate } = await fetchUsers({
-      limit: 5,
-      page: currentPage,
-      query,
-      activated: {
-        [UsersFilter.ALL]: undefined,
-        [UsersFilter.ACTIVATED]: true,
-        [UsersFilter.DEACTIVATED]: false,
-      }[filter],
-    });
-    dispatch(slice.actions.setUsers(data));
-    dispatch(pagination.actions.updatePagination(paginate));
-    return data;
-  },
-);
-
-export const removeUser = createThunk<User[], string>(
-  status,
-  async (dispatch, id) => {
-    await deleteUser(id);
-    return dispatch(getUsers());
-  },
-);
-
 const reducer = combineReducers({
-  data: slice.reducer,
-  status: status.reducer,
-  pagination: pagination.reducer,
+  fetched: fetchedUsers,
+  filters: slice.reducer,
 });
 
-export const { setUsers, setUsersFilter, setUsersQuery } = slice.actions;
-export const { changePage } = pagination.actions;
+const getUsers = (state: RootState) => state.users.fetched;
+const getUsersFilters = (state: RootState) => state.users.filters;
+
+export const { setUsersFilter, setUsersQuery } = slice.actions;
+
+export const selectUsersData = createSelector(getUsers, users => users.items);
+export const selectUsersStatus = createSelector(getUsers, ({ error, fetching }) => ({
+  error, fetching,
+}));
+export const selectUsersPagination = createSelector(getUsers, ({
+  currentPage, totalItems, totalPages,
+}) => ({
+  limit, currentPage, totalItems, totalPages,
+}));
+
+export const selectUsersFilter = createSelector(getUsersFilters, filters => filters.filter);
+export const selectUsersQuery = createSelector(getUsersFilters, filters => filters.query);
 
 export default reducer;

@@ -6,8 +6,7 @@ export interface User {
   activated: boolean;
 }
 
-export interface UsersState {
-  users: User[];
+export interface UsersFiltersState {
   filter: UsersFilter;
   query?: string;
 }

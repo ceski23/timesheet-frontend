@@ -3,14 +3,12 @@ import {
 } from 'utils/api';
 import { User, UsersFindParams } from './types';
 
-export const fetchUsers = async (
-  params?: FindParams & UsersFindParams,
-): Promise<PaginatedResponse<User[]>> => client
-  .get('users', { params })
+export const fetchUsers = async (params?: FindParams & UsersFindParams) => client
+  .get<PaginatedResponse<User>>('admin/users', { params })
   .catch(err => { throw handleApiError(err); })
   .then(({ data }) => data);
 
-export const deleteUser = async (id: string): Promise<void> => client
-  .delete(`users/${id}`)
+export const deleteUser = async (id: string) => client
+  .delete<void>(`admin/users/${id}`)
   .catch(err => { throw handleApiError(err); })
-  .then();
+  .then(({ data }) => data);

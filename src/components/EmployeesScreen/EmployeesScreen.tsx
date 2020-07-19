@@ -3,29 +3,23 @@ import React, {
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
-  ListItemText, Grid, Avatar, CircularProgress, ListItemSecondaryAction, IconButton,
+  ListItemText, Avatar, CircularProgress, ListItemSecondaryAction, IconButton, withStyles,
 } from '@material-ui/core';
-import AllUsersIcon from '@material-ui/icons/AccountCircleOutlined';
-import ActivatedIcon from '@material-ui/icons/CheckCircleOutlined';
-import DeactivatedIcon from '@material-ui/icons/ErrorOutline';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useThunkDispatch } from 'store';
-import {
-  getUsers, setUsersFilter, changePage, removeUser,
-} from 'store/users/slice';
 import { useSelector } from 'react-redux';
-import {
-  selectUsersPagination, selectUsersStatus, selectUsersData,
-} from 'store/users/selectors';
-import { UsersFilter, User } from 'store/users/types';
+import { User } from 'store/users/types';
 import Pagination from '@material-ui/lab/Pagination';
-import { FilterChip } from 'components/FilterChip';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { setScreen } from 'store/appState/slice';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
 import Notificator from 'utils/Notificator';
+import {
+  fetchUsers, selectUsersData, selectUsersStatus,
+  selectUsersPagination, selectUsersQuery, removeUser,
+} from 'store/users/slice';
 
 const Container = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -49,22 +43,25 @@ const UsersList = styled(List)(() => ({
   flexDirection: 'column',
 }));
 
-const UsersPagination = styled(Pagination)(({ theme }) => ({
-  margin: `${theme.spacing(1)}px 0`,
-  '& .MuiPagination-ul': {
+const UsersPagination = styled(withStyles({
+  ul: {
     justifyContent: 'center',
   },
-}));
-
-const FiltersContainer = styled(Grid)(({ theme }) => ({
+})(Pagination))(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
+
+// const FiltersContainer = styled(Grid)(({ theme }) => ({
+//   margin: `${theme.spacing(1)}px 0`,
+// }));
 
 export const EmployeesScreen: FC = (): ReactElement => {
   const dispatch = useThunkDispatch();
+  const query = useSelector(selectUsersQuery);
+  const users = useSelector(selectUsersData);
+  const { fetching } = useSelector(selectUsersStatus);
   const { currentPage, totalPages } = useSelector(selectUsersPagination);
-  const { loading } = useSelector(selectUsersStatus);
-  const { filter: usersFilter, users, query: usersQuery } = useSelector(selectUsersData);
+
   const { t } = useTranslation();
   const {
     isOpen, setClose, setOpen, data,
@@ -75,28 +72,19 @@ export const EmployeesScreen: FC = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    dispatch(changePage(1));
-    dispatch(getUsers())
-      .catch(() => Notificator.error(t('employees.findError')));
-  }, [usersQuery]);
+    dispatch(fetchUsers({ page: 1, query })).catch(() => Notificator.error(t('employees.findError')));
+  }, [query]);
 
-  const filters = [
-    { filter: UsersFilter.ALL, icon: <AllUsersIcon />, label: t('employees.filters.all') },
-    { filter: UsersFilter.ACTIVATED, icon: <ActivatedIcon />, label: t('employees.filters.activated') },
-    { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: t('employees.filters.deactivated') },
-  ];
+  // const filters = [
+  //   { filter: UsersFilter.ALL, icon: <AllUsersIcon />, label: t('employees.filters.all') },
+  // eslint-disable-next-line max-len
+  //   { filter: UsersFilter.ACTIVATED, icon: <ActivatedIcon />, label: t('employees.filters.activated') },
+  // eslint-disable-next-line max-len
+  //   { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: t('employees.filters.deactivated') },
+  // ];
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
-    dispatch(changePage(value));
-    dispatch(getUsers())
-      .catch(() => Notificator.error(t('employees.findError')));
-  };
-
-  const handleChangeActivatedFilter = (filter: UsersFilter) => {
-    dispatch(setUsersFilter(filter));
-    dispatch(changePage(1));
-    dispatch(getUsers())
-      .catch(() => Notificator.error(t('employees.findError')));
+    dispatch(fetchUsers({ page: value, query })).catch(() => Notificator.error(t('employees.findError')));
   };
 
   const handleEmployeeDelete = () => {
@@ -104,36 +92,37 @@ export const EmployeesScreen: FC = (): ReactElement => {
       // eslint-disable-next-line no-underscore-dangle
       dispatch(removeUser(data._id))
         .then(() => Notificator.success(t('employees.employeeDeleted', { name: data.name })))
-        .catch(() => Notificator.error(t('employees.deleteError')));
+        .catch(() => Notificator.error(t('employees.deleteError')))
+        .then(() => dispatch(fetchUsers({ page: 1, query })));
     }
   };
 
   return (
     <Container>
-      <FiltersContainer container spacing={2}>
+      {/* <FiltersContainer container spacing={2}>
         {filters.map(({ filter, icon, label }, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <Grid item key={i}>
             <FilterChip
-              enabled={usersFilter === filter}
+              // enabled={usersFilter === filter}
               icon={icon}
               label={label}
               handleClick={() => handleChangeActivatedFilter(filter)}
             />
           </Grid>
         ))}
-      </FiltersContainer>
+      </FiltersContainer> */}
 
       <UsersList>
         <Loader
-          loading={loading}
+          loading={fetching}
           loader={(
             <SpinnerContainer>
               <CircularProgress />
             </SpinnerContainer>
           )}
         >
-          {users.map(({ name, email, ...rest }, i) => (
+          {users && users.map(({ name, email, ...rest }, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <ListItem button key={i}>
               <ListItemIcon>
@@ -154,11 +143,13 @@ export const EmployeesScreen: FC = (): ReactElement => {
         </Loader>
       </UsersList>
 
-      <UsersPagination
-        count={totalPages}
-        page={currentPage}
-        onChange={handlePageChange}
-      />
+      {currentPage && (
+        <UsersPagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      )}
 
       <ConfirmDialog
         isOpen={isOpen}

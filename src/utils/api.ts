@@ -14,7 +14,7 @@ export interface Pagination {
 }
 
 export type PaginatedResponse<T> = {
-  data: T;
+  data: T[];
 } & Pagination;
 
 export interface ApiError<T = never> {
