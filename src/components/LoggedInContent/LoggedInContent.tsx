@@ -8,7 +8,7 @@ import {
 } from 'store/preferences/slice';
 import { useTranslation } from 'react-i18next';
 import {
-  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME, ROUTE_SETTINGS,
+  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME, ROUTE_SETTINGS, ROUTE_LOGOUT,
 } from 'routes';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
@@ -16,6 +16,7 @@ import VacationIcon from '@material-ui/icons/WorkOutlineOutlined';
 import EmployeesIcon from '@material-ui/icons/PeopleAltOutlined';
 import ReportIcon from '@material-ui/icons/TimelineOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
 import {
   Root, getHeader, getDrawerSidebar, getContent,
   getSidebarTrigger,
@@ -24,7 +25,7 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { EmployeesToolbar } from 'components/EmployeesScreen';
+import { EmployeesToolbar } from 'components/employees/EmployeesToolbar';
 import { DefaultToolbar } from 'components/DefaultToolbar';
 import { ScreenType, selectScreenType } from 'store/appState/slice';
 import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
@@ -105,6 +106,7 @@ export const LoggedInContent: FC = () => {
                 <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" badge />
                 <Divider />
                 <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={ROUTE_SETTINGS} />
+                <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={ROUTE_LOGOUT} />
               </List>
             </DrawerSidebar>
 

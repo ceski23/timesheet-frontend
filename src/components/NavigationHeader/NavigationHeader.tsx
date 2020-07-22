@@ -1,14 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { FC, ReactElement, useState } from 'react';
+import React, { FC, ReactElement } from 'react';
 import {
-  Avatar, Typography, styled, IconButton, Collapse, Grid, IconButtonProps,
+  Avatar, Typography, styled, Grid,
 } from '@material-ui/core';
-import LogoutIcon from '@material-ui/icons/ExitToApp';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { useTranslation } from 'react-i18next';
-import { NavigationItem } from 'components/NavigationItem';
-import { ROUTE_LOGOUT } from 'routes';
 
 interface AvatarProps {
   collapsed?: boolean;
@@ -29,19 +24,6 @@ const Container = styled('div')(({ theme }) => ({
   transition: '0.3s',
 }));
 
-interface StyledIconButtonProps {
-  expanded: boolean;
-}
-
-const StyledIconButton = styled(({
-  expanded, ...other
-}: StyledIconButtonProps & Omit<IconButtonProps, keyof StyledIconButtonProps>) => (
-  <IconButton {...other} />
-))({
-  transition: '0.3s',
-  transform: ({ expanded }: StyledIconButtonProps) => (expanded ? 'rotate(180deg)' : 'rotate(0deg)'),
-});
-
 const Details = styled('div')({
   flex: 1,
 });
@@ -55,45 +37,18 @@ interface Props {
 
 export const NavigationHeader: FC<Props> = ({
   name, email, avatar, collapsed,
-}): ReactElement => {
-  const [expanded, setExpanded] = useState(false);
-  const { t } = useTranslation();
+}): ReactElement => (
+  <>
+    <Container>
+      <AccountAvatar alt={name} src={avatar} collapsed={collapsed} />
+      <Spacer />
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-  return (
-    <>
-      <Container>
-        <AccountAvatar alt={name} src={avatar} collapsed={collapsed} />
-        <Spacer />
-
-        <Grid container direction="row" alignItems="center">
-          <Details>
-            <Typography variant="h6" noWrap>{name}</Typography>
-            <Typography color="textSecondary" noWrap gutterBottom>{email}</Typography>
-          </Details>
-          <div>
-            <StyledIconButton
-              size="small"
-              onClick={handleExpandClick}
-              expanded={expanded}
-            >
-              <ExpandMoreIcon />
-            </StyledIconButton>
-          </div>
-        </Grid>
-      </Container>
-
-      <Collapse in={expanded} timeout="auto">
-        <NavigationItem
-          name={t('navigationBar.header.logout')}
-          icon={LogoutIcon}
-          to={ROUTE_LOGOUT}
-        />
-      </Collapse>
-
-    </>
-  );
-};
+      <Grid container direction="row" alignItems="center">
+        <Details>
+          <Typography variant="h6" noWrap>{name}</Typography>
+          <Typography color="textSecondary" noWrap gutterBottom>{email}</Typography>
+        </Details>
+      </Grid>
+    </Container>
+  </>
+);
