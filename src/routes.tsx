@@ -1,15 +1,15 @@
 import { RouteConfig } from 'react-router-config';
 import { LoginScreen } from 'components/auth/LoginScreen';
 import { ForgotPasswordScreen } from 'components/auth/ForgotPasswordScreen';
-import { Redirect } from 'react-router';
-import React from 'react';
 import { Logout } from 'components/auth/Logout';
 import { HomeScreen } from 'components/HomeScreen';
 import { NotFoundScreen } from 'components/NotFoundScreen';
-import { EmployeesScreen } from 'components/EmployeesScreen';
+import { EmployeesScreen } from 'components/employees/EmployeesScreen';
 import { WorktimeScreen } from 'components/WorktimeScreen';
 import { ResetPasswordScreen } from 'components/auth/ResetPasswordScreen';
 import { SettingsScreen } from 'components/settings/SettingsScreen';
+import { RedirecToLogin } from 'components/auth/RedirectToLogin';
+import { RedirectAfterLogin } from 'components/auth/RedirectAfterLogin';
 
 export const ROUTE_HOME = '/';
 export const ROUTE_LOGIN = '/logowanie';
@@ -45,7 +45,7 @@ export const loggedInRoutes = [
   },
   {
     path: [ROUTE_LOGIN, ROUTE_FORGOT_PASSWORD],
-    render: () => <Redirect to={ROUTE_HOME} />,
+    component: RedirectAfterLogin,
   },
   {
     component: NotFoundScreen,
@@ -66,6 +66,6 @@ export const guestRoutes: RouteConfig[] = [
     component: ResetPasswordScreen,
   },
   {
-    render: () => <Redirect to={ROUTE_LOGIN} />,
+    component: RedirecToLogin,
   },
 ];
