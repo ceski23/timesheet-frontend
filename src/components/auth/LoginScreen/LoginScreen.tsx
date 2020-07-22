@@ -50,10 +50,12 @@ const Container = styled('div')({
 
 const Desc = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
+  textAlign: 'center',
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(3),
+  // marginBottom: theme.spacing(3),
+  textAlign: 'center',
 }));
 
 export const LoginScreen: FC = () => {
@@ -90,6 +92,7 @@ export const LoginScreen: FC = () => {
             fullWidth
             color="primary"
             type="button"
+            size="small"
             style={{ marginTop: 10 }}
             component={Link}
             to={ROUTE_FORGOT_PASSWORD}
