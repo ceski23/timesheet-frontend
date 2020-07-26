@@ -8,10 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { InputAdornment } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import LockOutlined from '@material-ui/icons/LockOutlined';
+import { Stylable } from 'utils/types';
 import { loginFormSchema } from './schema';
 
-export const LoginForm: FC<FormParams<Credentials>> = ({
-  handleSubmit, initialValues, className,
+export const LoginForm: FC<FormParams<Credentials> & Stylable> = ({
+  handleSubmit, initialValues, ...props
 }) => {
   const { t } = useTranslation();
 
@@ -22,7 +23,8 @@ export const LoginForm: FC<FormParams<Credentials>> = ({
       validationSchema={loginFormSchema}
     >
       {({ isSubmitting }) => (
-        <Form style={{ display: 'flex', flexDirection: 'column' }} className={className}>
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <Form style={{ display: 'flex', flexDirection: 'column' }} {...props}>
           <FormField
             type="text"
             autoComplete="email"

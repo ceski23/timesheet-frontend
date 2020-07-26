@@ -8,10 +8,11 @@ import { FormParams } from 'shared/types';
 import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
 import { Collapse } from '@material-ui/core';
+import { Stylable } from 'utils/types';
 import { resetPasswordFormSchema } from './schema';
 import { PasswordRequirements } from '../ForgotPasswordScreen';
 
-export const ResetPasswordForm: FC<FormParams<ResetPasswordData>> = ({
+export const ResetPasswordForm: FC<FormParams<ResetPasswordData> & Stylable> = ({
   handleSubmit, initialValues, className,
 }) => {
   const { t } = useTranslation();
