@@ -14,7 +14,7 @@ export const PrimaryIcon: FC<Props & Stylable> = ({ icon: Icon, ...props }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: fade(theme.palette.primary.main, 0.3),
+      backgroundColor: fade(theme.palette.primary.main, 0.2),
       borderRadius: '50%',
       padding: theme.spacing(1),
       fontSize: '2.5rem',
