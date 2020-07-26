@@ -5,6 +5,17 @@
       "text": "Czy na pewno chcesz usunąć pracownika {{name}}?",
       "title": "Usuwanie pracownika"
     },
+    "add": {
+      "title": "Dodawanie pracownika"
+    },
+    "form": {
+      "name": "Imię i nazwisko",
+      "email": "Adres email",
+      "add": {
+        "submit": "Dodaj",
+        "loading": "Dodawanie..."
+      }
+    },
     "deleteError": "Wystąpił błąd podczas usuwania pracownika",
     "dummyButton": "Dodaj",
     "employeeDeleted": "Usunięto pracownika {{name}}",
@@ -33,7 +44,7 @@
     "forgot_password": "Zapomniałeś(aś) hasła?",
     "success_message": "Zostałeś zalogowany!",
     "title": "Logowanie",
-    "subtitle": "Witaj w aplikacji do prowadzenia ewidencji czasu pracy Timesheet. Aby korzystać z aplikacji zaloguj się na swoje konto."
+    "subtitle": "Aby korzystać z aplikacji zaloguj się na swoje konto."
   },
   "forgot_password": {
     "form": {

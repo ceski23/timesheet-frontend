@@ -18,3 +18,8 @@ export enum UsersFilter {
 export interface UsersFindParams {
   activated?: boolean;
 }
+
+export interface AddUserParams {
+  name: string;
+  email: string;
+}

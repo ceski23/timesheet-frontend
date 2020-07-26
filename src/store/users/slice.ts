@@ -4,10 +4,10 @@ import {
 } from '@reduxjs/toolkit';
 import { RootState } from 'store';
 import { createPaginatedReducer, PaginatedSuccess } from 'store/pagination';
-import { PaginatedResponse, FindParams } from 'utils/api';
+import { PaginatedResponse, FindParams, ApiError } from 'utils/api';
 import * as api from './api';
 import {
-  User, UsersFiltersState, UsersFilter, UsersFindParams,
+  User, UsersFiltersState, UsersFilter, UsersFindParams, AddUserParams,
 } from './types';
 
 const mapResponse = <T extends object>(response: PaginatedResponse<T>): PaginatedSuccess<T> => {
@@ -27,13 +27,23 @@ const limit = 5;
 
 type FetchParams = Exclude<FindParams & UsersFindParams, 'limit'>;
 export const fetchUsers = createAsyncThunk<PaginatedSuccess<User>, FetchParams>(
-  `${name}/fetch`, async params => (
-    api.fetchUsers({ ...params, limit }).then(mapResponse)
+  `${name}/fetch`, async (params, { rejectWithValue }) => (
+    api.fetchUsers({ ...params, limit })
+      .then(mapResponse)
+      .catch((err: ApiError) => rejectWithValue(err))
   ),
 );
 
 export const removeUser = createAsyncThunk<void, string>(
-  `${name}/remove`, async id => api.deleteUser(id),
+  `${name}/remove`, async (id, { rejectWithValue }) => (
+    api.deleteUser(id).catch((err: ApiError) => rejectWithValue(err))
+  ),
+);
+
+export const addUser = createAsyncThunk<User, AddUserParams>(
+  `${name}/add`, async (params, { rejectWithValue }) => (
+    api.addUser(params).catch((err: ApiError) => rejectWithValue(err))
+  ),
 );
 
 const fetchedUsers = createPaginatedReducer<User>({

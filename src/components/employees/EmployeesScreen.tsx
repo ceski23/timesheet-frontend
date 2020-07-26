@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, {
   FC, ReactElement, useEffect, ChangeEvent,
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
-  ListItemText, Avatar, CircularProgress, ListItemSecondaryAction, IconButton, withStyles,
+  ListItemText, Avatar, CircularProgress, ListItemSecondaryAction, IconButton,
+  withStyles,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useThunkDispatch } from 'store';
@@ -20,10 +22,22 @@ import {
   fetchUsers, selectUsersData, selectUsersStatus,
   selectUsersPagination, selectUsersQuery, removeUser,
 } from 'store/users/slice';
+import { gridSpacingVertical, gridSpacingHorizontal } from 'utils/styles';
+import { AddEmployeeSection } from './AddEmployeeSection';
 
-const Container = styled(Paper)(({ theme }) => ({
+const Container = styled('div')(({ theme }) => ({
+  ...gridSpacingVertical(theme.spacing(2)),
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  [theme.breakpoints.up('sm')]: {
+    ...gridSpacingHorizontal(theme.spacing(2), true),
+    flexDirection: 'row-reverse',
+  },
+}));
+
+const ListContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
-  margin: theme.spacing(2),
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
@@ -51,17 +65,12 @@ const UsersPagination = styled(withStyles({
   margin: `${theme.spacing(1)}px 0`,
 }));
 
-// const FiltersContainer = styled(Grid)(({ theme }) => ({
-//   margin: `${theme.spacing(1)}px 0`,
-// }));
-
 export const EmployeesScreen: FC = (): ReactElement => {
   const dispatch = useThunkDispatch();
   const query = useSelector(selectUsersQuery);
   const users = useSelector(selectUsersData);
   const { fetching } = useSelector(selectUsersStatus);
   const { currentPage, totalPages } = useSelector(selectUsersPagination);
-
   const { t } = useTranslation();
   const {
     isOpen, setClose, setOpen, data,
@@ -74,14 +83,6 @@ export const EmployeesScreen: FC = (): ReactElement => {
   useEffect(() => {
     dispatch(fetchUsers({ page: 1, query })).catch(() => Notificator.error(t('employees.findError')));
   }, [query]);
-
-  // const filters = [
-  //   { filter: UsersFilter.ALL, icon: <AllUsersIcon />, label: t('employees.filters.all') },
-  // eslint-disable-next-line max-len
-  //   { filter: UsersFilter.ACTIVATED, icon: <ActivatedIcon />, label: t('employees.filters.activated') },
-  // eslint-disable-next-line max-len
-  //   { filter: UsersFilter.DEACTIVATED, icon: <DeactivatedIcon />, label: t('employees.filters.deactivated') },
-  // ];
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     dispatch(fetchUsers({ page: value, query })).catch(() => Notificator.error(t('employees.findError')));
@@ -99,67 +100,59 @@ export const EmployeesScreen: FC = (): ReactElement => {
 
   return (
     <Container>
-      {/* <FiltersContainer container spacing={2}>
-        {filters.map(({ filter, icon, label }, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Grid item key={i}>
-            <FilterChip
-              // enabled={usersFilter === filter}
-              icon={icon}
-              label={label}
-              handleClick={() => handleChangeActivatedFilter(filter)}
-            />
-          </Grid>
-        ))}
-      </FiltersContainer> */}
 
-      <UsersList>
-        <Loader
-          loading={fetching}
-          loader={(
-            <SpinnerContainer>
-              <CircularProgress />
-            </SpinnerContainer>
-          )}
-        >
-          {users && users.map(({ name, email, ...rest }, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <ListItem button key={i}>
-              <ListItemIcon>
-                <Avatar>{name[0]}</Avatar>
-              </ListItemIcon>
-              <ListItemText primary={name} secondary={email} />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => setOpen({ name, email, ...rest })}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          ))}
-        </Loader>
-      </UsersList>
+      <AddEmployeeSection />
 
-      {currentPage && (
+      <ListContainer>
+        <UsersList>
+          <Loader
+            loading={fetching}
+            loader={(
+              <SpinnerContainer>
+                <CircularProgress />
+              </SpinnerContainer>
+              )}
+          >
+            {users && users.map(({ name, email, ...rest }, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <ListItem button key={i}>
+                <ListItemIcon>
+                  <Avatar>{name[0]}</Avatar>
+                </ListItemIcon>
+                <ListItemText primary={name} secondary={email} />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    onClick={() => setOpen({ name, email, ...rest })}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </Loader>
+        </UsersList>
+
+        {currentPage && (
         <UsersPagination
           count={totalPages}
           page={currentPage}
           onChange={handlePageChange}
         />
-      )}
+        )}
 
-      <ConfirmDialog
-        isOpen={isOpen}
-        onConfirm={handleEmployeeDelete}
-        confirmText={t('employees.deleteDialog.confirm')}
-        title={t('employees.deleteDialog.title')}
-        close={setClose}
-      >
-        {t('employees.deleteDialog.text', { name: data?.name })}
-      </ConfirmDialog>
+        <ConfirmDialog
+          isOpen={isOpen}
+          onConfirm={handleEmployeeDelete}
+          confirmText={t('employees.deleteDialog.confirm')}
+          title={t('employees.deleteDialog.title')}
+          close={setClose}
+        >
+          {t('employees.deleteDialog.text', { name: data?.name })}
+        </ConfirmDialog>
+
+      </ListContainer>
 
     </Container>
   );

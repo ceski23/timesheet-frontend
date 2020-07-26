@@ -28,7 +28,7 @@ export const routeUrls = {
   resetPassword: '/resetowanie-hasla',
 };
 
-export const loggedInRoutes = [
+export const loggedInRoutes: RouteConfig[] = [
   {
     path: routeUrls.home,
     exact: true,

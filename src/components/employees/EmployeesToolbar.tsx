@@ -2,12 +2,11 @@ import React, {
   FC, ReactElement, useState, ChangeEvent, useEffect,
 } from 'react';
 import {
-  styled, TextField, InputAdornment, Typography, Button,
+  styled, TextField, InputAdornment, Typography,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 import { useThunkDispatch } from 'store';
 import { useDebounce } from 'use-lodash-debounce';
-import AddIcon from '@material-ui/icons/AddOutlined';
 import { useTranslation } from 'react-i18next';
 import { setUsersQuery } from 'store/users/slice';
 
@@ -49,14 +48,6 @@ export const EmployeesToolbar: FC = (): ReactElement => {
         }}
         placeholder={t('employees.search')}
       />
-
-      <Button
-        variant="contained"
-        color="secondary"
-        startIcon={<AddIcon />}
-      >
-        {t('employees.dummyButton')}
-      </Button>
     </>
   );
 };
