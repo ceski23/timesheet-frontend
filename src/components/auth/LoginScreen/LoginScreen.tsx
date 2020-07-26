@@ -8,12 +8,12 @@ import { login } from 'store/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
-import { ROUTE_FORGOT_PASSWORD } from 'routes';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
+import { routeUrls } from 'routes';
 import { LoginForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -95,7 +95,7 @@ export const LoginScreen: FC = () => {
             size="small"
             style={{ marginTop: 10 }}
             component={Link}
-            to={ROUTE_FORGOT_PASSWORD}
+            to={routeUrls.forgotPassword}
           >
             {t('login.forgot_password')}
           </Button>

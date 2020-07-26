@@ -1,3 +1,4 @@
+import { include } from 'named-urls';
 import { RouteConfig } from 'react-router-config';
 import { LoginScreen } from 'components/auth/LoginScreen';
 import { ForgotPasswordScreen } from 'components/auth/ForgotPasswordScreen';
@@ -11,40 +12,47 @@ import { SettingsScreen } from 'components/settings/SettingsScreen';
 import { RedirecToLogin } from 'components/auth/RedirectToLogin';
 import { RedirectAfterLogin } from 'components/auth/RedirectAfterLogin';
 
-export const ROUTE_HOME = '/';
-export const ROUTE_LOGIN = '/logowanie';
-export const ROUTE_LOGOUT = '/wyloguj';
-export const ROUTE_FORGOT_PASSWORD = '/zapomnialem-hasla';
-export const ROUTE_EMPLOYEES = '/pracownicy';
-export const ROUTE_WORKTIME = '/czaspracy';
-export const ROUTE_PASSWORD_RESET = '/resetowanie-hasla';
-export const ROUTE_SETTINGS = '/ustawienia';
+export const routeUrls = {
+  // LOGGED IN
+  home: '/',
+  logout: '/wyloguj',
+  employees: include('/pracownicy', {
+    employee: ':userId',
+  }),
+  worktime: '/czas-pracy',
+  settings: '/ustawienia',
+
+  // GUEST
+  login: '/logowanie',
+  forgotPassword: '/zapomnialem-hasla',
+  resetPassword: '/resetowanie-hasla',
+};
 
 export const loggedInRoutes = [
   {
-    path: ROUTE_HOME,
+    path: routeUrls.home,
     exact: true,
     component: HomeScreen,
     routes: [],
   },
   {
-    path: ROUTE_EMPLOYEES,
+    path: String(routeUrls.employees),
     component: EmployeesScreen,
   },
   {
-    path: ROUTE_WORKTIME,
+    path: routeUrls.worktime,
     component: WorktimeScreen,
   },
   {
-    path: ROUTE_LOGOUT,
+    path: routeUrls.logout,
     component: Logout,
   },
   {
-    path: ROUTE_SETTINGS,
+    path: routeUrls.settings,
     component: SettingsScreen,
   },
   {
-    path: [ROUTE_LOGIN, ROUTE_FORGOT_PASSWORD],
+    path: [routeUrls.login, routeUrls.resetPassword],
     component: RedirectAfterLogin,
   },
   {
@@ -54,15 +62,15 @@ export const loggedInRoutes = [
 
 export const guestRoutes: RouteConfig[] = [
   {
-    path: ROUTE_LOGIN,
+    path: routeUrls.login,
     component: LoginScreen,
   },
   {
-    path: ROUTE_FORGOT_PASSWORD,
+    path: routeUrls.forgotPassword,
     component: ForgotPasswordScreen,
   },
   {
-    path: ROUTE_PASSWORD_RESET,
+    path: routeUrls.resetPassword,
     component: ResetPasswordScreen,
   },
   {

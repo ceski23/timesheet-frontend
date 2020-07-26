@@ -1,14 +1,14 @@
 import React from 'react';
 import { Redirect, useLocation } from 'react-router';
-import { ROUTE_LOGIN, ROUTE_LOGOUT } from 'routes';
+import { routeUrls } from 'routes';
 
 export const RedirecToLogin = () => {
   const location = useLocation();
-  const badRoutes = [ROUTE_LOGIN, ROUTE_LOGOUT];
+  const badRoutes = [routeUrls.login, routeUrls.logout];
 
   return (
     <Redirect to={{
-      pathname: ROUTE_LOGIN,
+      pathname: routeUrls.login,
       state: { nextLocation: (badRoutes.includes(location.pathname)) ? null : location.pathname },
     }}
     />

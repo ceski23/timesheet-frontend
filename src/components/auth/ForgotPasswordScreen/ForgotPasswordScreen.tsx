@@ -12,9 +12,9 @@ import { useThunkDispatch } from 'store';
 import { requestPasswordReset } from 'store/auth/slice';
 import formErrorHandler from 'utils/formErrorHandler';
 import Notificator from 'utils/Notificator';
-import { ROUTE_HOME } from 'routes';
 import { FormikHelpers } from 'formik';
 import { ApiError } from 'utils/api';
+import { routeUrls } from 'routes';
 import { ForgotPasswordForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -71,7 +71,7 @@ export const ForgotPasswordScreen: FC = () => {
       Notificator.success(t('forgot_password.success'), {
         autoHideDuration: 10000,
       });
-      history.replace(ROUTE_HOME);
+      history.replace(routeUrls.home);
     } else {
       formErrorHandler(result.payload as ApiError, actions.setErrors);
     }

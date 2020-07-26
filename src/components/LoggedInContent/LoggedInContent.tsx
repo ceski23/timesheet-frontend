@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -7,14 +8,9 @@ import {
   getDateLocale, selectLanguage,
 } from 'store/preferences/slice';
 import { useTranslation } from 'react-i18next';
-import {
-  loggedInRoutes, ROUTE_HOME, ROUTE_EMPLOYEES, ROUTE_WORKTIME, ROUTE_SETTINGS, ROUTE_LOGOUT,
-} from 'routes';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
-import VacationIcon from '@material-ui/icons/WorkOutlineOutlined';
 import EmployeesIcon from '@material-ui/icons/PeopleAltOutlined';
-import ReportIcon from '@material-ui/icons/TimelineOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import {
@@ -32,6 +28,7 @@ import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { selectUser } from 'store/auth/slice';
+import { routeUrls, loggedInRoutes } from 'routes';
 import layoutScheme from './layoutScheme';
 
 
@@ -99,14 +96,14 @@ export const LoggedInContent: FC = () => {
               <Divider />
 
               <List component="nav">
-                <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={ROUTE_HOME} />
-                <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={ROUTE_EMPLOYEES} />
-                <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={ROUTE_WORKTIME} />
-                <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to="wadawd" />
-                <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to="wadawd" badge />
+                <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} />
+                <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} />
+                <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} />
+                {/* <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to={} /> */}
+                {/* <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to={} badge /> */}
                 <Divider />
-                <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={ROUTE_SETTINGS} />
-                <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={ROUTE_LOGOUT} />
+                <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} />
+                <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} />
               </List>
             </DrawerSidebar>
 
