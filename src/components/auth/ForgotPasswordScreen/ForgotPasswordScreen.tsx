@@ -10,11 +10,11 @@ import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
 import { requestPasswordReset } from 'store/auth/slice';
-import formErrorHandler from 'utils/formErrorHandler';
 import Notificator from 'utils/Notificator';
 import { FormikHelpers } from 'formik';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
+import { errorHandler } from 'utils/errorHandlers';
 import { ForgotPasswordForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -72,9 +72,7 @@ export const ForgotPasswordScreen: FC = () => {
         autoHideDuration: 10000,
       });
       history.replace(routeUrls.home);
-    } else {
-      formErrorHandler(result.payload as ApiError, actions.setErrors);
-    }
+    } else errorHandler(result.payload as ApiError, actions.setErrors);
   };
 
   const handleBackClick = () => {

@@ -1,5 +1,4 @@
 import Axios, { AxiosError } from 'axios';
-import Notificator from 'utils/Notificator';
 
 export interface FindParams {
   limit?: number;
@@ -17,13 +16,13 @@ export type PaginatedResponse<T> = {
   data: T[];
 } & Pagination;
 
-export interface ApiError<T = never> {
+export type ApiError<T = never> = Error | {
   name: string;
   statusCode: number;
   data: {
     [K in keyof T]: string;
   } | string;
-}
+};
 
 
 export const client = Axios.create({
@@ -36,22 +35,12 @@ export const client = Axios.create({
 });
 
 client.interceptors.response.use(
-  response => response,
-  error => {
-    if (
-      !error
-      || (error.response && error.response.status === 500)
-      || !error.response
-    ) {
-      Notificator.error('Wystąpił błąd serwera, spróbuj ponownie później');
-      return Promise.reject(Error('Wystąpił błąd serwera, spróbuj ponownie później'));
-    }
-    return Promise.reject(error);
+  // Automatically unwrap response data
+  response => response.data,
+  (error: AxiosError) => {
+    // client received an error response (5xx, 4xx)
+    if (error.response) return Promise.reject(error.response.data);
+    // client never received a response, or request never left
+    return Promise.reject(Error('Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później'));
   },
 );
-
-export function handleApiError<T>(error: object): ApiError<T> {
-  const err = error as AxiosError<ApiError<T>>;
-  if (err.response) return err.response.data;
-  throw err;
-}

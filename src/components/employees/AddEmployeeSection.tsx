@@ -12,8 +12,8 @@ import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { FormikHelpers } from 'formik';
-import formErrorHandler from 'utils/formErrorHandler';
 import { ApiError } from 'utils/api';
+import { errorHandler } from 'utils/errorHandlers';
 import { AddEmployeeForm } from './AddEmployeeForm';
 
 const StyledEmployeeForm = styled(AddEmployeeForm)({
@@ -31,9 +31,7 @@ export const AddEmployeeSection = () => {
       Notificator.success(t('employees.employeeAdded', { name: values.name }));
       dispatch(fetchUsers({ page: 1, query }));
       actions.resetForm();
-    } else {
-      formErrorHandler(result.payload as ApiError, actions.setErrors);
-    }
+    } else errorHandler(result.payload as ApiError, actions.setErrors);
   };
 
   const initialValues = {

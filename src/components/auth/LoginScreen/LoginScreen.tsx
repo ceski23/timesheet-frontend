@@ -5,7 +5,6 @@ import {
 import { Credentials } from 'store/auth/types';
 import { FormikHelpers } from 'formik';
 import { login } from 'store/auth/slice';
-import formErrorHandler from 'utils/formErrorHandler';
 import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
 import Notificator from 'utils/Notificator';
@@ -14,6 +13,7 @@ import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
+import { errorHandler } from 'utils/errorHandlers';
 import { LoginForm } from '.';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -53,10 +53,9 @@ const Desc = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-const Title = styled(Typography)(({ theme }) => ({
-  // marginBottom: theme.spacing(3),
+const Title = styled(Typography)({
   textAlign: 'center',
-}));
+});
 
 export const LoginScreen: FC = () => {
   const dispatch = useThunkDispatch();
@@ -66,9 +65,7 @@ export const LoginScreen: FC = () => {
     const result = await dispatch(login(values));
     if (login.fulfilled.match(result)) {
       Notificator.success(t('login.success_message'));
-    } else {
-      formErrorHandler(result.payload as ApiError, actions.setErrors);
-    }
+    } else errorHandler(result.payload as ApiError, actions.setErrors);
   };
 
   const loginFormInitialValues = {

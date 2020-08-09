@@ -9,12 +9,12 @@ import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
 import { resetPassword } from 'store/auth/slice';
-import formErrorHandler from 'utils/formErrorHandler';
 import Notificator from 'utils/Notificator';
 import { FormikHelpers } from 'formik';
 import { useURLQuery } from 'hooks/useURLQuery';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
+import { errorHandler } from 'utils/errorHandlers';
 import { ResetPasswordForm } from './ResetPasswordForm';
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -69,9 +69,7 @@ export const ResetPasswordScreen: FC = () => {
         autoHideDuration: 5000,
       });
       history.replace(routeUrls.home);
-    } else {
-      formErrorHandler(result.payload as ApiError, actions.setErrors);
-    }
+    } else errorHandler(result.payload as ApiError, actions.setErrors);
   };
 
   const formInitialValues = {

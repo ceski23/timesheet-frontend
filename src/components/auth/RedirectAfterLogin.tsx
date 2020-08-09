@@ -7,9 +7,9 @@ interface LocationState {
 }
 
 export const RedirectAfterLogin = () => {
-  const location = useLocation<LocationState>();
+  const location = useLocation<LocationState | undefined>();
 
   return (
-    <Redirect to={location.state.nextLocation || routeUrls.home} />
+    <Redirect to={location.state?.nextLocation || routeUrls.home} />
   );
 };

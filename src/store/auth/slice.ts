@@ -5,7 +5,6 @@ import {
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
 import { User } from 'store/users/types';
-import { ApiError } from 'utils/api';
 import { RootState } from 'store';
 import * as API from './api';
 import {
@@ -21,17 +20,29 @@ const initialState: AuthState = {
 
 const name = 'auth';
 
-export const requestPasswordReset = createAsyncThunk(`${name}/requestPasswordReset`, API.requestPasswordReset);
+export const requestPasswordReset = createAsyncThunk(
+  `${name}/requestPasswordReset`,
+  API.requestPasswordReset,
+);
 
-export const resetPassword = createAsyncThunk(`${name}/resetPassword`, async (data: ResetPasswordData, { rejectWithValue }) => (
-  API.resetPassword(data).catch((err: ApiError) => rejectWithValue(err))
-));
+export const resetPassword = createAsyncThunk(
+  `${name}/resetPassword`,
+  async (data: ResetPasswordData, { rejectWithValue }) => (
+    API.resetPassword(data).catch(err => rejectWithValue(err))
+  ),
+);
 
-export const login = createAsyncThunk(`${name}/login`, async (credentials: Credentials, { rejectWithValue }) => (
-  API.loginUser(credentials).catch((err: ApiError) => rejectWithValue(err))
-));
+export const login = createAsyncThunk(
+  `${name}/login`,
+  async (credentials: Credentials, { rejectWithValue }) => (
+    API.loginUser(credentials).catch(err => rejectWithValue(err))
+  ),
+);
 
-export const logout = createAsyncThunk(`${name}/logout`, API.logoutUser);
+export const logout = createAsyncThunk(
+  `${name}/logout`,
+  API.logoutUser,
+);
 
 const slice = createSlice({
   name,
