@@ -55,7 +55,6 @@ const fetchedUsers = createPaginatedReducer<User>({
   },
 });
 
-
 const initialState: UsersFiltersState = {
   filter: UsersFilter.ALL,
   query: undefined,

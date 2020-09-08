@@ -15,9 +15,9 @@ export interface Paginated<T> {
   error: boolean;
   limit: number;
   items: T[] | null;
-  totalItems: number | null;
-  currentPage: number | null;
-  totalPages: number | null;
+  totalItems: number | undefined;
+  currentPage: number | undefined;
+  totalPages: number | undefined;
 }
 
 export interface PaginatedSuccess<T> {
@@ -27,15 +27,14 @@ export interface PaginatedSuccess<T> {
   totalPages: number;
 }
 
-
 export const getDefaultPaginatedState = <T extends object>(limit: number): Paginated<T> => ({
   fetching: false,
   error: false,
   limit,
-  totalItems: null,
+  totalItems: undefined,
   items: null,
-  currentPage: null,
-  totalPages: null,
+  currentPage: undefined,
+  totalPages: undefined,
 });
 
 export const createPaginatedReducer = <T extends object>({ limit, types }: PaginateConfig) => (

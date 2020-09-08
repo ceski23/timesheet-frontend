@@ -29,7 +29,6 @@ import { routeUrls, loggedInRoutes } from 'routes';
 import layoutScheme from './layoutScheme';
 import { ToolbarRenderer } from './ToolbarRenderer';
 
-
 // #region styles
 const Content = styled(getContent(styled))(({ theme }) => ({
   display: 'flex',

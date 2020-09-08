@@ -24,7 +24,6 @@ export type ApiError<T = never> = Error | {
   } | string;
 };
 
-
 export const client = Axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {

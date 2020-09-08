@@ -25,7 +25,6 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-
 export const Timesheet: FC<Props> = ({
   firstDate,
   lastDate,
