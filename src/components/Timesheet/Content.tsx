@@ -22,6 +22,7 @@ interface Props {
 
 const CELL_HEIGHT = 48;
 
+// #region styles
 const Times = styled('div')({
   display: 'grid',
   gridTemplateRows: 'repeat(24, 1fr)',
@@ -49,6 +50,7 @@ const Grid = styled('div')({
   display: 'grid',
   flex: 1,
 });
+// #endregion
 
 export const Content: FC<Props> = ({
   startTime, interval, numOfDays, events,

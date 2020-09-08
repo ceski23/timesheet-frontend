@@ -10,10 +10,12 @@ import { selectWorktimeState, setDays, getFirstDate } from 'store/worktime/slice
 import { useThunkDispatch } from 'store';
 import { getDateLocale, selectLanguage } from 'store/preferences/slice';
 
+// #region styles
 const Container = styled(Button)({
   margin: '0 8px',
   textTransform: 'initial',
 });
+// #endregion
 
 export const WorktimeDatePicker: FC = (): ReactElement => {
   const { format } = useDateFormatter();

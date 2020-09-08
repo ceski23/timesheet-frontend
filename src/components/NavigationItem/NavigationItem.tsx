@@ -14,6 +14,7 @@ interface Props {
   badge?: boolean;
 }
 
+// #region styles
 const StyledLink = styled(RouterLink)(({ theme }) => ({
   margin: theme.spacing(1),
   padding: '4px 8px',
@@ -24,6 +25,7 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
     backgroundColor: fade(theme.palette.primary.main, 0.1),
   },
 }));
+// #endregion
 
 export const NavigationItem: FC<Props> = ({
   name, icon: Icon, to, badge,

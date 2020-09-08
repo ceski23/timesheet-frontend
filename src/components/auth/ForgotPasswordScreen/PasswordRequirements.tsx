@@ -5,11 +5,13 @@ import {
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 
+// #region styles
 const Text = styled(Typography)(() => ({
   display: 'flex',
   alignItems: 'center',
   margin: '10px 0px',
 }));
+// #endregion
 
 const Requirement: FC<({
   regex: RegExp;

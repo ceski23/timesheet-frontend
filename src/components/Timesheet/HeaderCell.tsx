@@ -8,6 +8,7 @@ interface Props {
   date: Date;
 }
 
+// #region styles
 const Container = styled('div')({
   height: 48,
   display: 'flex',
@@ -16,6 +17,7 @@ const Container = styled('div')({
   flexDirection: 'column',
   margin: 10,
 });
+// #endregion
 
 export const HeaderCell: FC<Props> = ({ date }): ReactElement => {
   const { format } = useDateFormatter();

@@ -9,6 +9,7 @@ interface AvatarProps {
   collapsed?: boolean;
 }
 
+// #region styles
 const AccountAvatar = styled(({ collapsed, ...props }) => <Avatar {...props} />)({
   width: ({ collapsed }: AvatarProps) => (collapsed ? 32 : 48),
   height: ({ collapsed }: AvatarProps) => (collapsed ? 32 : 48),
@@ -27,6 +28,7 @@ const Container = styled('div')(({ theme }) => ({
 const Details = styled('div')({
   flex: 1,
 });
+// #endregion
 
 interface Props {
   name?: string;

@@ -7,6 +7,7 @@ interface Props {
   text: string;
 }
 
+// #region styles
 const Container = styled('div')({
   display: 'flex',
   justifyContent: 'center',
@@ -16,6 +17,7 @@ const Container = styled('div')({
 const StyledIcon = styled(PrimaryIcon)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
+// #endregion
 
 export const TitleWithIcon: FC<Props> = ({ icon, text }) => (
   <Container>

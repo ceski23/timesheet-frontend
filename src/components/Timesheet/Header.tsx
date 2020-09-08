@@ -9,6 +9,7 @@ interface Props {
   lastDate: Date;
 }
 
+// #region styles
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Container = styled(Paper)(({ theme }) => ({
   display: 'grid',
@@ -19,6 +20,7 @@ const Container = styled(Paper)(({ theme }) => ({
   zIndex: 1,
   paddingRight: 16,
 }));
+// #endregion
 
 export const Header: FC<Props> = ({ firstDate, lastDate }): ReactElement => {
   const { ref, position } = useParentScroll();

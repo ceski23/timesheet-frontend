@@ -21,17 +21,16 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { EmployeesToolbar } from 'components/employees/EmployeesToolbar';
-import { DefaultToolbar } from 'components/DefaultToolbar';
-import { ScreenType, selectScreenType } from 'store/appState/slice';
-import { WorktimeToolbar } from 'components/WorktimeScreen/WorktimeToolbar';
+import { selectScreenType } from 'store/appState/slice';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { selectUser } from 'store/auth/slice';
 import { routeUrls, loggedInRoutes } from 'routes';
 import layoutScheme from './layoutScheme';
+import { ToolbarRenderer } from './ToolbarRenderer';
 
 
+// #region styles
 const Content = styled(getContent(styled))(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -43,6 +42,7 @@ const Content = styled(getContent(styled))(({ theme }) => ({
 const AppToolbar = styled(Toolbar)(({ theme }) => ({
   background: theme.palette.background.paper,
 }));
+// #endregion
 
 const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
@@ -55,22 +55,6 @@ export const LoggedInContent: FC = () => {
   const user = useSelector(selectUser);
   const screen = useSelector(selectScreenType);
 
-  const renderToolbarContent = (screenId: ScreenType) => {
-    switch (screenId) {
-      case 'employees':
-        return <EmployeesToolbar />;
-
-      case 'notfound':
-        return <DefaultToolbar title={t('notfound.title')} />;
-
-      case 'worktime':
-        return <WorktimeToolbar />;
-
-      default:
-        return <DefaultToolbar title="Timesheet" />;
-    }
-  };
-
   return (
     <Root scheme={layoutScheme()} theme={theme}>
       {({ state: { sidebar } }) => (
@@ -82,7 +66,7 @@ export const LoggedInContent: FC = () => {
             <Header elevation={1}>
               <AppToolbar>
                 <SidebarTrigger sidebarId="primarySidebar" />
-                {renderToolbarContent(screen)}
+                <ToolbarRenderer screenId={screen} />
               </AppToolbar>
             </Header>
 

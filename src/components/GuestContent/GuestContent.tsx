@@ -3,6 +3,7 @@ import { guestRoutes } from 'routes';
 import { renderRoutes } from 'react-router-config';
 import { styled } from '@material-ui/core';
 
+// #region styles
 const Container = styled('div')(({ theme }) => ({
   width: '100vw',
   height: '100vh',
@@ -12,6 +13,7 @@ const Container = styled('div')(({ theme }) => ({
   alignItems: 'center',
   background: theme.palette.background.default,
 }));
+// #endregion
 
 export const GuestContent: FC = () => (
   <Container>

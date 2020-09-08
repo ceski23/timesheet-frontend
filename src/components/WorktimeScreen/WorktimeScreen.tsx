@@ -1,18 +1,18 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { Timesheet } from 'components/Timesheet/Timesheet';
 import { useThunkDispatch } from 'store';
-import { setScreen } from 'store/appState/slice';
 import { useSelector } from 'react-redux';
 import { selectWorktimeState, nowDay } from 'store/worktime/slice';
 import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Event } from 'components/Timesheet/Content';
+import { useAppScreen } from 'hooks/useAppScreen';
 
 export const WorktimeScreen: FC = (): ReactElement => {
+  useAppScreen('worktime');
   const dispatch = useThunkDispatch();
   const { firstDay, numOfDays, lastDay } = useSelector(selectWorktimeState);
 
   useEffect(() => {
-    dispatch(setScreen('worktime'));
     dispatch(nowDay());
   }, []);
 

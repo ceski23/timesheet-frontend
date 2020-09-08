@@ -10,13 +10,14 @@ import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
 import { resetPassword } from 'store/auth/slice';
 import Notificator from 'utils/Notificator';
-import { FormikHelpers } from 'formik';
 import { useURLQuery } from 'hooks/useURLQuery';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
+import { FormSubmitFunction } from 'utils/types';
 import { ResetPasswordForm } from './ResetPasswordForm';
 
+// #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
   width: '30%',
@@ -48,6 +49,7 @@ const Container = styled('div')({
   justifyContent: 'space-evenly',
   alignItems: 'center',
 });
+// #endregion
 
 export const ResetPasswordScreen: FC = () => {
   const history = useHistory();
@@ -60,9 +62,7 @@ export const ResetPasswordScreen: FC = () => {
     setToken(query.get('token') || '');
   }, [query]);
 
-  const handleResetPassword = async (
-    values: ResetPasswordData, actions: FormikHelpers<ResetPasswordData>,
-  ) => {
+  const handleResetPassword: FormSubmitFunction<ResetPasswordData> = async (values, actions) => {
     const result = await dispatch(resetPassword(values));
     if (resetPassword.fulfilled.match(result)) {
       Notificator.success(t('reset_password.reset_success'), {

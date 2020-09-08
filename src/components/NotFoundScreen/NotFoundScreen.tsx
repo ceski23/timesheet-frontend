@@ -1,10 +1,10 @@
-import React, { FC, ReactElement, useEffect } from 'react';
-import { useThunkDispatch } from 'store';
-import { setScreen } from 'store/appState/slice';
+import React, { FC, ReactElement } from 'react';
 import { Typography, Button, styled } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
+import { useAppScreen } from 'hooks/useAppScreen';
 
+// #region styles
 const StyledButton = styled(Button)({
   marginTop: 64,
 });
@@ -21,15 +21,12 @@ const Heading = styled(Typography)({
   fontSize: 136,
   fontWeight: 500,
 });
+// #endregion
 
 export const NotFoundScreen: FC = (): ReactElement => {
-  const dispatch = useThunkDispatch();
+  useAppScreen('notfound');
   const { t } = useTranslation();
   const history = useHistory();
-
-  useEffect(() => {
-    dispatch(setScreen('notfound'));
-  }, []);
 
   const handleClickBack = () => {
     history.goBack();

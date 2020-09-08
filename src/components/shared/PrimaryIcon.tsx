@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const PrimaryIcon: FC<Props & Stylable> = ({ icon: Icon, ...props }) => {
+  // #region styles
   const MyIcon = withStyles(theme => ({
     root: {
       display: 'flex',
@@ -20,6 +21,7 @@ export const PrimaryIcon: FC<Props & Stylable> = ({ icon: Icon, ...props }) => {
       fontSize: '2.5rem',
     },
   }))(Icon);
+  // #endregion
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading

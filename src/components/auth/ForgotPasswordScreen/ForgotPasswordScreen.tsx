@@ -11,12 +11,13 @@ import { useTranslation } from 'react-i18next';
 import { useThunkDispatch } from 'store';
 import { requestPasswordReset } from 'store/auth/slice';
 import Notificator from 'utils/Notificator';
-import { FormikHelpers } from 'formik';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
+import { FormSubmitFunction } from 'utils/types';
 import { ForgotPasswordForm } from '.';
 
+// #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
   width: '30%',
@@ -57,15 +58,14 @@ const Desc = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   marginTop: theme.spacing(1),
 }));
+// #endregion
 
 export const ForgotPasswordScreen: FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const dispatch = useThunkDispatch();
 
-  const handleForgotPassword = async (
-    values: ForgotPasswordData, actions: FormikHelpers<ForgotPasswordData>,
-  ) => {
+  const handleForgotPassword: FormSubmitFunction<ForgotPasswordData> = async (values, actions) => {
     const result = await dispatch(requestPasswordReset(values));
     if (requestPasswordReset.fulfilled.match(result)) {
       Notificator.success(t('forgot_password.success'), {

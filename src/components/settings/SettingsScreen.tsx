@@ -1,6 +1,4 @@
-import React, { FC, ReactElement, useEffect } from 'react';
-import { useThunkDispatch } from 'store';
-import { setScreen } from 'store/appState/slice';
+import React, { FC, ReactElement } from 'react';
 import {
   styled, Typography, useTheme, useMediaQuery, withStyles,
 } from '@material-ui/core';
@@ -10,9 +8,11 @@ import AccordionSummary from '@material-ui/core/ExpansionPanelSummary';
 import AccordionDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { LanguageSelector } from 'components/LanguageSelector';
+import { useAppScreen } from 'hooks/useAppScreen';
 import { ThemeChooser } from './ThemeChooser';
 import { SettingsSection } from './SettingsSection';
 
+// #region styles
 const Container = styled('div')(({ theme }) => ({
   margin: `${theme.spacing(2)}px 0px`,
   flex: 1,
@@ -27,16 +27,13 @@ const Summary = withStyles({
     alignItems: 'center',
   },
 })(AccordionSummary);
+// #endregion
 
 export const SettingsScreen: FC = (): ReactElement => {
-  const dispatch = useThunkDispatch();
+  useAppScreen('settings');
   const { t } = useTranslation();
   const theme = useTheme();
   const upMedium = useMediaQuery(theme.breakpoints.up('md'));
-
-  useEffect(() => {
-    dispatch(setScreen('settings'));
-  }, []);
 
   return (
     <Container>

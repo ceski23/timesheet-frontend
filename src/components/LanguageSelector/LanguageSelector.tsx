@@ -8,6 +8,7 @@ import { MenuItem, Select, styled } from '@material-ui/core';
 import { useThunkDispatch } from 'store';
 import ReactCountryFlag from 'react-country-flag';
 
+// #region styles
 const StyledSelect = styled(Select)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
 }));
@@ -16,6 +17,7 @@ const FlagIcon = styled(ReactCountryFlag)(({ theme }) => ({
   width: 24,
   marginRight: theme.spacing(1),
 }));
+// #endregion
 
 export const LanguageSelector: FC = (): ReactElement => {
   const language = useSelector(selectLanguage);

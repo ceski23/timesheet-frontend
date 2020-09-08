@@ -16,12 +16,14 @@ interface Props {
   events: Event[];
 }
 
+// #region styles
 const Container = styled('div')(() => ({
   display: 'flex',
   flexDirection: 'column',
   paddingBottom: 16,
   overflow: 'auto',
 }));
+// #endregion
 
 
 export const Timesheet: FC<Props> = ({

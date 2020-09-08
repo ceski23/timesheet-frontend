@@ -14,7 +14,6 @@ import { User } from 'store/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
-import { setScreen } from 'store/appState/slice';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
 import Notificator from 'utils/Notificator';
@@ -23,8 +22,10 @@ import {
   selectUsersPagination, selectUsersQuery, removeUser,
 } from 'store/users/slice';
 import { gridSpacingVertical, gridSpacingHorizontal } from 'utils/styles';
+import { useAppScreen } from 'hooks/useAppScreen';
 import { AddEmployeeSection } from './AddEmployeeSection';
 
+// #region styles
 const Container = styled('div')(({ theme }) => ({
   ...gridSpacingVertical(theme.spacing(2)),
   display: 'flex',
@@ -64,8 +65,10 @@ const UsersPagination = styled(withStyles({
 })(Pagination))(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
+// #endregion
 
 export const EmployeesScreen: FC = (): ReactElement => {
+  useAppScreen('employees');
   const dispatch = useThunkDispatch();
   const query = useSelector(selectUsersQuery);
   const users = useSelector(selectUsersData);
@@ -75,10 +78,6 @@ export const EmployeesScreen: FC = (): ReactElement => {
   const {
     isOpen, setClose, setOpen, data,
   } = useDialog<User>();
-
-  useEffect(() => {
-    dispatch(setScreen('employees'));
-  }, []);
 
   useEffect(() => {
     dispatch(fetchUsers({ page: 1, query })).catch(() => Notificator.error(t('employees.findError')));

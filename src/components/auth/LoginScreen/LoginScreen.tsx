@@ -3,7 +3,6 @@ import {
   CardContent, Typography, styled, Card, Button,
 } from '@material-ui/core';
 import { Credentials } from 'store/auth/types';
-import { FormikHelpers } from 'formik';
 import { login } from 'store/auth/slice';
 import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
@@ -14,8 +13,10 @@ import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
+import { FormSubmitFunction } from 'utils/types';
 import { LoginForm } from '.';
 
+// #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
   width: '30%',
@@ -56,12 +57,13 @@ const Desc = styled(Typography)(({ theme }) => ({
 const Title = styled(Typography)({
   textAlign: 'center',
 });
+// #endregion
 
 export const LoginScreen: FC = () => {
   const dispatch = useThunkDispatch();
   const { t } = useTranslation();
 
-  const handleSubmit = async (values: Credentials, actions: FormikHelpers<Credentials>) => {
+  const handleSubmit: FormSubmitFunction<Credentials> = async (values, actions) => {
     const result = await dispatch(login(values));
     if (login.fulfilled.match(result)) {
       Notificator.success(t('login.success_message'));

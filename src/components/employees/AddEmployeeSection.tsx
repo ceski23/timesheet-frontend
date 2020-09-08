@@ -11,21 +11,23 @@ import { addUser, selectUsersQuery, fetchUsers } from 'store/users/slice';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { FormikHelpers } from 'formik';
 import { ApiError } from 'utils/api';
 import { errorHandler } from 'utils/errorHandlers';
+import { FormSubmitFunction } from 'utils/types';
 import { AddEmployeeForm } from './AddEmployeeForm';
 
+// #region styles
 const StyledEmployeeForm = styled(AddEmployeeForm)({
   flex: 1,
 });
+// #endregion
 
 export const AddEmployeeSection = () => {
   const dispatch = useThunkDispatch();
   const query = useSelector(selectUsersQuery);
   const { t } = useTranslation();
 
-  const handleSubmit = async (values: AddUserParams, actions: FormikHelpers<AddUserParams>) => {
+  const handleSubmit: FormSubmitFunction<AddUserParams> = async (values, actions) => {
     const result = await dispatch(addUser(values));
     if (addUser.fulfilled.match(result)) {
       Notificator.success(t('employees.employeeAdded', { name: values.name }));
@@ -38,6 +40,7 @@ export const AddEmployeeSection = () => {
     name: '',
     email: '',
   };
+
   return (
     <div>
       <ExpansionPanel>

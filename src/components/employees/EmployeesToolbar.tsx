@@ -10,9 +10,11 @@ import { useDebounce } from 'use-lodash-debounce';
 import { useTranslation } from 'react-i18next';
 import { setUsersQuery } from 'store/users/slice';
 
+// #region styles
 const SearchBox = styled(TextField)(({ theme }) => ({
   margin: `0 ${theme.spacing(3)}px`,
 }));
+// #endregion
 
 export const EmployeesToolbar: FC = (): ReactElement => {
   const dispatch = useThunkDispatch();

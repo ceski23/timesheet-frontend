@@ -17,6 +17,7 @@ interface Props {
   event: E;
 }
 
+// #region styles
 const Container = styled('div')({
   paddingBottom: 4,
   paddingLeft: 4,
@@ -44,6 +45,7 @@ const Title = styled(Typography)({
 const Text = styled(Title)({
   marginTop: 4,
 });
+// #endregion
 
 export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
   const {

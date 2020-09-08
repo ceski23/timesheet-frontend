@@ -15,6 +15,7 @@ interface Props {
   close: () => void;
 }
 
+// #region styles
 const Container = styled(Paper)({
   minWidth: 400,
   maxWidth: 500,
@@ -55,6 +56,7 @@ const ColoredBox = styled('div')({
 const CloseButton = styled(IconButton)({
   marginLeft: 24,
 });
+// #endregion
 
 export const EventInfo: FC<Props> = ({ event, close }) => {
   const { format } = useDateFormatter();

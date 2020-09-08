@@ -11,6 +11,7 @@ interface Props {
   interval: number;
 }
 
+// #region styles
 // eslint-disable-next-line react/jsx-props-no-spreading
 const Cell = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -30,6 +31,7 @@ const Container = styled('div')(({ theme }) => ({
   },
   position: 'relative',
 }));
+// #endregion
 
 export const Day: FC<Props> = ({
   times, height, events, interval,

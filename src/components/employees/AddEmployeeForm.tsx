@@ -10,6 +10,7 @@ import { Button, styled } from '@material-ui/core';
 import { Stylable } from 'utils/types';
 import { addEmployeeSchema } from './schema';
 
+// #region styles
 const StyledForm = styled(Form)({
   display: 'flex',
   flexDirection: 'column',
@@ -21,6 +22,7 @@ const StyledForm = styled(Form)({
 const SubmitButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
+// #endregion
 
 export const AddEmployeeForm: FC<FormParams<AddUserParams> & Stylable> = ({
   handleSubmit, initialValues, ...props
