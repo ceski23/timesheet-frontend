@@ -8,13 +8,16 @@ import { CssBaseline } from '@material-ui/core';
 import store, { persistor } from 'store';
 import 'utils/i18n';
 import { BrowserRouter } from 'react-router-dom';
+import { PreferencesProvider } from 'contexts/preferences';
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <CssBaseline />
-        <App />
+        <PreferencesProvider>
+          <App />
+        </PreferencesProvider>
       </BrowserRouter>
     </PersistGate>
   </Provider>,

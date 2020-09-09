@@ -4,11 +4,11 @@ import {
 } from '@material-ui/core';
 import { useDialog } from 'hooks/useDialog';
 import { DatePicker } from '@material-ui/pickers';
-import { useDateFormatter } from 'hooks/useDateFormatter';
+import { useDateFormatter, getDateLocale } from 'hooks/useDateFormatter';
 import { useSelector } from 'react-redux';
 import { selectWorktimeState, setDays, getFirstDate } from 'store/worktime/slice';
 import { useThunkDispatch } from 'store';
-import { getDateLocale, selectLanguage } from 'store/preferences/slice';
+import { usePreferences } from 'contexts/preferences';
 
 // #region styles
 const Container = styled(Button)({
@@ -20,7 +20,7 @@ const Container = styled(Button)({
 export const WorktimeDatePicker: FC = (): ReactElement => {
   const { format } = useDateFormatter();
   const { firstDay, lastDay, numOfDays } = useSelector(selectWorktimeState);
-  const language = useSelector(selectLanguage);
+  const { language } = usePreferences();
   const {
     isOpen, setClose, setOpen, data,
   } = useDialog<Element>();

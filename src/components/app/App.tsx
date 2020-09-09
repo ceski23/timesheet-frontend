@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core';
 import { SnackbarProvider } from 'notistack';
 import { SnackbarUtilsConfigurator } from 'utils/Notificator';
 import { AppLoadingScreen } from 'components/app/AppLoadingScreen';
+import { AppStateProvider } from 'contexts/appState';
 
 const LoggedInContentX = React.lazy(() => import('components/LoggedInContent'));
 const GuestContentX = React.lazy(() => import('components/GuestContent'));
@@ -16,20 +17,22 @@ export const App: React.FC = () => {
   const { status, loading } = useAuthGuard();
 
   return (
-    <ThemeProvider theme={theme}>
-      <SnackbarProvider>
-        <SnackbarUtilsConfigurator />
-        <Suspense fallback={<AppLoadingScreen />}>
-          {!loading && (
-            status === 'authorized' ? <LoggedInContentX /> : <GuestContentX />
-          )}
-        </Suspense>
+    <AppStateProvider>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>
+          <SnackbarUtilsConfigurator />
+          <Suspense fallback={<AppLoadingScreen />}>
+            {!loading && (
+              status === 'authorized' ? <LoggedInContentX /> : <GuestContentX />
+            )}
+          </Suspense>
 
-        <Helmet>
-          <meta name="theme-color" content={theme.palette.background.paper} />
-        </Helmet>
+          <Helmet>
+            <meta name="theme-color" content={theme.palette.background.paper} />
+          </Helmet>
 
-      </SnackbarProvider>
-    </ThemeProvider>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </AppStateProvider>
   );
 };

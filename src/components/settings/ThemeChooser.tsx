@@ -2,23 +2,22 @@ import React, { ChangeEvent } from 'react';
 import {
   styled, RadioGroup, FormControlLabel, Radio,
 } from '@material-ui/core';
-import { useThunkDispatch } from 'store';
-import { useSelector } from 'react-redux';
-import { selectTheme, setTheme } from 'store/preferences/slice';
 import { ThemeType } from 'store/preferences/types';
 import { useTranslation } from 'react-i18next';
+import { usePreferences, useSetPreferences } from 'contexts/preferences';
 
 const StyledThemeControls = styled(RadioGroup)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
 }));
 
 export const ThemeChooser = () => {
-  const dispatch = useThunkDispatch();
-  const themeType = useSelector(selectTheme);
   const { t } = useTranslation();
+  const { theme: themeType } = usePreferences();
+  const setPreferences = useSetPreferences();
 
   const handleThemeChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setTheme(target.value as ThemeType));
+    const type = target.value as ThemeType;
+    setPreferences({ theme: type });
   };
 
   return (

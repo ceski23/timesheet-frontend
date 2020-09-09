@@ -2,9 +2,8 @@
 import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import localforage from 'localforage';
-import { enGB, pl } from 'date-fns/locale';
 import { RootState } from 'store';
-import { ThemeType, PreferencesState } from './types';
+import { ThemeType, PreferencesState, Language } from './types';
 
 const initialState: PreferencesState = {
   theme: 'system',
@@ -13,17 +12,6 @@ const initialState: PreferencesState = {
 
 const name = 'preferences';
 
-export const getDateLocale = (code?: string) => {
-  switch (code) {
-    case 'en':
-      return enGB;
-
-    case 'pl':
-    default:
-      return pl;
-  }
-};
-
 const preferencesSlice = createSlice({
   name,
   initialState,
@@ -31,7 +19,7 @@ const preferencesSlice = createSlice({
     setTheme(state, { payload }: PayloadAction<ThemeType>) {
       state.theme = payload;
     },
-    setLanguage(state, { payload }: PayloadAction<string>) {
+    setLanguage(state, { payload }: PayloadAction<Language>) {
       state.language = payload;
     },
   },

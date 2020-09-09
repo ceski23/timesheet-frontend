@@ -4,9 +4,6 @@ import { useSelector } from 'react-redux';
 import {
   styled, Toolbar, Divider, List,
 } from '@material-ui/core';
-import {
-  getDateLocale, selectLanguage,
-} from 'store/preferences/slice';
 import { useTranslation } from 'react-i18next';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
@@ -21,11 +18,13 @@ import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { selectScreenType } from 'store/appState/slice';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import { selectUser } from 'store/auth/slice';
 import { routeUrls, loggedInRoutes } from 'routes';
+import { usePreferences } from 'contexts/preferences';
+import { getDateLocale } from 'hooks/useDateFormatter';
+import { useAppState } from 'contexts/appState';
 import layoutScheme from './layoutScheme';
 import { ToolbarRenderer } from './ToolbarRenderer';
 
@@ -50,9 +49,9 @@ const SidebarTrigger = getSidebarTrigger(styled);
 export const LoggedInContent: FC = () => {
   const { t } = useTranslation();
   const theme = useAppTheme();
-  const language = useSelector(selectLanguage);
+  const { language } = usePreferences();
   const user = useSelector(selectUser);
-  const screen = useSelector(selectScreenType);
+  const { screen } = useAppState();
 
   return (
     <Root scheme={layoutScheme()} theme={theme}>
