@@ -5,7 +5,7 @@ import { usePreferences } from 'contexts/preferences';
 
 export const useAppTheme = () => {
   const { theme: themeType } = usePreferences();
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)', { noSsr: true });
 
   const theme = useMemo(() => (
     // eslint-disable-next-line no-nested-ternary
