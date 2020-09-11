@@ -7,32 +7,56 @@ import { SnackbarProvider } from 'notistack';
 import { SnackbarUtilsConfigurator } from 'utils/Notificator';
 import { AppLoadingScreen } from 'components/app/AppLoadingScreen';
 import { AppStateProvider } from 'contexts/appState';
+import { ReactQueryDevtools } from 'react-query-devtools';
+import { ReactQueryConfigProvider, ReactQueryConfig } from 'react-query';
+import { ApiError } from 'utils/api';
+import { useSetAuth } from 'contexts/auth';
 
-const LoggedInContentX = React.lazy(() => import('components/LoggedInContent'));
-const GuestContentX = React.lazy(() => import('components/GuestContent'));
+const LoggedInContent = React.lazy(() => import('components/LoggedInContent'));
+const GuestContent = React.lazy(() => import('components/GuestContent'));
 
 export const App: React.FC = () => {
   const theme = useAppTheme();
+  const { status } = useAuthGuard();
+  const setAuth = useSetAuth();
 
-  const { status, loading } = useAuthGuard();
+  const reactQueryConfig: ReactQueryConfig = React.useMemo(() => ({
+    queries: {
+      queryFnParamsFilter: args => args.slice(1),
+      onError: error => {
+        const err = error as ApiError;
+        if (!(err instanceof Error) && err.statusCode === 401) {
+          setAuth({ status: 'unauthorized' });
+        }
+      },
+      retry: (_count, error) => {
+        const err = error as ApiError;
+        if (!(err instanceof Error) && err.statusCode === 401) return false;
+        return true;
+      },
+    },
+  }), []);
 
   return (
     <AppStateProvider>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <SnackbarUtilsConfigurator />
-          <Suspense fallback={<AppLoadingScreen />}>
-            {!loading && (
-              status === 'authorized' ? <LoggedInContentX /> : <GuestContentX />
-            )}
-          </Suspense>
+      <ReactQueryDevtools />
+      <ReactQueryConfigProvider config={reactQueryConfig}>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider>
+            <SnackbarUtilsConfigurator />
 
-          <Helmet>
-            <meta name="theme-color" content={theme.palette.background.paper} />
-          </Helmet>
+            <Suspense fallback={<AppLoadingScreen />}>
+              {status === 'authorized' && <LoggedInContent />}
+              {status === 'unauthorized' && <GuestContent />}
+            </Suspense>
 
-        </SnackbarProvider>
-      </ThemeProvider>
+            <Helmet>
+              <meta name="theme-color" content={theme.palette.background.paper} />
+            </Helmet>
+
+          </SnackbarProvider>
+        </ThemeProvider>
+      </ReactQueryConfigProvider>
     </AppStateProvider>
   );
 };

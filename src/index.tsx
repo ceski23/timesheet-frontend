@@ -9,6 +9,7 @@ import store, { persistor } from 'store';
 import 'utils/i18n';
 import { BrowserRouter } from 'react-router-dom';
 import { PreferencesProvider } from 'contexts/preferences';
+import { AuthProvider } from 'contexts/auth';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,7 +17,9 @@ ReactDOM.render(
       <BrowserRouter>
         <CssBaseline />
         <PreferencesProvider>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </PreferencesProvider>
       </BrowserRouter>
     </PersistGate>

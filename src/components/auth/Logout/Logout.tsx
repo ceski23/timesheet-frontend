@@ -1,11 +1,15 @@
 import { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from 'store/auth/slice';
+import { useSetAuth } from 'contexts/auth';
+import { logoutUser } from 'store/auth/api';
 
 export const Logout: FC = () => {
-  const dispatch = useDispatch();
+  const setAuth = useSetAuth();
 
-  useEffect(() => { dispatch(logout()); }, []);
+  useEffect(() => {
+    logoutUser().then(() => {
+      setAuth({ user: undefined, status: 'unauthorized' });
+    });
+  }, []);
 
   return null;
 };

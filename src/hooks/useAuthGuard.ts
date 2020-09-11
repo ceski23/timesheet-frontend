@@ -1,28 +1,22 @@
-import { useSelector } from 'react-redux';
-import { useThunkDispatch } from 'store';
-import { fetchMe } from 'store/auth/api';
-import { useState, useEffect } from 'react';
-import { logout, setUser, selectAuthStatus } from 'store/auth/slice';
+import { useEffect } from 'react';
+import { useAuth, useSetAuth } from 'contexts/auth';
+import { fetchMe } from 'api/auth';
 
 export const useAuthGuard = () => {
-  const [loading, setLoading] = useState(true);
-  const status = useSelector(selectAuthStatus);
-  const dispatch = useThunkDispatch();
+  const { status, user } = useAuth();
+  const setAuth = useSetAuth();
 
   useEffect(() => {
-    if (status === 'authorized') {
-      setLoading(true);
-      fetchMe()
-        .then(userData => {
-          dispatch(setUser(userData));
-          setLoading(false);
-        })
-        .catch(() => {
-          dispatch(logout());
-          setLoading(false);
-        });
-    } else setLoading(false);
-  }, [status]);
+    if (!user) {
+      setAuth({ status: 'unauthorized' });
+    } else {
+      fetchMe().then(userData => {
+        setAuth({ user: userData, status: 'authorized' });
+      }).catch(() => {
+        setAuth({ user: undefined, status: 'unauthorized' });
+      });
+    }
+  }, []);
 
-  return { status, loading };
+  return { status };
 };

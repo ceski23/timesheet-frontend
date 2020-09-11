@@ -14,7 +14,7 @@ export const ToolbarRenderer: FC<Props> = ({ screenId }) => {
 
   switch (screenId) {
     case 'employees':
-      return <EmployeesToolbar />;
+      return <DefaultToolbar />;
 
     case 'notfound':
       return <DefaultToolbar title={t('notfound.title')} />;

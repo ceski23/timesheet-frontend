@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
 import {
-  styled, Toolbar, Divider, List,
+  styled, Divider, List,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
@@ -11,8 +10,7 @@ import EmployeesIcon from '@material-ui/icons/PeopleAltOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import {
-  Root, getHeader, getDrawerSidebar, getContent,
-  getSidebarTrigger,
+  Root, getDrawerSidebar,
 } from '@mui-treasury/layout';
 import { NavigationHeader } from 'components/NavigationHeader';
 import { NavigationItem } from 'components/NavigationItem';
@@ -20,38 +18,19 @@ import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { selectUser } from 'store/auth/slice';
 import { routeUrls, loggedInRoutes } from 'routes';
 import { usePreferences } from 'contexts/preferences';
 import { getDateLocale } from 'hooks/useDateFormatter';
-import { useAppState } from 'contexts/appState';
+import { useAuth } from 'contexts/auth';
 import layoutScheme from './layoutScheme';
-import { ToolbarRenderer } from './ToolbarRenderer';
 
-// #region styles
-const Content = styled(getContent(styled))(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  background: theme.palette.background.default,
-  overflow: 'auto',
-  height: '100%',
-}));
-
-const AppToolbar = styled(Toolbar)(({ theme }) => ({
-  background: theme.palette.background.paper,
-}));
-// #endregion
-
-const Header = getHeader(styled);
 const DrawerSidebar = getDrawerSidebar(styled);
-const SidebarTrigger = getSidebarTrigger(styled);
 
 export const LoggedInContent: FC = () => {
   const { t } = useTranslation();
   const theme = useAppTheme();
   const { language } = usePreferences();
-  const user = useSelector(selectUser);
-  const { screen } = useAppState();
+  const { user } = useAuth();
 
   return (
     <Root scheme={layoutScheme()} theme={theme}>
@@ -61,12 +40,6 @@ export const LoggedInContent: FC = () => {
             utils={DateFnsUtils}
             locale={getDateLocale(language)}
           >
-            <Header elevation={1}>
-              <AppToolbar>
-                <SidebarTrigger sidebarId="primarySidebar" />
-                <ToolbarRenderer screenId={screen} />
-              </AppToolbar>
-            </Header>
 
             <DrawerSidebar sidebarId="primarySidebar">
               <NavigationHeader
@@ -89,9 +62,7 @@ export const LoggedInContent: FC = () => {
               </List>
             </DrawerSidebar>
 
-            <Content>
-              {renderRoutes(loggedInRoutes)}
-            </Content>
+            {renderRoutes(loggedInRoutes)}
           </MuiPickersUtilsProvider>
         </>
       )}

@@ -1,30 +1,37 @@
 import React, {
-  FC, ReactElement, useState, ChangeEvent, useEffect,
+  FC, ReactElement, ChangeEvent, Dispatch,
 } from 'react';
 import {
-  styled, TextField, InputAdornment, Typography,
+  styled, TextField, InputAdornment, Typography, CircularProgress,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
-import { useThunkDispatch } from 'store';
-import { useDebounce } from 'use-lodash-debounce';
 import { useTranslation } from 'react-i18next';
-import { setUsersQuery } from 'store/users/slice';
+import { useIsFetching } from 'react-query';
 
 // #region styles
 const SearchBox = styled(TextField)(({ theme }) => ({
   margin: `0 ${theme.spacing(3)}px`,
 }));
+
+const StyledProgress = styled(CircularProgress)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+}));
+
+const Title = styled(Typography)({
+  flex: 1,
+  display: 'flex',
+  alignItems: 'center',
+});
 // #endregion
 
-export const EmployeesToolbar: FC = (): ReactElement => {
-  const dispatch = useThunkDispatch();
-  const [query, setQuery] = useState('');
-  const debouncedQuery = useDebounce(query, 700);
-  const { t } = useTranslation();
+interface Props {
+  query: string;
+  setQuery: Dispatch<string>;
+}
 
-  useEffect(() => {
-    dispatch(setUsersQuery(debouncedQuery || undefined));
-  }, [debouncedQuery]);
+export const EmployeesToolbar: FC<Props> = ({ query, setQuery }): ReactElement => {
+  const { t } = useTranslation();
+  const isFetching = useIsFetching();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -32,9 +39,10 @@ export const EmployeesToolbar: FC = (): ReactElement => {
 
   return (
     <>
-      <Typography variant="h6" style={{ flex: 1 }}>
+      <Title variant="h6">
         {t('employees.title')}
-      </Typography>
+        {isFetching ? <StyledProgress size={24} /> : null}
+      </Title>
 
       <SearchBox
         variant="outlined"

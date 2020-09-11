@@ -3,8 +3,6 @@ import {
   CardContent, Typography, styled, Card, Button,
 } from '@material-ui/core';
 import { Credentials } from 'store/auth/types';
-import { login } from 'store/auth/slice';
-import { useThunkDispatch } from 'store';
 import { Link } from 'react-router-dom';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +12,8 @@ import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
 import { FormSubmitFunction } from 'utils/types';
+import { useLoginUser } from 'api/auth';
+import { useSetAuth } from 'contexts/auth';
 import { LoginForm } from '.';
 
 // #region styles
@@ -60,14 +60,20 @@ const Title = styled(Typography)({
 // #endregion
 
 export const LoginScreen: FC = () => {
-  const dispatch = useThunkDispatch();
   const { t } = useTranslation();
+  const [loginUser] = useLoginUser();
+  const setAuth = useSetAuth();
 
   const handleSubmit: FormSubmitFunction<Credentials> = async (values, actions) => {
-    const result = await dispatch(login(values));
-    if (login.fulfilled.match(result)) {
-      Notificator.success(t('login.success_message'));
-    } else errorHandler(result.payload as ApiError, actions.setErrors);
+    await loginUser(values, {
+      onSuccess: user => {
+        setAuth({ user, status: 'authorized' });
+        Notificator.success(t('login.success_message'));
+      },
+      onError: error => {
+        errorHandler(error as ApiError, actions.setErrors);
+      },
+    });
   };
 
   const loginFormInitialValues = {
