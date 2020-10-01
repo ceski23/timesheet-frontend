@@ -24,7 +24,6 @@
     "named-urls": "^2.0.0",
     "notistack": "^1.0.0",
     "react": "^16.13.1",
-    "react-country-flag": "^2.3.0",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.7.3",
@@ -35,6 +34,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
     "source-map-explorer": "^2.5.0",
+    "svg-country-flags": "^1.2.8",
     "typescript": "^3.9.7",
     "use-lodash-debounce": "^1.1.0",
     "yup": "^0.28.5"

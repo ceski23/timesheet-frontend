@@ -3,8 +3,8 @@ import { IconButton, Button } from '@material-ui/core';
 import LeftIcon from '@material-ui/icons/ChevronLeftOutlined';
 import RightIcon from '@material-ui/icons/ChevronRightOutlined';
 import TodayIcon from '@material-ui/icons/TodayOutlined';
-import { WorktimeDatePicker } from 'components/WorktimeDatePicker';
 import { useTranslation } from 'react-i18next';
+import { WorktimeDatePicker } from './WorktimeDatePicker';
 
 export const WorktimeToolbar: FC = (): ReactElement => {
   // const dispatch = useThunkDispatch();

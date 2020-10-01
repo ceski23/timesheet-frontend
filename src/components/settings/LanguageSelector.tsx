@@ -3,17 +3,18 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem, Select, styled } from '@material-ui/core';
-import ReactCountryFlag from 'react-country-flag';
 import { Language, usePreferences, useSetPreferences } from 'contexts/preferences';
+import gb from 'svg-country-flags/svg/gb.svg';
+import pl from 'svg-country-flags/svg/pl.svg';
 
 // #region styles
 const StyledSelect = styled(Select)(({ theme }) => ({
   margin: `0 ${theme.spacing(2)}px`,
 }));
 
-const FlagIcon = styled(ReactCountryFlag)(({ theme }) => ({
+const FlagIcon = styled('img')(({ theme }) => ({
   width: 24,
-  marginRight: theme.spacing(1),
+  marginRight: theme.spacing(2),
 }));
 // #endregion
 
@@ -38,8 +39,8 @@ export const LanguageSelector: FC = (): ReactElement => {
       margin="dense"
       onChange={handleLanguageSelect}
     >
-      <MenuItem value="en"><FlagIcon countryCode="gb" svg /> English</MenuItem>
-      <MenuItem value="pl"><FlagIcon countryCode="pl" svg /> Polski</MenuItem>
+      <MenuItem value="en"><FlagIcon src={gb} alt="English" /> English</MenuItem>
+      <MenuItem value="pl"><FlagIcon src={pl} alt="Polski" /> Polski</MenuItem>
     </StyledSelect>
   );
 };

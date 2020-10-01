@@ -3,7 +3,7 @@ import { Typography, Button, styled } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useAppScreen } from 'hooks/useAppScreen';
-import { ScreenWrapper } from 'components/ScreenWrapper';
+import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 
 // #region styles
 const StyledButton = styled(Button)({

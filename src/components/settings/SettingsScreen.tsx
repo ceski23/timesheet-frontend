@@ -7,11 +7,11 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { LanguageSelector } from 'components/LanguageSelector';
 import { useAppScreen } from 'hooks/useAppScreen';
-import { ScreenWrapper } from 'components/ScreenWrapper';
+import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { ThemeChooser } from './ThemeChooser';
 import { SettingsSection } from './SettingsSection';
+import { LanguageSelector } from './LanguageSelector';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({

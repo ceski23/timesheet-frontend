@@ -12,8 +12,8 @@ import { ReactQueryConfigProvider, ReactQueryConfig } from 'react-query';
 import { ApiError } from 'utils/api';
 import { useSetAuth } from 'contexts/auth';
 
-const LoggedInContent = React.lazy(() => import('components/LoggedInContent'));
-const GuestContent = React.lazy(() => import('components/GuestContent'));
+const LoggedInContent = React.lazy(() => import('components/layout/LoggedInContent'));
+const GuestContent = React.lazy(() => import('components/layout/GuestContent'));
 
 export const App: React.FC = () => {
   const theme = useAppTheme();

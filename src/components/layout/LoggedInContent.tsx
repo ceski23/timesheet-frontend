@@ -12,17 +12,17 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import {
   Root, getDrawerSidebar,
 } from '@mui-treasury/layout';
-import { NavigationHeader } from 'components/NavigationHeader';
-import { NavigationItem } from 'components/NavigationItem';
 import { renderRoutes } from 'react-router-config';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { routeUrls, loggedInRoutes } from 'routes';
+import { adminRoutes, routeUrls, userRoutes } from 'routes';
 import { usePreferences } from 'contexts/preferences';
 import { getDateLocale } from 'hooks/useDateFormatter';
 import { useAuth } from 'contexts/auth';
 import layoutScheme from './layoutScheme';
+import { NavigationHeader } from './NavigationHeader';
+import { NavigationItem } from './NavigationItem';
 
 const DrawerSidebar = getDrawerSidebar(styled);
 
@@ -53,19 +53,31 @@ export const LoggedInContent: FC = () => {
 
                 <Divider />
 
-                <List component="nav">
-                  <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
-                  <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
-                  <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} onClick={closeDrawer} />
-                  {/* <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to={} /> */}
-                  {/* <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to={} badge /> */}
-                  <Divider />
-                  <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} onClick={closeDrawer} />
-                  <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} onClick={closeDrawer} />
-                </List>
+                {user && (
+                  <List component="nav">
+                    {user.role === 'admin' && (
+                      <>
+                        <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
+                        <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
+                      </>
+                    )}
+
+                    {user.role === 'user' && (
+                      <>
+                        <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
+                        <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} onClick={closeDrawer} />
+                      </>
+                    )}
+
+                    <Divider />
+
+                    <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} onClick={closeDrawer} />
+                    <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} onClick={closeDrawer} />
+                  </List>
+                )}
               </DrawerSidebar>
 
-              {renderRoutes(loggedInRoutes)}
+              {renderRoutes(user?.role === 'admin' ? adminRoutes : userRoutes)}
             </MuiPickersUtilsProvider>
           </>
         );
@@ -73,3 +85,5 @@ export const LoggedInContent: FC = () => {
     </Root>
   );
 };
+
+export default LoggedInContent;

@@ -3,7 +3,7 @@ import { Timesheet } from 'components/Timesheet/Timesheet';
 import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Event } from 'components/Timesheet/Content';
 import { useAppScreen } from 'hooks/useAppScreen';
-import { ScreenWrapper } from 'components/ScreenWrapper';
+import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { WorktimeToolbar } from './WorktimeToolbar';
 
 export const WorktimeScreen: FC = (): ReactElement => {

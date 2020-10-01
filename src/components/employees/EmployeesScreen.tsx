@@ -10,17 +10,17 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import Pagination from '@material-ui/lab/Pagination';
-import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
-import { ConfirmDialog } from 'components/ConfirmDialog';
 import { gridSpacingVertical } from 'utils/styles';
 import { useUsers, useDeleteUser, User } from 'api/users';
-import { ScreenWrapper } from 'components/ScreenWrapper';
+import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import { useDebounce } from 'use-lodash-debounce';
 import Notificator from 'utils/Notificator';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
+import { ConfirmDialog } from 'components/shared/ConfirmDialog';
+import { Loader } from 'components/shared/Loader';
 import { AddEmployeeDialog } from './add/AddEmployeeDialog';
 
 // #region styles

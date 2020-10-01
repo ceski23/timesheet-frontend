@@ -20,3 +20,5 @@ export const GuestContent: FC = () => (
     {renderRoutes(guestRoutes)}
   </Container>
 );
+
+export default GuestContent;

@@ -1,5 +1,3 @@
-declare module 'react-country-flag';
-
 declare module 'named-urls' {
   interface Routes { [path: string]: string | Routes }
   interface ReverseParams { [path: string]: number | string }
