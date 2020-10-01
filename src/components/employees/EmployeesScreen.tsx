@@ -9,14 +9,13 @@ import {
   withStyles, Button, Typography, TextField, InputAdornment,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import { User } from 'store/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
 import { gridSpacingVertical } from 'utils/styles';
-import { useUsers, useDeleteUser } from 'api/users';
+import { useUsers, useDeleteUser, User } from 'api/users';
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import { useDebounce } from 'use-lodash-debounce';

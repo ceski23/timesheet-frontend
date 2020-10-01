@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Grid, IconButton,
 } from '@material-ui/core';
-import { ForgotPasswordData } from 'store/auth/types';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router';
 import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.svg';
@@ -13,7 +12,7 @@ import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
 import { FormSubmitFunction } from 'utils/types';
-import { useRequestPasswordReset } from 'api/auth';
+import { ForgotPasswordData, useRequestPasswordReset } from 'api/auth';
 import { ForgotPasswordForm } from '.';
 
 // #region styles

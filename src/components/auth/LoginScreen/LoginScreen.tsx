@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Button,
 } from '@material-ui/core';
-import { Credentials } from 'store/auth/types';
 import { Link } from 'react-router-dom';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +11,7 @@ import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
 import { FormSubmitFunction } from 'utils/types';
-import { useLoginUser } from 'api/auth';
+import { Credentials, useLoginUser } from 'api/auth';
 import { useSetAuth } from 'contexts/auth';
 import { LoginForm } from '.';
 

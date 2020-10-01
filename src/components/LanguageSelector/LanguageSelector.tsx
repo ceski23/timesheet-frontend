@@ -4,8 +4,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { MenuItem, Select, styled } from '@material-ui/core';
 import ReactCountryFlag from 'react-country-flag';
-import { usePreferences, useSetPreferences } from 'contexts/preferences';
-import { Language } from 'store/preferences/types';
+import { Language, usePreferences, useSetPreferences } from 'contexts/preferences';
 
 // #region styles
 const StyledSelect = styled(Select)(({ theme }) => ({

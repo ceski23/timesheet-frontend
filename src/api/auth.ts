@@ -1,9 +1,28 @@
 import { client } from 'utils/api';
-import { User } from 'store/users/types';
-import {
-  Credentials, ForgotPasswordData, ResetPasswordData,
-} from 'store/auth/types';
 import { useMutation, useQuery } from 'react-query';
+import { User } from './users';
+
+// #region API types
+export interface Credentials {
+  email: string;
+  password: string;
+}
+
+export type RegisterData = {
+  name: string;
+  repeatPassword: string;
+} & Credentials
+
+export type ForgotPasswordData = {
+  email: string;
+}
+
+export type ResetPasswordData = {
+  password: string;
+  repeatPassword: string;
+  token: string;
+}
+// #endregion
 
 /**
  * API calls

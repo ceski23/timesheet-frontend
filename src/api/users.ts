@@ -1,13 +1,37 @@
 import {
   client, PaginatedResponse, FindParams,
 } from 'utils/api';
-import { UsersFindParams, User, AddUserParams } from 'store/users/types';
 import { usePaginatedQuery, useMutation, queryCache } from 'react-query';
 
-/**
- * API calls
- */
+// #region Types
+export interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+  activated: boolean;
+}
 
+export interface UsersFiltersState {
+  filter: UsersFilter;
+  query?: string;
+}
+
+export enum UsersFilter {
+  ALL, ACTIVATED, DEACTIVATED
+}
+
+export interface UsersFindParams {
+  activated?: boolean;
+}
+
+export interface AddUserParams {
+  name: string;
+  email: string;
+}
+// #endregion
+
+// #region API calls
 export const fetchUsers = async (params?: FindParams & UsersFindParams) => (
   client.get<unknown, PaginatedResponse<User>>('users/admin', { params })
 );
@@ -19,11 +43,9 @@ export const deleteUser = async (id: string) => (
 export const addUser = async (params: AddUserParams) => (
   client.post<unknown, User>('users/admin', params)
 );
+// #endregion
 
-/**
- * API hooks
- */
-
+// #region API hooks
 export const useUsers = (params?: FindParams & UsersFindParams) => (
   usePaginatedQuery(['users', params], fetchUsers)
 );
@@ -39,3 +61,4 @@ export const useAddUser = () => useMutation(addUser, {
     queryCache.invalidateQueries('users');
   },
 });
+// #endregion

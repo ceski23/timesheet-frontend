@@ -5,10 +5,9 @@ import {
 import { TitleWithIcon } from 'components/shared/TitleWithIcon';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { AddUserParams } from 'store/users/types';
 import { useTranslation } from 'react-i18next';
 import { FormSubmitFunction } from 'utils/types';
-import { useAddUser } from 'api/users';
+import { AddUserParams, useAddUser } from 'api/users';
 import Notificator from 'utils/Notificator';
 import { errorHandler } from 'utils/errorHandlers';
 import { ApiError } from 'utils/api';

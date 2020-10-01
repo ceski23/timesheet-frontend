@@ -2,8 +2,22 @@ import React, { FC, ReactElement } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import { add, getTime } from 'date-fns';
 import { useDateFormatter } from 'hooks/useDateFormatter';
-import { NumOfDays } from 'store/worktime/slice';
 import { Day } from './Day';
+
+interface Pos {
+  x: number;
+  y: number;
+}
+
+export type NumOfDays = 1 | 3 | 7;
+
+export interface WorktimeState {
+  numOfDays: NumOfDays;
+  firstDay: Date;
+  lastDay: Date;
+  selectedEvent?: Event;
+  mousePos: Pos;
+}
 
 export interface Event {
   title: string;

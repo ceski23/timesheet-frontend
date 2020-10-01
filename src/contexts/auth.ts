@@ -1,5 +1,5 @@
+import { User } from 'api/users';
 import { createState } from 'utils/state';
-import { User } from 'store/users/types';
 
 export type AuthStatus = 'authorized' | 'unauthorized' | 'unknown';
 

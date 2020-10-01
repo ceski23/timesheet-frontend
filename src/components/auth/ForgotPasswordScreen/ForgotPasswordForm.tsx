@@ -3,10 +3,10 @@ import {
   Formik, Form,
 } from 'formik';
 import Button from '@material-ui/core/Button';
-import { ForgotPasswordData } from 'store/auth/types';
 import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
 import { FormParams, Stylable } from 'utils/types';
+import { ForgotPasswordData } from 'api/auth';
 import { forgotPasswordFormSchema } from './schema';
 
 export const ForgotPasswordForm: FC<FormParams<ForgotPasswordData> & Stylable> = ({

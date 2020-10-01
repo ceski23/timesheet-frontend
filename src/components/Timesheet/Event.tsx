@@ -7,8 +7,6 @@ import {
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { differenceInMinutes } from 'date-fns';
 import { useAppTheme } from 'hooks/useAppTheme';
-import { useThunkDispatch } from 'store';
-import { openEventPopover } from 'store/worktime/slice';
 import { Event as E } from './Content';
 
 interface Props {
@@ -56,12 +54,12 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
   const offset = (((start.getHours() * 60) + start.getMinutes()) / interval) * height;
   const size = (differenceInMinutes(end, start) / interval) * height;
   const textColor = theme.palette.getContrastText(color ?? theme.palette.secondary.main);
-  const dispatch = useThunkDispatch();
+  // const dispatch = useThunkDispatch();
 
   const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
     ev.persist();
     const { clientX: x, pageY: y } = ev.nativeEvent;
-    dispatch(openEventPopover({ mousePos: { x, y }, selectedEvent: event }));
+    // dispatch(openEventPopover({ mousePos: { x, y }, selectedEvent: event }));
   };
 
   return (

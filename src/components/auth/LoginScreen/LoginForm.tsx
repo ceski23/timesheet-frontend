@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Formik, Form } from 'formik';
 import Button from '@material-ui/core/Button';
-import { Credentials } from 'store/auth/types';
 import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
 import { InputAdornment } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 import LockOutlined from '@material-ui/icons/LockOutlined';
 import { FormParams, Stylable } from 'utils/types';
+import { Credentials } from 'api/auth';
 import { loginFormSchema } from './schema';
 
 export const LoginForm: FC<FormParams<Credentials> & Stylable> = ({

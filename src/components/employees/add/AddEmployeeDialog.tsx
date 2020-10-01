@@ -3,12 +3,11 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   useTheme, useMediaQuery, styled, IconButton,
 } from '@material-ui/core';
-import { AddUserParams } from 'store/users/types';
 import { ApiError } from 'utils/api';
 import { errorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
 import { FormSubmitFunction } from 'utils/types';
-import { useAddUser } from 'api/users';
+import { AddUserParams, useAddUser } from 'api/users';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@material-ui/icons/Close';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';

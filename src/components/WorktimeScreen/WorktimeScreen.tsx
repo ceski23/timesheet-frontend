@@ -1,8 +1,5 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { Timesheet } from 'components/Timesheet/Timesheet';
-import { useThunkDispatch } from 'store';
-import { useSelector } from 'react-redux';
-import { selectWorktimeState, nowDay } from 'store/worktime/slice';
 import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Event } from 'components/Timesheet/Content';
 import { useAppScreen } from 'hooks/useAppScreen';
@@ -11,11 +8,11 @@ import { WorktimeToolbar } from './WorktimeToolbar';
 
 export const WorktimeScreen: FC = (): ReactElement => {
   useAppScreen('worktime');
-  const dispatch = useThunkDispatch();
-  const { firstDay, numOfDays, lastDay } = useSelector(selectWorktimeState);
+  // const dispatch = useThunkDispatch();
+  // const { firstDay, numOfDays, lastDay } = useSelector(selectWorktimeState);
 
   useEffect(() => {
-    dispatch(nowDay());
+    // dispatch(nowDay());
   }, []);
 
   const events: Event[] = [
@@ -41,21 +38,21 @@ export const WorktimeScreen: FC = (): ReactElement => {
     },
   ];
 
-  const eventsTmpFilter = (event: Event) => (
-    isWithinInterval(event.start, {
-      start: startOfDay(firstDay),
-      end: endOfDay(lastDay),
-    })
-  );
+  // const eventsTmpFilter = (event: Event) => (
+  //   isWithinInterval(event.start, {
+  //     start: startOfDay(firstDay),
+  //     end: endOfDay(lastDay),
+  //   })
+  // );
 
   return (
     <ScreenWrapper toolbar={<WorktimeToolbar />}>
-      <Timesheet
+      {/* <Timesheet
         firstDate={firstDay}
         lastDate={lastDay}
         numOfDays={numOfDays}
         events={events.filter(eventsTmpFilter)}
-      />
+      /> */}
     </ScreenWrapper>
   );
 };
