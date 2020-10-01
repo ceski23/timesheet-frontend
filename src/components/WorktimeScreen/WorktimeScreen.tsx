@@ -6,6 +6,8 @@ import { selectWorktimeState, nowDay } from 'store/worktime/slice';
 import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 import { Event } from 'components/Timesheet/Content';
 import { useAppScreen } from 'hooks/useAppScreen';
+import { ScreenWrapper } from 'components/ScreenWrapper';
+import { WorktimeToolbar } from './WorktimeToolbar';
 
 export const WorktimeScreen: FC = (): ReactElement => {
   useAppScreen('worktime');
@@ -47,11 +49,13 @@ export const WorktimeScreen: FC = (): ReactElement => {
   );
 
   return (
-    <Timesheet
-      firstDate={firstDay}
-      lastDate={lastDay}
-      numOfDays={numOfDays}
-      events={events.filter(eventsTmpFilter)}
-    />
+    <ScreenWrapper toolbar={<WorktimeToolbar />}>
+      <Timesheet
+        firstDate={firstDay}
+        lastDate={lastDay}
+        numOfDays={numOfDays}
+        events={events.filter(eventsTmpFilter)}
+      />
+    </ScreenWrapper>
   );
 };

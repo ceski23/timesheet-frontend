@@ -12,6 +12,7 @@ interface Props {
   icon: (props: SvgIconProps) => JSX.Element;
   to: string;
   badge?: boolean;
+  onClick?: () => void;
 }
 
 // #region styles
@@ -28,7 +29,7 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
 // #endregion
 
 export const NavigationItem: FC<Props> = ({
-  name, icon: Icon, to, badge,
+  name, icon: Icon, to, badge, onClick,
 }): ReactElement => {
   const match = useRouteMatch({
     path: to,
@@ -44,7 +45,7 @@ export const NavigationItem: FC<Props> = ({
   );
 
   return (
-    <ListItem component={renderLink} button selected={!!match}>
+    <ListItem component={renderLink} button selected={!!match} onClick={onClick}>
       {Icon && (
         <ListItemIcon>
           <Badge variant="dot" color="primary" invisible={!badge}>

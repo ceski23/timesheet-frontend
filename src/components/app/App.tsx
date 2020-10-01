@@ -32,7 +32,7 @@ export const App: React.FC = () => {
       retry: (_count, error) => {
         const err = error as ApiError;
         if (!(err instanceof Error) && err.statusCode === 401) return false;
-        return true;
+        return (_count < 2);
       },
     },
   }), []);

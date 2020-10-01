@@ -3,6 +3,7 @@ import { Typography, Button, styled } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router';
 import { useAppScreen } from 'hooks/useAppScreen';
+import { ScreenWrapper } from 'components/ScreenWrapper';
 
 // #region styles
 const StyledButton = styled(Button)({
@@ -33,16 +34,18 @@ export const NotFoundScreen: FC = (): ReactElement => {
   };
 
   return (
-    <Container>
-      <Heading variant="h1" color="textPrimary">404</Heading>
-      <Typography variant="h4" color="textSecondary">{t('notfound.text')}</Typography>
-      <StyledButton
-        size="large"
-        variant="contained"
-        color="secondary"
-        onClick={handleClickBack}
-      >{t('notfound.goback')}
-      </StyledButton>
-    </Container>
+    <ScreenWrapper title={t('notfound.title')}>
+      <Container>
+        <Heading variant="h1" color="textPrimary">404</Heading>
+        <Typography variant="h4" color="textSecondary">{t('notfound.text')}</Typography>
+        <StyledButton
+          size="large"
+          variant="contained"
+          color="secondary"
+          onClick={handleClickBack}
+        >{t('notfound.goback')}
+        </StyledButton>
+      </Container>
+    </ScreenWrapper>
   );
 };

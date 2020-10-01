@@ -34,38 +34,42 @@ export const LoggedInContent: FC = () => {
 
   return (
     <Root scheme={layoutScheme()} theme={theme}>
-      {({ state: { sidebar } }) => (
-        <>
-          <MuiPickersUtilsProvider
-            utils={DateFnsUtils}
-            locale={getDateLocale(language)}
-          >
+      {({ state: { sidebar }, setOpen }) => {
+        const closeDrawer = () => setOpen('primarySidebar', false);
 
-            <DrawerSidebar sidebarId="primarySidebar">
-              <NavigationHeader
-                name={user?.name}
-                email={user?.email}
-                collapsed={sidebar.primarySidebar.collapsed}
-              />
+        return (
+          <>
+            <MuiPickersUtilsProvider
+              utils={DateFnsUtils}
+              locale={getDateLocale(language)}
+            >
 
-              <Divider />
+              <DrawerSidebar sidebarId="primarySidebar">
+                <NavigationHeader
+                  name={user?.name}
+                  email={user?.email}
+                  collapsed={sidebar.primarySidebar.collapsed}
+                />
 
-              <List component="nav">
-                <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} />
-                <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} />
-                <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} />
-                {/* <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to={} /> */}
-                {/* <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to={} badge /> */}
                 <Divider />
-                <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} />
-                <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} />
-              </List>
-            </DrawerSidebar>
 
-            {renderRoutes(loggedInRoutes)}
-          </MuiPickersUtilsProvider>
-        </>
-      )}
+                <List component="nav">
+                  <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
+                  <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
+                  <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} onClick={closeDrawer} />
+                  {/* <NavigationItem name={t('navigationBar.vacations')} icon={VacationIcon} to={} /> */}
+                  {/* <NavigationItem name={t('navigationBar.reports')} icon={ReportIcon} to={} badge /> */}
+                  <Divider />
+                  <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} onClick={closeDrawer} />
+                  <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} onClick={closeDrawer} />
+                </List>
+              </DrawerSidebar>
+
+              {renderRoutes(loggedInRoutes)}
+            </MuiPickersUtilsProvider>
+          </>
+        );
+      }}
     </Root>
   );
 };

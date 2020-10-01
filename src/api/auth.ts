@@ -37,7 +37,7 @@ export const useLoginUser = () => useMutation(loginUser);
 
 export const useLogoutUser = () => useMutation(logoutUser);
 
-export const useFetchMe = () => useQuery('fetchMe');
+export const useFetchMe = () => useQuery('fetchMe', fetchMe);
 
 export const useRequestPasswordReset = () => useMutation(requestPasswordReset);
 

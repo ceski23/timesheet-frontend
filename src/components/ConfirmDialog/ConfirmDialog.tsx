@@ -13,14 +13,14 @@ const StyledProgress = styled(CircularProgress)(({ theme }) => ({
 interface Props {
   title?: string;
   isOpen: boolean;
-  close: () => void;
+  setClose: () => void;
   onConfirm: () => Promise<unknown> | void;
   confirmText?: string;
   cancelText?: string;
 }
 
 export const ConfirmDialog: FC<Props> = ({
-  title, children, isOpen, close, onConfirm,
+  title, children, isOpen, setClose, onConfirm,
   confirmText = 'Potwierdź', cancelText = 'Anuluj',
 }) => {
   const theme = useTheme();
@@ -31,7 +31,7 @@ export const ConfirmDialog: FC<Props> = ({
     setLoading(true);
     try {
       await Promise.resolve(onConfirm());
-      close();
+      setClose();
     } catch (error) {
       // Dummy error
     } finally {
@@ -42,16 +42,18 @@ export const ConfirmDialog: FC<Props> = ({
   return (
     <Dialog
       open={isOpen}
-      onClose={() => close()}
+      onClose={() => setClose()}
       aria-labelledby="confirm-dialog"
       fullScreen={fullScreen}
+      fullWidth
+      maxWidth="sm"
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{children}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => close()} color="inherit">
+        <Button onClick={() => setClose()} color="inherit">
           {cancelText}
         </Button>
         <Button onClick={handleConfirmClick} color="secondary">

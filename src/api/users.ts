@@ -9,15 +9,15 @@ import { usePaginatedQuery, useMutation, queryCache } from 'react-query';
  */
 
 export const fetchUsers = async (params?: FindParams & UsersFindParams) => (
-  client.get<unknown, PaginatedResponse<User>>('admin/users', { params })
+  client.get<unknown, PaginatedResponse<User>>('users/admin', { params })
 );
 
 export const deleteUser = async (id: string) => (
-  client.delete<unknown, void>(`admin/users/${id}`)
+  client.delete<unknown, void>(`users/admin/${id}`)
 );
 
 export const addUser = async (params: AddUserParams) => (
-  client.post<unknown, User>('admin/users', params)
+  client.post<unknown, User>('users/admin', params)
 );
 
 /**

@@ -5,8 +5,8 @@ import React, {
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
-  ListItemText, Avatar, CircularProgress, ListItemSecondaryAction, IconButton,
-  withStyles,
+  ListItemText, Avatar, ListItemSecondaryAction, IconButton,
+  withStyles, Button, Typography, TextField, InputAdornment,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { User } from 'store/users/types';
@@ -15,24 +15,26 @@ import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
-import { gridSpacingVertical, gridSpacingHorizontal } from 'utils/styles';
+import { gridSpacingVertical } from 'utils/styles';
 import { useUsers, useDeleteUser } from 'api/users';
 import { ScreenWrapper } from 'components/ScreenWrapper';
+import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import { useDebounce } from 'use-lodash-debounce';
 import Notificator from 'utils/Notificator';
-import { AddEmployeeSection } from './AddEmployeeSection';
-import { EmployeesToolbar } from './EmployeesToolbar';
+import SearchIcon from '@material-ui/icons/SearchOutlined';
+import { AddEmployeeDialog } from './add/AddEmployeeDialog';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
   ...gridSpacingVertical(theme.spacing(2)),
   display: 'flex',
-  flexDirection: 'column',
+  // flexDirection: 'column',
   flex: 1,
-  [theme.breakpoints.up('sm')]: {
-    ...gridSpacingHorizontal(theme.spacing(2), true),
-    flexDirection: 'row-reverse',
-  },
+  // maxHeight: `calc(100% - ${theme.spacing(4)}px)`,
+  // [theme.breakpoints.up('sm')]: {
+  //   ...gridSpacingHorizontal(theme.spacing(2), true),
+  //   flexDirection: 'row-reverse',
+  // },
 }));
 
 const ListContainer = styled(Paper)(({ theme }) => ({
@@ -40,13 +42,6 @@ const ListContainer = styled(Paper)(({ theme }) => ({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-}));
-
-const SpinnerContainer = styled('div')(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
 }));
 
 const UsersList = styled(List)(() => ({
@@ -63,19 +58,24 @@ const UsersPagination = styled(withStyles({
 })(Pagination))(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
+
+const SearchBox = styled(TextField)(({ theme }) => ({
+  marginRight: theme.spacing(3),
+}));
 // #endregion
 
 export const EmployeesScreen: FC = (): ReactElement => {
   const { t } = useTranslation();
-  const { isOpen, setClose, setOpen, data } = useDialog<User>();
+  const deleteEmployeeDialog = useDialog<User>();
+  const addEmployeeDialog = useDialog<User>();
   const [{ page, query }, setReqParams] = useState({
     page: 1,
     query: '',
   });
   const [tmpQuery, setTmpQuery] = useState(query);
-  const debouncedQuery = useDebounce(tmpQuery, 800);
-  const users = useUsers({ query, page });
-  const [deleteUser, { isError, isSuccess, status }] = useDeleteUser();
+  const debouncedQuery = useDebounce(tmpQuery, 500);
+  const users = useUsers({ query, page, limit: 15 });
+  const [deleteUser] = useDeleteUser();
 
   useEffect(() => {
     setReqParams({ page: 1, query: debouncedQuery });
@@ -85,38 +85,62 @@ export const EmployeesScreen: FC = (): ReactElement => {
     if (users.isError) Notificator.error(t('employees.findError'));
   }, [users.isError]);
 
-  useEffect(() => {
-    if (isError) Notificator.error(t('employees.deleteError'));
-    if (isSuccess && data) Notificator.success(t('employees.employeeDeleted', { name: data.name }));
-  }, [status]);
-
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     setReqParams({ query, page: value });
   };
 
   const handleEmployeeDelete = async () => {
     // eslint-disable-next-line no-underscore-dangle
-    await deleteUser(data?._id);
+    await deleteUser(deleteEmployeeDialog.data?._id, {
+      onSuccess: () => {
+        Notificator.success(t('employees.employeeDeleted', { name: deleteEmployeeDialog.data?.name }));
+      },
+      onError: () => {
+        Notificator.error(t('employees.deleteError'));
+      },
+    });
+  };
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTmpQuery(event.target.value);
   };
 
   return (
-    <ScreenWrapper toolbar={(
-      <EmployeesToolbar query={tmpQuery} setQuery={setTmpQuery} />
-    )}
-    >
+    <ScreenWrapper title="Pracownicy">
       <Container>
-        <AddEmployeeSection />
-
         <ListContainer>
+
+          <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', alignItems: 'center', minHeight: 56 }}>
+            <Typography variant="h6" style={{ flex: 1 }}>Lista pracowników</Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+
+              <SearchBox
+                variant="outlined"
+                size="small"
+                value={tmpQuery}
+                onChange={handleSearchChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder={t('employees.search')}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddEmployeeIcon />}
+                onClick={() => addEmployeeDialog.setOpen()}
+              >
+                Dodaj
+              </Button>
+            </div>
+          </div>
+
           <UsersList>
-            <Loader
-              loading={users.isLoading}
-              loader={(
-                <SpinnerContainer>
-                  <CircularProgress />
-                </SpinnerContainer>
-              )}
-            >
+            <Loader loading={users.isLoading}>
               {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <ListItem button key={i}>
@@ -128,7 +152,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
                     <IconButton
                       edge="end"
                       aria-label="delete"
-                      onClick={() => setOpen({ name, email, ...rest })}
+                      onClick={() => deleteEmployeeDialog.setOpen({ name, email, ...rest })}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -147,14 +171,16 @@ export const EmployeesScreen: FC = (): ReactElement => {
           )}
 
           <ConfirmDialog
-            isOpen={isOpen}
+            {...deleteEmployeeDialog}
             onConfirm={handleEmployeeDelete}
             confirmText={t('employees.deleteDialog.confirm')}
             title={t('employees.deleteDialog.title')}
-            close={setClose}
           >
-            {t('employees.deleteDialog.text', { name: data?.name })}
+            {t('employees.deleteDialog.text', { name: deleteEmployeeDialog.data?.name })}
           </ConfirmDialog>
+
+          <AddEmployeeDialog {...addEmployeeDialog} />
+
         </ListContainer>
       </Container>
     </ScreenWrapper>
