@@ -1,10 +1,8 @@
 import React, { FC, ReactElement, useEffect } from 'react';
 import { styled, Popover } from '@material-ui/core';
 import { Header } from 'components/Timesheet/Header';
-import { Content, Event } from 'components/Timesheet/Content';
+import { Content, Event, NumOfDays } from 'components/Timesheet/Content';
 import { useDialog } from 'hooks/useDialog';
-import { selectWorktimeState, NumOfDays } from 'store/worktime/slice';
-import { useSelector } from 'react-redux';
 import { EventInfo } from './EventInfo';
 
 interface Props {
@@ -33,12 +31,12 @@ export const Timesheet: FC<Props> = ({
   interval = 60,
   events,
 }): ReactElement => {
-  const { mousePos, selectedEvent } = useSelector(selectWorktimeState);
+  // const { mousePos, selectedEvent } = useSelector(selectWorktimeState);
   const { isOpen, setOpen, setClose } = useDialog();
 
-  useEffect(() => {
-    if (selectedEvent) setOpen();
-  }, [selectedEvent]);
+  // useEffect(() => {
+  //   if (selectedEvent) setOpen();
+  // }, [selectedEvent]);
 
   return (
     <Container>
@@ -66,9 +64,9 @@ export const Timesheet: FC<Props> = ({
           horizontal: 'center',
         }}
         anchorReference="anchorPosition"
-        anchorPosition={{ left: mousePos.x, top: mousePos.y }}
+        // anchorPosition={{ left: mousePos.x, top: mousePos.y }}
       >
-        {selectedEvent && <EventInfo event={selectedEvent} close={setClose} />}
+        {/* {selectedEvent && <EventInfo event={selectedEvent} close={setClose} />} */}
       </Popover>
     </Container>
   );

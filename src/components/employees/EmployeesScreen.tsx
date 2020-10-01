@@ -1,40 +1,39 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement, useEffect, ChangeEvent,
+  FC, ReactElement, ChangeEvent, useState, useEffect,
 } from 'react';
 import {
   styled, Paper, List, ListItem, ListItemIcon,
-  ListItemText, Avatar, CircularProgress, ListItemSecondaryAction, IconButton,
-  withStyles,
+  ListItemText, Avatar, ListItemSecondaryAction, IconButton,
+  withStyles, Button, Typography, TextField, InputAdornment,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import { useThunkDispatch } from 'store';
-import { useSelector } from 'react-redux';
-import { User } from 'store/users/types';
 import Pagination from '@material-ui/lab/Pagination';
 import { Loader } from 'components/Loader';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/ConfirmDialog';
+import { gridSpacingVertical } from 'utils/styles';
+import { useUsers, useDeleteUser, User } from 'api/users';
+import { ScreenWrapper } from 'components/ScreenWrapper';
+import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
+import { useDebounce } from 'use-lodash-debounce';
 import Notificator from 'utils/Notificator';
-import {
-  fetchUsers, selectUsersData, selectUsersStatus,
-  selectUsersPagination, selectUsersQuery, removeUser,
-} from 'store/users/slice';
-import { gridSpacingVertical, gridSpacingHorizontal } from 'utils/styles';
-import { useAppScreen } from 'hooks/useAppScreen';
-import { AddEmployeeSection } from './AddEmployeeSection';
+import SearchIcon from '@material-ui/icons/SearchOutlined';
+import { AddEmployeeDialog } from './add/AddEmployeeDialog';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
   ...gridSpacingVertical(theme.spacing(2)),
   display: 'flex',
-  flexDirection: 'column',
+  // flexDirection: 'column',
   flex: 1,
-  [theme.breakpoints.up('sm')]: {
-    ...gridSpacingHorizontal(theme.spacing(2), true),
-    flexDirection: 'row-reverse',
-  },
+  // maxHeight: `calc(100% - ${theme.spacing(4)}px)`,
+  // [theme.breakpoints.up('sm')]: {
+  //   ...gridSpacingHorizontal(theme.spacing(2), true),
+  //   flexDirection: 'row-reverse',
+  // },
 }));
 
 const ListContainer = styled(Paper)(({ theme }) => ({
@@ -42,13 +41,6 @@ const ListContainer = styled(Paper)(({ theme }) => ({
   flex: 1,
   display: 'flex',
   flexDirection: 'column',
-}));
-
-const SpinnerContainer = styled('div')(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flex: 1,
 }));
 
 const UsersList = styled(List)(() => ({
@@ -65,94 +57,131 @@ const UsersPagination = styled(withStyles({
 })(Pagination))(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
+
+const SearchBox = styled(TextField)(({ theme }) => ({
+  marginRight: theme.spacing(3),
+}));
 // #endregion
 
 export const EmployeesScreen: FC = (): ReactElement => {
-  useAppScreen('employees');
-  const dispatch = useThunkDispatch();
-  const query = useSelector(selectUsersQuery);
-  const users = useSelector(selectUsersData);
-  const { fetching } = useSelector(selectUsersStatus);
-  const { currentPage, totalPages } = useSelector(selectUsersPagination);
   const { t } = useTranslation();
-  const {
-    isOpen, setClose, setOpen, data,
-  } = useDialog<User>();
+  const deleteEmployeeDialog = useDialog<User>();
+  const addEmployeeDialog = useDialog<User>();
+  const [{ page, query }, setReqParams] = useState({
+    page: 1,
+    query: '',
+  });
+  const [tmpQuery, setTmpQuery] = useState(query);
+  const debouncedQuery = useDebounce(tmpQuery, 500);
+  const users = useUsers({ query, page, limit: 15 });
+  const [deleteUser] = useDeleteUser();
 
   useEffect(() => {
-    dispatch(fetchUsers({ page: 1, query })).catch(() => Notificator.error(t('employees.findError')));
-  }, [query]);
+    setReqParams({ page: 1, query: debouncedQuery });
+  }, [debouncedQuery]);
+
+  useEffect(() => {
+    if (users.isError) Notificator.error(t('employees.findError'));
+  }, [users.isError]);
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
-    dispatch(fetchUsers({ page: value, query })).catch(() => Notificator.error(t('employees.findError')));
+    setReqParams({ query, page: value });
   };
 
-  const handleEmployeeDelete = () => {
-    if (data) {
-      // eslint-disable-next-line no-underscore-dangle
-      dispatch(removeUser(data._id))
-        .then(() => Notificator.success(t('employees.employeeDeleted', { name: data.name })))
-        .catch(() => Notificator.error(t('employees.deleteError')))
-        .then(() => dispatch(fetchUsers({ page: 1, query })));
-    }
+  const handleEmployeeDelete = async () => {
+    // eslint-disable-next-line no-underscore-dangle
+    await deleteUser(deleteEmployeeDialog.data?._id, {
+      onSuccess: () => {
+        Notificator.success(t('employees.employeeDeleted', { name: deleteEmployeeDialog.data?.name }));
+      },
+      onError: () => {
+        Notificator.error(t('employees.deleteError'));
+      },
+    });
+  };
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setTmpQuery(event.target.value);
   };
 
   return (
-    <Container>
+    <ScreenWrapper title="Pracownicy">
+      <Container>
+        <ListContainer>
 
-      <AddEmployeeSection />
+          <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', alignItems: 'center', minHeight: 56 }}>
+            <Typography variant="h6" style={{ flex: 1 }}>Lista pracowników</Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
 
-      <ListContainer>
-        <UsersList>
-          <Loader
-            loading={fetching}
-            loader={(
-              <SpinnerContainer>
-                <CircularProgress />
-              </SpinnerContainer>
-              )}
+              <SearchBox
+                variant="outlined"
+                size="small"
+                value={tmpQuery}
+                onChange={handleSearchChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder={t('employees.search')}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddEmployeeIcon />}
+                onClick={() => addEmployeeDialog.setOpen()}
+              >
+                Dodaj
+              </Button>
+            </div>
+          </div>
+
+          <UsersList>
+            <Loader loading={users.isLoading}>
+              {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <ListItem button key={i}>
+                  <ListItemIcon>
+                    <Avatar>{name[0]}</Avatar>
+                  </ListItemIcon>
+                  <ListItemText primary={name} secondary={email} />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => deleteEmployeeDialog.setOpen({ name, email, ...rest })}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </Loader>
+          </UsersList>
+
+          {users.resolvedData?.currentPage && (
+            <UsersPagination
+              count={users.resolvedData?.totalPages}
+              page={users.resolvedData?.currentPage}
+              onChange={handlePageChange}
+            />
+          )}
+
+          <ConfirmDialog
+            {...deleteEmployeeDialog}
+            onConfirm={handleEmployeeDelete}
+            confirmText={t('employees.deleteDialog.confirm')}
+            title={t('employees.deleteDialog.title')}
           >
-            {users && users.map(({ name, email, ...rest }, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <ListItem button key={i}>
-                <ListItemIcon>
-                  <Avatar>{name[0]}</Avatar>
-                </ListItemIcon>
-                <ListItemText primary={name} secondary={email} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => setOpen({ name, email, ...rest })}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </Loader>
-        </UsersList>
+            {t('employees.deleteDialog.text', { name: deleteEmployeeDialog.data?.name })}
+          </ConfirmDialog>
 
-        {currentPage && (
-        <UsersPagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-        />
-        )}
+          <AddEmployeeDialog {...addEmployeeDialog} />
 
-        <ConfirmDialog
-          isOpen={isOpen}
-          onConfirm={handleEmployeeDelete}
-          confirmText={t('employees.deleteDialog.confirm')}
-          title={t('employees.deleteDialog.title')}
-          close={setClose}
-        >
-          {t('employees.deleteDialog.text', { name: data?.name })}
-        </ConfirmDialog>
-
-      </ListContainer>
-
-    </Container>
+        </ListContainer>
+      </Container>
+    </ScreenWrapper>
   );
 };

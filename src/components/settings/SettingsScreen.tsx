@@ -3,12 +3,13 @@ import {
   styled, Typography, useTheme, useMediaQuery, withStyles,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import Accordion from '@material-ui/core/ExpansionPanel';
-import AccordionSummary from '@material-ui/core/ExpansionPanelSummary';
-import AccordionDetails from '@material-ui/core/ExpansionPanelDetails';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { LanguageSelector } from 'components/LanguageSelector';
 import { useAppScreen } from 'hooks/useAppScreen';
+import { ScreenWrapper } from 'components/ScreenWrapper';
 import { ThemeChooser } from './ThemeChooser';
 import { SettingsSection } from './SettingsSection';
 
@@ -36,34 +37,36 @@ export const SettingsScreen: FC = (): ReactElement => {
   const upMedium = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <Container>
+    <ScreenWrapper title="Ustawienia">
+      <Container>
 
-      <SettingsSection title={t('settings.appearance')}>
-        <Accordion square={!upMedium}>
-          <Summary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="theme-content"
-            id="theme-header"
-          >
-            <Typography>{t('settings.theme')}</Typography>
-          </Summary>
-          <AccordionDetails>
-            <ThemeChooser />
-          </AccordionDetails>
-        </Accordion>
+        <SettingsSection title={t('settings.appearance')}>
+          <Accordion square={!upMedium}>
+            <Summary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="theme-content"
+              id="theme-header"
+            >
+              <Typography>{t('settings.theme')}</Typography>
+            </Summary>
+            <AccordionDetails>
+              <ThemeChooser />
+            </AccordionDetails>
+          </Accordion>
 
-        <Accordion expanded={false} square={!upMedium}>
-          <Summary
-            aria-controls="language-content"
-            id="language-header"
-          >
-            <Typography>{t('settings.language')}</Typography>
-            <div style={{ flex: 1 }} />
-            <LanguageSelector />
-          </Summary>
-        </Accordion>
-      </SettingsSection>
+          <Accordion expanded={false} square={!upMedium}>
+            <Summary
+              aria-controls="language-content"
+              id="language-header"
+            >
+              <Typography>{t('settings.language')}</Typography>
+              <div style={{ flex: 1 }} />
+              <LanguageSelector />
+            </Summary>
+          </Accordion>
+        </SettingsSection>
 
-    </Container>
+      </Container>
+    </ScreenWrapper>
   );
 };

@@ -1,11 +1,10 @@
-import { ScreenType, setScreen } from 'store/appState/slice';
-import { useThunkDispatch } from 'store';
 import { useEffect } from 'react';
+import { ScreenType, useSetAppState } from 'contexts/appState';
 
 export const useAppScreen = (screenName: ScreenType) => {
-  const dispatch = useThunkDispatch();
+  const setAppState = useSetAppState();
 
   useEffect(() => {
-    dispatch(setScreen(screenName));
+    setAppState({ screen: screenName });
   }, []);
 };

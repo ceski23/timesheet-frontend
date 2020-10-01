@@ -2,12 +2,11 @@ import React, { FC } from 'react';
 import {
   Formik, Form,
 } from 'formik';
-import { FormParams } from 'shared/types';
 import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
-import { AddUserParams } from 'store/users/types';
 import { Button, styled } from '@material-ui/core';
-import { Stylable } from 'utils/types';
+import { FormParams, Stylable } from 'utils/types';
+import { AddUserParams } from 'api/users';
 import { addEmployeeSchema } from './schema';
 
 // #region styles

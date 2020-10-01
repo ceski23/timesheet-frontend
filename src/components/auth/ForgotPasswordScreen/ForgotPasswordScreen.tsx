@@ -2,19 +2,17 @@ import React, { FC } from 'react';
 import {
   CardContent, Typography, styled, Card, Grid, IconButton,
 } from '@material-ui/core';
-import { ForgotPasswordData } from 'store/auth/types';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router';
 import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.svg';
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
-import { useThunkDispatch } from 'store';
-import { requestPasswordReset } from 'store/auth/slice';
 import Notificator from 'utils/Notificator';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
 import { FormSubmitFunction } from 'utils/types';
+import { ForgotPasswordData, useRequestPasswordReset } from 'api/auth';
 import { ForgotPasswordForm } from '.';
 
 // #region styles
@@ -63,16 +61,20 @@ const Desc = styled(Typography)(({ theme }) => ({
 export const ForgotPasswordScreen: FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const dispatch = useThunkDispatch();
+  const [requestPasswordReset] = useRequestPasswordReset();
 
   const handleForgotPassword: FormSubmitFunction<ForgotPasswordData> = async (values, actions) => {
-    const result = await dispatch(requestPasswordReset(values));
-    if (requestPasswordReset.fulfilled.match(result)) {
-      Notificator.success(t('forgot_password.success'), {
-        autoHideDuration: 10000,
-      });
-      history.replace(routeUrls.home);
-    } else errorHandler(result.payload as ApiError, actions.setErrors);
+    await requestPasswordReset(values, {
+      onSuccess: () => {
+        Notificator.success(t('forgot_password.success'), {
+          autoHideDuration: 10000,
+        });
+        history.replace(routeUrls.home);
+      },
+      onError: error => {
+        errorHandler(error as ApiError, actions.setErrors);
+      },
+    });
   };
 
   const handleBackClick = () => {

@@ -1,12 +1,10 @@
 import React, {
   FC, ReactElement, ChangeEvent, useEffect,
 } from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { setLanguage, selectLanguage } from 'store/preferences/slice';
 import { MenuItem, Select, styled } from '@material-ui/core';
-import { useThunkDispatch } from 'store';
 import ReactCountryFlag from 'react-country-flag';
+import { Language, usePreferences, useSetPreferences } from 'contexts/preferences';
 
 // #region styles
 const StyledSelect = styled(Select)(({ theme }) => ({
@@ -20,12 +18,13 @@ const FlagIcon = styled(ReactCountryFlag)(({ theme }) => ({
 // #endregion
 
 export const LanguageSelector: FC = (): ReactElement => {
-  const language = useSelector(selectLanguage);
+  const { language } = usePreferences();
+  const setPreferences = useSetPreferences();
   const { i18n } = useTranslation();
-  const dispatch = useThunkDispatch();
 
   const handleLanguageSelect = ({ target }: ChangeEvent<{ value: unknown }>) => {
-    dispatch(setLanguage(target.value as string));
+    const lang = target.value as Language;
+    setPreferences({ language: lang });
   };
 
   useEffect(() => {

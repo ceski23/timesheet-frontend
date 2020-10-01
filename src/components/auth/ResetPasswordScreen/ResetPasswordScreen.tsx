@@ -2,19 +2,17 @@ import React, { FC, useState, useEffect } from 'react';
 import {
   CardContent, Typography, styled, Card,
 } from '@material-ui/core';
-import { ResetPasswordData } from 'store/auth/types';
 import { useHistory } from 'react-router';
 import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.svg';
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
-import { useThunkDispatch } from 'store';
-import { resetPassword } from 'store/auth/slice';
 import Notificator from 'utils/Notificator';
 import { useURLQuery } from 'hooks/useURLQuery';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
 import { errorHandler } from 'utils/errorHandlers';
 import { FormSubmitFunction } from 'utils/types';
+import { ResetPasswordData, useResetPassword } from 'api/auth';
 import { ResetPasswordForm } from './ResetPasswordForm';
 
 // #region styles
@@ -54,22 +52,26 @@ const Container = styled('div')({
 export const ResetPasswordScreen: FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const dispatch = useThunkDispatch();
   const [token, setToken] = useState('');
   const query = useURLQuery();
+  const [resetPassword] = useResetPassword();
 
   useEffect(() => {
     setToken(query.get('token') || '');
   }, [query]);
 
   const handleResetPassword: FormSubmitFunction<ResetPasswordData> = async (values, actions) => {
-    const result = await dispatch(resetPassword(values));
-    if (resetPassword.fulfilled.match(result)) {
-      Notificator.success(t('reset_password.reset_success'), {
-        autoHideDuration: 5000,
-      });
-      history.replace(routeUrls.home);
-    } else errorHandler(result.payload as ApiError, actions.setErrors);
+    await resetPassword(values, {
+      onSuccess: () => {
+        Notificator.success(t('reset_password.reset_success'), {
+          autoHideDuration: 5000,
+        });
+        history.replace(routeUrls.home);
+      },
+      onError: error => {
+        errorHandler(error as ApiError, actions.setErrors);
+      },
+    });
   };
 
   const formInitialValues = {

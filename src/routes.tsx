@@ -1,3 +1,4 @@
+import React from 'react';
 import { include } from 'named-urls';
 import { RouteConfig } from 'react-router-config';
 import { LoginScreen } from 'components/auth/LoginScreen';
@@ -11,6 +12,7 @@ import { ResetPasswordScreen } from 'components/auth/ResetPasswordScreen';
 import { SettingsScreen } from 'components/settings/SettingsScreen';
 import { RedirecToLogin } from 'components/auth/RedirectToLogin';
 import { RedirectAfterLogin } from 'components/auth/RedirectAfterLogin';
+import { Redirect } from 'react-router';
 
 export const routeUrls = {
   // LOGGED IN
@@ -68,6 +70,10 @@ export const guestRoutes: RouteConfig[] = [
   {
     path: routeUrls.forgotPassword,
     component: ForgotPasswordScreen,
+  },
+  {
+    path: '/.well-known/change-password',
+    render: () => <Redirect to={routeUrls.forgotPassword} />,
   },
   {
     path: routeUrls.resetPassword,

@@ -1,9 +1,20 @@
 import { format as formatDate } from 'date-fns';
-import { useSelector } from 'react-redux';
-import { getDateLocale, selectLanguage } from 'store/preferences/slice';
+import { usePreferences } from 'contexts/preferences';
+import { enGB, pl } from 'date-fns/locale';
+
+export const getDateLocale = (code?: string) => {
+  switch (code) {
+    case 'en':
+      return enGB;
+
+    case 'pl':
+    default:
+      return pl;
+  }
+};
 
 export const useDateFormatter = () => {
-  const language = useSelector(selectLanguage);
+  const { language } = usePreferences();
   const locale = getDateLocale(language);
 
   const format = (date: Date | number, formatStr: string) => (
