@@ -13,8 +13,9 @@ import {
 } from 'date-fns';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
-import { errorHandler } from 'utils/errorHandlers';
+import { errorHandler, errorHandler2 } from 'utils/errorHandlers';
 import { ApiError } from 'utils/api';
+import { useForm } from 'react-hook-form';
 import { AddScheduleForm } from './AddScheduleForm';
 
 // #region styles
@@ -49,24 +50,25 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
   const [addSchedule] = useAddSchedule();
   const { t } = useTranslation();
 
-  const handleSubmit: FormSubmitFunction<AddScheduleParams> = async (values, actions) => {
+  const addScheduleForm = useForm<AddScheduleParams>({
+    defaultValues: {
+      fromDate: startOfMonth(startOfToday()),
+      toDate: endOfMonth(startOfToday()),
+      daysOff: [],
+      name: '',
+    },
+  });
+
+  const handleSubmit = async (values: AddScheduleParams) => {
     await addSchedule(values, {
       onSuccess: schedule => {
         Notificator.success(t('schedules.scheduleAdded', { name: schedule.name }));
-        actions.resetForm();
         setClose();
       },
       onError: error => {
-        errorHandler(error as ApiError, actions.setErrors);
+        errorHandler2(error as ApiError, addScheduleForm.setError);
       },
     });
-  };
-
-  const initialValues = {
-    fromDate: startOfMonth(startOfToday()),
-    toDate: endOfMonth(startOfToday()),
-    daysOff: [],
-    name: '',
   };
 
   return (
@@ -87,7 +89,7 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
       </DialogHeader>
 
       <StyledDialogContent>
-        <AddScheduleForm handleSubmit={handleSubmit} initialValues={initialValues} />
+        <AddScheduleForm onSubmit={handleSubmit} form={addScheduleForm} />
       </StyledDialogContent>
 
       <DialogActions />

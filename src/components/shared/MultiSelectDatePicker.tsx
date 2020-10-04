@@ -4,7 +4,7 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 import { compareAsc, startOfDay } from 'date-fns';
 import isSameDay from 'date-fns/isSameDay';
 import React, {
-  Dispatch, FC, SetStateAction, useCallback, useEffect, useMemo,
+  Dispatch, FC,
 } from 'react';
 
 const Container = styled('div')({
@@ -14,54 +14,52 @@ const Container = styled('div')({
 });
 
 interface Props {
-  selectedDays: Date[];
-  setSelectedDays: Dispatch<SetStateAction<Date[]>>;
+  value: Date[];
+  onChange: Dispatch<Date[]>;
   minDate: Date;
   maxDate: Date;
+  error?: boolean;
+  helperText?: string;
 }
 
 export const MultiSelectDatePicker: FC<Props> = ({
-  selectedDays, setSelectedDays, minDate, maxDate,
+  value, onChange, minDate, maxDate, ...props
 }) => {
   const handleDayClick = (day: MaterialUiPickersDate) => {
-    const isSelected = selectedDays.find(selectedDay => isSameDay(day as Date, selectedDay));
-    console.log('1111111111111111111111111');
+    const isSelected = value.find(selectedDay => isSameDay(day as Date, selectedDay));
     if (isSelected) {
-      const x = selectedDays
+      const x = value
         .filter(selectedDay => !isSameDay(selectedDay, day as Date))
         .sort(compareAsc);
 
-      setSelectedDays(x);
+      onChange(x);
     } else {
-      const x = [...selectedDays, day as Date].sort(compareAsc);
-      setSelectedDays(x);
+      const x = [...value, day as Date].sort(compareAsc);
+      onChange(x);
     }
   };
 
-  console.log('MultiSelectDatePicker', selectedDays);
-
-  // const renderDay = (
-  //   day: MaterialUiPickersDate, _selectedDate: MaterialUiPickersDate, _dayInCurrentMonth
-  // : boolean,
-  //   dayComponent: JSX.Element,
-  // ) => {
-  //   console.log('22222222222222222222222222222222222');
-  //   const isSelected = selectedDays.some(
-  //     selectedDay => isSameDay(selectedDay, day as Date),
-  //   );
-  //   return React.cloneElement(dayComponent, { ...dayComponent.props, selected: isSelected });
-  // };
-
-  // const rd = useCallback(renderDay, [selectedDays]);
+  // TODO: Better optimize rendering calendar view
+  const renderDay = (
+    day: MaterialUiPickersDate, _selectedDate: MaterialUiPickersDate, _dayInCurrentMonth: boolean,
+    dayComponent: JSX.Element,
+  ) => {
+    const isSelected = value.some(
+      selectedDay => isSameDay(selectedDay, day as Date),
+    );
+    return React.cloneElement(dayComponent, { ...dayComponent.props, selected: isSelected });
+  };
 
   return (
     <Container>
       <Calendar
         date={startOfDay(new Date())}
         onChange={handleDayClick}
-        // renderDay={rd}
+        renderDay={renderDay}
         minDate={minDate}
         maxDate={maxDate}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...props}
       />
     </Container>
   );
