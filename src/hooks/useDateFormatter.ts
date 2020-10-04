@@ -13,6 +13,13 @@ export const getDateLocale = (code?: string) => {
   }
 };
 
+export const useDateLocale = () => {
+  const { language } = usePreferences();
+  const locale = getDateLocale(language);
+
+  return locale;
+};
+
 export const useDateFormatter = () => {
   const { language } = usePreferences();
   const locale = getDateLocale(language);

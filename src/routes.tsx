@@ -12,6 +12,7 @@ import { RedirectAfterLogin } from 'components/auth/RedirectAfterLogin';
 import { Redirect } from 'react-router';
 import { NotFoundScreen } from 'components/NotFoundScreen';
 import { HomeScreen } from 'components/home/HomeScreen';
+import { SchedulesScreen } from 'components/schedules/SchedulesScreen';
 // import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 
 export const routeUrls = {
@@ -23,6 +24,9 @@ export const routeUrls = {
   }),
   worktime: '/czas-pracy',
   settings: '/ustawienia',
+  schedules: include('/rozklady', {
+    schedule: ':scheduleId',
+  }),
 
   // GUEST
   login: '/logowanie',
@@ -73,6 +77,10 @@ export const adminRoutes: RouteConfig[] = [
   {
     path: String(routeUrls.employees),
     component: EmployeesScreen,
+  },
+  {
+    path: String(routeUrls.schedules),
+    component: SchedulesScreen,
   },
   ...commonRoutes,
 ];

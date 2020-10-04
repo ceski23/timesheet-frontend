@@ -20,6 +20,7 @@ import { adminRoutes, routeUrls, userRoutes } from 'routes';
 import { usePreferences } from 'contexts/preferences';
 import { getDateLocale } from 'hooks/useDateFormatter';
 import { useAuth } from 'contexts/auth';
+import SchedulesIcon from '@material-ui/icons/TodayOutlined';
 import layoutScheme from './layoutScheme';
 import { NavigationHeader } from './NavigationHeader';
 import { NavigationItem } from './NavigationItem';
@@ -59,6 +60,7 @@ export const LoggedInContent: FC = () => {
                       <>
                         <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
                         <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
+                        <NavigationItem name={t('navigationBar.schedules')} icon={SchedulesIcon} to={String(routeUrls.schedules)} onClick={closeDrawer} />
                       </>
                     )}
 

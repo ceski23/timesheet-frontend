@@ -21,6 +21,8 @@ import Notificator from 'utils/Notificator';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import { Loader } from 'components/shared/Loader';
+import { SimpleList } from 'components/shared/SimpleList';
+import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import { AddEmployeeDialog } from './add/AddEmployeeDialog';
 
 // #region styles
@@ -107,12 +109,10 @@ export const EmployeesScreen: FC = (): ReactElement => {
   return (
     <ScreenWrapper title="Pracownicy">
       <Container>
-        <ListContainer>
-
-          <div style={{ display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap', alignItems: 'center', minHeight: 56 }}>
-            <Typography variant="h6" style={{ flex: 1 }}>Lista pracowników</Typography>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-
+        <SimpleList
+          loading={users.isLoading}
+          header={(
+            <SimpleListHeader title="Lista pracowników">
               <SearchBox
                 variant="outlined"
                 size="small"
@@ -135,53 +135,45 @@ export const EmployeesScreen: FC = (): ReactElement => {
               >
                 Dodaj
               </Button>
-            </div>
-          </div>
-
-          <UsersList>
-            <Loader loading={users.isLoading}>
-              {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <ListItem button key={i}>
-                  <ListItemIcon>
-                    <Avatar>{name[0]}</Avatar>
-                  </ListItemIcon>
-                  <ListItemText primary={name} secondary={email} />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => deleteEmployeeDialog.setOpen({ name, email, ...rest })}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </Loader>
-          </UsersList>
-
-          {users.resolvedData?.currentPage && (
-            <UsersPagination
-              count={users.resolvedData?.totalPages}
-              page={users.resolvedData?.currentPage}
-              onChange={handlePageChange}
-            />
+            </SimpleListHeader>
           )}
-
-          <ConfirmDialog
-            {...deleteEmployeeDialog}
-            onConfirm={handleEmployeeDelete}
-            confirmText={t('employees.deleteDialog.confirm')}
-            title={t('employees.deleteDialog.title')}
-          >
-            {t('employees.deleteDialog.text', { name: deleteEmployeeDialog.data?.name })}
-          </ConfirmDialog>
-
-          <AddEmployeeDialog {...addEmployeeDialog} />
-
-        </ListContainer>
+          onPageChange={handlePageChange}
+          pagination={{
+            count: users.resolvedData?.totalPages,
+            page: users.resolvedData?.currentPage,
+          }}
+        >
+          {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+            <ListItem button key={i}>
+              <ListItemIcon>
+                <Avatar>{name[0]}</Avatar>
+              </ListItemIcon>
+              <ListItemText primary={name} secondary={email} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => deleteEmployeeDialog.setOpen({ name, email, ...rest })}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </SimpleList>
       </Container>
+
+      <ConfirmDialog
+        {...deleteEmployeeDialog}
+        onConfirm={handleEmployeeDelete}
+        confirmText={t('employees.deleteDialog.confirm')}
+        title={t('employees.deleteDialog.title')}
+      >
+        {t('employees.deleteDialog.text', { name: deleteEmployeeDialog.data?.name })}
+      </ConfirmDialog>
+
+      <AddEmployeeDialog {...addEmployeeDialog} />
     </ScreenWrapper>
   );
 };
