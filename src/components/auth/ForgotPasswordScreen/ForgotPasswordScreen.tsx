@@ -10,10 +10,12 @@ import { useTranslation } from 'react-i18next';
 import Notificator from 'utils/Notificator';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler } from 'utils/errorHandlers';
-import { FormSubmitFunction } from 'utils/types';
+import { errorHandler2 } from 'utils/errorHandlers';
 import { ForgotPasswordData, useRequestPasswordReset } from 'api/auth';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { ForgotPasswordForm } from '.';
+import { forgotPasswordFormSchema } from './schema';
 
 // #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -63,7 +65,14 @@ export const ForgotPasswordScreen: FC = () => {
   const { t } = useTranslation();
   const [requestPasswordReset] = useRequestPasswordReset();
 
-  const handleForgotPassword: FormSubmitFunction<ForgotPasswordData> = async (values, actions) => {
+  const forgotPasswordForm = useForm<ForgotPasswordData>({
+    defaultValues: {
+      email: '',
+    },
+    resolver: yupResolver(forgotPasswordFormSchema),
+  });
+
+  const handleForgotPassword = async (values: ForgotPasswordData) => {
     await requestPasswordReset(values, {
       onSuccess: () => {
         Notificator.success(t('forgot_password.success'), {
@@ -72,17 +81,13 @@ export const ForgotPasswordScreen: FC = () => {
         history.replace(routeUrls.home);
       },
       onError: error => {
-        errorHandler(error as ApiError, actions.setErrors);
+        errorHandler2(error as ApiError, forgotPasswordForm.setError);
       },
     });
   };
 
   const handleBackClick = () => {
     history.goBack();
-  };
-
-  const forgotFormInitialValues = {
-    email: '',
   };
 
   return (
@@ -98,10 +103,7 @@ export const ForgotPasswordScreen: FC = () => {
             <Typography variant="h6">{t('forgot_password.title')}</Typography>
           </Grid>
           <Desc gutterBottom variant="subtitle1">{t('forgot_password.subtitle')}</Desc>
-          <ForgotPasswordForm
-            handleSubmit={handleForgotPassword}
-            initialValues={forgotFormInitialValues}
-          />
+          <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
         </CardContent>
       </StyledCard>
     </Container>

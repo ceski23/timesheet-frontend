@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import {
   CardContent, Typography, styled, Card,
 } from '@material-ui/core';
@@ -10,10 +10,12 @@ import Notificator from 'utils/Notificator';
 import { useURLQuery } from 'hooks/useURLQuery';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler } from 'utils/errorHandlers';
-import { FormSubmitFunction } from 'utils/types';
+import { errorHandler2 } from 'utils/errorHandlers';
 import { ResetPasswordData, useResetPassword } from 'api/auth';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { ResetPasswordForm } from './ResetPasswordForm';
+import { resetPasswordFormSchema } from './schema';
 
 // #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -52,16 +54,27 @@ const Container = styled('div')({
 export const ResetPasswordScreen: FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const [token, setToken] = useState('');
   const query = useURLQuery();
   const [resetPassword] = useResetPassword();
 
+  const resetPasswordForm = useForm<ResetPasswordData>({
+    defaultValues: {
+      password: '',
+      repeatPassword: '',
+      token: '',
+    },
+    resolver: yupResolver(resetPasswordFormSchema),
+  });
+
   useEffect(() => {
-    setToken(query.get('token') || '');
+    resetPasswordForm.setValue('token', query.get('token') || '');
   }, [query]);
 
-  const handleResetPassword: FormSubmitFunction<ResetPasswordData> = async (values, actions) => {
-    await resetPassword(values, {
+  const handleResetPassword = async (values: ResetPasswordData) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { repeatPassword, ...data } = values;
+
+    await resetPassword(data, {
       onSuccess: () => {
         Notificator.success(t('reset_password.reset_success'), {
           autoHideDuration: 5000,
@@ -69,15 +82,9 @@ export const ResetPasswordScreen: FC = () => {
         history.replace(routeUrls.home);
       },
       onError: error => {
-        errorHandler(error as ApiError, actions.setErrors);
+        errorHandler2(error as ApiError, resetPasswordForm.setError);
       },
     });
-  };
-
-  const formInitialValues = {
-    password: '',
-    repeatPassword: '',
-    token,
   };
 
   return (
@@ -87,10 +94,7 @@ export const ResetPasswordScreen: FC = () => {
       <StyledCard>
         <CardContent>
           <Typography gutterBottom variant="h6">{t('reset_password.title')}</Typography>
-          <ResetPasswordForm
-            handleSubmit={handleResetPassword}
-            initialValues={formInitialValues}
-          />
+          <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
         </CardContent>
       </StyledCard>
     </Container>

@@ -44,7 +44,7 @@ export const requestPasswordReset = async (reqData: ForgotPasswordData) => (
   client.post<unknown, void>('request_password_reset', reqData)
 );
 
-export const resetPassword = async (reqData: ResetPasswordData) => (
+export const resetPassword = async (reqData: Pick<ResetPasswordData, 'password' | 'token'>) => (
   client.post<unknown, void>('password_reset', reqData)
 );
 

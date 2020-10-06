@@ -1,45 +1,49 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
-import {
-  Formik, Form,
-} from 'formik';
 import Button from '@material-ui/core/Button';
-import { FormField } from 'components/shared/FormField';
 import { useTranslation } from 'react-i18next';
-import { FormParams, Stylable } from 'utils/types';
+import { FormParams2, Stylable } from 'utils/types';
 import { ForgotPasswordData } from 'api/auth';
-import { forgotPasswordFormSchema } from './schema';
+import { styled, TextField } from '@material-ui/core';
 
-export const ForgotPasswordForm: FC<FormParams<ForgotPasswordData> & Stylable> = ({
-  handleSubmit, initialValues, className,
+// #region styles
+const StyledForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+});
+// #endregion
+
+export const ForgotPasswordForm: FC<FormParams2<ForgotPasswordData> & Stylable> = ({
+  onSubmit, form, ...props
 }) => {
   const { t } = useTranslation();
+  const {
+    handleSubmit, formState, register, errors,
+  } = form;
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={forgotPasswordFormSchema}
-    >
-      {({ isSubmitting }) => (
-        <Form style={{ display: 'flex', flexDirection: 'column' }} className={className}>
-          <FormField
-            type="text"
-            autoComplete="email"
-            name="email"
-            label={t('forgot_password.form.email')}
-            required
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            type="submit"
-            style={{ marginTop: 32 }}
-          >
-            {isSubmitting ? t('forgot_password.form.loading') : t('forgot_password.form.send')}
-          </Button>
-        </Form>
-      )}
-    </Formik>
+    <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
+      <TextField
+        type="text"
+        autoComplete="email"
+        name="email"
+        label={t('forgot_password.form.email')}
+        required
+        variant="outlined"
+        inputRef={register}
+        margin="normal"
+        error={!!errors.email}
+        helperText={errors.email?.message || ''}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={formState.isSubmitting}
+        type="submit"
+        style={{ marginTop: 32 }}
+      >
+        {formState.isSubmitting ? t('forgot_password.form.loading') : t('forgot_password.form.send')}
+      </Button>
+    </StyledForm>
   );
 };

@@ -6,14 +6,13 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 import { PrimaryIcon } from 'components/shared/PrimaryIcon';
 import AddScheduleIcon from '@material-ui/icons/TodayOutlined';
-import { FormSubmitFunction } from 'utils/types';
 import { AddScheduleParams, useAddSchedule } from 'api/schedules';
 import {
   endOfMonth, startOfMonth, startOfToday,
 } from 'date-fns';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
-import { errorHandler, errorHandler2 } from 'utils/errorHandlers';
+import { errorHandler2 } from 'utils/errorHandlers';
 import { ApiError } from 'utils/api';
 import { useForm } from 'react-hook-form';
 import { AddScheduleForm } from './AddScheduleForm';

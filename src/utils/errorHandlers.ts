@@ -13,7 +13,7 @@ export function errorHandler<T>(
 
 export function errorHandler2<T>(
   error: ApiError<T>,
-  setError: (field: string, error: ErrorOption) => void,
+  setError: (field: any, error: ErrorOption) => void,
 ) {
   if (error instanceof Error) Notificator.error(error.message);
   else if (typeof error.data === 'string') Notificator.error(error.data);

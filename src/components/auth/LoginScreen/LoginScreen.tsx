@@ -9,11 +9,13 @@ import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler } from 'utils/errorHandlers';
-import { FormSubmitFunction } from 'utils/types';
+import { errorHandler2 } from 'utils/errorHandlers';
 import { Credentials, useLoginUser } from 'api/auth';
 import { useSetAuth } from 'contexts/auth';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { LoginForm } from '.';
+import { loginFormSchema } from './schema';
 
 // #region styles
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -63,21 +65,24 @@ export const LoginScreen: FC = () => {
   const [loginUser] = useLoginUser();
   const setAuth = useSetAuth();
 
-  const handleSubmit: FormSubmitFunction<Credentials> = async (values, actions) => {
+  const loginForm = useForm<Credentials>({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(loginFormSchema),
+  });
+
+  const handleSubmit = async (values: Credentials) => {
     await loginUser(values, {
       onSuccess: user => {
         setAuth({ user, status: 'authorized' });
         Notificator.success(t('login.success_message'));
       },
       onError: error => {
-        errorHandler(error as ApiError, actions.setErrors);
+        errorHandler2(error as ApiError, loginForm.setError);
       },
     });
-  };
-
-  const loginFormInitialValues = {
-    email: '',
-    password: '',
   };
 
   return (
@@ -88,10 +93,9 @@ export const LoginScreen: FC = () => {
         <CardContent>
           <Title gutterBottom variant="h5">{t('login.title')}</Title>
           <Desc gutterBottom variant="subtitle1">{t('login.subtitle')}</Desc>
-          <LoginForm
-            handleSubmit={handleSubmit}
-            initialValues={loginFormInitialValues}
-          />
+
+          <LoginForm onSubmit={handleSubmit} form={loginForm} />
+
           <Button
             fullWidth
             color="primary"

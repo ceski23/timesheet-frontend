@@ -4,15 +4,17 @@ import {
   useTheme, useMediaQuery, styled, IconButton,
 } from '@material-ui/core';
 import { ApiError } from 'utils/api';
-import { errorHandler } from 'utils/errorHandlers';
+import { errorHandler2 } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
-import { FormSubmitFunction } from 'utils/types';
 import { AddUserParams, useAddUser } from 'api/users';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@material-ui/icons/Close';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import { PrimaryIcon } from 'components/shared/PrimaryIcon';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { AddEmployeeForm } from './AddEmployeeForm';
+import { addEmployeeSchema } from './schema';
 
 // #region styles
 const StyledDialogContent = styled(DialogContent)({
@@ -48,22 +50,25 @@ export const AddEmployeeDialog: FC<Props> = ({
   const { t } = useTranslation();
   const [addUser] = useAddUser();
 
-  const handleSubmit: FormSubmitFunction<AddUserParams> = async (values, actions) => {
+  const addEmployeeForm = useForm<AddUserParams>({
+    defaultValues: {
+      name: '',
+      email: '',
+    },
+    resolver: yupResolver(addEmployeeSchema),
+  });
+
+  const handleSubmit = async (values: AddUserParams) => {
     await addUser(values, {
       onSuccess: user => {
         Notificator.success(t('employees.employeeAdded', { name: user.name }));
-        actions.resetForm();
+        addEmployeeForm.reset();
         setClose();
       },
       onError: error => {
-        errorHandler(error as ApiError, actions.setErrors);
+        errorHandler2(error as ApiError, addEmployeeForm.setError);
       },
     });
-  };
-
-  const initialValues = {
-    name: '',
-    email: '',
   };
 
   return (
@@ -84,10 +89,7 @@ export const AddEmployeeDialog: FC<Props> = ({
       </DialogHeader>
 
       <StyledDialogContent>
-        <AddEmployeeForm
-          handleSubmit={handleSubmit}
-          initialValues={initialValues}
-        />
+        <AddEmployeeForm onSubmit={handleSubmit} form={addEmployeeForm} />
       </StyledDialogContent>
 
       <DialogActions />
