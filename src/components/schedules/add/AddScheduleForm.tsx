@@ -80,6 +80,7 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
     getValues, watch, formState, errors,
   } = form;
   const watchedDaysOff = watch('daysOff');
+  const watchedRange = watch(['fromDate', 'toDate']);
   const { isSubmitting } = formState;
 
   return (
@@ -145,8 +146,8 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
           name="daysOff"
           render={p => (
             <MultiSelectDatePicker
-              minDate={getValues('fromDate')}
-              maxDate={getValues('toDate')}
+              minDate={watchedRange.fromDate}
+              maxDate={watchedRange.toDate}
               error={!!errors.daysOff}
               helperText={errors.daysOff?.[0]?.message || 'lknjn'}
               // eslint-disable-next-line react/jsx-props-no-spreading

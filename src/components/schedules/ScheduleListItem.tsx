@@ -8,7 +8,6 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import CalendarStart from '@material-ui/icons/EventAvailable';
 import CalendarEnd from '@material-ui/icons/EventBusy';
 import { useDateFormatter } from 'hooks/useDateFormatter';
-import { DatePicker } from 'formik-material-ui-pickers';
 
 // #region styles
 const DatesContainer = styled('div')(({ theme }) => ({
