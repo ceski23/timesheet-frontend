@@ -47,10 +47,12 @@ const Name = styled(Typography)({
 
 interface Props {
   data: Schedule;
+  onDelete: () => void;
 }
 
-export const ScheduleListItem: FC<Props> = ({ data }) => {
+export const ScheduleListItem: FC<Props> = ({ data, onDelete }) => {
   const { format } = useDateFormatter();
+
   return (
     <ListItem button>
       <div>
@@ -74,6 +76,7 @@ export const ScheduleListItem: FC<Props> = ({ data }) => {
         <IconButton
           edge="end"
           aria-label="delete"
+          onClick={() => onDelete()}
         >
           <DeleteIcon />
         </IconButton>

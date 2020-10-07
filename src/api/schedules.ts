@@ -28,6 +28,10 @@ export const fetchSchedules = async (params?: FindParams) => (
 export const addSchedule = async (params: AddScheduleParams) => (
   client.post<unknown, Schedule>('schedules/admin', params)
 );
+
+export const removeSchedule = async (id: string) => (
+  client.delete<unknown, void>(`schedules/admin/${id}`)
+);
 // #endregion
 
 // #region API hooks
@@ -36,6 +40,12 @@ export const useSchedules = (params?: FindParams) => (
 );
 
 export const useAddSchedule = () => useMutation(addSchedule, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('schedules');
+  },
+});
+
+export const useRemoveSchedule = () => useMutation(removeSchedule, {
   onSuccess: () => {
     queryCache.invalidateQueries('schedules');
   },
