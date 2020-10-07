@@ -15,7 +15,9 @@ import { useTranslation } from 'react-i18next';
 import { errorHandler2 } from 'utils/errorHandlers';
 import { ApiError } from 'utils/api';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { AddScheduleForm } from './AddScheduleForm';
+import { addScheduleSchema } from './schema';
 
 // #region styles
 const StyledDialogContent = styled(DialogContent)({
@@ -56,6 +58,7 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
       daysOff: [],
       name: '',
     },
+    resolver: yupResolver(addScheduleSchema),
   });
 
   const handleSubmit = async (values: AddScheduleParams) => {

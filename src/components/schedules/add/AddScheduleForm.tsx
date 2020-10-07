@@ -1,21 +1,21 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Accordion, AccordionDetails, AccordionSummary, Button, Chip,
-  FormGroup, FormLabel, styled, TextField, Typography, withStyles,
+  FormGroup, FormHelperText, FormLabel, styled, TextField, Typography, withStyles,
 } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { MultiSelectDatePicker } from 'components/shared/MultiSelectDatePicker';
 import { AddScheduleParams } from 'api/schedules';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-  isSameDay, compareAsc, eachWeekendOfInterval,
+  isSameDay, compareAsc, eachWeekendOfInterval, isWithinInterval, isBefore,
 } from 'date-fns';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { DangerButton } from 'components/shared/DangerButton';
 import { filterUniqueDates } from 'utils/dates';
 import {
-  Controller, ErrorOption, SubmitHandler, UseFormMethods,
+  Controller,
 } from 'react-hook-form';
 import { FormParams2 } from 'utils/types';
 
@@ -83,6 +83,19 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
   const watchedRange = watch(['fromDate', 'toDate']);
   const { isSubmitting } = formState;
 
+  useEffect(() => {
+    if (isBefore(watchedRange.fromDate, watchedRange.toDate)) {
+      const validDaysOff = watchedDaysOff.filter(day => (
+        isWithinInterval(day, {
+          start: watchedRange.fromDate,
+          end: watchedRange.toDate,
+        })
+      ));
+
+      setValue('daysOff', validDaysOff);
+    }
+  }, [watchedRange.fromDate, watchedRange.toDate]);
+
   return (
   // eslint-disable-next-line react/jsx-props-no-spreading
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
@@ -140,6 +153,9 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
       </DateRangeFormGroup>
 
       <FormLabel component="legend" style={{ marginBottom: 16 }}>Dni wolne</FormLabel>
+
+      <FormHelperText error={!!errors.daysOff}>{errors.daysOff?.[0]?.message || ''}</FormHelperText>
+
       <DaysOffFormGroup>
         <Controller
           control={control}
@@ -148,8 +164,6 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
             <MultiSelectDatePicker
               minDate={watchedRange.fromDate}
               maxDate={watchedRange.toDate}
-              error={!!errors.daysOff}
-              helperText={errors.daysOff?.[0]?.message || 'lknjn'}
               // eslint-disable-next-line react/jsx-props-no-spreading
               {...p}
             />
