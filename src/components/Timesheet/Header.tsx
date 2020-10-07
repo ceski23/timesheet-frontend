@@ -1,13 +1,13 @@
-import React, { FC, ReactElement } from 'react';
+import React, {
+  FC, ReactElement, useMemo,
+} from 'react';
 import { styled, Paper } from '@material-ui/core';
-import { add, getTime, differenceInDays } from 'date-fns';
+import {
+  add, getTime, differenceInCalendarDays,
+} from 'date-fns';
 import { useParentScroll } from 'hooks/useParentScroll';
+import { useTimesheetState } from 'contexts/timesheet';
 import { HeaderCell } from './HeaderCell';
-
-interface Props {
-  firstDate: Date;
-  lastDate: Date;
-}
 
 // #region styles
 // eslint-disable-next-line react/jsx-props-no-spreading
@@ -22,13 +22,14 @@ const Container = styled(Paper)(({ theme }) => ({
 }));
 // #endregion
 
-export const Header: FC<Props> = ({ firstDate, lastDate }): ReactElement => {
+export const Header: FC = (): ReactElement => {
   const { ref, position } = useParentScroll();
-  const length = differenceInDays(lastDate, firstDate) + 1;
+  const { firstDay, lastDay } = useTimesheetState();
+  const length = differenceInCalendarDays(lastDay, firstDay) + 1;
 
-  const days = Array.from({ length }).map((_n, i) => (
-    add(firstDate, { days: i })
-  ));
+  const days = useMemo(() => Array.from({ length }).map((_n, i) => (
+    add(firstDay, { days: i })
+  )), [firstDay, lastDay]);
 
   return (
     <Container

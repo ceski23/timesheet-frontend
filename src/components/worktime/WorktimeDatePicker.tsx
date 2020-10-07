@@ -4,8 +4,9 @@ import {
 } from '@material-ui/core';
 import { useDialog } from 'hooks/useDialog';
 import { DatePicker } from '@material-ui/pickers';
-import { useDateFormatter, getDateLocale } from 'hooks/useDateFormatter';
-import { usePreferences } from 'contexts/preferences';
+import { useDateFormatter, useDateLocale } from 'hooks/useDateFormatter';
+import { useSetTimesheetState, useTimesheetState } from 'contexts/timesheet';
+import { endOfWeek, startOfWeek } from 'date-fns';
 
 // #region styles
 const Container = styled(Button)({
@@ -16,12 +17,12 @@ const Container = styled(Button)({
 
 export const WorktimeDatePicker: FC = (): ReactElement => {
   const { format } = useDateFormatter();
-  // const { firstDay, lastDay, numOfDays } = useSelector(selectWorktimeState);
-  // const { language } = usePreferences();
+  const { firstDay, lastDay } = useTimesheetState();
+  const setTimesheetState = useSetTimesheetState();
+  const locale = useDateLocale();
   const {
     isOpen, setClose, setOpen, data,
   } = useDialog<Element>();
-  // const dispatch = useThunkDispatch();
 
   const handleDateClick = (event: React.MouseEvent) => {
     setOpen(event.currentTarget);
@@ -30,21 +31,23 @@ export const WorktimeDatePicker: FC = (): ReactElement => {
   const handleDateSelect = (date: Date | null) => {
     setClose();
     if (date) {
-      // const firstDate = getFirstDate(numOfDays, getDateLocale(language), date);
-      // dispatch(setDays(firstDate));
+      setTimesheetState({
+        firstDay: startOfWeek(date, { locale }),
+        lastDay: endOfWeek(date, { locale }),
+      });
     }
   };
 
   return (
     <>
       <Container onClick={handleDateClick}>
-        {/* <Typography variant="h6">
+        <Typography variant="h6">
           {firstDay.getFullYear() === lastDay.getFullYear() ? (
             `${format(firstDay, 'd MMM')} - ${format(lastDay, 'd MMM')} ${format(lastDay, 'y')}`
           ) : (
             `${format(firstDay, 'd MMM y')} - ${format(lastDay, 'd MMM y')}`
           )}
-        </Typography> */}
+        </Typography>
       </Container>
 
       <Popover
@@ -52,11 +55,11 @@ export const WorktimeDatePicker: FC = (): ReactElement => {
         onClose={setClose}
         anchorEl={data}
       >
-        {/* <DatePicker
+        <DatePicker
           variant="static"
           value={firstDay}
           onChange={handleDateSelect}
-        /> */}
+        />
       </Popover>
     </>
   );

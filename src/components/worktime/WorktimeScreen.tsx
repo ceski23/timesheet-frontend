@@ -1,58 +1,45 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Timesheet } from 'components/Timesheet/Timesheet';
-import { isWithinInterval, startOfDay, endOfDay } from 'date-fns';
-import { Event } from 'components/Timesheet/Content';
+import {
+  startOfDay, parse,
+} from 'date-fns';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { WorktimeToolbar } from './WorktimeToolbar';
 
-export const WorktimeScreen: FC = (): ReactElement => {
-  useAppScreen('worktime');
-  // const dispatch = useThunkDispatch();
-  // const { firstDay, numOfDays, lastDay } = useSelector(selectWorktimeState);
+const generateEvents = () => {
+  const today = startOfDay(new Date());
 
-  useEffect(() => {
-    // dispatch(nowDay());
-  }, []);
-
-  const events: Event[] = [
+  const data = [
     {
-      start: new Date(2020, 2, 10, 4, 45),
-      end: new Date(2020, 2, 10, 6, 40),
+      start: parse('04:45', 'HH:mm', today),
+      end: parse('06:40', 'HH:mm', today),
       title: '#Koronaria',
-      color: '#b52222',
       desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec lacinia lorem, in vestibulum nisl. Maecenas in imperdiet justo, vel dignissim risus. Nullam nulla ligula, pharetra at erat eget, viverra volutpat dui.',
     },
     {
-      start: new Date(2020, 2, 10, 6, 40),
-      end: new Date(2020, 2, 10, 10, 0),
+      start: parse('06:40', 'HH:mm', today),
+      end: parse('10:00', 'HH:mm', today),
       title: 'Pisanie pracy dyplomowej',
-      color: '#c1b81c',
       desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec lacinia lorem, in vestibulum nisl. Maecenas in imperdiet justo, vel dignissim risus. Nullam nulla ligula, pharetra at erat eget, viverra volutpat dui.',
     },
     {
-      start: new Date(2020, 2, 10, 10, 45),
-      end: new Date(2020, 2, 10, 19, 0),
+      start: parse('10:45', 'HH:mm', today),
+      end: parse('19:00', 'HH:mm', today),
       title: 'Odpoczynek 🎧',
       desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec lacinia lorem, in vestibulum nisl. Maecenas in imperdiet justo, vel dignissim risus. Nullam nulla ligula, pharetra at erat eget, viverra volutpat dui.',
     },
   ];
 
-  // const eventsTmpFilter = (event: Event) => (
-  //   isWithinInterval(event.start, {
-  //     start: startOfDay(firstDay),
-  //     end: endOfDay(lastDay),
-  //   })
-  // );
+  return data;
+};
+
+export const WorktimeScreen: FC = (): ReactElement => {
+  useAppScreen('worktime');
 
   return (
     <ScreenWrapper toolbar={<WorktimeToolbar />}>
-      {/* <Timesheet
-        firstDate={firstDay}
-        lastDate={lastDay}
-        numOfDays={numOfDays}
-        events={events.filter(eventsTmpFilter)}
-      /> */}
+      <Timesheet events={generateEvents()} />
     </ScreenWrapper>
   );
 };

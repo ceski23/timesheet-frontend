@@ -13,6 +13,7 @@ import { Redirect } from 'react-router';
 import { NotFoundScreen } from 'components/NotFoundScreen';
 import { HomeScreen } from 'components/home/HomeScreen';
 import { SchedulesScreen } from 'components/schedules/SchedulesScreen';
+import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 // import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 
 export const routeUrls = {
@@ -59,10 +60,10 @@ export const userRoutes: RouteConfig[] = [
     component: HomeScreen,
     routes: [],
   },
-  // {
-  //   path: routeUrls.worktime,
-  //   component: WorktimeScreen,
-  // },
+  {
+    path: routeUrls.worktime,
+    component: WorktimeScreen,
+  },
   ...commonRoutes,
 ];
 

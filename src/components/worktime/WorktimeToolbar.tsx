@@ -1,36 +1,58 @@
-import React, { FC, ReactElement } from 'react';
-import { IconButton, Button } from '@material-ui/core';
-import LeftIcon from '@material-ui/icons/ChevronLeftOutlined';
-import RightIcon from '@material-ui/icons/ChevronRightOutlined';
-import TodayIcon from '@material-ui/icons/TodayOutlined';
+import React, {
+  FC, ReactElement,
+} from 'react';
+import {
+  styled, Typography, CircularProgress, Button,
+} from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { WorktimeDatePicker } from './WorktimeDatePicker';
+import { useIsFetching } from 'react-query';
+import TimesheetViewIcon from '@material-ui/icons/ViewWeekOutlined';
+import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
+import { useAppState, useSetAppState } from 'contexts/appState';
+
+// #region styles
+const StyledProgress = styled(CircularProgress)(({ theme }) => ({
+  marginLeft: theme.spacing(2),
+}));
+
+const Title = styled(Typography)({
+  flex: 1,
+  display: 'flex',
+  alignItems: 'center',
+});
+// #endregion
 
 export const WorktimeToolbar: FC = (): ReactElement => {
-  // const dispatch = useThunkDispatch();
   const { t } = useTranslation();
+  const isFetching = useIsFetching();
+  const setAppState = useSetAppState();
+  const { worktimeViewType } = useAppState();
 
   return (
     <>
-      {/* <IconButton size="small" onClick={() => dispatch(prevDays())}>
-        <LeftIcon />
-      </IconButton> */}
+      <Title variant="h6">
+        {t('employees.title')}
+        {isFetching ? <StyledProgress size={24} /> : null}
+      </Title>
 
-      <WorktimeDatePicker />
-
-      {/* <IconButton size="small" onClick={() => dispatch(nextDays())}>
-        <RightIcon />
-      </IconButton> */}
-
-      <span style={{ flex: 1 }} />
-
-      <Button
-        variant="outlined"
-        // onClick={() => dispatch(nowDay())}
-        startIcon={<TodayIcon />}
-      >
-        {t('worktime.toolbar.today')}
-      </Button>
+      <div>
+        {worktimeViewType === 'list' && (
+          <Button
+            startIcon={<TimesheetViewIcon />}
+            onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
+          >
+            Widok siatki
+          </Button>
+        )}
+        {worktimeViewType === 'timesheet' && (
+          <Button
+            startIcon={<ListViewIcon />}
+            onClick={() => setAppState({ worktimeViewType: 'list' })}
+          >
+            Widok listy
+          </Button>
+        )}
+      </div>
     </>
   );
 };

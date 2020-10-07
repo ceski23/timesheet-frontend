@@ -1,15 +1,18 @@
-import React, { FC, ReactElement, useEffect } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, {
+  FC, ReactElement, useEffect,
+} from 'react';
 import { styled, Popover } from '@material-ui/core';
 import { Header } from 'components/Timesheet/Header';
-import { Content, Event, NumOfDays } from 'components/Timesheet/Content';
+import { Content, Event } from 'components/Timesheet/Content';
 import { useDialog } from 'hooks/useDialog';
+import { TimesheetStateProvider, useSetTimesheetState, useTimesheetState } from 'contexts/timesheet';
+import { endOfWeek, startOfWeek } from 'date-fns';
+import { useDateLocale } from 'hooks/useDateFormatter';
+import { TimesheetToolbar } from 'components/Timesheet/TimesheetToolbar';
 import { EventInfo } from './EventInfo';
 
 interface Props {
-  firstDate: Date;
-  lastDate: Date;
-  numOfDays?: NumOfDays;
-  startTime?: Date;
   interval?: number;
   events: Event[];
 }
@@ -23,34 +26,29 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-export const Timesheet: FC<Props> = ({
-  firstDate,
-  lastDate,
-  numOfDays = 7,
-  startTime = new Date(0, 0, 0, 0, 0, 0),
-  interval = 60,
-  events,
-}): ReactElement => {
+const TimesheetContent: FC<Props> = ({ events }): ReactElement => {
   // const { mousePos, selectedEvent } = useSelector(selectWorktimeState);
   const { isOpen, setOpen, setClose } = useDialog();
+  const setTimesheetState = useSetTimesheetState();
+  const locale = useDateLocale();
+  const { selectedEvent, mousePos } = useTimesheetState();
 
-  // useEffect(() => {
-  //   if (selectedEvent) setOpen();
-  // }, [selectedEvent]);
+  useEffect(() => {
+    setTimesheetState({
+      firstDay: startOfWeek(new Date(), { locale }),
+      lastDay: endOfWeek(new Date(), { locale }),
+    });
+  }, []);
+
+  useEffect(() => {
+    if (selectedEvent) setOpen();
+  }, [selectedEvent]);
 
   return (
     <Container>
-      <Header
-        firstDate={firstDate}
-        lastDate={lastDate}
-      />
+      <Header />
 
-      <Content
-        startTime={startTime}
-        interval={interval}
-        numOfDays={numOfDays}
-        events={events}
-      />
+      <Content events={events} />
 
       <Popover
         open={isOpen}
@@ -64,10 +62,17 @@ export const Timesheet: FC<Props> = ({
           horizontal: 'center',
         }}
         anchorReference="anchorPosition"
-        // anchorPosition={{ left: mousePos.x, top: mousePos.y }}
+        anchorPosition={{ left: mousePos?.x || 0, top: mousePos?.y || 0 }}
       >
-        {/* {selectedEvent && <EventInfo event={selectedEvent} close={setClose} />} */}
+        {selectedEvent && <EventInfo event={selectedEvent} close={setClose} />}
       </Popover>
     </Container>
   );
 };
+
+export const Timesheet: FC<Props> = props => (
+  <TimesheetStateProvider>
+    <TimesheetToolbar />
+    <TimesheetContent {...props} />
+  </TimesheetStateProvider>
+);
