@@ -8,7 +8,8 @@
       "employee_deleted": "Usunięto pracownika {{name}}",
       "schedule_added": "Dodano rozkład {{name}}",
       "schedule_deleted": "Usunięto rozkład {{name}}",
-      "record_deleted": "Usunięto rekord"
+      "record_deleted": "Usunięto rekord",
+      "record_added": "Dodano rekord"
     },
     "failure": {
       "find_employees": "Wystąpił błąd podczas wczytywania pracowników",
@@ -110,6 +111,10 @@
     "add_button": "Dodaj",
     "timesheet_view": "Widok siatki",
     "list_view": "Widok listy"
+  },
+
+  "add_record": {
+    "title": "Dodawanie rekordu"
   },
 
   "delete_record": {

@@ -8,6 +8,9 @@ import {
 // #region Types
 export type RecordType = 'normal' | 'vacationLeave' | 'trainingLeave' | 'leaveOnRequest' | 'sickLeave' | 'childcare';
 
+export const RECORD_TYPES: RecordType[] = [
+  'normal', 'vacationLeave', 'trainingLeave', 'leaveOnRequest', 'sickLeave', 'childcare',
+];
 export interface Record {
   _id: string;
   dateFrom: string;

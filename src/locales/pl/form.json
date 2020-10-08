@@ -10,7 +10,10 @@
     "schedule_range": "Zakres rozkładu",
     "date_from": "Początek",
     "date_to": "Koniec",
-    "schedule_freedays": "Dni wolne"
+    "schedule_freedays": "Dni wolne",
+    "record_range": "Zakres rekordu",
+    "record_type": "Typ rekordu",
+    "record_details": "Szczegóły"
   },
 
   "loading": {
@@ -18,7 +21,8 @@
     "login": "Logowanie...",
     "reset_password": "Resetowanie hasła...",
     "add_employee": "Dodawanie pracownika...",
-    "add_schedule": "Dodawanie rozkładu..."
+    "add_schedule": "Dodawanie rozkładu...",
+    "add_record": "Dodawanie rekordu..."
   },
 
   "submit": {
@@ -26,7 +30,8 @@
     "login": "Zaloguj",
     "reset_password": "Zmień hasło",
     "add_employee": "Dodaj pracownika",
-    "add_schedule": "Dodaj rozkład"
+    "add_schedule": "Dodaj rozkład",
+    "add_record": "Dodaj rekord"
   },
 
   "validation": {
@@ -61,6 +66,9 @@
     "date_to": {
       "required": "Data końcowa jest wymagana",
       "min": "Data końcowa musi być po dacie początkowej"
+    },
+    "record_type": {
+      "match": "Dozwolone rodzaje to: Praca, Urlop wypoczynkowy, Urlop szkoleniowy, Urlop na żądanie, Zwolnienie lekarskie, Opieka nad dzieckiem"
     }
   }
 }

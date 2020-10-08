@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
-import { useRemoveRecord, Record } from 'api/records';
+import { useRemoveRecord, Record, AddRecordParams } from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
 import { Fab, styled } from '@material-ui/core';
@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { WorktimeToolbar } from './WorktimeToolbar';
 import { WorktimeListView } from './WorktimeListView';
 import { WorktimeTimesheetView } from './WorktimeTimesheetView';
+import { AddRecordDialog } from './add/AddRecordDialog';
 
 const AddRecordButton = styled(Fab)({
   position: 'absolute',
@@ -26,6 +27,7 @@ export const WorktimeScreen: FC = (): ReactElement => {
   useAppScreen('worktime');
   const { worktimeViewType } = useAppState();
   const deleteRecordDialog = useDialog<Record>();
+  const addRecordDialog = useDialog<AddRecordParams>();
   const [deleteRecord] = useRemoveRecord();
   const { t } = useTranslation();
 
@@ -49,7 +51,11 @@ export const WorktimeScreen: FC = (): ReactElement => {
         <WorktimeTimesheetView deleteDialog={deleteRecordDialog} />
       )}
 
-      <AddRecordButton variant="extended" color="primary">
+      <AddRecordButton
+        variant="extended"
+        color="primary"
+        onClick={() => addRecordDialog.setOpen()}
+      >
         <AddRecordIcon style={{ marginRight: 8 }} />
         {t('ui:records.add_button')}
       </AddRecordButton>
@@ -62,6 +68,8 @@ export const WorktimeScreen: FC = (): ReactElement => {
       >
         {t('ui:delete_record.text')}
       </ConfirmDialog>
+
+      <AddRecordDialog {...addRecordDialog} />
     </ScreenWrapper>
   );
 };
