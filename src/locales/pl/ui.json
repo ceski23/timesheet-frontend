@@ -17,7 +17,9 @@
       "add_schedule": "Wystąpił błąd podczas dodawania rozkładu",
       "delete_schedule": "Wystąpił błąd podczas usuwania rozkładu",
       "delete_record": "Wystąpił błąd podczas usuwania rekordu",
-      "internal_error": "Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później"
+      "add_record": "Wystąpił błąd podczas dodawania rekordu",
+      "internal_error": "Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później",
+      "records_overlap": "Już istnieje rekord w tym czasie"
     }
   },
 
