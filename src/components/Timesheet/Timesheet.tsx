@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement, useEffect, useMemo, useState,
+  FC, ReactElement, useEffect,
 } from 'react';
 import { styled, Popover } from '@material-ui/core';
 import { Header } from 'components/Timesheet/Header';

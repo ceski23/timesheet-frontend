@@ -1,5 +1,5 @@
 import {
-  client, PaginatedResponse, FindParams,
+  client, PaginatedResponse,
 } from 'utils/api';
 import {
   queryCache, useMutation, usePaginatedQuery, useQuery,

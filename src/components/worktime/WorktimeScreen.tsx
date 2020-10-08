@@ -1,20 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement, useEffect, useState,
+  FC, ReactElement,
 } from 'react';
-import { Timesheet } from 'components/Timesheet/Timesheet';
-import {
-  startOfDay, parse, startOfWeek, endOfWeek, endOfDay,
-} from 'date-fns';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
-import { useRecords, useRemoveRecord, Record } from 'api/records';
-import { useDateLocale } from 'hooks/useDateFormatter';
+import { useRemoveRecord, Record } from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
 import { Fab, styled } from '@material-ui/core';
-import { SimpleList } from 'components/shared/SimpleList';
-import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import { useDialog } from 'hooks/useDialog';
 import Notificator from 'utils/Notificator';

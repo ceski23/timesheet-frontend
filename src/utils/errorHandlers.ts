@@ -13,6 +13,7 @@ export function errorHandler<T>(
 
 export function errorHandler2<T>(
   error: ApiError<T>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setError: (field: any, error: ErrorOption) => void,
 ) {
   if (error instanceof Error) Notificator.error(error.message);

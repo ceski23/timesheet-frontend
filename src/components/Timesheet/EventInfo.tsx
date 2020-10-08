@@ -6,7 +6,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/EditOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useDateFormatter } from 'hooks/useDateFormatter';
-import { useAppTheme } from 'hooks/useAppTheme';
 import { useTranslation } from 'react-i18next';
 import { Record } from 'api/records';
 import { useTimesheetState } from 'contexts/timesheet';

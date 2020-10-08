@@ -2,7 +2,6 @@ import {
   ListItem, ListItemSecondaryAction, IconButton, styled,
   Typography,
 } from '@material-ui/core';
-import { Schedule } from 'api/schedules';
 import React, { FC, useMemo } from 'react';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import CalendarStart from '@material-ui/icons/EventAvailable';

@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
-  Button, ButtonTypeMap, createMuiTheme, ExtendButtonBase,
-  MuiThemeProvider, PaletteType, ThemeOptions,
+  Button, ButtonProps, createMuiTheme, MuiThemeProvider, PaletteType, ThemeOptions,
 } from '@material-ui/core';
 import { useThemeType } from 'hooks/useAppTheme';
 import React, { useMemo } from 'react';
@@ -15,7 +14,7 @@ const theme = (type: PaletteType): ThemeOptions => ({
   },
 });
 
-export const DangerButton: ExtendButtonBase<ButtonTypeMap<{}, 'button'>> = (props: any) => {
+export const DangerButton = (props: ButtonProps) => {
   const themeType = useThemeType();
 
   const muiTheme = useMemo(() => (

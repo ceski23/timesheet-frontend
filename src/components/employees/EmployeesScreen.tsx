@@ -4,12 +4,11 @@ import React, {
   FC, ReactElement, ChangeEvent, useState, useEffect,
 } from 'react';
 import {
-  styled, Paper, List, ListItem, ListItemIcon,
+  styled, ListItem, ListItemIcon,
   ListItemText, Avatar, ListItemSecondaryAction, IconButton,
-  withStyles, Button, Typography, TextField, InputAdornment,
+  Button, TextField, InputAdornment,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import Pagination from '@material-ui/lab/Pagination';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
 import { gridSpacingVertical } from 'utils/styles';
@@ -20,7 +19,6 @@ import { useDebounce } from 'use-lodash-debounce';
 import Notificator from 'utils/Notificator';
 import SearchIcon from '@material-ui/icons/SearchOutlined';
 import { ConfirmDialog } from 'components/shared/ConfirmDialog';
-import { Loader } from 'components/shared/Loader';
 import { SimpleList } from 'components/shared/SimpleList';
 import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import { AddEmployeeDialog } from './add/AddEmployeeDialog';
@@ -36,28 +34,6 @@ const Container = styled('div')(({ theme }) => ({
   //   ...gridSpacingHorizontal(theme.spacing(2), true),
   //   flexDirection: 'row-reverse',
   // },
-}));
-
-const ListContainer = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-const UsersList = styled(List)(() => ({
-  overflow: 'auto',
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-}));
-
-const UsersPagination = styled(withStyles({
-  ul: {
-    justifyContent: 'center',
-  },
-})(Pagination))(({ theme }) => ({
-  margin: `${theme.spacing(1)}px 0`,
 }));
 
 const SearchBox = styled(TextField)(({ theme }) => ({
