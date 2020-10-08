@@ -21,6 +21,7 @@ export const TimesheetToolbar: FC = (): ReactElement => {
   return (
     <Toolbar>
       <IconButton
+        title={t('ui:tooltips.prev')}
         size="small"
         onClick={() => setTimesheetState({
           firstDay: subDays(firstDay, numOfDays),
@@ -33,6 +34,7 @@ export const TimesheetToolbar: FC = (): ReactElement => {
       <WorktimeDatePicker />
 
       <IconButton
+        title={t('ui:tooltips.next')}
         size="small"
         onClick={() => setTimesheetState({
           firstDay: addDays(firstDay, numOfDays),
@@ -52,7 +54,7 @@ export const TimesheetToolbar: FC = (): ReactElement => {
         })}
         startIcon={<TodayIcon />}
       >
-        {t('worktime.toolbar.today')}
+        {t('ui:timesheet.today')}
       </Button>
     </Toolbar>
   );

@@ -3,6 +3,6 @@ import i18next from 'utils/i18n';
 
 export const forgotPasswordFormSchema = yup.object({
   email: yup.string()
-    .email(i18next.t('forgot_password.form.errors.email'))
-    .required(i18next.t('forgot_password.form.errors.email_required')),
+    .email(i18next.t('form:validation.email.format'))
+    .required(i18next.t('form:validation.email.required')),
 });

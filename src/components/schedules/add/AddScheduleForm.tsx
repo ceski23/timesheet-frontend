@@ -99,11 +99,10 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
   return (
   // eslint-disable-next-line react/jsx-props-no-spreading
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
-      <FormLabel component="legend">Nazwa rozkładu</FormLabel>
       <TextField
         type="text"
         name="name"
-        label={t('schedule.form.name')}
+        label={t('form:fields.schedule_name')}
         style={{ marginBottom: 32 }}
         variant="outlined"
         inputRef={register}
@@ -112,14 +111,14 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
         helperText={errors.name?.message || ''}
       />
 
-      <FormLabel component="legend">Zakres rozkładu</FormLabel>
+      <FormLabel component="legend">{t('form:fields.schedule_range')}</FormLabel>
       <DateRangeFormGroup>
         <Controller
           control={control}
           name="fromDate"
           render={p => (
             <KeyboardDatePicker
-              label="Początek"
+              label={t('form:fields.date_from')}
               margin="normal"
               // onChange={(date: Date) => setFieldValue('fromDate', startOfDay(date))}
               autoOk
@@ -137,7 +136,7 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
           name="toDate"
           render={p => (
             <KeyboardDatePicker
-              label="Koniec"
+              label={t('form:fields.date_to')}
               margin="normal"
               // onChange={(date: Date) => setFieldValue('fromDate', startOfDay(date))}
               autoOk
@@ -152,7 +151,9 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
         />
       </DateRangeFormGroup>
 
-      <FormLabel component="legend" style={{ marginBottom: 16 }}>Dni wolne</FormLabel>
+      <FormLabel component="legend" style={{ marginBottom: 16 }}>
+        {t('form:fields.schedule_freedays')}
+      </FormLabel>
 
       <FormHelperText error={!!errors.daysOff}>{errors.daysOff?.[0]?.message || ''}</FormHelperText>
 
@@ -186,15 +187,8 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
 
               setValue('daysOff', filterUniqueDates([...daysOff, ...weekends]).sort(compareAsc));
             }}
-          >Dodaj soboty i niedziele w zakresie
-          </Button>
-
-          <Button
-            variant="outlined"
-            color="primary"
-            disabled
-            style={{ marginBottom: 8 }}
-          >Dodaj z pliku iCal
+          >
+            {t('ui:add_schedule.add_weekends')}
           </Button>
 
           <DangerButton
@@ -202,7 +196,8 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
             color="primary"
             style={{ marginTop: 24 }}
             onClick={() => setValue('daysOff', [])}
-          >Usuń wszystkie dni wolne
+          >
+            {t('ui:add_schedule.remove_freedays')}
           </DangerButton>
         </div>
       </DaysOffFormGroup>
@@ -218,7 +213,7 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography>Dni wolne: <strong>{watchedDaysOff.length}</strong></Typography>
+          <Typography>{t('form:fields.schedule_freedays')}: <strong>{watchedDaysOff.length}</strong></Typography>
         </AccordionSummary>
         <AccordionDetails>
           <DaysOffContainer>
@@ -243,7 +238,7 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
         disabled={isSubmitting}
         type="submit"
       >
-        {isSubmitting ? t('schedules.form.add.loading') : t('schedules.form.add.submit')}
+        {isSubmitting ? t('form:loading.add_schedule') : t('form:submit.add_schedule')}
       </SubmitButton>
     </StyledForm>
   );

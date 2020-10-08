@@ -39,29 +39,29 @@ export const SchedulesScreen: FC = () => {
   const handleScheduleDelete = async () => {
     await deleteSchedule(deleteScheduleDialog.data?._id, {
       onSuccess: () => {
-        Notificator.success(t('schedules.deleted', { name: deleteScheduleDialog.data?.name }));
+        Notificator.success(t('ui:notifications.success.schedule_deleted', { name: deleteScheduleDialog.data?.name }));
       },
       onError: () => {
-        Notificator.error(t('schedules.deleteError'));
+        Notificator.error(t('ui:notifications.failure.delete_schedule'));
       },
     });
   };
 
   return (
-    <ScreenWrapper title={t('schedules.title')}>
+    <ScreenWrapper title={t('ui:schedules.title')}>
       <Container>
 
         <SimpleList
           loading={schedules.isLoading}
           header={(
-            <SimpleListHeader title={t('schedules.list')}>
+            <SimpleListHeader title={t('ui:schedules.list_title')}>
               <Button
                 variant="contained"
                 color="primary"
                 startIcon={<AddScheduleIcon />}
                 onClick={() => addScheduleDialog.setOpen()}
               >
-                Dodaj
+                {t('ui:schedules.add_button')}
               </Button>
             </SimpleListHeader>
           )}
@@ -88,10 +88,10 @@ export const SchedulesScreen: FC = () => {
       <ConfirmDialog
         {...deleteScheduleDialog}
         onConfirm={handleScheduleDelete}
-        confirmText={t('schedules.deleteDialog.confirm')}
-        title={t('schedules.deleteDialog.title')}
+        confirmText={t('ui:delete_schedule.confirm')}
+        title={t('ui:delete_schedule.title')}
       >
-        {t('schedules.deleteDialog.text', { name: deleteScheduleDialog.data?.name })}
+        {t('ui:delete_schedule.text', { name: deleteScheduleDialog.data?.name })}
       </ConfirmDialog>
     </ScreenWrapper>
   );

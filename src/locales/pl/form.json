@@ -1,0 +1,66 @@
+{
+  "fields": {
+    "email": "Adres e-mail",
+    "password": "Hasło",
+    "reset_token": "Kod z e-maila",
+    "new_password": "Nowe hasło",
+    "repeat_password": "Powtórz hasło",
+    "name": "Imię i nazwisko",
+    "schedule_name": "Nazwa rozkładu",
+    "schedule_range": "Zakres rozkładu",
+    "date_from": "Początek",
+    "date_to": "Koniec",
+    "schedule_freedays": "Dni wolne"
+  },
+
+  "loading": {
+    "default": "Ładowanie...",
+    "login": "Logowanie...",
+    "reset_password": "Resetowanie hasła...",
+    "add_employee": "Dodawanie pracownika...",
+    "add_schedule": "Dodawanie rozkładu..."
+  },
+
+  "submit": {
+    "forgot_password": "Wyślij link",
+    "login": "Zaloguj",
+    "reset_password": "Zmień hasło",
+    "add_employee": "Dodaj pracownika",
+    "add_schedule": "Dodaj rozkład"
+  },
+
+  "validation": {
+    "email": {
+      "format": "Podaj poprawny adres email", 
+      "required": "Adres email jest wymagany"
+    },
+    "password": {
+      "match": "Hasło powinno mieć długość co najmniej 8 znaków, zawierać co najmniej 1 cyfre, 1 literę oraz 1 znak specjalny",
+      "required": "Hasło jest wymagane",
+      "alpha": "Hasło powinno zawierać co najmniej 1 literę",
+      "digit": "Hasło powinno zawierać co najmniej 1 cyfrę",
+      "min": "Hasło powinno zawierać co najmniej 8 znaków",
+      "repeat": "Hasła muszą się zgadzać",
+      "special": "Hasło powinno zawierać co najmniej 1 znak specjalny (#?!@$%^&*-)"
+    },
+    "reset_token": {
+      "format": "Podaj poprawny kod",
+      "required": "Kod jest wymagany"
+    },
+    "name": {
+      "min": "Minimalna długość wynosi {{min}}",
+      "max": "Maksymalna długość wynosi {{max}}",
+      "required": "Imię jest wymagane"
+    },
+    "schedule_name": {
+      "required": "Nazwa rozkładu jest wymagana"
+    },
+    "date_from": {
+      "required": "Data początkowa jest wymagana"
+    },
+    "date_to": {
+      "required": "Data końcowa jest wymagana",
+      "min": "Data końcowa musi być po dacie początkowej"
+    }
+  }
+}

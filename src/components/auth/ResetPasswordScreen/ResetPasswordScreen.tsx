@@ -76,7 +76,7 @@ export const ResetPasswordScreen: FC = () => {
 
     await resetPassword(data, {
       onSuccess: () => {
-        Notificator.success(t('reset_password.reset_success'), {
+        Notificator.success(t('ui:notifications.success.reset_password'), {
           autoHideDuration: 5000,
         });
         history.replace(routeUrls.home);
@@ -93,7 +93,7 @@ export const ResetPasswordScreen: FC = () => {
       <MainImage />
       <StyledCard>
         <CardContent>
-          <Typography gutterBottom variant="h6">{t('reset_password.title')}</Typography>
+          <Typography gutterBottom variant="h6">{t('ui:password_reset.title')}</Typography>
           <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
         </CardContent>
       </StyledCard>

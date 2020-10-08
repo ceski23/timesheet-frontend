@@ -27,7 +27,7 @@ export const ForgotPasswordForm: FC<FormParams2<ForgotPasswordData> & Stylable> 
         type="text"
         autoComplete="email"
         name="email"
-        label={t('forgot_password.form.email')}
+        label={t('form:fields.email')}
         required
         variant="outlined"
         inputRef={register}
@@ -42,7 +42,7 @@ export const ForgotPasswordForm: FC<FormParams2<ForgotPasswordData> & Stylable> 
         type="submit"
         style={{ marginTop: 32 }}
       >
-        {formState.isSubmitting ? t('forgot_password.form.loading') : t('forgot_password.form.send')}
+        {formState.isSubmitting ? t('form:loading.default') : t('form:submit.forgot_password')}
       </Button>
     </StyledForm>
   );

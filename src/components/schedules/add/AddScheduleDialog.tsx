@@ -64,7 +64,7 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
   const handleSubmit = async (values: AddScheduleParams) => {
     await addSchedule(values, {
       onSuccess: schedule => {
-        Notificator.success(t('schedules.scheduleAdded', { name: schedule.name }));
+        Notificator.success(t('ui:notifications.success.schedule_added', { name: schedule.name }));
         setClose();
       },
       onError: error => {
@@ -86,7 +86,7 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
     >
       <DialogHeader>
         <StyledIcon icon={AddScheduleIcon} color={theme.palette.primary.main} />
-        <StyledTitle>Dodawanie rozkładu</StyledTitle>
+        <StyledTitle>{t('ui:add_schedule.title')}</StyledTitle>
         <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>
 

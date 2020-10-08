@@ -1,7 +1,11 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import pl from 'locales/pl.json';
-import en from 'locales/en.json';
+
+import plForm from 'locales/pl/form.json';
+import plUi from 'locales/pl/ui.json';
+
+import enForm from 'locales/en/form.json';
+import enUi from 'locales/en/ui.json';
 
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -15,10 +19,12 @@ i18n
     },
     resources: {
       pl: {
-        translation: pl,
+        form: plForm,
+        ui: plUi,
       },
       en: {
-        translation: en,
+        form: enForm,
+        ui: enUi,
       },
     },
   });

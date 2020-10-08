@@ -37,17 +37,17 @@ export const SettingsScreen: FC = (): ReactElement => {
   const upMedium = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
-    <ScreenWrapper title="Ustawienia">
+    <ScreenWrapper title={t('ui:settings.title')}>
       <Container>
 
-        <SettingsSection title={t('settings.appearance')}>
+        <SettingsSection title={t('ui:settings.appearance')}>
           <Accordion square={!upMedium}>
             <Summary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="theme-content"
               id="theme-header"
             >
-              <Typography>{t('settings.theme')}</Typography>
+              <Typography>{t('ui:settings.theme')}</Typography>
             </Summary>
             <AccordionDetails>
               <ThemeChooser />
@@ -59,7 +59,7 @@ export const SettingsScreen: FC = (): ReactElement => {
               aria-controls="language-content"
               id="language-header"
             >
-              <Typography>{t('settings.language')}</Typography>
+              <Typography>{t('ui:settings.language')}</Typography>
               <div style={{ flex: 1 }} />
               <LanguageSelector />
             </Summary>

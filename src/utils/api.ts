@@ -1,4 +1,5 @@
 import Axios, { AxiosError } from 'axios';
+import i18next from 'i18next';
 
 export interface FindParams {
   limit?: number;
@@ -40,6 +41,6 @@ client.interceptors.response.use(
     // client received an error response (5xx, 4xx)
     if (error.response) return Promise.reject(error.response.data);
     // client never received a response, or request never left
-    return Promise.reject(Error('Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później'));
+    return Promise.reject(Error(i18next.t('ui:notifications.failure.internal_error')));
   },
 );

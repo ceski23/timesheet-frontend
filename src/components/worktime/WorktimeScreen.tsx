@@ -32,10 +32,10 @@ export const WorktimeScreen: FC = (): ReactElement => {
   const handleRecordDelete = async () => {
     await deleteRecord(deleteRecordDialog.data?._id, {
       onSuccess: () => {
-        Notificator.success(t('records.deleted'));
+        Notificator.success(t('ui:notifications.success.record_deleted'));
       },
       onError: () => {
-        Notificator.error(t('records.deleteError'));
+        Notificator.error(t('ui:notifications.failure.delete_record'));
       },
     });
   };
@@ -51,16 +51,16 @@ export const WorktimeScreen: FC = (): ReactElement => {
 
       <AddRecordButton variant="extended" color="primary">
         <AddRecordIcon style={{ marginRight: 8 }} />
-        Raportuj
+        {t('ui:records.add_button')}
       </AddRecordButton>
 
       <ConfirmDialog
         {...deleteRecordDialog}
         onConfirm={handleRecordDelete}
-        confirmText={t('records.deleteDialog.confirm')}
-        title={t('records.deleteDialog.title')}
+        confirmText={t('ui:delete_record.confirm')}
+        title={t('ui:delete_record.title')}
       >
-        {t('records.deleteDialog.text')}
+        {t('ui:delete_record.text')}
       </ConfirmDialog>
     </ScreenWrapper>
   );

@@ -34,16 +34,16 @@ export const NotFoundScreen: FC = (): ReactElement => {
   };
 
   return (
-    <ScreenWrapper title={t('notfound.title')}>
+    <ScreenWrapper title={t('ui:not_found.title')}>
       <Container>
         <Heading variant="h1" color="textPrimary">404</Heading>
-        <Typography variant="h4" color="textSecondary">{t('notfound.text')}</Typography>
+        <Typography variant="h4" color="textSecondary">{t('ui:not_found.text')}</Typography>
         <StyledButton
           size="large"
           variant="contained"
           color="secondary"
           onClick={handleClickBack}
-        >{t('notfound.goback')}
+        >{t('ui:not_found.go_back')}
         </StyledButton>
       </Container>
     </ScreenWrapper>

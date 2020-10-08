@@ -77,7 +77,7 @@ export const LoginScreen: FC = () => {
     await loginUser(values, {
       onSuccess: user => {
         setAuth({ user, status: 'authorized' });
-        Notificator.success(t('login.success_message'));
+        Notificator.success(t('ui:notifications.success.login'));
       },
       onError: error => {
         errorHandler2(error as ApiError, loginForm.setError);
@@ -91,8 +91,8 @@ export const LoginScreen: FC = () => {
       <MainImage />
       <StyledCard>
         <CardContent>
-          <Title gutterBottom variant="h5">{t('login.title')}</Title>
-          <Desc gutterBottom variant="subtitle1">{t('login.subtitle')}</Desc>
+          <Title gutterBottom variant="h5">{t('ui:login.title')}</Title>
+          <Desc gutterBottom variant="subtitle1">{t('ui:login.subtitle')}</Desc>
 
           <LoginForm onSubmit={handleSubmit} form={loginForm} />
 
@@ -105,7 +105,7 @@ export const LoginScreen: FC = () => {
             component={Link}
             to={routeUrls.forgotPassword}
           >
-            {t('login.forgot_password')}
+            {t('ui:login.forgot_password')}
           </Button>
         </CardContent>
       </StyledCard>

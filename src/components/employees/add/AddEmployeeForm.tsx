@@ -32,7 +32,7 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
       <TextField
         type="text"
         name="name"
-        label={t('employees.form.name')}
+        label={t('form:fields.name')}
         required
         variant="outlined"
         inputRef={register}
@@ -43,7 +43,7 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
       <TextField
         type="email"
         name="email"
-        label={t('employees.form.email')}
+        label={t('form:fields.email')}
         required
         variant="outlined"
         inputRef={register}
@@ -57,7 +57,7 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
         disabled={formState.isSubmitting}
         type="submit"
       >
-        {formState.isSubmitting ? t('employees.form.add.loading') : t('employees.form.add.submit')}
+        {formState.isSubmitting ? t('form:loading.add_employee') : t('form:submit.add_employee')}
       </SubmitButton>
     </StyledForm>
   );

@@ -31,7 +31,7 @@ export const WorktimeToolbar: FC = (): ReactElement => {
   return (
     <>
       <Title variant="h6">
-        {t('records.title')}
+        {t('ui:records.title')}
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
 
@@ -41,7 +41,7 @@ export const WorktimeToolbar: FC = (): ReactElement => {
             startIcon={<TimesheetViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
           >
-            Widok siatki
+            {t('ui:records.timesheet_view')}
           </Button>
         )}
         {worktimeViewType === 'timesheet' && (
@@ -49,7 +49,7 @@ export const WorktimeToolbar: FC = (): ReactElement => {
             startIcon={<ListViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'list' })}
           >
-            Widok listy
+            {t('ui:records.list_view')}
           </Button>
         )}
       </div>

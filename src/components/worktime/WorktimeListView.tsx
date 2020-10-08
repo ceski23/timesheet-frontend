@@ -42,7 +42,7 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog }) => {
       <SimpleList
         loading={records.isLoading}
         header={(
-          <SimpleListHeader title={t('records.list')} />
+          <SimpleListHeader title={t('ui:records.list_title')} />
       )}
         onPageChange={handlePageChange}
         pagination={{

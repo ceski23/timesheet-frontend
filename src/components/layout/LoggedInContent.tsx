@@ -58,23 +58,23 @@ export const LoggedInContent: FC = () => {
                   <List component="nav">
                     {user.role === 'admin' && (
                       <>
-                        <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
-                        <NavigationItem name={t('navigationBar.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
-                        <NavigationItem name={t('navigationBar.schedules')} icon={SchedulesIcon} to={String(routeUrls.schedules)} onClick={closeDrawer} />
+                        <NavigationItem name={t('ui:navigation.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
+                        <NavigationItem name={t('ui:navigation.employees')} icon={EmployeesIcon} to={String(routeUrls.employees)} onClick={closeDrawer} />
+                        <NavigationItem name={t('ui:navigation.schedules')} icon={SchedulesIcon} to={String(routeUrls.schedules)} onClick={closeDrawer} />
                       </>
                     )}
 
                     {user.role === 'user' && (
                       <>
-                        <NavigationItem name={t('navigationBar.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
-                        <NavigationItem name={t('navigationBar.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} onClick={closeDrawer} />
+                        <NavigationItem name={t('ui:navigation.dashboard')} icon={HomeIcon} to={routeUrls.home} onClick={closeDrawer} />
+                        <NavigationItem name={t('ui:navigation.worktime')} icon={TimeReportingIcon} to={routeUrls.worktime} onClick={closeDrawer} />
                       </>
                     )}
 
                     <Divider />
 
-                    <NavigationItem name={t('navigationBar.settings')} icon={SettingsIcon} to={routeUrls.settings} onClick={closeDrawer} />
-                    <NavigationItem name={t('navigationBar.header.logout')} icon={LogoutIcon} to={routeUrls.logout} onClick={closeDrawer} />
+                    <NavigationItem name={t('ui:navigation.settings')} icon={SettingsIcon} to={routeUrls.settings} onClick={closeDrawer} />
+                    <NavigationItem name={t('ui:navigation.logout')} icon={LogoutIcon} to={routeUrls.logout} onClick={closeDrawer} />
                   </List>
                 )}
               </DrawerSidebar>

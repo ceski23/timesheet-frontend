@@ -67,7 +67,7 @@ export const RecordListItem: FC<Props> = ({ data, onDelete }) => {
       <StyledIcon color={color} icon={icon} />
 
       <div>
-        <Name variant="h6">{t(`records.type.${data.type}`)}</Name>
+        <Name variant="h6">{t(`ui:records.type.${data.type}`)}</Name>
         <DatesContainer>
           <ScheduleDate>
             <CalendarStart color="disabled" />
@@ -85,6 +85,7 @@ export const RecordListItem: FC<Props> = ({ data, onDelete }) => {
 
       <ListItemSecondaryAction>
         <IconButton
+          title={t('ui:tooltips.delete')}
           edge="end"
           aria-label="delete"
           onClick={() => onDelete()}

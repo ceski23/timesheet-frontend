@@ -59,7 +59,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
   }, [debouncedQuery]);
 
   useEffect(() => {
-    if (users.isError) Notificator.error(t('employees.findError'));
+    if (users.isError) Notificator.error(t('ui:notifications.failure.find_employees'));
   }, [users.isError]);
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
@@ -70,10 +70,10 @@ export const EmployeesScreen: FC = (): ReactElement => {
     // eslint-disable-next-line no-underscore-dangle
     await deleteUser(deleteEmployeeDialog.data?._id, {
       onSuccess: () => {
-        Notificator.success(t('employees.employeeDeleted', { name: deleteEmployeeDialog.data?.name }));
+        Notificator.success(t('ui:notifications.success.employee_deleted', { name: deleteEmployeeDialog.data?.name }));
       },
       onError: () => {
-        Notificator.error(t('employees.deleteError'));
+        Notificator.error(t('ui:notifications.failure.delete_employee'));
       },
     });
   };
@@ -83,12 +83,12 @@ export const EmployeesScreen: FC = (): ReactElement => {
   };
 
   return (
-    <ScreenWrapper title="Pracownicy">
+    <ScreenWrapper title={t('ui:employees.title')}>
       <Container>
         <SimpleList
           loading={users.isLoading}
           header={(
-            <SimpleListHeader title="Lista pracowników">
+            <SimpleListHeader title={t('ui:employees.list_title')}>
               <SearchBox
                 variant="outlined"
                 size="small"
@@ -101,7 +101,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
                     </InputAdornment>
                   ),
                 }}
-                placeholder={t('employees.search')}
+                placeholder={t('ui:employees.searchbox')}
               />
               <Button
                 variant="contained"
@@ -109,7 +109,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
                 startIcon={<AddEmployeeIcon />}
                 onClick={() => addEmployeeDialog.setOpen()}
               >
-                Dodaj
+                {t('ui:employees.add_button')}
               </Button>
             </SimpleListHeader>
           )}
@@ -143,10 +143,10 @@ export const EmployeesScreen: FC = (): ReactElement => {
       <ConfirmDialog
         {...deleteEmployeeDialog}
         onConfirm={handleEmployeeDelete}
-        confirmText={t('employees.deleteDialog.confirm')}
-        title={t('employees.deleteDialog.title')}
+        confirmText={t('ui:delete_employee.confirm')}
+        title={t('ui:delete_employee.title')}
       >
-        {t('employees.deleteDialog.text', { name: deleteEmployeeDialog.data?.name })}
+        {t('ui:delete_employee.text', { name: deleteEmployeeDialog.data?.name })}
       </ConfirmDialog>
 
       <AddEmployeeDialog {...addEmployeeDialog} />

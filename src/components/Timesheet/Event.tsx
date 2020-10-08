@@ -79,7 +79,7 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
           variant="subtitle2"
           style={{ color: textColor }}
         >
-          {t(`records.type.${type}`)}
+          {t(`ui:records.type.${type}`)}
         </Title>
 
         <Text

@@ -75,7 +75,7 @@ export const ForgotPasswordScreen: FC = () => {
   const handleForgotPassword = async (values: ForgotPasswordData) => {
     await requestPasswordReset(values, {
       onSuccess: () => {
-        Notificator.success(t('forgot_password.success'), {
+        Notificator.success(t('ui:notifications.success.forgot_password'), {
           autoHideDuration: 10000,
         });
         history.replace(routeUrls.home);
@@ -100,9 +100,9 @@ export const ForgotPasswordScreen: FC = () => {
             <BackButton onClick={handleBackClick}>
               <BackIcon />
             </BackButton>
-            <Typography variant="h6">{t('forgot_password.title')}</Typography>
+            <Typography variant="h6">{t('ui:forgot_password.title')}</Typography>
           </Grid>
-          <Desc gutterBottom variant="subtitle1">{t('forgot_password.subtitle')}</Desc>
+          <Desc gutterBottom variant="subtitle1">{t('ui:forgot_password.subtitle')}</Desc>
           <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
         </CardContent>
       </StyledCard>

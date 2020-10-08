@@ -3,6 +3,7 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, DialogContentText, useTheme, useMediaQuery, CircularProgress, styled,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -21,11 +22,12 @@ interface Props {
 
 export const ConfirmDialog: FC<Props> = ({
   title, children, isOpen, setClose, onConfirm,
-  confirmText = 'Potwierdź', cancelText = 'Anuluj',
+  confirmText, cancelText,
 }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const [isLoading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handleConfirmClick = async () => {
     setLoading(true);
@@ -54,11 +56,11 @@ export const ConfirmDialog: FC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setClose()} color="inherit">
-          {cancelText}
+          {cancelText || t('ui:confirm_dialog.cancel')}
         </Button>
         <Button onClick={handleConfirmClick} color="secondary">
           {isLoading && <StyledProgress color="secondary" size={16} />}
-          {confirmText}
+          {confirmText || t('ui:confirm_dialog.confirm')}
         </Button>
       </DialogActions>
     </Dialog>

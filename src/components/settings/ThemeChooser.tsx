@@ -26,7 +26,7 @@ export const ThemeChooser = () => {
           key={type}
           value={type}
           control={<Radio />}
-          label={t(`themeType.${type}`)}
+          label={t(`ui:settings.theme_type.${type}`)}
         />
       ))}
     </StyledThemeControls>

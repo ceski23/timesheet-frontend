@@ -61,7 +61,7 @@ export const AddEmployeeDialog: FC<Props> = ({
   const handleSubmit = async (values: AddUserParams) => {
     await addUser(values, {
       onSuccess: user => {
-        Notificator.success(t('employees.employeeAdded', { name: user.name }));
+        Notificator.success(t('ui:notifications.success.employee_added', { name: user.name }));
         addEmployeeForm.reset();
         setClose();
       },
@@ -84,7 +84,7 @@ export const AddEmployeeDialog: FC<Props> = ({
     >
       <DialogHeader>
         <StyledIcon icon={AddEmployeeIcon} color={theme.palette.primary.main} />
-        <StyledTitle>Dodawanie pracownika</StyledTitle>
+        <StyledTitle>{t('ui:add_employee.title')}</StyledTitle>
         <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>
 

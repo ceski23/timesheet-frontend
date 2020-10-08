@@ -73,11 +73,11 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
   return (
     <Container>
       <Header>
-        <IconButton title={t('worktime.event.edit')}>
+        <IconButton title={t('ui:tooltips.edit')}>
           <EditIcon />
         </IconButton>
         <IconButton
-          title={t('worktime.event.delete')}
+          title={t('ui:tooltips.delete')}
           onClick={() => {
             // eslint-disable-next-line no-unused-expressions
             deleteDialog?.setOpen(event);
@@ -86,7 +86,7 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
         >
           <DeleteIcon />
         </IconButton>
-        <CloseButton title={t('worktime.event.close')} onClick={close}>
+        <CloseButton title={t('ui:tooltips.close')} onClick={close}>
           <CloseIcon />
         </CloseButton>
       </Header>
@@ -97,7 +97,7 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
           <Details>
 
             <Typography variant="h5">
-              {t(`records.type.${event.type}`)}
+              {t(`ui:records.type.${event.type}`)}
             </Typography>
 
             <Typography variant="subtitle1">

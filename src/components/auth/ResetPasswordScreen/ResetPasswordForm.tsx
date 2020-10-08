@@ -37,7 +37,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
       <TextField
         type="text"
         name="token"
-        label={t('reset_password.form.token')}
+        label={t('form:fields.reset_token')}
         required
         variant="outlined"
         inputRef={register}
@@ -49,7 +49,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         type="password"
         autoComplete="new-password"
         name="password"
-        label={t('reset_password.form.password')}
+        label={t('form:fields.new_password')}
         required
         onFocus={handlePasswordFocus}
         inputProps={{
@@ -66,10 +66,10 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         <PasswordRequirements
           password={watchedPassword}
           requirements={[
-            { regex: /.{8,}/, text: t('reset_password.form.errors.password_min') },
-            { regex: /[0-9]+/, text: t('reset_password.form.errors.password_digit') },
-            { regex: /[a-zA-Z]+/, text: t('reset_password.form.errors.password_alpha') },
-            { regex: /[#?!@$%^&*-]+/, text: t('reset_password.form.errors.password_special') },
+            { regex: /.{8,}/, text: t('form:validation.password.min') },
+            { regex: /[0-9]+/, text: t('form:validation.password.digit') },
+            { regex: /[a-zA-Z]+/, text: t('form:validation.password.alpha') },
+            { regex: /[#?!@$%^&*-]+/, text: t('form:validation.password.special') },
           ]}
         />
       </Collapse>
@@ -78,7 +78,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         type="password"
         autoComplete="new-password"
         name="repeatPassword"
-        label={t('reset_password.form.repeat_password')}
+        label={t('form:fields.repeat_password')}
         required
         variant="outlined"
         inputRef={register}
@@ -93,7 +93,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         type="submit"
         style={{ marginTop: 32 }}
       >
-        {formState.isSubmitting ? t('reset_password.form.loading') : t('reset_password.form.send')}
+        {formState.isSubmitting ? t('form:loading.reset_password') : t('form:submit.reset_password')}
       </Button>
     </StyledForm>
   );

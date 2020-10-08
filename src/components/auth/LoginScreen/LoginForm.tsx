@@ -29,7 +29,7 @@ export const LoginForm: FC<FormParams2<Credentials> & Stylable> = ({
         type="text"
         autoComplete="email"
         name="email"
-        label={t('login.form.email')}
+        label={t('form:fields.email')}
         variant="outlined"
         inputRef={register}
         margin="normal"
@@ -47,7 +47,7 @@ export const LoginForm: FC<FormParams2<Credentials> & Stylable> = ({
         type="password"
         autoComplete="current-password"
         name="password"
-        label={t('login.form.password')}
+        label={t('form:fields.password')}
         variant="outlined"
         inputRef={register}
         margin="normal"
@@ -68,7 +68,7 @@ export const LoginForm: FC<FormParams2<Credentials> & Stylable> = ({
         type="submit"
         style={{ marginTop: 40 }}
       >
-        {formState.isSubmitting ? t('login.form.login_loading') : t('login.form.login')}
+        {formState.isSubmitting ? t('form:loading.login') : t('form:submit.login')}
       </Button>
     </StyledForm>
   );
