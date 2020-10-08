@@ -5,6 +5,7 @@ import VacationIcon from '@material-ui/icons/BeachAccessOutlined';
 import ChildcareIcon from '@material-ui/icons/ChildCareOutlined';
 import SickIcon from '@material-ui/icons/LocalHospitalOutlined';
 import TrainingIcon from '@material-ui/icons/SchoolOutlined';
+import RequestIcon from '@material-ui/icons/PanToolOutlined';
 
 export const getRecordData = (record: Record) => {
   switch (record.type) {
@@ -24,7 +25,7 @@ export const getRecordData = (record: Record) => {
       return { icon: TrainingIcon, color: '#673ab7' };
 
     case 'leaveOnRequest':
-      return { icon: SickIcon, color: '#ff9800' };
+      return { icon: RequestIcon, color: '#ff9800' };
 
     default: {
       const exhaustiveCheck: never = record.type;
