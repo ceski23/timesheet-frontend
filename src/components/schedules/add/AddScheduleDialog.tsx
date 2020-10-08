@@ -4,7 +4,7 @@ import {
   useTheme, useMediaQuery, styled, IconButton,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { PrimaryIcon } from 'components/shared/PrimaryIcon';
+import { ColoredIcon } from 'components/shared/ColoredIcon';
 import AddScheduleIcon from '@material-ui/icons/TodayOutlined';
 import { AddScheduleParams, useAddSchedule } from 'api/schedules';
 import {
@@ -30,7 +30,7 @@ const DialogHeader = styled('div')(({ theme }) => ({
   paddingRight: theme.spacing(3),
 }));
 
-const StyledIcon = styled(PrimaryIcon)(({ theme }) => ({
+const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
   marginLeft: theme.spacing(3),
   marginRight: theme.spacing(-1),
 }));
@@ -85,7 +85,7 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
       disableEscapeKeyDown
     >
       <DialogHeader>
-        <StyledIcon icon={AddScheduleIcon} />
+        <StyledIcon icon={AddScheduleIcon} color={theme.palette.primary.main} />
         <StyledTitle>Dodawanie rozkładu</StyledTitle>
         <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>

@@ -122,5 +122,15 @@
   "schedules": {
     "title": "Rozkłady",
     "list": "Lista rozkładów"
+  },
+  "records": {
+    "type": {
+      "normal": "Praca",
+      "vacationLeave": "Urlop wypoczynkowy",
+      "trainingLeave": "Urlop szkoleniowy",
+      "leaveOnRequest": "Urlop na żądanie",
+      "sickLeave": "Zwolnienie lekarskie",
+      "childcare": "Opieka nad dzieckiem"
+    }
   }
 }

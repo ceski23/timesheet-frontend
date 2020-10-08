@@ -1,10 +1,11 @@
-import React, { FC, ReactElement, useMemo } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { styled, Typography } from '@material-ui/core';
 import {
-  add, getTime, isWithinInterval, startOfDay,
+  add, getTime, startOfDay,
 } from 'date-fns';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { useTimesheetState } from 'contexts/timesheet';
+import { Record } from 'api/records';
 import { Day } from './Day';
 
 interface Pos {
@@ -22,17 +23,9 @@ export interface WorktimeState {
   mousePos: Pos;
 }
 
-export interface Event {
-  title: string;
-  start: Date;
-  end: Date;
-  color?: string;
-  desc: string;
-}
-
 interface Props {
   interval?: number;
-  events: Event[];
+  records: Record[];
 }
 
 const CELL_HEIGHT = 48;
@@ -68,17 +61,10 @@ const Grid = styled('div')({
 // #endregion
 
 export const Content: FC<Props> = ({
-  interval = 60, events,
+  interval = 60, records,
 }): ReactElement => {
   const { format } = useDateFormatter();
-  const { firstDay, lastDay, numOfDays } = useTimesheetState();
-
-  const visibleEvents = useMemo(() => (
-    events.filter(e => isWithinInterval(e.start, {
-      start: firstDay,
-      end: lastDay,
-    }))
-  ), [firstDay, lastDay]);
+  const { numOfDays } = useTimesheetState();
 
   const times = Array.from({ length: 24 * (60 / interval) }).map((_n, i) => (
     add(startOfDay(new Date()), { minutes: i * interval })
@@ -104,7 +90,7 @@ export const Content: FC<Props> = ({
             key={i}
             times={times}
             height={CELL_HEIGHT}
-            events={visibleEvents.filter(e => e.start.getDay() === i + 1)}
+            records={records.filter(e => new Date(e.dateFrom).getDay() === i + 1)}
             interval={interval}
           />
         ))}

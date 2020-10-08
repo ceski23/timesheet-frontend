@@ -31,7 +31,7 @@ export const WorktimeToolbar: FC = (): ReactElement => {
   return (
     <>
       <Title variant="h6">
-        {t('employees.title')}
+        {t('records.title')}
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
 

@@ -8,12 +8,14 @@ import { useDateFormatter } from 'hooks/useDateFormatter';
 import { differenceInMinutes } from 'date-fns';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { useSetTimesheetState } from 'contexts/timesheet';
-import { Event as E } from './Content';
+import { Record } from 'api/records';
+import { useTranslation } from 'react-i18next';
+import { getRecordData } from 'utils/records';
 
 interface Props {
   interval: number;
   height: number;
-  event: E;
+  event: Record;
 }
 
 // #region styles
@@ -47,14 +49,16 @@ const Text = styled(Title)({
 // #endregion
 
 export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
-  const {
-    color, end, start, title,
-  } = event;
-  const { format } = useDateFormatter();
+  const { dateFrom, dateTo, type } = event;
   const theme = useAppTheme();
-  const offset = (((start.getHours() * 60) + start.getMinutes()) / interval) * height;
-  const size = (differenceInMinutes(end, start) / interval) * height;
-  const textColor = theme.palette.getContrastText(color ?? theme.palette.secondary.main);
+  const { t } = useTranslation();
+  const { format } = useDateFormatter();
+  const offset = ((
+    (new Date(dateFrom).getHours() * 60) + new Date(dateFrom).getMinutes()
+  ) / interval) * height;
+  const { color, icon } = getRecordData(event);
+  const size = (differenceInMinutes(new Date(dateTo), new Date(dateFrom)) / interval) * height;
+  const textColor = theme.palette.getContrastText(color);
   const setTimesheetState = useSetTimesheetState();
 
   const handleClick = (ev: React.MouseEvent<HTMLDivElement>) => {
@@ -75,14 +79,14 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
           variant="subtitle2"
           style={{ color: textColor }}
         >
-          {title}
+          {t(`records.type.${type}`)}
         </Title>
 
         <Text
           variant="body2"
           style={{ color: textColor }}
         >
-          {format(start, 'p')} - {format(end, 'p')}
+          {format(new Date(dateFrom), 'p')} - {format(new Date(dateTo), 'p')}
         </Text>
       </Info>
     </Container>

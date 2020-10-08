@@ -10,7 +10,7 @@ import { AddUserParams, useAddUser } from 'api/users';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@material-ui/icons/Close';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
-import { PrimaryIcon } from 'components/shared/PrimaryIcon';
+import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AddEmployeeForm } from './AddEmployeeForm';
@@ -27,7 +27,7 @@ const DialogHeader = styled('div')(({ theme }) => ({
   paddingRight: theme.spacing(3),
 }));
 
-const StyledIcon = styled(PrimaryIcon)(({ theme }) => ({
+const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
   marginLeft: theme.spacing(3),
   marginRight: theme.spacing(-1),
 }));
@@ -83,7 +83,7 @@ export const AddEmployeeDialog: FC<Props> = ({
       disableEscapeKeyDown
     >
       <DialogHeader>
-        <StyledIcon icon={AddEmployeeIcon} />
+        <StyledIcon icon={AddEmployeeIcon} color={theme.palette.primary.main} />
         <StyledTitle>Dodawanie pracownika</StyledTitle>
         <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>

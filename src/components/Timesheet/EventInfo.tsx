@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import {
   Paper, IconButton, Typography, styled,
 } from '@material-ui/core';
@@ -8,10 +8,13 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { useAppTheme } from 'hooks/useAppTheme';
 import { useTranslation } from 'react-i18next';
-import { Event } from './Content';
+import { Record } from 'api/records';
+import { useTimesheetState } from 'contexts/timesheet';
+import { getRecordData } from 'utils/records';
+import { ColoredIcon } from 'components/shared/ColoredIcon';
 
 interface Props {
-  event: Event;
+  event: Record;
   close: () => void;
 }
 
@@ -42,13 +45,17 @@ const Description = styled(Typography)({
 
 const Details = styled('div')({
   display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+});
+
+const DetailsWrapper = styled('div')({
+  display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
 });
 
-const ColoredBox = styled('div')({
-  width: 20,
-  height: 20,
+const ColoredBox = styled(ColoredIcon)({
   marginRight: 16,
   borderRadius: '50%',
 });
@@ -60,8 +67,9 @@ const CloseButton = styled(IconButton)({
 
 export const EventInfo: FC<Props> = ({ event, close }) => {
   const { format } = useDateFormatter();
-  const theme = useAppTheme();
   const { t } = useTranslation();
+  const { deleteDialog } = useTimesheetState();
+  const { color, icon } = useMemo(() => getRecordData(event), [event]);
 
   return (
     <Container>
@@ -69,7 +77,14 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
         <IconButton title={t('worktime.event.edit')}>
           <EditIcon />
         </IconButton>
-        <IconButton title={t('worktime.event.delete')}>
+        <IconButton
+          title={t('worktime.event.delete')}
+          onClick={() => {
+            // eslint-disable-next-line no-unused-expressions
+            deleteDialog?.setOpen(event);
+            close();
+          }}
+        >
           <DeleteIcon />
         </IconButton>
         <CloseButton title={t('worktime.event.close')} onClick={close}>
@@ -78,20 +93,22 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
       </Header>
 
       <Content>
-        <Details>
-          <ColoredBox style={{ background: event.color ?? theme.palette.secondary.main }} />
+        <DetailsWrapper>
+          <ColoredBox color={color} icon={icon} />
+          <Details>
 
-          <Typography variant="h5">
-            {event.title}
-          </Typography>
-        </Details>
+            <Typography variant="h5">
+              {t(`records.type.${event.type}`)}
+            </Typography>
 
-        <Typography variant="subtitle1" style={{ marginLeft: 36 }}>
-          {`${format(event.start, 'PPPP • p')} – ${format(event.end, 'p')}`}
-        </Typography>
+            <Typography variant="subtitle1">
+              {`${format(new Date(event.dateFrom), 'PPPP • p')} – ${format(new Date(event.dateTo), 'p')}`}
+            </Typography>
+          </Details>
+        </DetailsWrapper>
 
         <Description>
-          {event.desc}
+          {event.details}
         </Description>
       </Content>
     </Container>

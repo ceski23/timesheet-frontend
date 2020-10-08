@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useDialog<T>() {
+export function useDialog<T>(): DialogHook<T> {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<T>();
 
@@ -14,4 +14,11 @@ export function useDialog<T>() {
   return {
     setOpen, setClose, isOpen, data,
   };
+}
+
+export interface DialogHook<T> {
+  setOpen: (data?: T) => void;
+  setClose: () => void;
+  isOpen: boolean;
+  data?: T;
 }

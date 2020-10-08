@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { Typography, SvgIconProps, styled } from '@material-ui/core';
-import { PrimaryIcon } from './PrimaryIcon';
+import {
+  Typography, SvgIconProps, styled, useTheme,
+} from '@material-ui/core';
+import { ColoredIcon } from './ColoredIcon';
 
 interface Props {
   icon: (props: SvgIconProps) => JSX.Element;
@@ -14,14 +16,18 @@ const Container = styled('div')({
   alignItems: 'center',
 });
 
-const StyledIcon = styled(PrimaryIcon)(({ theme }) => ({
+const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
 // #endregion
 
-export const TitleWithIcon: FC<Props> = ({ icon, text }) => (
-  <Container>
-    <StyledIcon icon={icon} />
-    <Typography>{text}</Typography>
-  </Container>
-);
+export const TitleWithIcon: FC<Props> = ({ icon, text }) => {
+  const theme = useTheme();
+
+  return (
+    <Container>
+      <StyledIcon icon={icon} color={theme.palette.primary.main} />
+      <Typography>{text}</Typography>
+    </Container>
+  );
+};

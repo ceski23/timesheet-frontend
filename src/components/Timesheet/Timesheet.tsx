@@ -1,20 +1,23 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement, useEffect,
+  FC, ReactElement, useEffect, useMemo, useState,
 } from 'react';
 import { styled, Popover } from '@material-ui/core';
 import { Header } from 'components/Timesheet/Header';
-import { Content, Event } from 'components/Timesheet/Content';
-import { useDialog } from 'hooks/useDialog';
+import { Content } from 'components/Timesheet/Content';
+import { DialogHook, useDialog } from 'hooks/useDialog';
 import { TimesheetStateProvider, useSetTimesheetState, useTimesheetState } from 'contexts/timesheet';
-import { endOfWeek, startOfWeek } from 'date-fns';
-import { useDateLocale } from 'hooks/useDateFormatter';
 import { TimesheetToolbar } from 'components/Timesheet/TimesheetToolbar';
+import { Record, useRecords } from 'api/records';
+import {
+  startOfWeek, startOfDay, endOfWeek, endOfDay,
+} from 'date-fns';
+import { useDateLocale } from 'hooks/useDateFormatter';
 import { EventInfo } from './EventInfo';
 
 interface Props {
   interval?: number;
-  events: Event[];
+  deleteDialog: DialogHook<Record>;
 }
 
 // #region styles
@@ -26,33 +29,39 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-const TimesheetContent: FC<Props> = ({ events }): ReactElement => {
-  // const { mousePos, selectedEvent } = useSelector(selectWorktimeState);
+const TimesheetContent: FC<Props> = ({ deleteDialog }): ReactElement => {
   const { isOpen, setOpen, setClose } = useDialog();
   const setTimesheetState = useSetTimesheetState();
+  const {
+    selectedEvent, mousePos, firstDay, lastDay,
+  } = useTimesheetState();
   const locale = useDateLocale();
-  const { selectedEvent, mousePos } = useTimesheetState();
-
-  useEffect(() => {
-    setTimesheetState({
-      firstDay: startOfWeek(new Date(), { locale }),
-      lastDay: endOfWeek(new Date(), { locale }),
-    });
-  }, []);
+  const records = useRecords({ dateFrom: firstDay, dateTo: lastDay });
 
   useEffect(() => {
     if (selectedEvent) setOpen();
   }, [selectedEvent]);
 
+  useEffect(() => {
+    setTimesheetState({
+      firstDay: startOfWeek(startOfDay(new Date()), { locale }),
+      lastDay: endOfWeek(endOfDay(new Date()), { locale }),
+      deleteDialog,
+    });
+  }, []);
+
   return (
     <Container>
       <Header />
 
-      <Content events={events} />
+      <Content records={records.data || []} />
 
       <Popover
         open={isOpen}
-        onClose={setClose}
+        onClose={() => {
+          setClose();
+          setTimesheetState({ selectedEvent: undefined });
+        }}
         anchorOrigin={{
           vertical: 'center',
           horizontal: 'center',
@@ -64,7 +73,15 @@ const TimesheetContent: FC<Props> = ({ events }): ReactElement => {
         anchorReference="anchorPosition"
         anchorPosition={{ left: mousePos?.x || 0, top: mousePos?.y || 0 }}
       >
-        {selectedEvent && <EventInfo event={selectedEvent} close={setClose} />}
+        {selectedEvent && (
+        <EventInfo
+          event={selectedEvent}
+          close={() => {
+            setClose();
+            setTimesheetState({ selectedEvent: undefined });
+          }}
+        />
+        )}
       </Popover>
     </Container>
   );

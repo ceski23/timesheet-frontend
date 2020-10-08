@@ -1,13 +1,13 @@
 import React, { FC, ReactElement } from 'react';
 import { styled } from '@material-ui/core';
 import { getTime } from 'date-fns';
+import { Record } from 'api/records';
 import { Event } from './Event';
-import { Event as E } from './Content';
 
 interface Props {
   times: Date[];
   height: number;
-  events: E[];
+  records: Record[];
   interval: number;
 }
 
@@ -34,19 +34,19 @@ const Container = styled('div')(({ theme }) => ({
 // #endregion
 
 export const Day: FC<Props> = ({
-  times, height, events, interval,
+  times, height, records, interval,
 }): ReactElement => (
   <Container style={{ gridTemplateRows: `repeat(${times.length}, 1fr)` }}>
     {times.map(time => (
       <Cell key={getTime(time)} style={{ height: `${height}` }} />
     ))}
 
-    {events.map(event => (
+    {records.map(record => (
       <Event
-        key={getTime(event.start)}
+        key={getTime(new Date(record.dateFrom))}
         interval={interval}
         height={height}
-        event={event}
+        event={record}
       />
     ))}
   </Container>
