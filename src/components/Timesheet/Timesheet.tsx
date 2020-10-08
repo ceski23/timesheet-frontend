@@ -8,7 +8,7 @@ import { Content } from 'components/Timesheet/Content';
 import { DialogHook, useDialog } from 'hooks/useDialog';
 import { TimesheetStateProvider, useSetTimesheetState, useTimesheetState } from 'contexts/timesheet';
 import { TimesheetToolbar } from 'components/Timesheet/TimesheetToolbar';
-import { Record, useRecords } from 'api/records';
+import { Record, UpdateRecordParams, useRecords } from 'api/records';
 import {
   startOfWeek, startOfDay, endOfWeek, endOfDay,
 } from 'date-fns';
@@ -18,6 +18,7 @@ import { EventInfo } from './EventInfo';
 interface Props {
   interval?: number;
   deleteDialog: DialogHook<Record>;
+  editDialog: DialogHook<UpdateRecordParams>;
 }
 
 // #region styles
@@ -29,7 +30,7 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-const TimesheetContent: FC<Props> = ({ deleteDialog }): ReactElement => {
+const TimesheetContent: FC<Props> = ({ deleteDialog, editDialog }): ReactElement => {
   const { isOpen, setOpen, setClose } = useDialog();
   const setTimesheetState = useSetTimesheetState();
   const {
@@ -47,6 +48,7 @@ const TimesheetContent: FC<Props> = ({ deleteDialog }): ReactElement => {
       firstDay: startOfWeek(startOfDay(new Date()), { locale }),
       lastDay: endOfWeek(endOfDay(new Date()), { locale }),
       deleteDialog,
+      editDialog,
     });
   }, []);
 

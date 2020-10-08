@@ -1,4 +1,4 @@
-import { Record } from 'api/records';
+import { Record, UpdateRecordParams } from 'api/records';
 import { NumOfDays } from 'components/Timesheet/Content';
 import { endOfWeek, startOfWeek } from 'date-fns';
 import { DialogHook } from 'hooks/useDialog';
@@ -14,6 +14,7 @@ interface TimesheetState {
     y: number;
   };
   deleteDialog?: DialogHook<Record>;
+  editDialog?: DialogHook<UpdateRecordParams>;
 }
 
 const initialState: TimesheetState = {

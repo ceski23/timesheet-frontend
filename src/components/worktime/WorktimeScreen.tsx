@@ -4,7 +4,9 @@ import React, {
 } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
-import { useRemoveRecord, Record, AddRecordParams } from 'api/records';
+import {
+  useRemoveRecord, Record, AddRecordParams, UpdateRecordParams,
+} from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
 import { Fab, styled } from '@material-ui/core';
@@ -16,6 +18,7 @@ import { WorktimeToolbar } from './WorktimeToolbar';
 import { WorktimeListView } from './WorktimeListView';
 import { WorktimeTimesheetView } from './WorktimeTimesheetView';
 import { AddRecordDialog } from './add/AddRecordDialog';
+import { EditRecordDialog } from './edit/EditRecordDialog';
 
 const AddRecordButton = styled(Fab)({
   position: 'absolute',
@@ -28,6 +31,7 @@ export const WorktimeScreen: FC = (): ReactElement => {
   const { worktimeViewType } = useAppState();
   const deleteRecordDialog = useDialog<Record>();
   const addRecordDialog = useDialog<AddRecordParams>();
+  const editRecordDialog = useDialog<UpdateRecordParams>();
   const [deleteRecord] = useRemoveRecord();
   const { t } = useTranslation();
 
@@ -45,10 +49,10 @@ export const WorktimeScreen: FC = (): ReactElement => {
   return (
     <ScreenWrapper toolbar={<WorktimeToolbar />}>
       {worktimeViewType === 'list' && (
-        <WorktimeListView deleteDialog={deleteRecordDialog} />
+        <WorktimeListView deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
       )}
       {worktimeViewType === 'timesheet' && (
-        <WorktimeTimesheetView deleteDialog={deleteRecordDialog} />
+        <WorktimeTimesheetView deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
       )}
 
       <AddRecordButton
@@ -70,6 +74,8 @@ export const WorktimeScreen: FC = (): ReactElement => {
       </ConfirmDialog>
 
       <AddRecordDialog {...addRecordDialog} />
+
+      <EditRecordDialog {...editRecordDialog} />
     </ScreenWrapper>
   );
 };

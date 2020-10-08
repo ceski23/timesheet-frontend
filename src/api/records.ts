@@ -26,6 +26,10 @@ export interface AddRecordParams {
   details: string;
 }
 
+export type UpdateRecordParams = AddRecordParams & {
+  id: string;
+}
+
 export interface RecordFindParams {
   dateFrom: Date;
   dateTo: Date;
@@ -52,6 +56,10 @@ export const addRecord = async (params: AddRecordParams) => (
 export const removeRecord = async (id: string) => (
   client.delete<unknown, void>(`records/${id}`)
 );
+
+export const patchRecord = async ({ id, ...data }: UpdateRecordParams) => (
+  client.patch<unknown, Record>(`records/${id}`, data)
+);
 // #endregion
 
 // #region API hooks
@@ -70,6 +78,12 @@ export const useAddRecord = () => useMutation(addRecord, {
 });
 
 export const useRemoveRecord = () => useMutation(removeRecord, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
+export const useUpdateRecord = () => useMutation(patchRecord, {
   onSuccess: () => {
     queryCache.invalidateQueries('records');
   },

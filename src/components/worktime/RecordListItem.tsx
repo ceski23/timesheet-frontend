@@ -55,19 +55,25 @@ const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
 interface Props {
   data: Record;
   onDelete: () => void;
+  onClick: () => void;
 }
 
-export const RecordListItem: FC<Props> = ({ data, onDelete }) => {
+export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
   const { color, icon } = useMemo(() => getRecordData(data), [data]);
 
   return (
-    <ListItem button>
+    <ListItem button onClick={onClick}>
       <StyledIcon color={color} icon={icon} />
 
       <div>
         <Name variant="h6">{t(`ui:records.type.${data.type}`)}</Name>
+
+        {data.details && (
+        <Typography variant="body2" style={{ marginBottom: 8 }}>{data.details}</Typography>
+        )}
+
         <DatesContainer>
           <ScheduleDate>
             <CalendarStart color="disabled" />

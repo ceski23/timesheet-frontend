@@ -9,7 +9,8 @@
       "schedule_added": "Dodano rozkład {{name}}",
       "schedule_deleted": "Usunięto rozkład {{name}}",
       "record_deleted": "Usunięto rekord",
-      "record_added": "Dodano rekord"
+      "record_added": "Dodano rekord",
+      "record_updated": "Edytowano rekord"
     },
     "failure": {
       "find_employees": "Wystąpił błąd podczas wczytywania pracowników",
@@ -19,7 +20,8 @@
       "delete_record": "Wystąpił błąd podczas usuwania rekordu",
       "add_record": "Wystąpił błąd podczas dodawania rekordu",
       "internal_error": "Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później",
-      "records_overlap": "Już istnieje rekord w tym czasie"
+      "records_overlap": "Już istnieje rekord w tym czasie",
+      "update_record": "Wystąpił błąd podczas edycji rekordu"
     }
   },
 
@@ -117,6 +119,10 @@
 
   "add_record": {
     "title": "Dodawanie rekordu"
+  },
+
+  "update_record": {
+    "title": "Edycja rekordu"
   },
 
   "delete_record": {

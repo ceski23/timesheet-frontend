@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, { FC, useMemo } from 'react';
 import {
   Paper, IconButton, Typography, styled,
@@ -67,15 +68,29 @@ const CloseButton = styled(IconButton)({
 export const EventInfo: FC<Props> = ({ event, close }) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
-  const { deleteDialog } = useTimesheetState();
+  const { deleteDialog, editDialog } = useTimesheetState();
   const { color, icon } = useMemo(() => getRecordData(event), [event]);
 
   return (
     <Container>
       <Header>
-        <IconButton title={t('ui:tooltips.edit')}>
+        <IconButton
+          title={t('ui:tooltips.edit')}
+          onClick={() => {
+            // eslint-disable-next-line no-unused-expressions
+            editDialog?.setOpen({
+              dateFrom: new Date(event.dateFrom),
+              dateTo: new Date(event.dateTo),
+              type: event.type,
+              details: event.details,
+              id: event._id,
+            });
+            close();
+          }}
+        >
           <EditIcon />
         </IconButton>
+
         <IconButton
           title={t('ui:tooltips.delete')}
           onClick={() => {
@@ -86,6 +101,7 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
         >
           <DeleteIcon />
         </IconButton>
+
         <CloseButton title={t('ui:tooltips.close')} onClick={close}>
           <CloseIcon />
         </CloseButton>
