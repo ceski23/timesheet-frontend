@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FC, useMemo } from 'react';
 import {
-  Paper, IconButton, Typography, styled,
+  Paper, IconButton, Typography, styled, Tooltip,
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/EditOutlined';
@@ -12,6 +12,7 @@ import { Record } from 'api/records';
 import { useTimesheetState } from 'contexts/timesheet';
 import { getRecordData } from 'utils/records';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
+import { useAuth } from 'contexts/auth';
 
 interface Props {
   event: Record;
@@ -70,13 +71,18 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
   const { t } = useTranslation();
   const { deleteDialog, editDialog } = useTimesheetState();
   const { color, icon } = useMemo(() => getRecordData(event), [event]);
+  const { user } = useAuth();
+
+  const isDisabled = event.approved && user?.role === 'user';
 
   return (
     <Container>
       <Header>
-        <IconButton
-          title={t('ui:tooltips.edit')}
-          onClick={() => {
+        <Tooltip title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''} placement="left">
+          <span>
+            <IconButton
+              title={t('ui:tooltips.edit')}
+              onClick={() => {
             // eslint-disable-next-line no-unused-expressions
             editDialog?.setOpen({
               dateFrom: new Date(event.dateFrom),
@@ -86,10 +92,13 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
               id: event._id,
             });
             close();
-          }}
-        >
-          <EditIcon />
-        </IconButton>
+              }}
+              disabled={isDisabled}
+            >
+              <EditIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
 
         <IconButton
           title={t('ui:tooltips.delete')}

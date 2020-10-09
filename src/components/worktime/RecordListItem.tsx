@@ -11,6 +11,7 @@ import { Record } from 'api/records';
 import { useTranslation } from 'react-i18next';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { getRecordData } from 'utils/records';
+import { useAuth } from 'contexts/auth';
 
 // #region styles
 const DatesContainer = styled('div')(({ theme }) => ({
@@ -62,9 +63,12 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
   const { color, icon } = useMemo(() => getRecordData(data), [data]);
+  const { user } = useAuth();
+
+  const isDisabled = data.approved && user?.role === 'user';
 
   return (
-    <ListItem button onClick={onClick}>
+    <ListItem button onClick={onClick} disabled={isDisabled}>
       <StyledIcon color={color} icon={icon} />
 
       <div>
@@ -95,6 +99,7 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
           edge="end"
           aria-label="delete"
           onClick={() => onDelete()}
+          disabled={isDisabled}
         >
           <DeleteIcon />
         </IconButton>

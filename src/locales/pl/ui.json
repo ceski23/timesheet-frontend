@@ -114,7 +114,8 @@
     },
     "add_button": "Dodaj",
     "timesheet_view": "Widok siatki",
-    "list_view": "Widok listy"
+    "list_view": "Widok listy",
+    "edit_disabled": "Ten rekord jest już zatwierdzony"
   },
 
   "add_record": {

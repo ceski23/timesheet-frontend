@@ -17,6 +17,7 @@ export interface Record {
   dateTo: string;
   type: RecordType;
   details: string;
+  approved: boolean;
 }
 
 export interface AddRecordParams {
