@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { styled } from '@material-ui/core';
+import { DatePicker } from '@material-ui/pickers';
+import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 /* eslint-disable no-underscore-dangle */
 import { Record, UpdateRecordParams, usePaginatedRecords } from 'api/records';
 import { SimpleList } from 'components/shared/SimpleList';
@@ -8,10 +10,11 @@ import {
   startOfWeek, startOfDay, endOfWeek, endOfDay,
 } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
-import { DialogHook, useDialog } from 'hooks/useDialog';
-import React, { ChangeEvent, FC, useState } from 'react';
+import { DialogHook } from 'hooks/useDialog';
+import React, {
+  ChangeEvent, FC, useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
-import { EditRecordDialog } from './edit/EditRecordDialog';
 import { RecordListItem } from './RecordListItem';
 
 // #region styles
@@ -32,12 +35,24 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const locale = useDateLocale();
-  const [dateFrom] = useState(startOfWeek(startOfDay(new Date()), { locale }));
-  const [dateTo] = useState(endOfWeek(endOfDay(new Date()), { locale }));
+
+  const [{ dateFrom, dateTo }, setRange] = useState({
+    dateFrom: startOfWeek(startOfDay(new Date()), { locale }),
+    dateTo: endOfWeek(endOfDay(new Date()), { locale }),
+  });
+
   const records = usePaginatedRecords({ page, dateFrom, dateTo });
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);
+  };
+
+  const handleChangeDateFrom = (date: MaterialUiPickersDate) => {
+    if (date) setRange({ dateFrom: date, dateTo });
+  };
+
+  const handleChangeDateTo = (date: MaterialUiPickersDate) => {
+    if (date) setRange({ dateFrom, dateTo: date });
   };
 
   return (
@@ -45,7 +60,29 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog }) => {
       <SimpleList
         loading={records.isLoading}
         header={(
-          <SimpleListHeader title={t('ui:records.list_title')} />
+          <SimpleListHeader title={t('ui:records.list_title')}>
+            <DatePicker
+              label={t('form:fields.date_from')}
+              margin="dense"
+              autoOk
+              required
+              format="dd.MM.yyyy"
+              inputVariant="outlined"
+              value={dateFrom}
+              onChange={handleChangeDateFrom}
+              style={{ marginRight: 16 }}
+            />
+            <DatePicker
+              label={t('form:fields.date_to')}
+              margin="dense"
+              autoOk
+              required
+              format="dd.MM.yyyy"
+              inputVariant="outlined"
+              value={dateTo}
+              onChange={handleChangeDateTo}
+            />
+          </SimpleListHeader>
       )}
         onPageChange={handlePageChange}
         pagination={{
