@@ -34,6 +34,10 @@
     "schedules": "Rozkłady"
   },
 
+  "list": {
+    "empty": "Brak elementów do wyświetlenia"
+  },
+
   "forgot_password": {
     "title": "Resetowanie hasła",
     "subtitle": "Podaj swój adres email, a wyślemy na niego link do resetowania hasła."

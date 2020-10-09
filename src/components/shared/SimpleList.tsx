@@ -1,7 +1,10 @@
-import { styled, Paper, List } from '@material-ui/core';
+import {
+  styled, Paper, List, Typography,
+} from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import { withStyles } from '@material-ui/styles';
 import React, { ChangeEvent, FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Loader } from './Loader';
 
 // #region styles
@@ -27,6 +30,13 @@ const ListPagination = styled(withStyles({
 })(Pagination))(({ theme }) => ({
   margin: `${theme.spacing(1)}px 0`,
 }));
+
+const EmptyListContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+});
 // #endregion
 
 interface Props {
@@ -41,22 +51,32 @@ interface Props {
 
 export const SimpleList: FC<Props> = ({
   header, loading, children, pagination, onPageChange,
-}) => (
-  <ListContainer>
-    {header}
+}) => {
+  const { t } = useTranslation();
 
-    <UsersList>
-      <Loader loading={loading}>
-        {children}
-      </Loader>
-    </UsersList>
+  return (
+    <ListContainer>
+      {header}
 
-    {pagination.page && (
+      <UsersList>
+        <Loader loading={loading}>
+          {children}
+
+          {!children?.toString() && (
+            <EmptyListContainer>
+              <Typography>{t('ui:list.empty')}</Typography>
+            </EmptyListContainer>
+          )}
+        </Loader>
+      </UsersList>
+
+      {pagination.page && (
       <ListPagination
         count={pagination.count}
         page={pagination.page}
         onChange={onPageChange}
       />
-    )}
-  </ListContainer>
-);
+      )}
+    </ListContainer>
+  );
+};
