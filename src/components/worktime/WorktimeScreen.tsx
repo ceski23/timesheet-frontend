@@ -14,9 +14,9 @@ import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import { useDialog } from 'hooks/useDialog';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
+import { Timesheet } from 'components/Timesheet/Timesheet';
 import { WorktimeToolbar } from './WorktimeToolbar';
 import { WorktimeListView } from './WorktimeListView';
-import { WorktimeTimesheetView } from './WorktimeTimesheetView';
 import { AddRecordDialog } from './add/AddRecordDialog';
 import { EditRecordDialog } from './edit/EditRecordDialog';
 
@@ -52,7 +52,7 @@ export const WorktimeScreen: FC = (): ReactElement => {
         <WorktimeListView deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
       )}
       {worktimeViewType === 'timesheet' && (
-        <WorktimeTimesheetView deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
+        <Timesheet deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
       )}
 
       <AddRecordButton
