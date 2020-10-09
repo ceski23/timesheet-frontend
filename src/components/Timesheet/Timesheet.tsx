@@ -13,12 +13,14 @@ import {
   startOfWeek, startOfDay, endOfWeek, endOfDay,
 } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
+import { User } from 'api/users';
 import { EventInfo } from './EventInfo';
 
 interface Props {
   interval?: number;
   deleteDialog: DialogHook<Record>;
   editDialog: DialogHook<UpdateRecordParams>;
+  user?: User;
 }
 
 // #region styles
@@ -30,14 +32,14 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-const TimesheetContent: FC<Props> = ({ deleteDialog, editDialog }): ReactElement => {
+const TimesheetContent: FC<Props> = ({ deleteDialog, editDialog, user }): ReactElement => {
   const { isOpen, setOpen, setClose } = useDialog();
   const setTimesheetState = useSetTimesheetState();
   const {
     selectedEvent, mousePos, firstDay, lastDay,
   } = useTimesheetState();
   const locale = useDateLocale();
-  const records = useRecords({ dateFrom: firstDay, dateTo: lastDay });
+  const records = useRecords({ dateFrom: firstDay, dateTo: lastDay, userId: user?._id });
 
   useEffect(() => {
     if (selectedEvent) setOpen();

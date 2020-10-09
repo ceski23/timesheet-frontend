@@ -13,6 +13,7 @@ interface Props {
   to: string;
   badge?: boolean;
   onClick?: () => void;
+  exact?: boolean;
 }
 
 // #region styles
@@ -29,11 +30,11 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
 // #endregion
 
 export const NavigationItem: FC<Props> = ({
-  name, icon: Icon, to, badge, onClick,
+  name, icon: Icon, to, badge, onClick, exact = true,
 }): ReactElement => {
   const match = useRouteMatch({
     path: to,
-    exact: true,
+    exact,
   });
 
   const renderLink = React.useMemo(

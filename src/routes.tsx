@@ -14,6 +14,8 @@ import { NotFoundScreen } from 'components/NotFoundScreen';
 import { HomeScreen } from 'components/home/HomeScreen';
 import { SchedulesScreen } from 'components/schedules/SchedulesScreen';
 import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
+import { AdminWorktimeScreen } from 'components/worktime/admin/AdminWorktimeScreen';
+import { AdminWorktimeScreenNoUser } from 'components/worktime/admin/AdminWorktimeScreenNoUser';
 // import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 
 export const routeUrls = {
@@ -27,6 +29,9 @@ export const routeUrls = {
   settings: '/ustawienia',
   schedules: include('/rozklady', {
     schedule: ':scheduleId',
+  }),
+  adminWorktime: include('/czas-pracy-pracownika', {
+    user: ':userId',
   }),
 
   // GUEST
@@ -82,6 +87,14 @@ export const adminRoutes: RouteConfig[] = [
   {
     path: String(routeUrls.schedules),
     component: SchedulesScreen,
+  },
+  {
+    path: String(routeUrls.adminWorktime.user),
+    component: AdminWorktimeScreen,
+  },
+  {
+    path: String(routeUrls.adminWorktime),
+    component: AdminWorktimeScreenNoUser,
   },
   ...commonRoutes,
 ];

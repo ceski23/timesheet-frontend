@@ -4,6 +4,7 @@ import { DatePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 /* eslint-disable no-underscore-dangle */
 import { Record, UpdateRecordParams, usePaginatedRecords } from 'api/records';
+import { User } from 'api/users';
 import { SimpleList } from 'components/shared/SimpleList';
 import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import {
@@ -29,9 +30,10 @@ const Container = styled('div')(({ theme }) => ({
 interface Props {
   deleteDialog: DialogHook<Record>;
   editDialog: DialogHook<UpdateRecordParams>;
+  user?: User;
 }
 
-export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog }) => {
+export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog, user }) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const locale = useDateLocale();
@@ -41,7 +43,9 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog }) => {
     dateTo: endOfWeek(endOfDay(new Date()), { locale }),
   });
 
-  const records = usePaginatedRecords({ page, dateFrom, dateTo });
+  const records = usePaginatedRecords({
+    page, dateFrom, dateTo, userId: user?._id,
+  });
 
   const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
     setPage(value);

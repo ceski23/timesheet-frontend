@@ -36,6 +36,10 @@ export const fetchUsers = async (params?: FindParams & UsersFindParams) => (
   client.get<unknown, PaginatedResponse<User>>('users/admin', { params })
 );
 
+export const fetchUserById = async (id: string) => (
+  client.get<unknown, User>(`users/admin/${id}`)
+);
+
 export const deleteUser = async (id: string) => (
   client.delete<unknown, void>(`users/admin/${id}`)
 );
@@ -48,6 +52,10 @@ export const addUser = async (params: AddUserParams) => (
 // #region API hooks
 export const useUsers = (params?: FindParams & UsersFindParams) => (
   usePaginatedQuery(['users', params], fetchUsers)
+);
+
+export const useUser = (id: string) => (
+  usePaginatedQuery(['user', id], fetchUserById)
 );
 
 export const useDeleteUser = () => useMutation(deleteUser, {

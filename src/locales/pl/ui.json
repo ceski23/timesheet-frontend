@@ -152,5 +152,11 @@
     "go_back": "Powrót",
     "text": "Nie znaleziono strony",
     "title": "Nie znaleziono"
+  },
+
+  "admin_worktime": {
+    "select_user": "Wybierz użytkownika z listy",
+    "no_options": "Brak wyników",
+    "loading": "Ładowanie..."
   }
 }

@@ -46,8 +46,20 @@ export const fetchRecords = async (params?: PaginatedRecordFindParams) => (
   client.get<unknown, PaginatedResponse<Record>>('records', { params })
 );
 
+export const fetchRecordsForUser = async (
+  params?: PaginatedRecordFindParams & { userId: string },
+) => (
+  client.get<unknown, PaginatedResponse<Record>>('records/admin', { params })
+);
+
 export const fetchRecordsByDateRange = async (params: RecordFindParams) => (
   client.get<unknown, Record[]>('records/findByDateRange', { params })
+);
+
+export const fetchRecordsByDateRangeForUser = async (
+  params: RecordFindParams & { userId: string },
+) => (
+  client.get<unknown, Record[]>('records/admin/findByDateRange', { params })
 );
 
 export const addRecord = async (params: AddRecordParams) => (
@@ -64,12 +76,14 @@ export const patchRecord = async ({ id, ...data }: UpdateRecordParams) => (
 // #endregion
 
 // #region API hooks
-export const usePaginatedRecords = (params?: PaginatedRecordFindParams) => (
-  usePaginatedQuery(['records', params], fetchRecords)
+export const usePaginatedRecords = (
+  params?: PaginatedRecordFindParams & { userId?: string },
+) => (
+  usePaginatedQuery(['records', params], params?.userId ? fetchRecordsForUser : fetchRecords)
 );
 
-export const useRecords = (params: RecordFindParams) => (
-  useQuery(['records', params], fetchRecordsByDateRange)
+export const useRecords = (params: RecordFindParams & { userId?: string }) => (
+  useQuery(['records', params], params?.userId ? fetchRecordsByDateRangeForUser : fetchRecordsByDateRange)
 );
 
 export const useAddRecord = () => useMutation(addRecord, {
