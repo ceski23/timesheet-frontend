@@ -17,7 +17,7 @@ import { useDebounce } from 'use-lodash-debounce';
 import { reverse } from 'named-urls';
 import { routeUrls } from 'routes';
 import { useTranslation } from 'react-i18next';
-import { WorktimeToolbar } from '../WorktimeToolbar';
+import { AdminWorktimeToolbar } from './AdminWorktimeToolbar';
 
 // #region styles
 
@@ -51,7 +51,7 @@ export const AdminWorktimeScreenNoUser: FC<RouteComponentProps> = ({ history }):
   };
 
   return (
-    <ScreenWrapper toolbar={<WorktimeToolbar />}>
+    <ScreenWrapper toolbar={<AdminWorktimeToolbar />}>
       <Container>
         <FormLabel component="legend">{t('ui:admin_worktime.select_user')}:</FormLabel>
 

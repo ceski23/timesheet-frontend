@@ -30,7 +30,5 @@ export default () => {
       });
   });
 
-  // scheme.enableAutoCollapse('primarySidebar', 'md');
-
   return scheme;
 };

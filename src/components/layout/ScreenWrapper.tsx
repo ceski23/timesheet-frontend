@@ -16,6 +16,9 @@ export const Content = styled(getContent(styled))(({ theme }) => ({
 
 export const AppToolbar = styled(Toolbar)(({ theme }) => ({
   background: theme.palette.background.paper,
+  [theme.breakpoints.down('sm')]: {
+    minHeight: 56,
+  },
 }));
 // #endregion
 

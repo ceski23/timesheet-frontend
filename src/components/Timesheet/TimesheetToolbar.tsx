@@ -1,5 +1,7 @@
 import React, { FC, ReactElement } from 'react';
-import { IconButton, Button, Toolbar } from '@material-ui/core';
+import {
+  IconButton, Button, Toolbar, useMediaQuery, useTheme, styled,
+} from '@material-ui/core';
 import LeftIcon from '@material-ui/icons/ChevronLeftOutlined';
 import RightIcon from '@material-ui/icons/ChevronRightOutlined';
 import TodayIcon from '@material-ui/icons/TodayOutlined';
@@ -11,38 +13,52 @@ import {
 import { useDateLocale } from 'hooks/useDateFormatter';
 import { WorktimeDatePicker } from '../worktime/WorktimeDatePicker';
 
+// #region styles
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  [theme.breakpoints.down('xs')]: {
+    flexDirection: 'column',
+    minHeight: 'fit-content',
+  },
+}));
+// #endregion
+
 export const TimesheetToolbar: FC = (): ReactElement => {
-  // const dispatch = useThunkDispatch();
   const { t } = useTranslation();
   const setTimesheetState = useSetTimesheetState();
   const { firstDay, lastDay, numOfDays } = useTimesheetState();
   const locale = useDateLocale();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
-    <Toolbar>
-      <IconButton
-        title={t('ui:tooltips.prev')}
-        size="small"
-        onClick={() => setTimesheetState({
-          firstDay: subDays(firstDay, numOfDays),
-          lastDay: subDays(lastDay, numOfDays),
-        })}
-      >
-        <LeftIcon />
-      </IconButton>
+    <StyledToolbar>
+      <div>
+        <IconButton
+          title={t('ui:tooltips.prev')}
+          size="small"
+          onClick={() => setTimesheetState({
+            firstDay: subDays(firstDay, numOfDays),
+            lastDay: subDays(lastDay, numOfDays),
+          })}
+        >
+          <LeftIcon />
+        </IconButton>
 
-      <WorktimeDatePicker />
+        <WorktimeDatePicker />
 
-      <IconButton
-        title={t('ui:tooltips.next')}
-        size="small"
-        onClick={() => setTimesheetState({
-          firstDay: addDays(firstDay, numOfDays),
-          lastDay: addDays(lastDay, numOfDays),
-        })}
-      >
-        <RightIcon />
-      </IconButton>
+        <IconButton
+          title={t('ui:tooltips.next')}
+          size="small"
+          onClick={() => setTimesheetState({
+            firstDay: addDays(firstDay, numOfDays),
+            lastDay: addDays(lastDay, numOfDays),
+          })}
+        >
+          <RightIcon />
+        </IconButton>
+      </div>
 
       <span style={{ flex: 1 }} />
 
@@ -52,10 +68,10 @@ export const TimesheetToolbar: FC = (): ReactElement => {
           firstDay: startOfWeek(new Date(), { locale }),
           lastDay: endOfWeek(new Date(), { locale }),
         })}
-        startIcon={<TodayIcon />}
+        startIcon={!isMobile ? <TodayIcon /> : null}
       >
         {t('ui:timesheet.today')}
       </Button>
-    </Toolbar>
+    </StyledToolbar>
   );
 };

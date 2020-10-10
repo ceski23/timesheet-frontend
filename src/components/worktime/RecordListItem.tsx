@@ -1,6 +1,8 @@
 import {
   ListItem, ListItemSecondaryAction, IconButton, styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import React, { FC, useMemo } from 'react';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
@@ -32,17 +34,24 @@ const ScheduleDate = styled('div')({
   },
 });
 
-const Divider = styled('div')({
+const Divider = styled('div')(({ theme }) => ({
   marginLeft: 16,
   marginRight: 16,
-});
+  [theme.breakpoints.down('xs')]: {
+    marginLeft: 8,
+    marginRight: 8,
+  },
+}));
 
-const DateText = styled('p')({
+const DateText = styled('p')(({ theme }) => ({
   marginTop: 8,
   marginBottom: 8,
   marginLeft: 8,
   fontSize: '0.8rem',
-});
+  [theme.breakpoints.down('xs')]: {
+    marginLeft: 0,
+  },
+}));
 
 const Name = styled(Typography)({
   fontSize: '1.1rem',
@@ -51,6 +60,10 @@ const Name = styled(Typography)({
 const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
+
+const CalendarIcon = styled(CalendarStart)({
+  marginRight: 8,
+});
 // #endregion
 
 interface Props {
@@ -64,6 +77,8 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { t } = useTranslation();
   const { color, icon } = useMemo(() => getRecordData(data), [data]);
   const { user } = useAuth();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   const isDisabled = data.approved && user?.role === 'user';
 
@@ -79,16 +94,30 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
         )}
 
         <DatesContainer>
+          {isMobile && <CalendarIcon color="disabled" />}
+
           <ScheduleDate>
-            <CalendarStart color="disabled" />
-            <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
+            {isMobile ? (
+              <DateText>{format(new Date(data.dateFrom), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarStart color="disabled" />
+                <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
+              </>
+            )}
           </ScheduleDate>
 
           <Divider>—</Divider>
 
           <ScheduleDate>
-            <CalendarEnd color="disabled" />
-            <DateText>{format(new Date(data.dateTo), 'dd MMMM yyyy')}</DateText>
+            {isMobile ? (
+              <DateText>{format(new Date(data.dateTo), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarEnd color="disabled" />
+                <DateText>{format(new Date(data.dateTo), 'dd MMMM yyyy')}</DateText>
+              </>
+            )}
           </ScheduleDate>
         </DatesContainer>
       </div>

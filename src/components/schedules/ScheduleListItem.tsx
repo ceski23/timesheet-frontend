@@ -1,6 +1,8 @@
 import {
   ListItem, ListItemSecondaryAction, IconButton, styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 import { Schedule } from 'api/schedules';
 import React, { FC } from 'react';
@@ -28,20 +30,31 @@ const ScheduleDate = styled('div')({
   },
 });
 
-const Divider = styled('div')({
+const Divider = styled('div')(({ theme }) => ({
   marginLeft: 16,
   marginRight: 16,
-});
+  [theme.breakpoints.down('xs')]: {
+    marginLeft: 8,
+    marginRight: 8,
+  },
+}));
 
-const DateText = styled('p')({
+const DateText = styled('p')(({ theme }) => ({
   marginTop: 8,
   marginBottom: 8,
   marginLeft: 8,
   fontSize: '0.8rem',
-});
+  [theme.breakpoints.down('xs')]: {
+    marginLeft: 0,
+  },
+}));
 
 const Name = styled(Typography)({
   fontSize: '1.1rem',
+});
+
+const CalendarIcon = styled(CalendarStart)({
+  marginRight: 8,
 });
 // #endregion
 
@@ -52,22 +65,38 @@ interface Props {
 
 export const ScheduleListItem: FC<Props> = ({ data, onDelete }) => {
   const { format } = useDateFormatter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <ListItem button>
       <div>
         <Name variant="h6">{data.name}</Name>
         <DatesContainer>
+          {isMobile && <CalendarIcon color="disabled" />}
+
           <ScheduleDate>
-            <CalendarStart color="disabled" />
-            <DateText>{format(new Date(data.fromDate), 'dd MMMM yyyy')}</DateText>
+            {isMobile ? (
+              <DateText>{format(new Date(data.fromDate), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarStart color="disabled" />
+                <DateText>{format(new Date(data.fromDate), 'dd MMMM yyyy')}</DateText>
+              </>
+            )}
           </ScheduleDate>
 
           <Divider>—</Divider>
 
           <ScheduleDate>
-            <CalendarEnd color="disabled" />
-            <DateText>{format(new Date(data.toDate), 'dd MMMM yyyy')}</DateText>
+            {isMobile ? (
+              <DateText>{format(new Date(data.toDate), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarEnd color="disabled" />
+                <DateText>{format(new Date(data.toDate), 'dd MMMM yyyy')}</DateText>
+              </>
+            )}
           </ScheduleDate>
         </DatesContainer>
       </div>
