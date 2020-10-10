@@ -5,7 +5,7 @@ import React, {
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import {
-  useRemoveRecord, Record, AddRecordParams, UpdateRecordParams,
+  useRemoveRecord, Record, AddRecordParams, UpdateRecordParams, useAddRecord, useUpdateRecord,
 } from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
@@ -34,6 +34,8 @@ export const WorktimeScreen: FC = (): ReactElement => {
   const editRecordDialog = useDialog<UpdateRecordParams>();
   const [deleteRecord] = useRemoveRecord();
   const { t } = useTranslation();
+  const addRecordMutation = useAddRecord();
+  const editRecordMutation = useUpdateRecord();
 
   const handleRecordDelete = async () => {
     await deleteRecord(deleteRecordDialog.data?._id, {
@@ -73,9 +75,9 @@ export const WorktimeScreen: FC = (): ReactElement => {
         {t('ui:delete_record.text')}
       </ConfirmDialog>
 
-      <AddRecordDialog {...addRecordDialog} />
+      <AddRecordDialog {...addRecordDialog} mutation={addRecordMutation} />
 
-      <EditRecordDialog {...editRecordDialog} />
+      <EditRecordDialog {...editRecordDialog} mutation={editRecordMutation} />
     </ScreenWrapper>
   );
 };

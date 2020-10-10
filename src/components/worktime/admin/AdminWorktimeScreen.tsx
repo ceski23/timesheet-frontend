@@ -5,7 +5,10 @@ import React, {
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import {
+  AddRecordParams,
   Record, UpdateRecordParams,
+  useAddRecord,
+  useRemoveRecordForUser, useUpdateRecordForUser,
 } from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
@@ -17,8 +20,12 @@ import { useTranslation } from 'react-i18next';
 import { Timesheet } from 'components/Timesheet/Timesheet';
 import { RouteComponentProps } from 'react-router';
 import { useUser } from 'api/users';
+import { ConfirmDialog } from 'components/shared/ConfirmDialog';
+import Notificator from 'utils/Notificator';
 import { WorktimeListView } from '../WorktimeListView';
 import { AdminWorktimeToolbar } from './AdminWorktimeToolbar';
+import { AddRecordDialog } from '../add/AddRecordDialog';
+import { EditRecordDialog } from '../edit/EditRecordDialog';
 
 // #region styles
 const AddRecordButton = styled(Fab)({
@@ -38,22 +45,24 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
   useAppScreen('worktime');
   const { worktimeViewType } = useAppState();
   const deleteRecordDialog = useDialog<Record>();
-  // const addRecordDialog = useDialog<AddRecordParams>();
+  const addRecordDialog = useDialog<AddRecordParams>();
   const editRecordDialog = useDialog<UpdateRecordParams>();
-  // const [deleteRecord] = useRemoveRecord();
+  const [deleteRecord] = useRemoveRecordForUser();
   const { t } = useTranslation();
   const user = useUser(params.userId);
+  const addRecordMutation = useAddRecord();
+  const editRecordMutation = useUpdateRecordForUser();
 
-  // const handleRecordDelete = async () => {
-  // await deleteRecord(deleteRecordDialog.data?._id, {
-  //   onSuccess: () => {
-  //     Notificator.success(t('ui:notifications.success.record_deleted'));
-  //   },
-  //   onError: () => {
-  //     Notificator.error(t('ui:notifications.failure.delete_record'));
-  //   },
-  // });
-  // };
+  const handleRecordDelete = async () => {
+    await deleteRecord(deleteRecordDialog.data?._id, {
+      onSuccess: () => {
+        Notificator.success(t('ui:notifications.success.record_deleted'));
+      },
+      onError: () => {
+        Notificator.error(t('ui:notifications.failure.delete_record'));
+      },
+    });
+  };
 
   return (
     <ScreenWrapper toolbar={<AdminWorktimeToolbar user={user.data} />}>
@@ -75,24 +84,24 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
       <AddRecordButton
         variant="extended"
         color="primary"
-        // onClick={() => addRecordDialog.setOpen()}
+        onClick={() => addRecordDialog.setOpen()}
       >
         <AddRecordIcon style={{ marginRight: 8 }} />
         {t('ui:records.add_button')}
       </AddRecordButton>
 
-      {/* <ConfirmDialog
+      <ConfirmDialog
         {...deleteRecordDialog}
         onConfirm={handleRecordDelete}
         confirmText={t('ui:delete_record.confirm')}
         title={t('ui:delete_record.title')}
       >
         {t('ui:delete_record.text')}
-      </ConfirmDialog> */}
+      </ConfirmDialog>
 
-      {/* <AddRecordDialog {...addRecordDialog} /> */}
+      <AddRecordDialog {...addRecordDialog} mutation={addRecordMutation} user={user.data} />
 
-      {/* <EditRecordDialog {...editRecordDialog} /> */}
+      <EditRecordDialog {...editRecordDialog} mutation={editRecordMutation} />
     </ScreenWrapper>
   );
 };

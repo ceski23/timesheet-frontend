@@ -14,12 +14,10 @@ import { formErrorHandler } from 'utils/errorHandlers';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
-import { AddRecordParams, Record } from 'api/records';
+import { AddRecordParams, useAddRecord } from 'api/records';
 import { set } from 'date-fns/esm';
-import { MutationResultPair } from 'react-query';
-import { User } from 'api/users';
-import { AddRecordForm } from './AddRecordForm';
-import { addRecordSchema } from './schema';
+import { addRecordSchema } from 'components/worktime/add/schema';
+import { AddRecordForm } from 'components/worktime/add/AddRecordForm';
 
 // #region styles
 const StyledDialogContent = styled(DialogContent)({
@@ -45,16 +43,12 @@ const StyledTitle = styled(DialogTitle)({
 interface Props {
   isOpen: boolean;
   setClose: () => void;
-  mutation: MutationResultPair<Record, unknown, AddRecordParams & { userId?: string }, unknown>;
-  user?: User;
 }
 
-export const AddRecordDialog: FC<Props> = ({
-  isOpen, setClose, mutation, user,
-}) => {
+export const AdminAddRecordDialog: FC<Props> = ({ isOpen, setClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [addRecord] = mutation;
+  const [addRecord] = useAddRecord();
   const { t } = useTranslation();
 
   const addRecordForm = useForm<AddRecordParams>({
@@ -68,7 +62,7 @@ export const AddRecordDialog: FC<Props> = ({
   });
 
   const handleSubmit = async (values: AddRecordParams) => {
-    await addRecord({ ...values, userId: user?._id }, {
+    await addRecord(values, {
       onSuccess: () => {
         Notificator.success(t('ui:notifications.success.record_added'));
         setClose();

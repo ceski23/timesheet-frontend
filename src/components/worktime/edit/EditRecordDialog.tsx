@@ -11,9 +11,8 @@ import { formErrorHandler } from 'utils/errorHandlers';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
-import {
-  AddRecordParams, UpdateRecordParams, useUpdateRecord,
-} from 'api/records';
+import { AddRecordParams, UpdateRecordParams, Record } from 'api/records';
+import { MutationResultPair } from 'react-query';
 import { addRecordSchema } from '../add/schema';
 import { AddRecordForm } from '../add/AddRecordForm';
 
@@ -42,12 +41,15 @@ interface Props {
   isOpen: boolean;
   setClose: () => void;
   data?: UpdateRecordParams;
+  mutation: MutationResultPair<Record, unknown, UpdateRecordParams, unknown>;
 }
 
-export const EditRecordDialog: FC<Props> = ({ isOpen, setClose, data }) => {
+export const EditRecordDialog: FC<Props> = ({
+  isOpen, setClose, data, mutation,
+}) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const [updateRecord] = useUpdateRecord();
+  const [updateRecord] = mutation;
   const { t } = useTranslation();
 
   const updateRecordForm = useForm<AddRecordParams>({

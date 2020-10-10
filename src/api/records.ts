@@ -62,16 +62,25 @@ export const fetchRecordsByDateRangeForUser = async (
   client.get<unknown, Record[]>('records/admin/findByDateRange', { params })
 );
 
-export const addRecord = async (params: AddRecordParams) => (
-  client.post<unknown, Record>('records', params)
-);
+export const addRecord = async ({ userId, ...params }: AddRecordParams & { userId?: string }) => {
+  if (userId) return client.post<unknown, Record>('records/admin', params, { params: { userId } });
+  return client.post<unknown, Record>('records', params);
+};
 
 export const removeRecord = async (id: string) => (
   client.delete<unknown, void>(`records/${id}`)
 );
 
+export const removeRecordForUser = async (id: string) => (
+  client.delete<unknown, void>(`records/admin/${id}`)
+);
+
 export const patchRecord = async ({ id, ...data }: UpdateRecordParams) => (
   client.patch<unknown, Record>(`records/${id}`, data)
+);
+
+export const patchRecordForUser = async ({ id, ...data }: UpdateRecordParams) => (
+  client.patch<unknown, Record>(`records/admin/${id}`, data)
 );
 // #endregion
 
@@ -98,7 +107,19 @@ export const useRemoveRecord = () => useMutation(removeRecord, {
   },
 });
 
+export const useRemoveRecordForUser = () => useMutation(removeRecordForUser, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
 export const useUpdateRecord = () => useMutation(patchRecord, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
+export const useUpdateRecordForUser = () => useMutation(patchRecordForUser, {
   onSuccess: () => {
     queryCache.invalidateQueries('records');
   },
