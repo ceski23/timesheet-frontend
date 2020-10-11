@@ -9,6 +9,8 @@ import TimeReportingIcon from '@material-ui/icons/QueryBuilderOutlined';
 import EmployeesIcon from '@material-ui/icons/PeopleAltOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
+import StatisticsIcon from '@material-ui/icons/ShowChartOutlined';
+import ArchiveIcon from '@material-ui/icons/ArchiveOutlined';
 import {
   Root, getDrawerSidebar,
 } from '@mui-treasury/layout';
@@ -82,6 +84,18 @@ export const LoggedInContent: FC = () => {
                           to={String(routeUrls.adminWorktime)}
                           onClick={closeDrawer}
                           exact={false}
+                        />
+                        <NavigationItem
+                          name={t('ui:navigation.statistics')}
+                          icon={StatisticsIcon}
+                          to={String(routeUrls.adminWorktime)}
+                          disabled
+                        />
+                        <NavigationItem
+                          name={t('ui:navigation.archive')}
+                          icon={ArchiveIcon}
+                          to={String(routeUrls.adminWorktime)}
+                          disabled
                         />
                       </>
                     )}

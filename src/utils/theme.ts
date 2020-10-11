@@ -10,6 +10,9 @@ export const theme = (type: PaletteType): ThemeOptions => ({
     secondary: {
       main: deepPurple.A700,
     },
+    background: {
+      default: (type === 'light') ? '#f4f4f4' : '#303030',
+    },
     type,
   },
 });

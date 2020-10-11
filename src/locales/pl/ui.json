@@ -31,7 +31,9 @@
     "logout": "Wyloguj",
     "worktime": "Czas pracy",
     "settings": "Ustawienia",
-    "schedules": "Rozkłady"
+    "schedules": "Rozkłady",
+    "statistics": "Statystyki",
+    "archive": "Archiwizacja"
   },
 
   "list": {
@@ -158,5 +160,9 @@
     "select_user": "Wybierz użytkownika z listy",
     "no_options": "Brak wyników",
     "loading": "Ładowanie..."
+  },
+
+  "dashboard": {
+    "quick_records_title": "Raportowanie czasu pracy"
   }
 }

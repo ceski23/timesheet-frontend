@@ -2,15 +2,14 @@ import React, {
   FC, ReactElement,
 } from 'react';
 import {
-  styled, Typography, CircularProgress, Avatar,
+  styled, Typography, CircularProgress, Button, Avatar,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
 import TimesheetViewIcon from '@material-ui/icons/ViewWeekOutlined';
-import ListViewIcon from '@material-ui/icons/ListAltOutlined';
+import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
 import { useAppState, useSetAppState } from 'contexts/appState';
 import { User } from 'api/users';
-import { ResponsiveIconButton } from 'components/shared/ResponsiveIconButton';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -48,27 +47,24 @@ export const AdminWorktimeToolbar: FC<Props> = ({ user }): ReactElement => {
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
 
-      {user && (
-        <div>
-          {worktimeViewType === 'list' && (
-            <ResponsiveIconButton
-              icon={<TimesheetViewIcon />}
-              onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
-            >
-              {t('ui:records.timesheet_view')}
-            </ResponsiveIconButton>
-          )}
-
-          {worktimeViewType === 'timesheet' && (
-            <ResponsiveIconButton
-              icon={<ListViewIcon />}
-              onClick={() => setAppState({ worktimeViewType: 'list' })}
-            >
-              {t('ui:records.list_view')}
-            </ResponsiveIconButton>
-          )}
-        </div>
-      )}
+      <div>
+        {worktimeViewType === 'list' && (
+          <Button
+            startIcon={<TimesheetViewIcon />}
+            onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
+          >
+            {t('ui:records.timesheet_view')}
+          </Button>
+        )}
+        {worktimeViewType === 'timesheet' && (
+          <Button
+            startIcon={<ListViewIcon />}
+            onClick={() => setAppState({ worktimeViewType: 'list' })}
+          >
+            {t('ui:records.list_view')}
+          </Button>
+        )}
+      </div>
     </>
   );
 };

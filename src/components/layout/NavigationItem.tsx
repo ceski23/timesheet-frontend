@@ -14,6 +14,7 @@ interface Props {
   badge?: boolean;
   onClick?: () => void;
   exact?: boolean;
+  disabled?: boolean;
 }
 
 // #region styles
@@ -30,7 +31,7 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
 // #endregion
 
 export const NavigationItem: FC<Props> = ({
-  name, icon: Icon, to, badge, onClick, exact = true,
+  name, icon: Icon, to, badge, onClick, exact = true, disabled,
 }): ReactElement => {
   const match = useRouteMatch({
     path: to,
@@ -46,7 +47,13 @@ export const NavigationItem: FC<Props> = ({
   );
 
   return (
-    <ListItem component={renderLink} button selected={!!match} onClick={onClick}>
+    <ListItem
+      component={renderLink}
+      button
+      selected={!!match}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {Icon && (
         <ListItemIcon>
           <Badge variant="dot" color="primary" invisible={!badge}>
