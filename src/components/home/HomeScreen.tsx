@@ -8,7 +8,7 @@ import {
 import {
   addHours,
   differenceInHours,
-  endOfDay, endOfMonth, set, startOfDay, startOfMonth,
+  endOfDay, endOfMonth, formatDuration, set, startOfDay, startOfMonth,
 } from 'date-fns';
 import {
   Bar, BarChart, ResponsiveContainer,
@@ -22,6 +22,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addRecordSchema } from 'components/worktime/add/schema';
 import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
+import { useDateLocale } from 'hooks/useDateFormatter';
 import { QuickAddRecordForm } from './QuickAddRecordForm';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -32,6 +33,7 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
   useAppScreen('home');
   const { t } = useTranslation();
   const theme = useTheme();
+  const locale = useDateLocale();
 
   const records = useRecords({
     dateFrom: startOfMonth(startOfDay(new Date())),
@@ -82,7 +84,9 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
   const renderTooltip = ({ label, payload, active }: TooltipProps) => (active ? (
     <Paper style={{ padding: 16 }}>
       <Typography variant="caption">{label}</Typography>
-      <Typography variant="subtitle1" color="primary">{payload && payload[0].value}</Typography>
+      <Typography variant="subtitle1" color="primary">
+        {formatDuration({ hours: Number.parseInt(`${payload && payload[0].value}`, 10) }, { locale })}
+      </Typography>
     </Paper>
   ) : null);
 

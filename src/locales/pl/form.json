@@ -13,7 +13,8 @@
     "schedule_freedays": "Dni wolne",
     "record_range": "Zakres rekordu",
     "record_type": "Typ rekordu",
-    "record_details": "Szczegóły"
+    "record_details": "Szczegóły",
+    "approve_month": "Miesiąc"
   },
 
   "loading": {
@@ -22,7 +23,8 @@
     "reset_password": "Resetowanie hasła...",
     "add_employee": "Dodawanie pracownika...",
     "add_schedule": "Dodawanie rozkładu...",
-    "add_record": "Dodawanie rekordu..."
+    "add_record": "Dodawanie rekordu...",
+    "approve_records": "Zatwierdzanie..."
   },
 
   "submit": {
@@ -31,7 +33,8 @@
     "reset_password": "Zmień hasło",
     "add_employee": "Dodaj pracownika",
     "add_schedule": "Dodaj rozkład",
-    "add_record": "Dodaj rekord"
+    "add_record": "Dodaj rekord",
+    "approve_records": "Zatwierdź"
   },
 
   "validation": {

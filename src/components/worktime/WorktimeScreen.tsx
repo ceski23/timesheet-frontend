@@ -5,7 +5,8 @@ import React, {
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import {
-  useRemoveRecord, Record, AddRecordParams, UpdateRecordParams, useAddRecord, useUpdateRecord,
+  useRemoveRecord, Record, AddRecordParams, UpdateRecordParams,
+  useAddRecord, useUpdateRecord, ApproveRecordsParams,
 } from 'api/records';
 import { useAppState } from 'contexts/appState';
 import AddRecordIcon from '@material-ui/icons/AlarmAddOutlined';
@@ -19,6 +20,7 @@ import { WorktimeToolbar } from './WorktimeToolbar';
 import { WorktimeListView } from './WorktimeListView';
 import { AddRecordDialog } from './add/AddRecordDialog';
 import { EditRecordDialog } from './edit/EditRecordDialog';
+import { ApproveRecordsDialog } from './approve/ApproveRecordsDialog';
 
 const AddRecordButton = styled(Fab)({
   position: 'absolute',
@@ -32,6 +34,7 @@ export const WorktimeScreen: FC = (): ReactElement => {
   const deleteRecordDialog = useDialog<Record>();
   const addRecordDialog = useDialog<AddRecordParams>();
   const editRecordDialog = useDialog<UpdateRecordParams>();
+  const approveRecordDialog = useDialog<ApproveRecordsParams>();
   const [deleteRecord] = useRemoveRecord();
   const { t } = useTranslation();
   const addRecordMutation = useAddRecord();
@@ -49,7 +52,9 @@ export const WorktimeScreen: FC = (): ReactElement => {
   };
 
   return (
-    <ScreenWrapper toolbar={<WorktimeToolbar />}>
+    <ScreenWrapper
+      toolbar={<WorktimeToolbar onApproveClick={() => approveRecordDialog.setOpen()} />}
+    >
       {worktimeViewType === 'list' && (
         <WorktimeListView deleteDialog={deleteRecordDialog} editDialog={editRecordDialog} />
       )}
@@ -78,6 +83,8 @@ export const WorktimeScreen: FC = (): ReactElement => {
       <AddRecordDialog {...addRecordDialog} mutation={addRecordMutation} />
 
       <EditRecordDialog {...editRecordDialog} mutation={editRecordMutation} />
+
+      <ApproveRecordsDialog {...approveRecordDialog} />
     </ScreenWrapper>
   );
 };

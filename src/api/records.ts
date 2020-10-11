@@ -4,6 +4,7 @@ import {
 import {
   queryCache, useMutation, usePaginatedQuery, useQuery,
 } from 'react-query';
+import { format } from 'date-fns';
 
 // #region Types
 export type RecordType = 'normal' | 'vacationLeave' | 'trainingLeave' | 'leaveOnRequest' | 'sickLeave' | 'childcare';
@@ -39,6 +40,10 @@ export interface RecordFindParams {
 export type PaginatedRecordFindParams = {
   page?: number;
 } & RecordFindParams
+
+export interface ApproveRecordsParams {
+  date: Date;
+}
 // #endregion
 
 // #region API calls
@@ -82,6 +87,10 @@ export const patchRecord = async ({ id, ...data }: UpdateRecordParams) => (
 export const patchRecordForUser = async ({ id, ...data }: UpdateRecordParams) => (
   client.patch<unknown, Record>(`records/admin/${id}`, data)
 );
+
+export const approveRecords = async ({ date }: ApproveRecordsParams) => (
+  client.post<unknown, void>('records/approve', { date: format(date, 'MM-yyyy') })
+);
 // #endregion
 
 // #region API hooks
@@ -120,6 +129,12 @@ export const useUpdateRecord = () => useMutation(patchRecord, {
 });
 
 export const useUpdateRecordForUser = () => useMutation(patchRecordForUser, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
+export const useApproveRecords = () => useMutation(approveRecords, {
   onSuccess: () => {
     queryCache.invalidateQueries('records');
   },

@@ -10,7 +10,8 @@
       "schedule_deleted": "Usunięto rozkład {{name}}",
       "record_deleted": "Usunięto rekord",
       "record_added": "Dodano rekord",
-      "record_updated": "Edytowano rekord"
+      "record_updated": "Edytowano rekord",
+      "records_approved": "Zatwierdzono ewidencję za {{date}}"
     },
     "failure": {
       "find_employees": "Wystąpił błąd podczas wczytywania pracowników",
@@ -21,7 +22,8 @@
       "add_record": "Wystąpił błąd podczas dodawania rekordu",
       "internal_error": "Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później",
       "records_overlap": "Już istnieje rekord w tym czasie",
-      "update_record": "Wystąpił błąd podczas edycji rekordu"
+      "update_record": "Wystąpił błąd podczas edycji rekordu",
+      "approve_records": "Wystąpił błąd podczas zatwierdzania ewidencji"
     }
   },
 
@@ -121,7 +123,8 @@
     "add_button": "Dodaj",
     "timesheet_view": "Widok siatki",
     "list_view": "Widok listy",
-    "edit_disabled": "Ten rekord jest już zatwierdzony"
+    "edit_disabled": "Ten rekord jest już zatwierdzony",
+    "approve": "Zatwierdzanie"
   },
 
   "add_record": {
@@ -164,5 +167,9 @@
 
   "dashboard": {
     "quick_records_title": "Raportowanie czasu pracy"
+  },
+
+  "approve_records": {
+    "title": "Zatwierdzanie ewidencji"
   }
 }

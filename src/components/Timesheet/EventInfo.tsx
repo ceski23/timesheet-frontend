@@ -13,6 +13,7 @@ import { useTimesheetState } from 'contexts/timesheet';
 import { getRecordData } from 'utils/records';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { useAuth } from 'contexts/auth';
+import ApprovedIcon from '@material-ui/icons/DoneOutlined';
 
 interface Props {
   event: Record;
@@ -30,6 +31,7 @@ const Header = styled('div')({
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'flex-end',
+  alignItems: 'center',
 });
 
 const Content = styled('div')({
@@ -78,11 +80,15 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
   return (
     <Container>
       <Header>
-        <Tooltip title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''} placement="left">
-          <span>
-            <IconButton
-              title={t('ui:tooltips.edit')}
-              onClick={() => {
+        {event.approved && (
+          <Tooltip title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''} placement="left">
+            <ApprovedIcon color="primary" style={{ marginRight: 16 }} />
+          </Tooltip>
+        )}
+
+        <IconButton
+          title={t('ui:tooltips.edit')}
+          onClick={() => {
             // eslint-disable-next-line no-unused-expressions
             editDialog?.setOpen({
               dateFrom: new Date(event.dateFrom),
@@ -92,13 +98,11 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
               id: event._id,
             });
             close();
-              }}
-              disabled={isDisabled}
-            >
-              <EditIcon />
-            </IconButton>
-          </span>
-        </Tooltip>
+          }}
+          disabled={isDisabled}
+        >
+          <EditIcon />
+        </IconButton>
 
         <IconButton
           title={t('ui:tooltips.delete')}

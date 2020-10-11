@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
 import TimesheetViewIcon from '@material-ui/icons/ViewWeekOutlined';
 import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
+import ApproveIcon from '@material-ui/icons/DoneOutlined';
 import { useAppState, useSetAppState } from 'contexts/appState';
 import { ResponsiveIconButton } from 'components/shared/ResponsiveIconButton';
 
@@ -23,7 +24,11 @@ const Title = styled(Typography)({
 });
 // #endregion
 
-export const WorktimeToolbar: FC = (): ReactElement => {
+interface Props {
+  onApproveClick: () => void;
+}
+
+export const WorktimeToolbar: FC<Props> = ({ onApproveClick }): ReactElement => {
   const { t } = useTranslation();
   const isFetching = useIsFetching();
   const setAppState = useSetAppState();
@@ -36,7 +41,14 @@ export const WorktimeToolbar: FC = (): ReactElement => {
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
 
-      <div>
+      <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'auto auto' }}>
+        <ResponsiveIconButton
+          icon={<ApproveIcon />}
+          onClick={onApproveClick}
+        >
+          {t('ui:records.approve')}
+        </ResponsiveIconButton>
+
         {worktimeViewType === 'list' && (
           <ResponsiveIconButton
             icon={<TimesheetViewIcon />}
