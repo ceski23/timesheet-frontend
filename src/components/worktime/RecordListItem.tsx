@@ -78,7 +78,7 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { color, icon } = useMemo(() => getRecordData(data), [data]);
   const { user } = useAuth();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   const isDisabled = data.approved && user?.role === 'user';
 

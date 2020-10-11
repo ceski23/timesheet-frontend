@@ -10,6 +10,7 @@ import TimesheetViewIcon from '@material-ui/icons/ViewWeekOutlined';
 import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
 import { useAppState, useSetAppState } from 'contexts/appState';
 import { User } from 'api/users';
+import { ResponsiveIconButton } from 'components/shared/ResponsiveIconButton';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -49,20 +50,20 @@ export const AdminWorktimeToolbar: FC<Props> = ({ user }): ReactElement => {
 
       <div>
         {worktimeViewType === 'list' && (
-          <Button
-            startIcon={<TimesheetViewIcon />}
+          <ResponsiveIconButton
+            icon={<TimesheetViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
           >
             {t('ui:records.timesheet_view')}
-          </Button>
+          </ResponsiveIconButton>
         )}
         {worktimeViewType === 'timesheet' && (
-          <Button
-            startIcon={<ListViewIcon />}
+          <ResponsiveIconButton
+            icon={<ListViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'list' })}
           >
             {t('ui:records.list_view')}
-          </Button>
+          </ResponsiveIconButton>
         )}
       </div>
     </>

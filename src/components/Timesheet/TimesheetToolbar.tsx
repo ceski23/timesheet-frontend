@@ -30,7 +30,7 @@ export const TimesheetToolbar: FC = (): ReactElement => {
   const { firstDay, lastDay, numOfDays } = useTimesheetState();
   const locale = useDateLocale();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   return (
     <StyledToolbar>

@@ -12,7 +12,7 @@ export const ResponsiveIconButton = (
   { icon, ...props }: (ButtonProps & IconButtonProps) & Props,
 ) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   return (
     <>
