@@ -90,7 +90,7 @@ export const Content: FC<Props> = ({
             key={i}
             times={times}
             height={CELL_HEIGHT}
-            records={records.filter(e => new Date(e.dateFrom).getDay() === i + 1)}
+            records={records.filter(e => new Date(e.dateFrom).getDay() === (i + 1) % 7)}
             interval={interval}
           />
         ))}
