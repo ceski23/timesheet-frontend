@@ -1,19 +1,21 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  Button, styled,
-} from '@material-ui/core';
+import { Fab, styled } from '@material-ui/core';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { SimpleList } from 'components/shared/SimpleList';
 import React, { ChangeEvent, FC, useState } from 'react';
 import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import { useTranslation } from 'react-i18next';
-import { Schedule, useRemoveSchedule, useSchedules } from 'api/schedules';
+import {
+  EditScheduleParams, Schedule, useRemoveSchedule, useSchedules,
+} from 'api/schedules';
 import AddScheduleIcon from '@material-ui/icons/TodayOutlined';
 import { useDialog } from 'hooks/useDialog';
 import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import Notificator from 'utils/Notificator';
 import { ScheduleListItem } from './ScheduleListItem';
 import { AddScheduleDialog } from './add/AddScheduleDialog';
+import { EditScheduleDialog } from './edit/EditScheduleDialog';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
@@ -22,6 +24,12 @@ const Container = styled('div')(({ theme }) => ({
   flex: 1,
   margin: theme.spacing(2),
 }));
+
+const AddScheduleButton = styled(Fab)({
+  position: 'absolute',
+  right: 32,
+  bottom: 32,
+});
 // #endregion
 
 export const SchedulesScreen: FC = () => {
@@ -29,6 +37,7 @@ export const SchedulesScreen: FC = () => {
   const schedules = useSchedules({ page });
   const { t } = useTranslation();
   const addScheduleDialog = useDialog<Schedule>();
+  const editScheduleDialog = useDialog<EditScheduleParams>();
   const deleteScheduleDialog = useDialog<Schedule>();
   const [deleteSchedule] = useRemoveSchedule();
 
@@ -54,16 +63,7 @@ export const SchedulesScreen: FC = () => {
         <SimpleList
           loading={schedules.isLoading}
           header={(
-            <SimpleListHeader title={t('ui:schedules.list_title')}>
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<AddScheduleIcon />}
-                onClick={() => addScheduleDialog.setOpen()}
-              >
-                {t('ui:schedules.add_button')}
-              </Button>
-            </SimpleListHeader>
+            <SimpleListHeader title={t('ui:schedules.list_title')} />
           )}
           onPageChange={handlePageChange}
           pagination={{
@@ -73,17 +73,34 @@ export const SchedulesScreen: FC = () => {
         >
           {schedules.resolvedData?.data.map(schedule => (
             <ScheduleListItem
-            // eslint-disable-next-line no-underscore-dangle
               key={schedule._id}
               data={schedule}
               onDelete={() => deleteScheduleDialog.setOpen(schedule)}
+              onClick={() => editScheduleDialog.setOpen({
+                daysOff: schedule.daysOff.map(day => new Date(day)),
+                fromDate: new Date(schedule.fromDate),
+                toDate: new Date(schedule.toDate),
+                name: schedule.name,
+                id: schedule._id,
+              })}
             />
           ))}
         </SimpleList>
 
       </Container>
 
+      <AddScheduleButton
+        variant="extended"
+        color="primary"
+        onClick={() => addScheduleDialog.setOpen()}
+      >
+        <AddScheduleIcon style={{ marginRight: 8 }} />
+        {t('ui:schedules.add_button')}
+      </AddScheduleButton>
+
       <AddScheduleDialog {...addScheduleDialog} />
+
+      <EditScheduleDialog {...editScheduleDialog} />
 
       <ConfirmDialog
         {...deleteScheduleDialog}

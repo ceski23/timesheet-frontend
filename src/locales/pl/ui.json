@@ -12,7 +12,8 @@
       "record_added": "Dodano rekord",
       "record_updated": "Edytowano rekord",
       "records_approved": "Zatwierdzono ewidencję za {{date}}",
-      "employee_edited": "Edytowano pracownika {{name}}"
+      "employee_edited": "Edytowano pracownika {{name}}",
+      "schedule_edited": "Edytowano rozkład {{name}}"
     },
     "failure": {
       "find_employees": "Wystąpił błąd podczas wczytywania pracowników",
@@ -176,5 +177,9 @@
 
   "edit_employee": {
     "title": "Edycja pracownika"
+  },
+
+  "edit_schedule": {
+    "title": "Edycja rozkładu"
   }
 }

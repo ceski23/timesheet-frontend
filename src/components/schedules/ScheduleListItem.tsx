@@ -61,15 +61,16 @@ const CalendarIcon = styled(CalendarStart)({
 interface Props {
   data: Schedule;
   onDelete: () => void;
+  onClick?: () => void;
 }
 
-export const ScheduleListItem: FC<Props> = ({ data, onDelete }) => {
+export const ScheduleListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { format } = useDateFormatter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
-    <ListItem button>
+    <ListItem button onClick={onClick}>
       <div>
         <Name variant="h6">{data.name}</Name>
         <DatesContainer>

@@ -18,6 +18,14 @@ export interface AddScheduleParams {
   toDate: Date;
   daysOff: Date[];
 }
+
+export interface EditScheduleParams {
+  name: string;
+  fromDate: Date;
+  toDate: Date;
+  daysOff: Date[];
+  id: string;
+}
 // #endregion
 
 // #region API calls
@@ -31,6 +39,10 @@ export const addSchedule = async (params: AddScheduleParams) => (
 
 export const removeSchedule = async (id: string) => (
   client.delete<unknown, void>(`schedules/admin/${id}`)
+);
+
+export const editSchedule = async ({ id, ...data }: EditScheduleParams) => (
+  client.patch<unknown, Schedule>(`schedules/admin/${id}`, data)
 );
 // #endregion
 
@@ -46,6 +58,12 @@ export const useAddSchedule = () => useMutation(addSchedule, {
 });
 
 export const useRemoveSchedule = () => useMutation(removeSchedule, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('schedules');
+  },
+});
+
+export const useEditSchedule = () => useMutation(editSchedule, {
   onSuccess: () => {
     queryCache.invalidateQueries('schedules');
   },
