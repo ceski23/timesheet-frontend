@@ -7,7 +7,7 @@ import React, {
 import {
   styled, ListItem, ListItemIcon,
   ListItemText, Avatar, ListItemSecondaryAction, IconButton,
-  Button, TextField, InputAdornment,
+  TextField, InputAdornment, Fab,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useTranslation } from 'react-i18next';
@@ -32,9 +32,11 @@ const Container = styled('div')(({ theme }) => ({
   flex: 1,
 }));
 
-const SearchBox = styled(TextField)(({ theme }) => ({
-  marginRight: theme.spacing(3),
-}));
+const AddEmployeeButton = styled(Fab)({
+  position: 'absolute',
+  right: 32,
+  bottom: 32,
+});
 // #endregion
 
 export const EmployeesScreen: FC = (): ReactElement => {
@@ -86,7 +88,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
           loading={users.isLoading}
           header={(
             <SimpleListHeader title={t('ui:employees.list_title')}>
-              <SearchBox
+              <TextField
                 variant="outlined"
                 size="small"
                 value={tmpQuery}
@@ -100,14 +102,6 @@ export const EmployeesScreen: FC = (): ReactElement => {
                 }}
                 placeholder={t('ui:employees.searchbox')}
               />
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<AddEmployeeIcon />}
-                onClick={() => addEmployeeDialog.setOpen()}
-              >
-                {t('ui:employees.add_button')}
-              </Button>
             </SimpleListHeader>
           )}
           onPageChange={handlePageChange}
@@ -140,6 +134,15 @@ export const EmployeesScreen: FC = (): ReactElement => {
           ))}
         </SimpleList>
       </Container>
+
+      <AddEmployeeButton
+        variant="extended"
+        color="primary"
+        onClick={() => addEmployeeDialog.setOpen()}
+      >
+        <AddEmployeeIcon style={{ marginRight: 8 }} />
+        {t('ui:employees.add_button')}
+      </AddEmployeeButton>
 
       <ConfirmDialog
         {...deleteEmployeeDialog}
