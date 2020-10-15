@@ -1,9 +1,5 @@
-import React, {
-  FC, ReactElement,
-} from 'react';
-import {
-  styled, Typography, CircularProgress, Button,
-} from '@material-ui/core';
+import React, { FC, ReactElement } from 'react';
+import { styled, Typography, CircularProgress } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';
 import TimesheetViewIcon from '@material-ui/icons/ViewWeekOutlined';

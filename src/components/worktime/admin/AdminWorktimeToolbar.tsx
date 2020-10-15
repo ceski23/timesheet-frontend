@@ -1,8 +1,6 @@
-import React, {
-  FC, ReactElement,
-} from 'react';
+import React, { FC, ReactElement } from 'react';
 import {
-  styled, Typography, CircularProgress, Button, Avatar,
+  styled, Typography, CircularProgress, Avatar,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useIsFetching } from 'react-query';

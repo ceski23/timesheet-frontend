@@ -1,20 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Button, FormGroup, FormLabel, MenuItem,
-  styled, TextField,
-} from '@material-ui/core';
-import {
-  DatePicker,
-  DateTimePicker, TimePicker,
-} from '@material-ui/pickers';
-import {
-  Controller,
-} from 'react-hook-form';
+import { Button, styled } from '@material-ui/core';
+import { DatePicker } from '@material-ui/pickers';
+import { Controller } from 'react-hook-form';
 import { FormParams2 } from 'utils/types';
-import { AddRecordParams, ApproveRecordsParams, RECORD_TYPES } from 'api/records';
-import { set } from 'date-fns';
+import { ApproveRecordsParams } from 'api/records';
 
 // #region styles
 const StyledForm = styled('form')({
@@ -25,17 +16,6 @@ const StyledForm = styled('form')({
 const SubmitButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
-
-const DateRangeFormGroup = styled(FormGroup)(({ theme }) => ({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: '32px',
-  [theme.breakpoints.down('xs')]: {
-    gridTemplateColumns: 'auto',
-    gap: '0px',
-  },
-}));
-
 // #endregion
 
 export const ApproveRecordsForm: FC<FormParams2<ApproveRecordsParams>> = ({
@@ -43,8 +23,7 @@ export const ApproveRecordsForm: FC<FormParams2<ApproveRecordsParams>> = ({
 }) => {
   const { t } = useTranslation();
   const {
-    register, handleSubmit, control, formState, errors, watch,
-    setValue,
+    handleSubmit, control, formState, errors,
   } = form;
   const { isSubmitting } = formState;
 
