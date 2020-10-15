@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
@@ -12,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { useTranslation } from 'react-i18next';
 import { useDialog } from 'hooks/useDialog';
 import { gridSpacingVertical } from 'utils/styles';
-import { useUsers, useDeleteUser, User } from 'api/users';
+import { useUsers, useDeleteUser, User, EditUserParams, ID } from 'api/users';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import AddEmployeeIcon from '@material-ui/icons/PersonAddOutlined';
 import { useDebounce } from 'use-lodash-debounce';
@@ -22,18 +23,13 @@ import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import { SimpleList } from 'components/shared/SimpleList';
 import { SimpleListHeader } from 'components/shared/SimpleListHeader';
 import { AddEmployeeDialog } from './add/AddEmployeeDialog';
+import { EditEmployeeDialog } from './edit/EditEmployeeDialog';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
   ...gridSpacingVertical(theme.spacing(2)),
   display: 'flex',
-  // flexDirection: 'column',
   flex: 1,
-  // maxHeight: `calc(100% - ${theme.spacing(4)}px)`,
-  // [theme.breakpoints.up('sm')]: {
-  //   ...gridSpacingHorizontal(theme.spacing(2), true),
-  //   flexDirection: 'row-reverse',
-  // },
 }));
 
 const SearchBox = styled(TextField)(({ theme }) => ({
@@ -45,6 +41,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
   const { t } = useTranslation();
   const deleteEmployeeDialog = useDialog<User>();
   const addEmployeeDialog = useDialog<User>();
+  const editEmployeeDialog = useDialog<EditUserParams & ID>();
   const [{ page, query }, setReqParams] = useState({
     page: 1,
     query: '',
@@ -121,7 +118,11 @@ export const EmployeesScreen: FC = (): ReactElement => {
         >
           {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
           // eslint-disable-next-line react/no-array-index-key
-            <ListItem button key={i}>
+            <ListItem
+              button
+              key={i}
+              onClick={() => editEmployeeDialog.setOpen({ name, email, id: rest._id })}
+            >
               <ListItemIcon>
                 <Avatar>{name[0]}</Avatar>
               </ListItemIcon>
@@ -150,6 +151,8 @@ export const EmployeesScreen: FC = (): ReactElement => {
       </ConfirmDialog>
 
       <AddEmployeeDialog {...addEmployeeDialog} />
+
+      <EditEmployeeDialog {...editEmployeeDialog} />
     </ScreenWrapper>
   );
 };

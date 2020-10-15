@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/interface-name-prefix */
 import {
   client, PaginatedResponse, FindParams,
 } from 'utils/api';
@@ -29,6 +30,15 @@ export interface AddUserParams {
   name: string;
   email: string;
 }
+
+export interface EditUserParams {
+  name: string;
+  email: string;
+}
+
+export interface ID {
+  id: string;
+}
 // #endregion
 
 // #region API calls
@@ -46,6 +56,10 @@ export const deleteUser = async (id: string) => (
 
 export const addUser = async (params: AddUserParams) => (
   client.post<unknown, User>('users/admin', params)
+);
+
+export const updateUser = async ({ id, ...params }: EditUserParams & ID) => (
+  client.patch<unknown, User>(`users/admin/${id}`, params)
 );
 // #endregion
 
@@ -65,6 +79,12 @@ export const useDeleteUser = () => useMutation(deleteUser, {
 });
 
 export const useAddUser = () => useMutation(addUser, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('users');
+  },
+});
+
+export const useEditUser = () => useMutation(updateUser, {
   onSuccess: () => {
     queryCache.invalidateQueries('users');
   },

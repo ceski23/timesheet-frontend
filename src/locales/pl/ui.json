@@ -11,7 +11,8 @@
       "record_deleted": "Usunięto rekord",
       "record_added": "Dodano rekord",
       "record_updated": "Edytowano rekord",
-      "records_approved": "Zatwierdzono ewidencję za {{date}}"
+      "records_approved": "Zatwierdzono ewidencję za {{date}}",
+      "employee_edited": "Edytowano pracownika {{name}}"
     },
     "failure": {
       "find_employees": "Wystąpił błąd podczas wczytywania pracowników",
@@ -171,5 +172,9 @@
 
   "approve_records": {
     "title": "Zatwierdzanie ewidencji"
+  },
+
+  "edit_employee": {
+    "title": "Edycja pracownika"
   }
 }
