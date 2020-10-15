@@ -48,24 +48,26 @@ export const AdminWorktimeToolbar: FC<Props> = ({ user }): ReactElement => {
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
 
-      <div>
-        {worktimeViewType === 'list' && (
+      {user && (
+        <div>
+          {worktimeViewType === 'list' && (
           <ResponsiveIconButton
             icon={<TimesheetViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'timesheet' })}
           >
             {t('ui:records.timesheet_view')}
           </ResponsiveIconButton>
-        )}
-        {worktimeViewType === 'timesheet' && (
+          )}
+          {worktimeViewType === 'timesheet' && (
           <ResponsiveIconButton
             icon={<ListViewIcon />}
             onClick={() => setAppState({ worktimeViewType: 'list' })}
           >
             {t('ui:records.list_view')}
           </ResponsiveIconButton>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
