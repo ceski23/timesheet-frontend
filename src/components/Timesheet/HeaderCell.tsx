@@ -29,7 +29,7 @@ export const HeaderCell: FC<Props> = ({ date }): ReactElement => {
       <Typography variant="body2">
         {format(date, 'EEE')}
       </Typography>
-      <Typography variant="h5">
+      <Typography variant="h5" component="p">
         {format(date, 'd')}
       </Typography>
     </Container>

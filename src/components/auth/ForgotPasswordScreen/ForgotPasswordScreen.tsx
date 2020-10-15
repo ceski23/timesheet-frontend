@@ -53,11 +53,6 @@ const Container = styled('div')({
 const BackButton = styled(IconButton)(({ theme }) => ({
   marginRight: theme.spacing(1),
 }));
-
-const Desc = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-  marginTop: theme.spacing(1),
-}));
 // #endregion
 
 export const ForgotPasswordScreen: FC = () => {
@@ -92,17 +87,26 @@ export const ForgotPasswordScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} />
+      <Logo src={AppLogo} title="Timesheet" />
       <MainImage />
       <StyledCard>
         <CardContent>
           <Grid container alignItems="center">
-            <BackButton onClick={handleBackClick}>
+            <BackButton onClick={handleBackClick} title={t('ui:navigation.back')}>
               <BackIcon />
             </BackButton>
-            <Typography variant="h6">{t('ui:forgot_password.title')}</Typography>
+            <Typography variant="h6" component="h1">{t('ui:forgot_password.title')}</Typography>
           </Grid>
-          <Desc gutterBottom variant="subtitle1">{t('ui:forgot_password.subtitle')}</Desc>
+          <Typography
+            gutterBottom
+            variant="subtitle1"
+            component="p"
+            style={{
+              marginBottom: 8,
+              marginTop: 8,
+            }}
+          >{t('ui:forgot_password.subtitle')}
+          </Typography>
           <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
         </CardContent>
       </StyledCard>

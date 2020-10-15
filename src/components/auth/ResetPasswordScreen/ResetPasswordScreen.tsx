@@ -89,11 +89,11 @@ export const ResetPasswordScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} />
+      <Logo src={AppLogo} title="Timesheet" />
       <MainImage />
       <StyledCard>
         <CardContent>
-          <Typography gutterBottom variant="h6">{t('ui:password_reset.title')}</Typography>
+          <Typography gutterBottom variant="h6" component="h1">{t('ui:password_reset.title')}</Typography>
           <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
         </CardContent>
       </StyledCard>

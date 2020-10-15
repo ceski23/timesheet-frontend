@@ -26,6 +26,7 @@ export const LoginForm: FC<FormParams2<Credentials> & Stylable> = ({
   return (
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        id="login-email"
         type="text"
         autoComplete="email"
         name="email"
@@ -44,6 +45,7 @@ export const LoginForm: FC<FormParams2<Credentials> & Stylable> = ({
         }}
       />
       <TextField
+        id="login-password"
         type="password"
         autoComplete="current-password"
         name="password"

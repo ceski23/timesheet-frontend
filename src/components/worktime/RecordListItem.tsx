@@ -3,7 +3,6 @@ import {
   Typography,
   useMediaQuery,
   useTheme,
-  Tooltip,
 } from '@material-ui/core';
 import React, { FC, useMemo } from 'react';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
@@ -84,60 +83,61 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const isDisabled = data.approved && user?.role === 'user';
 
   return (
-    <Tooltip title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''} placement="right">
-      <span>
-        <ListItem button onClick={onClick} disabled={isDisabled}>
-          <StyledIcon color={color} icon={icon} />
+    <ListItem
+      button
+      onClick={onClick}
+      disabled={isDisabled}
+      title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''}
+    >
+      <StyledIcon color={color} icon={icon} />
 
-          <div>
-            <Name variant="h6">{t(`ui:records.type.${data.type}`)}</Name>
+      <div>
+        <Name variant="h6">{t(`ui:records.type.${data.type}`)}</Name>
 
-            {data.details && (
-            <Typography variant="body2" style={{ marginBottom: 8 }}>{data.details}</Typography>
+        {data.details && (
+        <Typography variant="body2" style={{ marginBottom: 8 }}>{data.details}</Typography>
+        )}
+
+        <DatesContainer>
+          {isMobile && <CalendarIcon color="disabled" />}
+
+          <ScheduleDate>
+            {isMobile ? (
+              <DateText>{format(new Date(data.dateFrom), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarStart color="disabled" />
+                <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
+              </>
             )}
+          </ScheduleDate>
 
-            <DatesContainer>
-              {isMobile && <CalendarIcon color="disabled" />}
+          <Divider>—</Divider>
 
-              <ScheduleDate>
-                {isMobile ? (
-                  <DateText>{format(new Date(data.dateFrom), 'dd.MM.yyyy')}</DateText>
-                ) : (
-                  <>
-                    <CalendarStart color="disabled" />
-                    <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
-                  </>
-                )}
-              </ScheduleDate>
+          <ScheduleDate>
+            {isMobile ? (
+              <DateText>{format(new Date(data.dateTo), 'dd.MM.yyyy')}</DateText>
+            ) : (
+              <>
+                <CalendarEnd color="disabled" />
+                <DateText>{format(new Date(data.dateTo), 'dd MMMM yyyy')}</DateText>
+              </>
+            )}
+          </ScheduleDate>
+        </DatesContainer>
+      </div>
 
-              <Divider>—</Divider>
-
-              <ScheduleDate>
-                {isMobile ? (
-                  <DateText>{format(new Date(data.dateTo), 'dd.MM.yyyy')}</DateText>
-                ) : (
-                  <>
-                    <CalendarEnd color="disabled" />
-                    <DateText>{format(new Date(data.dateTo), 'dd MMMM yyyy')}</DateText>
-                  </>
-                )}
-              </ScheduleDate>
-            </DatesContainer>
-          </div>
-
-          <ListItemSecondaryAction>
-            <IconButton
-              title={t('ui:tooltips.delete')}
-              edge="end"
-              aria-label="delete"
-              onClick={() => onDelete()}
-              disabled={isDisabled}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      </span>
-    </Tooltip>
+      <ListItemSecondaryAction>
+        <IconButton
+          title={t('ui:tooltips.delete')}
+          edge="end"
+          aria-label="delete"
+          onClick={() => onDelete()}
+          disabled={isDisabled}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 };

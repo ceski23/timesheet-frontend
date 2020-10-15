@@ -75,12 +75,13 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
       onClick={handleClick}
     >
       <Info style={{ background: color ?? theme.palette.secondary.main }}>
-        <Title
+        <Typography
           variant="subtitle2"
-          style={{ color: textColor }}
+          style={{ color: textColor, fontSize: '0.75rem' }}
+          component="p"
         >
           {t(`ui:records.type.${type}`)}
-        </Title>
+        </Typography>
 
         <Text
           variant="body2"

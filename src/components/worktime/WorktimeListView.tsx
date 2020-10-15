@@ -66,6 +66,7 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog, user }) 
         header={(
           <SimpleListHeader title={t('ui:records.list_title')}>
             <DatePicker
+              id="records-list-datefrom"
               label={t('form:fields.date_from')}
               margin="dense"
               autoOk
@@ -77,6 +78,7 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog, user }) 
               style={{ marginRight: 16 }}
             />
             <DatePicker
+              id="records-list-dateto"
               label={t('form:fields.date_to')}
               margin="dense"
               autoOk

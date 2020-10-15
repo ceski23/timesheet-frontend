@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -89,10 +90,14 @@ export const EmployeesScreen: FC = (): ReactElement => {
           header={(
             <SimpleListHeader title={t('ui:employees.list_title')}>
               <TextField
+                id="employees-searchbar"
                 variant="outlined"
                 size="small"
                 value={tmpQuery}
                 onChange={handleSearchChange}
+                inputProps={{
+                  'aria-label': t('ui:employees.searchbox'),
+                }}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">

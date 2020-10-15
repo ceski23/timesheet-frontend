@@ -71,6 +71,7 @@ export const QuickAddRecordForm: FC<FormParams2<AddRecordParams>> = ({
         name="dateFrom"
         render={p => (
           <DateTimePicker
+            id="quickaddrecord-datefrom"
             label={t('form:fields.date_from')}
             margin="normal"
             autoOk
@@ -91,6 +92,7 @@ export const QuickAddRecordForm: FC<FormParams2<AddRecordParams>> = ({
         name="dateTo"
         render={p => (
           <TimePicker
+            id="quickaddrecord-dateto"
             label={t('form:fields.date_to')}
             margin="normal"
             autoOk
@@ -110,6 +112,7 @@ export const QuickAddRecordForm: FC<FormParams2<AddRecordParams>> = ({
         name="type"
         render={p => (
           <TextField
+            id="quickaddrecord-type"
             type="text"
             label={t('form:fields.record_type')}
             variant="outlined"
@@ -128,6 +131,7 @@ export const QuickAddRecordForm: FC<FormParams2<AddRecordParams>> = ({
       />
 
       <DetailsField
+        id="quickaddrecord-details"
         type="text"
         name="details"
         label={t('form:fields.record_details')}

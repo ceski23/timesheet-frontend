@@ -4,7 +4,7 @@ import {
   Accordion, AccordionDetails, AccordionSummary, Button, Chip,
   FormGroup, FormHelperText, FormLabel, styled, TextField, Typography, withStyles,
 } from '@material-ui/core';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@material-ui/pickers';
 import { MultiSelectDatePicker } from 'components/shared/MultiSelectDatePicker';
 import { AddScheduleParams } from 'api/schedules';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -100,6 +100,7 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
   // eslint-disable-next-line react/jsx-props-no-spreading
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        id="schedules-name"
         type="text"
         name="name"
         label={t('form:fields.schedule_name')}
@@ -117,10 +118,10 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
           control={control}
           name="fromDate"
           render={p => (
-            <KeyboardDatePicker
+            <DatePicker
+              id="schedules-datefrom"
               label={t('form:fields.date_from')}
               margin="normal"
-              // onChange={(date: Date) => setFieldValue('fromDate', startOfDay(date))}
               autoOk
               format="dd.MM.yyyy"
               inputVariant="outlined"
@@ -135,10 +136,10 @@ export const AddScheduleForm: FC<FormParams2<AddScheduleParams>> = ({
           control={control}
           name="toDate"
           render={p => (
-            <KeyboardDatePicker
+            <DatePicker
+              id="schedules-dateto"
               label={t('form:fields.date_to')}
               margin="normal"
-              // onChange={(date: Date) => setFieldValue('fromDate', startOfDay(date))}
               autoOk
               format="dd.MM.yyyy"
               inputVariant="outlined"

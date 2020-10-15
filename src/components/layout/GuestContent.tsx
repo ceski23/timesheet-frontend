@@ -4,7 +4,7 @@ import { renderRoutes } from 'react-router-config';
 import { styled } from '@material-ui/core';
 
 // #region styles
-const Container = styled('div')(({ theme }) => ({
+const Container = styled('main')(({ theme }) => ({
   width: '100vw',
   height: '100vh',
   display: 'flex',

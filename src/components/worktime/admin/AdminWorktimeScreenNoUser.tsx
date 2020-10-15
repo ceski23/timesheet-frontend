@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
@@ -68,8 +69,12 @@ export const AdminWorktimeScreenNoUser: FC<RouteComponentProps> = ({ history }):
           loading={users.isFetching}
           loadingText={t('ui:admin_worktime.loading')}
           noOptionsText={t('ui:admin_worktime.no_options')}
-          renderInput={params => (
+          renderInput={({ inputProps, ...params }) => (
             <TextField
+              inputProps={{
+                ...inputProps,
+                'aria-label': t('ui:admin_worktime.select_user'),
+              }}
               {...params}
               variant="outlined"
               InputProps={{

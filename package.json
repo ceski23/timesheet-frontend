@@ -67,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "@axe-core/react": "^4.0.0",
     "@types/jest": "^25.2.3",
     "@types/lodash-es": "^4.17.3",
     "@types/react-helmet": "^5.0.16",

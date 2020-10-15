@@ -93,12 +93,22 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
   return (
     <ScreenWrapper>
       <Paper style={{ display: 'grid', margin: 16, padding: 16 }}>
-        <Typography variant="h6" style={{ marginBottom: 16 }}>{t('ui:dashboard.quick_records_title')}</Typography>
+        <Typography
+          variant="h6"
+          style={{ marginBottom: 16 }}
+          component="h2"
+        >{t('ui:dashboard.quick_records_title')}
+        </Typography>
         <QuickAddRecordForm form={addRecordForm} onSubmit={handleSubmit} />
       </Paper>
 
       <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
-        <Typography variant="h6" style={{ margin: 24 }}>Czas pracy w tym tygodniu</Typography>
+        <Typography
+          variant="h6"
+          style={{ margin: 24 }}
+          component="h2"
+        >Czas pracy w tym tygodniu
+        </Typography>
         <ResponsiveContainer height={500} width="98%">
           <BarChart data={data}>
             <XAxis dataKey="name" />

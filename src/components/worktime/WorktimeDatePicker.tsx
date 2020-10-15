@@ -41,7 +41,7 @@ export const WorktimeDatePicker: FC = (): ReactElement => {
   return (
     <>
       <Container onClick={handleDateClick}>
-        <Typography variant="h6">
+        <Typography variant="h6" component="h2">
           {firstDay.getFullYear() === lastDay.getFullYear() ? (
             `${format(firstDay, 'd MMM')} - ${format(lastDay, 'd MMM')} ${format(lastDay, 'y')}`
           ) : (

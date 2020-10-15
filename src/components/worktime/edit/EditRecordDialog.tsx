@@ -97,7 +97,7 @@ export const EditRecordDialog: FC<Props> = ({
       <DialogHeader>
         <StyledIcon icon={AddRecordIcon} color={theme.palette.primary.main} />
         <StyledTitle>{t('ui:update_record.title')}</StyledTitle>
-        <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
+        <IconButton title={t('ui:navigation.close')} onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>
 
       <StyledDialogContent>

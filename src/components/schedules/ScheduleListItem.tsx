@@ -49,10 +49,6 @@ const DateText = styled('p')(({ theme }) => ({
   },
 }));
 
-const Name = styled(Typography)({
-  fontSize: '1.1rem',
-});
-
 const CalendarIcon = styled(CalendarStart)({
   marginRight: 8,
 });
@@ -72,7 +68,7 @@ export const ScheduleListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   return (
     <ListItem button onClick={onClick}>
       <div>
-        <Name variant="h6">{data.name}</Name>
+        <Typography style={{ fontSize: '1.1rem' }} variant="h6" component="h3">{data.name}</Typography>
         <DatesContainer>
           {isMobile && <CalendarIcon color="disabled" />}
 

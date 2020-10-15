@@ -12,10 +12,6 @@ const InnerContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const Title = styled(Typography)({
-  flex: 1,
-});
-
 const HeaderActions = styled('div')({
   display: 'flex',
   alignItems: 'center',
@@ -29,7 +25,7 @@ interface Props {
 export const SimpleListHeader: FC<Props> = ({ children, title }) => (
   <>
     <InnerContainer>
-      <Title variant="h6">{title}</Title>
+      <Typography variant="h6" component="h2" style={{ flex: 1 }}>{title}</Typography>
       <HeaderActions>{children}</HeaderActions>
     </InnerContainer>
     <Divider />

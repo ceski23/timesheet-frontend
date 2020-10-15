@@ -6,6 +6,7 @@ import isSameDay from 'date-fns/isSameDay';
 import React, {
   Dispatch, FC,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled('div')({
   width: 280,
@@ -25,6 +26,8 @@ interface Props {
 export const MultiSelectDatePicker: FC<Props> = ({
   value, onChange, minDate, maxDate, ...props
 }) => {
+  const { t } = useTranslation();
+
   const handleDayClick = (day: MaterialUiPickersDate) => {
     const isSelected = value.find(selectedDay => isSameDay(day as Date, selectedDay));
     if (isSelected) {
@@ -58,6 +61,12 @@ export const MultiSelectDatePicker: FC<Props> = ({
         renderDay={renderDay}
         minDate={minDate}
         maxDate={maxDate}
+        leftArrowButtonProps={{
+          title: t('ui:tooltips.prev'),
+        }}
+        rightArrowButtonProps={{
+          title: t('ui:tooltips.next'),
+        }}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />

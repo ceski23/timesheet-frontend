@@ -44,6 +44,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         margin="normal"
         error={!!errors.token}
         helperText={errors.token?.message || ''}
+        id="resetpassword-token"
       />
       <TextField
         type="password"
@@ -60,6 +61,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         margin="normal"
         error={!!errors.password}
         helperText={errors.password?.message || ''}
+        id="resetpassword-password"
       />
 
       <Collapse in={showRequirements}>
@@ -85,6 +87,7 @@ export const ResetPasswordForm: FC<FormParams2<ResetPasswordData> & Stylable> = 
         margin="normal"
         error={!!errors.repeatPassword}
         helperText={errors.repeatPassword?.message || ''}
+        id="resetpassword-repeatedpassword"
       />
       <Button
         variant="contained"

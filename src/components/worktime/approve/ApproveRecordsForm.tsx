@@ -34,6 +34,7 @@ export const ApproveRecordsForm: FC<FormParams2<ApproveRecordsParams>> = ({
         name="date"
         render={p => (
           <DatePicker
+            id="approve-month"
             label={t('form:fields.approve_month')}
             margin="normal"
             autoOk

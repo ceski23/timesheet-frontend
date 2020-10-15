@@ -24,6 +24,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '80%',
   },
+  textAlign: 'center',
 }));
 
 const MainImage = styled(LoginImage)(({ theme }) => ({
@@ -48,15 +49,6 @@ const Container = styled('div')({
   height: '100%',
   justifyContent: 'space-evenly',
   alignItems: 'center',
-});
-
-const Desc = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(3),
-  textAlign: 'center',
-}));
-
-const Title = styled(Typography)({
-  textAlign: 'center',
 });
 // #endregion
 
@@ -87,12 +79,12 @@ export const LoginScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} />
+      <Logo src={AppLogo} title="Timesheet" />
       <MainImage />
       <StyledCard>
         <CardContent>
-          <Title gutterBottom variant="h5">{t('ui:login.title')}</Title>
-          <Desc gutterBottom variant="subtitle1">{t('ui:login.subtitle')}</Desc>
+          <Typography gutterBottom variant="h5" component="h1">{t('ui:login.title')}</Typography>
+          <Typography gutterBottom variant="subtitle1" component="p">{t('ui:login.subtitle')}</Typography>
 
           <LoginForm onSubmit={handleSubmit} form={loginForm} />
 

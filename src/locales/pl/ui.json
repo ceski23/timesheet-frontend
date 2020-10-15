@@ -37,7 +37,9 @@
     "settings": "Ustawienia",
     "schedules": "Rozkłady",
     "statistics": "Statystyki",
-    "archive": "Archiwizacja"
+    "archive": "Archiwizacja",
+    "back": "Wróć",
+    "close": "Zamknij"
   },
 
   "list": {

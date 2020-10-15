@@ -15,12 +15,6 @@ const StyledProgress = styled(CircularProgress)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));
 
-const Title = styled(Typography)({
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-});
-
 const StyledAvatar = styled(Avatar)({
   width: 32,
   height: 32,
@@ -40,11 +34,19 @@ export const AdminWorktimeToolbar: FC<Props> = ({ user }): ReactElement => {
 
   return (
     <>
-      <Title variant="h6">
+      <Typography
+        variant="h6"
+        component="h1"
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         {user && <StyledAvatar>{user.name[0]}</StyledAvatar>}
         {user?.name || t('ui:records.title')}
         {isFetching ? <StyledProgress size={24} /> : null}
-      </Title>
+      </Typography>
 
       {user && (
         <div>

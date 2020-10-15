@@ -34,6 +34,7 @@ export const ForgotPasswordForm: FC<FormParams2<ForgotPasswordData> & Stylable> 
         margin="normal"
         error={!!errors.email}
         helperText={errors.email?.message || ''}
+        id="forgotpassword-email"
       />
       <Button
         variant="contained"

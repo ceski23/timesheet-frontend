@@ -6,12 +6,6 @@ import { useIsFetching } from 'react-query';
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
   marginLeft: theme.spacing(2),
 }));
-
-const Title = styled(Typography)({
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-});
 // #endregion
 
 interface Props {
@@ -22,10 +16,18 @@ export const DefaultToolbar: FC<Props> = ({ title = 'Timesheet' }): ReactElement
   const isFetching = useIsFetching();
   return (
     <>
-      <Title variant="h6">
+      <Typography
+        variant="h6"
+        component="h1"
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
         {title}
         {isFetching ? <StyledProgress size={24} /> : null}
-      </Title>
+      </Typography>
     </>
   );
 };

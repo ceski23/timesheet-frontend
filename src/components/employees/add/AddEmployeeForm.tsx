@@ -30,6 +30,7 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
   return (
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        id="employee-name"
         type="text"
         name="name"
         label={t('form:fields.name')}
@@ -41,6 +42,7 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
         helperText={errors.name?.message || ''}
       />
       <TextField
+        id="employee-email"
         type="email"
         name="email"
         label={t('form:fields.email')}

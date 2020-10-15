@@ -96,7 +96,7 @@ export const EditEmployeeDialog: FC<Props> = ({
       <DialogHeader>
         <StyledIcon icon={AddEmployeeIcon} color={theme.palette.primary.main} />
         <StyledTitle>{t('ui:edit_employee.title')}</StyledTitle>
-        <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
+        <IconButton title={t('ui:navigation.close')} onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>
 
       <StyledDialogContent>

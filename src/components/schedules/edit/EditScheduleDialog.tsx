@@ -92,7 +92,7 @@ export const EditScheduleDialog: FC<Props> = ({ isOpen, setClose, data }) => {
       <DialogHeader>
         <StyledIcon icon={AddScheduleIcon} color={theme.palette.primary.main} />
         <StyledTitle>{t('ui:edit_schedule.title')}</StyledTitle>
-        <IconButton onClick={() => setClose()}><CloseIcon /></IconButton>
+        <IconButton title={t('ui:navigation.close')} onClick={() => setClose()}><CloseIcon /></IconButton>
       </DialogHeader>
 
       <DialogContent>
