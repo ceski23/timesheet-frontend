@@ -75,7 +75,7 @@ interface Props {
 export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
-  const { color, icon } = useMemo(() => getRecordData(data), [data]);
+  const { color, icon } = useMemo(() => getRecordData(data.type), [data]);
   const { user } = useAuth();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });

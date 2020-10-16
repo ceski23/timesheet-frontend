@@ -72,7 +72,7 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
   const { deleteDialog, editDialog } = useTimesheetState();
-  const { color, icon } = useMemo(() => getRecordData(event), [event]);
+  const { color, icon } = useMemo(() => getRecordData(event.type), [event]);
   const { user } = useAuth();
 
   const isDisabled = event.approved && user?.role === 'user';

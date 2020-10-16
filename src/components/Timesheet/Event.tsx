@@ -56,7 +56,7 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
   const offset = ((
     (new Date(dateFrom).getHours() * 60) + new Date(dateFrom).getMinutes()
   ) / interval) * height;
-  const { color } = getRecordData(event);
+  const { color } = getRecordData(event.type);
   const size = (differenceInMinutes(new Date(dateTo), new Date(dateFrom)) / interval) * height;
   const textColor = theme.palette.getContrastText(color);
   const setTimesheetState = useSetTimesheetState();

@@ -1,4 +1,4 @@
-import { Record } from 'api/records';
+import { RecordType } from 'api/records';
 import WorkIcon from '@material-ui/icons/WorkOutline';
 import { green } from '@material-ui/core/colors';
 import VacationIcon from '@material-ui/icons/BeachAccessOutlined';
@@ -7,13 +7,13 @@ import SickIcon from '@material-ui/icons/LocalHospitalOutlined';
 import TrainingIcon from '@material-ui/icons/SchoolOutlined';
 import RequestIcon from '@material-ui/icons/PanToolOutlined';
 
-export const getRecordData = (record: Record) => {
-  switch (record.type) {
+export const getRecordData = (type: RecordType) => {
+  switch (type) {
     case 'normal':
       return { icon: WorkIcon, color: green.A700 };
 
     case 'vacationLeave':
-      return { icon: VacationIcon, color: '#795548' };
+      return { icon: VacationIcon, color: '#ff5900' };
 
     case 'childcare':
       return { icon: ChildcareIcon, color: '#ff7961' };
@@ -28,7 +28,7 @@ export const getRecordData = (record: Record) => {
       return { icon: RequestIcon, color: '#ff9800' };
 
     default: {
-      const exhaustiveCheck: never = record.type;
+      const exhaustiveCheck: never = type;
       return exhaustiveCheck;
     }
   }

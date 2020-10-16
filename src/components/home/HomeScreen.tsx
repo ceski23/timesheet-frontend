@@ -1,29 +1,22 @@
-import React, {
-  FC, ReactElement, useMemo,
-} from 'react';
+import React, { FC, ReactElement, useMemo } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
 import {
   AddRecordParams, RECORD_TYPES, useAddRecord, useRecords,
 } from 'api/records';
 import {
-  addHours,
-  differenceInHours,
-  endOfDay, endOfMonth, formatDuration, set, startOfDay, startOfMonth,
+  addHours, differenceInHours, endOfDay, endOfMonth, set, startOfDay,
+  startOfMonth,
 } from 'date-fns';
-import {
-  Bar, BarChart, ResponsiveContainer,
-  Tooltip, TooltipProps, XAxis, YAxis,
-} from 'recharts';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { useTranslation } from 'react-i18next';
-import { Paper, Typography, useTheme } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addRecordSchema } from 'components/worktime/add/schema';
 import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
-import { useDateLocale } from 'hooks/useDateFormatter';
 import { QuickAddRecordForm } from './QuickAddRecordForm';
+import { MonthTimesheetTiles } from './MonthTimesheetTiles';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
@@ -32,8 +25,8 @@ interface Props {
 export const HomeScreen: FC<Props> = (): ReactElement => {
   useAppScreen('home');
   const { t } = useTranslation();
-  const theme = useTheme();
-  const locale = useDateLocale();
+  // const theme = useTheme();
+  // const locale = useDateLocale();
 
   const records = useRecords({
     dateFrom: startOfMonth(startOfDay(new Date())),
@@ -49,7 +42,7 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
       })
       .reduce((a, b) => a + b, 0);
 
-    return ({ name: t(`ui:records.type.${type}`), value });
+    return ({ name: t(`ui:records.type.${type}`), type, value });
   }), [records.data]);
 
   const [addRecord] = useAddRecord();
@@ -81,14 +74,15 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
     });
   };
 
-  const renderTooltip = ({ label, payload, active }: TooltipProps) => (active ? (
-    <Paper style={{ padding: 16 }}>
-      <Typography variant="caption">{label}</Typography>
-      <Typography variant="subtitle1" color="primary">
-        {formatDuration({ hours: Number.parseInt(`${payload && payload[0].value}`, 10) }, { locale })}
-      </Typography>
-    </Paper>
-  ) : null);
+  // const renderTooltip = ({ label, payload, active }: TooltipProps) => (active ? (
+  //   <Paper style={{ padding: 16 }}>
+  //     <Typography variant="caption">{label}</Typography>
+  //     <Typography variant="subtitle1" color="primary">
+  // eslint-disable-next-line max-len
+  //       {formatDuration({ hours: Number.parseInt(`${payload && payload[0].value}`, 10) }, { locale })}
+  //     </Typography>
+  //   </Paper>
+  // ) : null);
 
   return (
     <ScreenWrapper>
@@ -102,13 +96,16 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
         <QuickAddRecordForm form={addRecordForm} onSubmit={handleSubmit} />
       </Paper>
 
-      <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
+      <MonthTimesheetTiles data={data} />
+
+      {/* <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
         <Typography
           variant="h6"
           style={{ margin: 24 }}
           component="h2"
         >Czas pracy w tym tygodniu
         </Typography>
+        <Divider style={{ marginBottom: 32 }} />
         <ResponsiveContainer height={500} width="98%">
           <BarChart data={data}>
             <XAxis dataKey="name" />
@@ -117,7 +114,7 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
             <Bar dataKey="value" fill={theme.palette.primary.main} />
           </BarChart>
         </ResponsiveContainer>
-      </Paper>
+      </Paper> */}
     </ScreenWrapper>
   );
 };
