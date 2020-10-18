@@ -23,7 +23,7 @@ import { EditRecordDialog } from './edit/EditRecordDialog';
 import { ApproveRecordsDialog } from './approve/ApproveRecordsDialog';
 
 const AddRecordButton = styled(Fab)({
-  position: 'absolute',
+  position: 'fixed',
   right: 32,
   bottom: 32,
 });

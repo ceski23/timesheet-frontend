@@ -29,7 +29,7 @@ import { EditRecordDialog } from '../edit/EditRecordDialog';
 
 // #region styles
 const AddRecordButton = styled(Fab)({
-  position: 'absolute',
+  position: 'fixed',
   right: 32,
   bottom: 32,
 });

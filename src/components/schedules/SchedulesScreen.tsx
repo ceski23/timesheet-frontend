@@ -26,7 +26,7 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 const AddScheduleButton = styled(Fab)({
-  position: 'absolute',
+  position: 'fixed',
   right: 32,
   bottom: 32,
 });
