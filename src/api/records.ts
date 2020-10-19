@@ -91,6 +91,14 @@ export const patchRecordForUser = async ({ id, ...data }: UpdateRecordParams) =>
 export const approveRecords = async ({ date }: ApproveRecordsParams) => (
   client.post<unknown, void>('records/approve', { date: format(date, 'MM-yyyy') })
 );
+
+export const approve = async (id: string) => (
+  client.post<unknown, void>(`records/admin/approve/${id}`)
+);
+
+export const disapprove = async (id: string) => (
+  client.post<unknown, void>(`records/admin/disapprove/${id}`)
+);
 // #endregion
 
 // #region API hooks
@@ -135,6 +143,18 @@ export const useUpdateRecordForUser = () => useMutation(patchRecordForUser, {
 });
 
 export const useApproveRecords = () => useMutation(approveRecords, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
+export const useApproveRecord = () => useMutation(approve, {
+  onSuccess: () => {
+    queryCache.invalidateQueries('records');
+  },
+});
+
+export const useDisapproveRecord = () => useMutation(disapprove, {
   onSuccess: () => {
     queryCache.invalidateQueries('records');
   },

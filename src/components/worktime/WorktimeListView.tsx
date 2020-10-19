@@ -3,7 +3,9 @@ import { styled } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 /* eslint-disable no-underscore-dangle */
-import { Record, UpdateRecordParams, usePaginatedRecords } from 'api/records';
+import {
+  Record, UpdateRecordParams, usePaginatedRecords,
+} from 'api/records';
 import { User } from 'api/users';
 import { SimpleList } from 'components/shared/SimpleList';
 import { SimpleListHeader } from 'components/shared/SimpleListHeader';
@@ -31,9 +33,13 @@ interface Props {
   deleteDialog: DialogHook<Record>;
   editDialog: DialogHook<UpdateRecordParams>;
   user?: User;
+  onApprove?: (id: string) => void;
+  onDisapprove?: (id: string) => void;
 }
 
-export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog, user }) => {
+export const WorktimeListView: FC<Props> = ({
+  deleteDialog, editDialog, user, onApprove, onDisapprove,
+}) => {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const locale = useDateLocale();
@@ -109,6 +115,8 @@ export const WorktimeListView: FC<Props> = ({ deleteDialog, editDialog, user }) 
               details: record.details,
               id: record._id,
             })}
+            onApprove={onApprove}
+            onDisapprove={onDisapprove}
           />
         ))}
       </SimpleList>

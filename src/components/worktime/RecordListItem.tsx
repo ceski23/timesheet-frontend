@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
   ListItem, ListItemSecondaryAction, IconButton, styled,
   Typography,
@@ -14,6 +15,8 @@ import { useTranslation } from 'react-i18next';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { getRecordData } from 'utils/records';
 import { useAuth } from 'contexts/auth';
+import ApprovedIcon from '@material-ui/icons/DoneOutlined';
+import DisapprovedIcon from '@material-ui/icons/CloseOutlined';
 
 // #region styles
 const DatesContainer = styled('div')(({ theme }) => ({
@@ -70,9 +73,13 @@ interface Props {
   data: Record;
   onDelete: () => void;
   onClick: () => void;
+  onApprove?: (id: string) => void;
+  onDisapprove?: (id: string) => void;
 }
 
-export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
+export const RecordListItem: FC<Props> = ({
+  data, onDelete, onClick, onApprove, onDisapprove,
+}) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
   const { color, icon } = useMemo(() => getRecordData(data.type), [data]);
@@ -128,6 +135,30 @@ export const RecordListItem: FC<Props> = ({ data, onDelete, onClick }) => {
       </div>
 
       <ListItemSecondaryAction>
+        {user?.role === 'admin' && data.approved && onDisapprove && (
+          <IconButton
+            title={t('ui:records.disapprove_button')}
+            edge="end"
+            aria-label="disapprove"
+            onClick={() => onDisapprove(data._id)}
+            disabled={isDisabled}
+          >
+            <DisapprovedIcon />
+          </IconButton>
+        )}
+
+        {user?.role === 'admin' && !data.approved && onApprove && (
+        <IconButton
+          title={t('ui:records.approve_button')}
+          edge="end"
+          aria-label="approve"
+          onClick={() => onApprove(data._id)}
+          disabled={isDisabled}
+        >
+          <ApprovedIcon />
+        </IconButton>
+        )}
+
         <IconButton
           title={t('ui:tooltips.delete')}
           edge="end"

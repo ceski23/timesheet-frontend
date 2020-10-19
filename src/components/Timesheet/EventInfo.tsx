@@ -14,10 +14,13 @@ import { getRecordData } from 'utils/records';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { useAuth } from 'contexts/auth';
 import ApprovedIcon from '@material-ui/icons/DoneOutlined';
+import DisapprovedIcon from '@material-ui/icons/CloseOutlined';
 
 interface Props {
   event: Record;
   close: () => void;
+  onApprove?: (id: string) => void;
+  onDisapprove?: (id: string) => void;
 }
 
 // #region styles
@@ -68,7 +71,9 @@ const CloseButton = styled(IconButton)({
 });
 // #endregion
 
-export const EventInfo: FC<Props> = ({ event, close }) => {
+export const EventInfo: FC<Props> = ({
+  event, close, onApprove, onDisapprove,
+}) => {
   const { format } = useDateFormatter();
   const { t } = useTranslation();
   const { deleteDialog, editDialog } = useTimesheetState();
@@ -80,10 +85,32 @@ export const EventInfo: FC<Props> = ({ event, close }) => {
   return (
     <Container>
       <Header>
-        {event.approved && (
+        {event.approved && user?.role === 'user' && (
           <Tooltip title={isDisabled ? (t('ui:records.edit_disabled') as string) : ''} placement="left">
             <ApprovedIcon color="primary" style={{ marginRight: 16 }} />
           </Tooltip>
+        )}
+
+        {user?.role === 'admin' && event.approved && onDisapprove && (
+        <IconButton
+          title={t('ui:records.disapprove_button')}
+          aria-label="disapprove"
+          onClick={() => onDisapprove(event._id)}
+          disabled={isDisabled}
+        >
+          <DisapprovedIcon />
+        </IconButton>
+        )}
+
+        {user?.role === 'admin' && !event.approved && onApprove && (
+        <IconButton
+          title={t('ui:records.approve_button')}
+          aria-label="approve"
+          onClick={() => onApprove(event._id)}
+          disabled={isDisabled}
+        >
+          <ApprovedIcon />
+        </IconButton>
         )}
 
         <IconButton

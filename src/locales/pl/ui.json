@@ -12,6 +12,8 @@
       "record_added": "Dodano rekord",
       "record_updated": "Edytowano rekord",
       "records_approved": "Zatwierdzono ewidencję za {{date}}",
+      "record_approved": "Zatwierdzono ewidencję",
+      "record_disapproved": "Anulowano zatwierdzenie ewidencji",
       "employee_edited": "Edytowano pracownika {{name}}",
       "schedule_edited": "Edytowano rozkład {{name}}"
     },
@@ -25,7 +27,8 @@
       "internal_error": "Wystąpił błąd podczas komunikacji z serwerem, spróbuj ponownie później",
       "records_overlap": "Już istnieje rekord w tym czasie",
       "update_record": "Wystąpił błąd podczas edycji rekordu",
-      "approve_records": "Wystąpił błąd podczas zatwierdzania ewidencji"
+      "approve_records": "Wystąpił błąd podczas zatwierdzania ewidencji",
+      "disapprove_records": "Wystąpił błąd podczas anulowania zatwierdzenia ewidencji"
     }
   },
 
@@ -128,7 +131,9 @@
     "timesheet_view": "Widok siatki",
     "list_view": "Widok listy",
     "edit_disabled": "Ten rekord jest już zatwierdzony",
-    "approve": "Zatwierdzanie"
+    "approve": "Zatwierdzanie",
+    "approve_button": "Zatwierdź",
+    "disapprove_button": "Anuluj zatwierdzenie"
   },
 
   "add_record": {

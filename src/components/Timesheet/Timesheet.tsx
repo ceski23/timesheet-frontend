@@ -21,6 +21,8 @@ interface Props {
   deleteDialog: DialogHook<Record>;
   editDialog: DialogHook<UpdateRecordParams>;
   user?: User;
+  onApprove?: (id: string) => void;
+  onDisapprove?: (id: string) => void;
 }
 
 // #region styles
@@ -32,7 +34,9 @@ const Container = styled('div')(() => ({
 }));
 // #endregion
 
-const TimesheetContent: FC<Props> = ({ deleteDialog, editDialog, user }): ReactElement => {
+const TimesheetContent: FC<Props> = ({
+  deleteDialog, editDialog, user, onApprove, onDisapprove,
+}): ReactElement => {
   const { isOpen, setOpen, setClose } = useDialog();
   const setTimesheetState = useSetTimesheetState();
   const {
@@ -84,6 +88,8 @@ const TimesheetContent: FC<Props> = ({ deleteDialog, editDialog, user }): ReactE
             setClose();
             setTimesheetState({ selectedEvent: undefined });
           }}
+          onApprove={onApprove}
+          onDisapprove={onDisapprove}
         />
         )}
       </Popover>

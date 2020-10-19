@@ -8,6 +8,8 @@ import {
   AddRecordParams,
   Record, UpdateRecordParams,
   useAddRecord,
+  useApproveRecord,
+  useDisapproveRecord,
   useRemoveRecordForUser, useUpdateRecordForUser,
 } from 'api/records';
 import { useAppState } from 'contexts/appState';
@@ -52,6 +54,8 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
   const user = useUser(params.userId);
   const addRecordMutation = useAddRecord();
   const editRecordMutation = useUpdateRecordForUser();
+  const [approve] = useApproveRecord();
+  const [disapprove] = useDisapproveRecord();
 
   const handleRecordDelete = async () => {
     await deleteRecord(deleteRecordDialog.data?._id, {
@@ -64,6 +68,28 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
     });
   };
 
+  const handleApproveRecord = async (id: string) => {
+    await approve(id, {
+      onSuccess: () => {
+        Notificator.success(t('ui:notifications.success.record_approved'));
+      },
+      onError: () => {
+        Notificator.error(t('ui:notifications.failure.approve_records'));
+      },
+    });
+  };
+
+  const handleDisapproveRecord = async (id: string) => {
+    await disapprove(id, {
+      onSuccess: () => {
+        Notificator.success(t('ui:notifications.success.record_disapproved'));
+      },
+      onError: () => {
+        Notificator.error(t('ui:notifications.failure.disapprove_records'));
+      },
+    });
+  };
+
   return (
     <ScreenWrapper toolbar={<AdminWorktimeToolbar user={user.data} />}>
       {worktimeViewType === 'list' && (
@@ -71,6 +97,8 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
           deleteDialog={deleteRecordDialog}
           editDialog={editRecordDialog}
           user={user.data}
+          onApprove={handleApproveRecord}
+          onDisapprove={handleDisapproveRecord}
         />
       )}
       {worktimeViewType === 'timesheet' && (
@@ -78,6 +106,8 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
           deleteDialog={deleteRecordDialog}
           editDialog={editRecordDialog}
           user={user.data}
+          onApprove={handleApproveRecord}
+          onDisapprove={handleDisapproveRecord}
         />
       )}
 
