@@ -1,6 +1,6 @@
 import { createState } from 'utils/state';
 
-export type ThemeType = 'dark' | 'light' | 'system';
+export type ThemeType = 'dark' | 'light' | 'system' | 'contrast';
 
 export type Language = 'pl' | 'en';
 

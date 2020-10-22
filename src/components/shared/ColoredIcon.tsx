@@ -21,7 +21,7 @@ export const ColoredIcon: FC<Props & Stylable> = ({ icon: Icon, color, ...props 
         primary: {
           main: color,
         },
-        type: themeType,
+        type: themeType === 'light' ? 'light' : 'dark',
       },
     })
   ), [themeType]);

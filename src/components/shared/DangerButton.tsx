@@ -18,7 +18,7 @@ export const DangerButton = (props: ButtonProps) => {
   const themeType = useThemeType();
 
   const muiTheme = useMemo(() => (
-    createMuiTheme(theme(themeType))
+    createMuiTheme(theme(themeType === 'light' ? 'light' : 'dark'))
   ), [themeType]);
 
   return (

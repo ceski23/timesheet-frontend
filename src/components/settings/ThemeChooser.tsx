@@ -21,7 +21,7 @@ export const ThemeChooser = () => {
 
   return (
     <StyledThemeControls value={themeType} onChange={handleThemeChange}>
-      {['dark', 'light', 'system'].map(type => (
+      {['dark', 'light', 'system', 'contrast'].map(type => (
         <FormControlLabel
           key={type}
           value={type}

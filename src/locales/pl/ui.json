@@ -107,7 +107,8 @@
     "theme_type": {
       "light": "Jasny",
       "dark": "Ciemny",
-      "system": "Systemowy"
+      "system": "Systemowy",
+      "contrast": "Wysoki kontrast"
     }
   },
 

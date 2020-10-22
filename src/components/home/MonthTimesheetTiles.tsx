@@ -38,10 +38,10 @@ const Details = styled('div')({
   flex: 1,
 });
 
-const StyledAlert = styled(Alert)({
-  background: 'rgb(255, 244, 229)',
+const StyledAlert = styled(Alert)(({ theme }) => ({
+  border: `1px solid ${theme.palette.warning.main}`,
   margin: 16,
-});
+}));
 // #endregion
 
 interface Props {
@@ -59,7 +59,7 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
       </Typography>
 
       {data.missing && (
-        <StyledAlert severity="warning" variant="outlined">
+        <StyledAlert severity="warning" variant="standard">
           {t('ui:quickMonthStats.missing_1')}
           <b>{formatDuration({ days: data.missing }, { locale })}</b>
           {t('ui:quickMonthStats.missing_2')}
