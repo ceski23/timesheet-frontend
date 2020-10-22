@@ -1,12 +1,7 @@
-import React, { FC, ReactElement, useMemo } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
-import {
-  AddRecordParams, RECORD_TYPES, useAddRecord, useRecords,
-} from 'api/records';
-import {
-  addHours, differenceInHours, endOfDay, endOfMonth, set, startOfDay,
-  startOfMonth,
-} from 'date-fns';
+import { AddRecordParams, useAddRecord } from 'api/records';
+import { addHours, set } from 'date-fns';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { useTranslation } from 'react-i18next';
 import { Paper, Typography } from '@material-ui/core';
@@ -15,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addRecordSchema } from 'components/worktime/add/schema';
 import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
+import { useQuickMonthStats } from 'api/stats';
 import { QuickAddRecordForm } from './QuickAddRecordForm';
 import { MonthTimesheetTiles } from './MonthTimesheetTiles';
 
@@ -25,26 +21,7 @@ interface Props {
 export const HomeScreen: FC<Props> = (): ReactElement => {
   useAppScreen('home');
   const { t } = useTranslation();
-  // const theme = useTheme();
-  // const locale = useDateLocale();
-
-  const records = useRecords({
-    dateFrom: startOfMonth(startOfDay(new Date())),
-    dateTo: endOfMonth(endOfDay(new Date())),
-  });
-
-  const data = useMemo(() => RECORD_TYPES.map(type => {
-    const value = (records.data || [])
-      .filter(record => record.type === type)
-      .map(record => {
-        const x = differenceInHours(new Date(record.dateTo), new Date(record.dateFrom));
-        return x;
-      })
-      .reduce((a, b) => a + b, 0);
-
-    return ({ name: t(`ui:records.type.${type}`), type, value });
-  }), [records.data]);
-
+  const quickMonthStats = useQuickMonthStats();
   const [addRecord] = useAddRecord();
 
   const addRecordForm = useForm<AddRecordParams>({
@@ -96,7 +73,9 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
         <QuickAddRecordForm form={addRecordForm} onSubmit={handleSubmit} />
       </Paper>
 
-      <MonthTimesheetTiles data={data} />
+      {quickMonthStats.data && (
+        <MonthTimesheetTiles data={quickMonthStats.data} />
+      )}
 
       {/* <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
         <Typography

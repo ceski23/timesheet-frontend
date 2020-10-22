@@ -1,5 +1,7 @@
 import { Typography, Paper, styled } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { RecordType } from 'api/records';
+import { QuickMonthStatsObj } from 'api/stats';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { formatDuration } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
@@ -35,13 +37,15 @@ const Tile = styled(Paper)({
 const Details = styled('div')({
   flex: 1,
 });
+
+const StyledAlert = styled(Alert)({
+  background: 'rgb(255, 244, 229)',
+  margin: 16,
+});
 // #endregion
 
 interface Props {
-  data: Array<{
-    type: RecordType;
-    value: number;
-  }>;
+  data: QuickMonthStatsObj;
 }
 
 export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
@@ -51,15 +55,23 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
   return (
     <>
       <Typography variant="h6" component="h2" style={{ margin: 16, marginBottom: 0 }}>
-        Ewidencja w tym miesiącu
+        {t('ui:quickMonthStats.title')}
       </Typography>
 
+      {data.missing && (
+        <StyledAlert severity="warning" variant="outlined">
+          {t('ui:quickMonthStats.missing_1')}
+          <b>{formatDuration({ days: data.missing }, { locale })}</b>
+          {t('ui:quickMonthStats.missing_2')}
+        </StyledAlert>
+      )}
+
       <TilesContainer>
-        {data.map(({ type, value }) => {
-          const { color, icon } = getRecordData(type);
+        {Object.entries(data.stats).map(([type, value]) => {
+          const { color, icon } = getRecordData(type as RecordType);
 
           return (
-            <Tile>
+            <Tile key={type}>
               <Details>
                 <Typography variant="overline" component="h2">
                   {t(`ui:records.type.${type}`)}

@@ -188,5 +188,11 @@
 
   "edit_schedule": {
     "title": "Edycja rozkładu"
+  },
+
+  "quickMonthStats": {
+    "title": "Ewidencja w tym miesiącu",
+    "missing_1": "Nie zaraportowałeś(aś) ",
+    "missing_2": " w tym miesiącu!"
   }
 }
