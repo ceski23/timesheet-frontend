@@ -28,8 +28,14 @@
       "records_overlap": "Już istnieje rekord w tym czasie",
       "update_record": "Wystąpił błąd podczas edycji rekordu",
       "approve_records": "Wystąpił błąd podczas zatwierdzania ewidencji",
-      "disapprove_records": "Wystąpił błąd podczas anulowania zatwierdzenia ewidencji"
-    }
+      "disapprove_records": "Wystąpił błąd podczas anulowania zatwierdzenia ewidencji",
+      "login": "Wystąpił błąd podczas logowania",
+      "invalid_credentials": "Nieprawidłowe dane logowania",
+      "schedules_overlap": "Już istnieje rozkład w tym czasie",
+      "update_schedule": "Wystąpił błąd podczas edycji rozkładu",
+      "employee_not_found": "Nie znaleziono takiego pracownika"
+    },
+    "too_many_requests": "Wykonujesz zbyt wiele zapytań. Odpocznij na chwilę"
   },
 
   "navigation": {
@@ -61,7 +67,8 @@
   },
 
   "password_reset": {
-    "title": "Resetowanie hasła"
+    "title": "Resetowanie hasła",
+    "invalid_token": "Nieprawidłowy kod"
   },
 
   "add_employee": {

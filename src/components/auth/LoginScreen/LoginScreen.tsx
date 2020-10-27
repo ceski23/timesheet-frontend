@@ -9,7 +9,7 @@ import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
 import { Credentials, useLoginUser } from 'api/auth';
 import { useSetAuth } from 'contexts/auth';
 import { useForm } from 'react-hook-form';
@@ -72,7 +72,12 @@ export const LoginScreen: FC = () => {
         Notificator.success(t('ui:notifications.success.login'));
       },
       onError: error => {
-        errorHandler2(error as ApiError, loginForm.setError);
+        formErrorHandler(error as ApiError, loginForm.setError, e => {
+          switch (e) {
+            case 'Invalid credentials': return t('ui:notifications.failure.invalid_credentials');
+            default: return t('ui:notifications.failure.login');
+          }
+        });
       },
     });
   };

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  FC, ReactElement,
+  FC, ReactElement, useEffect,
 } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
@@ -20,10 +20,11 @@ import {
 import { useDialog } from 'hooks/useDialog';
 import { useTranslation } from 'react-i18next';
 import { Timesheet } from 'components/Timesheet/Timesheet';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, useHistory } from 'react-router';
 import { useUser } from 'api/users';
 import { ConfirmDialog } from 'components/shared/ConfirmDialog';
 import Notificator from 'utils/Notificator';
+import { routeUrls } from 'routes';
 import { WorktimeListView } from '../WorktimeListView';
 import { AdminWorktimeToolbar } from './AdminWorktimeToolbar';
 import { AddRecordDialog } from '../add/AddRecordDialog';
@@ -56,6 +57,14 @@ export const AdminWorktimeScreen: FC<RouteComponentProps<RouteParams>> = ({
   const editRecordMutation = useUpdateRecordForUser();
   const [approve] = useApproveRecord();
   const [disapprove] = useDisapproveRecord();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user.isError) {
+      Notificator.error(t('ui:notifications.failure.employee_not_found'));
+      history.push(String(routeUrls.adminWorktime));
+    }
+  }, [user.isError]);
 
   const handleRecordDelete = async () => {
     await deleteRecord(deleteRecordDialog.data?._id, {

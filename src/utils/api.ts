@@ -34,12 +34,24 @@ export const client = Axios.create({
   withCredentials: true,
 });
 
+const translateApiErrors = (error: string) => {
+  switch (error) {
+    case 'Too many requests': return i18next.t('ui:notifications.too_many_requests');
+    default: return error;
+  }
+};
+
 client.interceptors.response.use(
   // Automatically unwrap response data
   response => response.data,
   (error: AxiosError) => {
     // client received an error response (5xx, 4xx)
-    if (error.response) return Promise.reject(error.response.data);
+    if (error.response) {
+      if (typeof error.response.data.data === 'string') {
+        return Promise.reject(Error(translateApiErrors(error.response.data.data)));
+      }
+      return Promise.reject(error.response.data);
+    }
     // client never received a response, or request never left
     return Promise.reject(Error(i18next.t('ui:notifications.failure.internal_error')));
   },

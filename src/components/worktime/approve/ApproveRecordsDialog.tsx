@@ -72,6 +72,7 @@ export const ApproveRecordsDialog: FC<Props> = ({
       onError: error => {
         formErrorHandler(error, addRecordForm.setError, e => {
           switch (e) {
+            case 'Too late to approve this month\'s records': return 'Minął termin zatwierdzania ewidencji za ten miesiąc.';
             default: return t('ui:notifications.failure.approve_records');
           }
         });

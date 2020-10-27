@@ -33,12 +33,15 @@ export const formErrorHandler = (
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const err = error as ApiError<any>;
-  if (err instanceof Error) Notificator.error(err.message);
-  else if (typeof err.data === 'string') {
+  if (err instanceof Error) {
+    Notificator.error(mapError ? mapError(err.message) : err.message);
+  } else if (typeof err.data === 'string') {
     Notificator.error(mapError ? mapError(err.data) : err.data);
   } else {
     Object.entries<string>(err.data).forEach(
-      ([field, message]) => setError(field, { message }),
+      ([field, message]) => setError(field, {
+        message: mapError ? mapError(message) : message,
+      }),
     );
   }
 };

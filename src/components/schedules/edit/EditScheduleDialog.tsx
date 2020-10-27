@@ -10,7 +10,7 @@ import { AddScheduleParams, EditScheduleParams, useEditSchedule } from 'api/sche
 import { endOfMonth, startOfMonth, startOfToday } from 'date-fns';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
 import { ApiError } from 'utils/api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -72,7 +72,12 @@ export const EditScheduleDialog: FC<Props> = ({ isOpen, setClose, data }) => {
           setClose();
         },
         onError: error => {
-          errorHandler2(error as ApiError, form.setError);
+          formErrorHandler(error, form.setError, e => {
+            switch (e) {
+              case 'Dates should not overlap': return t('ui:notifications.failure.schedules_overlap');
+              default: return t('ui:notifications.failure.update_schedule');
+            }
+          });
         },
       });
     }
