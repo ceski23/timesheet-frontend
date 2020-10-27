@@ -10,8 +10,7 @@ import { AddScheduleParams, EditScheduleParams, useEditSchedule } from 'api/sche
 import { endOfMonth, startOfMonth, startOfToday } from 'date-fns';
 import Notificator from 'utils/Notificator';
 import { useTranslation } from 'react-i18next';
-import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
-import { ApiError } from 'utils/api';
+import { formErrorHandler } from 'utils/errorHandlers';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addScheduleSchema } from '../add/schema';

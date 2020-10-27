@@ -7,9 +7,8 @@ import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.sv
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import Notificator from 'utils/Notificator';
-import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
+import { formErrorHandler } from 'utils/errorHandlers';
 import { ResetPasswordData, useResetPassword } from 'api/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

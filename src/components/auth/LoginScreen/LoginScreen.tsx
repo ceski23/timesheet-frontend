@@ -9,7 +9,7 @@ import { ReactComponent as LoginImage } from 'assets/login_image.svg';
 import AppLogo from 'assets/logo.png';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
+import { formErrorHandler } from 'utils/errorHandlers';
 import { Credentials, useLoginUser } from 'api/auth';
 import { useSetAuth } from 'contexts/auth';
 import { useForm } from 'react-hook-form';
