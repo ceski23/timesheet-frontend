@@ -2,15 +2,14 @@ import React, { FC, useEffect } from 'react';
 import {
   CardContent, Typography, styled, Card,
 } from '@material-ui/core';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.svg';
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import Notificator from 'utils/Notificator';
-import { useURLQuery } from 'hooks/useURLQuery';
 import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { errorHandler2, formErrorHandler } from 'utils/errorHandlers';
 import { ResetPasswordData, useResetPassword } from 'api/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -54,8 +53,12 @@ const Container = styled('div')({
 export const ResetPasswordScreen: FC = () => {
   const history = useHistory();
   const { t } = useTranslation();
-  const query = useURLQuery();
   const [resetPassword] = useResetPassword();
+  const location = useLocation();
+
+  const queryToken = React.useMemo(() => (
+    new URLSearchParams(location.search).get('token')
+  ), [location.search]);
 
   const resetPasswordForm = useForm<ResetPasswordData>({
     defaultValues: {
@@ -67,8 +70,8 @@ export const ResetPasswordScreen: FC = () => {
   });
 
   useEffect(() => {
-    resetPasswordForm.setValue('token', query.get('token') || '');
-  }, [query]);
+    resetPasswordForm.setValue('token', queryToken || '');
+  }, [queryToken]);
 
   const handleResetPassword = async (values: ResetPasswordData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -82,7 +85,12 @@ export const ResetPasswordScreen: FC = () => {
         history.replace(routeUrls.home);
       },
       onError: error => {
-        errorHandler2(error as ApiError, resetPasswordForm.setError);
+        formErrorHandler(error, resetPasswordForm.setError, e => {
+          switch (e) {
+            case 'Invalid token': return t('ui:password_reset.invalid_token');
+            default: return t('ui:notifications.failure.update_schedule');
+          }
+        });
       },
     });
   };
