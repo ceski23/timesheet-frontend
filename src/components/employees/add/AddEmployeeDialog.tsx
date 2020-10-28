@@ -4,7 +4,7 @@ import {
   useTheme, useMediaQuery, styled, IconButton,
 } from '@material-ui/core';
 import { ApiError } from 'utils/api';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
 import { AddUserParams, useAddUser } from 'api/users';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +66,10 @@ export const AddEmployeeDialog: FC<Props> = ({
         setClose();
       },
       onError: error => {
-        errorHandler2(error as ApiError, addEmployeeForm.setError);
+        formErrorHandler(error as ApiError, addEmployeeForm.setError, e => {
+          if (e.includes('expected `email` to be unique')) return t('ui:add_employee.email_exist');
+          return t('ui:notifications.failure.add_employee');
+        });
       },
     });
   };

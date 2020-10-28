@@ -8,9 +8,8 @@ import { ReactComponent as ForgotPasswordImage } from 'assets/forgot_password.sv
 import AppLogo from 'assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import Notificator from 'utils/Notificator';
-import { ApiError } from 'utils/api';
 import { routeUrls } from 'routes';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { formErrorHandler } from 'utils/errorHandlers';
 import { ForgotPasswordData, useRequestPasswordReset } from 'api/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -76,7 +75,11 @@ export const ForgotPasswordScreen: FC = () => {
         history.replace(routeUrls.home);
       },
       onError: error => {
-        errorHandler2(error as ApiError, forgotPasswordForm.setError);
+        formErrorHandler(error, forgotPasswordForm.setError, e => {
+          switch (e) {
+            default: return t('ui:notifications.failure.forgot_password');
+          }
+        });
       },
     });
   };

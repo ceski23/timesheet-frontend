@@ -68,10 +68,10 @@ export const AddScheduleDialog: FC<Props> = ({ isOpen, setClose }) => {
       },
       onError: error => {
         formErrorHandler(error, addScheduleForm.setError, e => {
-          switch (e) {
-            case 'Dates should not overlap': return t('ui:notifications.failure.schedules_overlap');
-            default: return t('ui:notifications.failure.add_schedule');
-          }
+          if (e.includes('expected `fromDate` to be unique')) return t('ui:add_schedule.fromDate_unique');
+          if (e.includes('expected `toDate` to be unique')) return t('ui:add_schedule.toDate_unique');
+          if (e === 'Dates should not overlap') return t('ui:notifications.failure.schedules_overlap');
+          return t('ui:notifications.failure.add_schedule');
         });
       },
     });

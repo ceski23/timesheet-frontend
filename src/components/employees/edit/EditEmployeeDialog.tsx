@@ -3,8 +3,7 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   useTheme, useMediaQuery, styled, IconButton,
 } from '@material-ui/core';
-import { ApiError } from 'utils/api';
-import { errorHandler2 } from 'utils/errorHandlers';
+import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
 import { EditUserParams, useEditUser } from 'api/users';
 import { useTranslation } from 'react-i18next';
@@ -76,7 +75,10 @@ export const EditEmployeeDialog: FC<Props> = ({
           setClose();
         },
         onError: error => {
-          errorHandler2(error as ApiError, editEmployeeForm.setError);
+          formErrorHandler(error, editEmployeeForm.setError, e => {
+            if (e.includes('expected `email` to be unique')) return t('ui:add_employee.email_exist');
+            return t('ui:notifications.failure.edit_employee');
+          });
         },
       });
     }

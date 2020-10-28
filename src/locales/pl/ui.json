@@ -31,9 +31,12 @@
       "disapprove_records": "Wystąpił błąd podczas anulowania zatwierdzenia ewidencji",
       "login": "Wystąpił błąd podczas logowania",
       "invalid_credentials": "Nieprawidłowe dane logowania",
-      "schedules_overlap": "Już istnieje rozkład w tym czasie",
+      "schedules_overlap": "Rozkłady nie mogą się nakładać",
       "update_schedule": "Wystąpił błąd podczas edycji rozkładu",
-      "employee_not_found": "Nie znaleziono takiego pracownika"
+      "employee_not_found": "Nie znaleziono takiego pracownika",
+      "add_employee": "Wystąpił błąd podczas dodawania pracownika",
+      "edit_employee": "Wystąpił błąd podczas edycji użytkownika",
+      "forgot_password": "Wystąpił błąd podczas resetowania hasła"
     },
     "too_many_requests": "Wykonujesz zbyt wiele zapytań. Odpocznij na chwilę"
   },
@@ -72,7 +75,8 @@
   },
 
   "add_employee": {
-    "title": "Dodawanie pracownika"
+    "title": "Dodawanie pracownika",
+    "email_exist": "Już istnieje pracownik z tym adresem email"
   },
 
   "employees": {
@@ -91,7 +95,9 @@
   "add_schedule": {
     "title": "Dodawanie rozkładu",
     "add_weekends": "Dodaj soboty i niedziele w zakresie",
-    "remove_freedays": "Usuń wszystkie dni wolne"
+    "remove_freedays": "Usuń wszystkie dni wolne",
+    "fromDate_unique": "Już istnieje rozkład zaczynający się od tej daty",
+    "toDate_unique": "Już istnieje rozkład kończący się tą datą"
   },
 
   "schedules": {
