@@ -36,7 +36,8 @@
       "employee_not_found": "Nie znaleziono takiego pracownika",
       "add_employee": "Wystąpił błąd podczas dodawania pracownika",
       "edit_employee": "Wystąpił błąd podczas edycji użytkownika",
-      "forgot_password": "Wystąpił błąd podczas resetowania hasła"
+      "forgot_password": "Wystąpił błąd podczas resetowania hasła",
+      "archive": "Wystąpił błąd podczas próby pobrania danych"
     },
     "too_many_requests": "Wykonujesz zbyt wiele zapytań. Odpocznij na chwilę"
   },
@@ -208,5 +209,27 @@
     "title": "Ewidencja w tym miesiącu",
     "missing_1": "Nie zaraportowałeś(aś) ",
     "missing_2": " w tym miesiącu!"
+  },
+
+  "archive": {
+    "loading": "Ładowanie...",
+    "no_options": "Brak wyników",
+    "export": "Pobierz plik CSV",
+    "employees": {
+      "placeholder": "Wpisz imię lub nazwisko",
+      "label": "Pracownicy",
+      "title": "Archiwizacja pracowników",
+      "required": "Wybierz co najmniej jednego pracownika"
+    },
+    "schedules": {
+      "placeholder": "Wpisz nazwę rozkładu",
+      "label": "Rozkłady",
+      "title": "Archiwizacja rozkładów",
+      "required": "Wybierz co najmniej jeden rozkład"
+    },
+    "records": {
+      "title": "Archiwizacja rekordów",
+      "required": "Wybierz co najmniej jeden rozkład"
+    }
   }
 }

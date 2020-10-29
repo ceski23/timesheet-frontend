@@ -94,8 +94,7 @@ export const LoggedInContent: FC = () => {
                         <NavigationItem
                           name={t('ui:navigation.archive')}
                           icon={ArchiveIcon}
-                          to={String(routeUrls.adminWorktime)}
-                          disabled
+                          to={String(routeUrls.archive)}
                         />
                       </>
                     )}

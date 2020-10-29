@@ -29,7 +29,6 @@ export const client = Axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'Content-Type': 'application/json',
-    'Accept-Language': 'en',
   },
   withCredentials: true,
 });
