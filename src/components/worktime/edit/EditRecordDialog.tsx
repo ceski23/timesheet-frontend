@@ -75,6 +75,7 @@ export const EditRecordDialog: FC<Props> = ({
           formErrorHandler(error, updateRecordForm.setError, e => {
             switch (e) {
               case 'Dates should not overlap': return t('ui:notifications.failure.records_overlap');
+              case 'Must not be day off': return t('ui:notifications.failure.records_dayoff');
               default: return t('ui:notifications.failure.update_record');
             }
           });

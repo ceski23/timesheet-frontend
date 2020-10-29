@@ -37,7 +37,8 @@
       "add_employee": "Wystąpił błąd podczas dodawania pracownika",
       "edit_employee": "Wystąpił błąd podczas edycji użytkownika",
       "forgot_password": "Wystąpił błąd podczas resetowania hasła",
-      "archive": "Wystąpił błąd podczas próby pobrania danych"
+      "archive": "Wystąpił błąd podczas próby pobrania danych",
+      "records_dayoff": "Wybrany dzień jest dniem wolnym"
     },
     "too_many_requests": "Wykonujesz zbyt wiele zapytań. Odpocznij na chwilę"
   },
