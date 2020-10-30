@@ -21,9 +21,9 @@
     "default": "Ładowanie...",
     "login": "Logowanie...",
     "reset_password": "Resetowanie hasła...",
-    "add_employee": "Dodawanie pracownika...",
-    "add_schedule": "Dodawanie rozkładu...",
-    "add_record": "Dodawanie rekordu...",
+    "add_employee": "Zapisywanie pracownika...",
+    "add_schedule": "Zapisywanie rozkładu...",
+    "add_record": "Zapisywanie rekordu...",
     "approve_records": "Zatwierdzanie..."
   },
 
@@ -31,9 +31,9 @@
     "forgot_password": "Wyślij link",
     "login": "Zaloguj",
     "reset_password": "Zmień hasło",
-    "add_employee": "Dodaj pracownika",
-    "add_schedule": "Dodaj rozkład",
-    "add_record": "Dodaj rekord",
+    "add_employee": "Zapisz pracownika",
+    "add_schedule": "Zapisz rozkład",
+    "add_record": "Zapisz rekord",
     "approve_records": "Zatwierdź"
   },
 
