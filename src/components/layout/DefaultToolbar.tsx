@@ -1,6 +1,7 @@
 import React, { FC, ReactElement } from 'react';
 import { CircularProgress, styled, Typography } from '@material-ui/core';
 import { useIsFetching } from 'react-query';
+import { Helmet } from 'react-helmet';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -28,6 +29,12 @@ export const DefaultToolbar: FC<Props> = ({ title = 'Timesheet' }): ReactElement
         {title}
         {isFetching ? <StyledProgress size={24} /> : null}
       </Typography>
+
+      {title && (
+        <Helmet>
+          <title>{title} — zarządzanie czasem pracy</title>
+        </Helmet>
+      )}
     </>
   );
 };

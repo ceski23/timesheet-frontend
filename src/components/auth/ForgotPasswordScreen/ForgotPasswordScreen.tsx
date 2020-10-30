@@ -13,6 +13,7 @@ import { formErrorHandler } from 'utils/errorHandlers';
 import { ForgotPasswordData, useRequestPasswordReset } from 'api/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Helmet } from 'react-helmet';
 import { ForgotPasswordForm } from '.';
 import { forgotPasswordFormSchema } from './schema';
 
@@ -113,6 +114,10 @@ export const ForgotPasswordScreen: FC = () => {
           <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
         </CardContent>
       </StyledCard>
+
+      <Helmet>
+        <title>{t('ui:forgot_password.title')} — zarządzanie czasem pracy</title>
+      </Helmet>
     </Container>
   );
 };

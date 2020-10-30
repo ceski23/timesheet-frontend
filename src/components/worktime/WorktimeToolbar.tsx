@@ -7,6 +7,7 @@ import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
 import ApproveIcon from '@material-ui/icons/DoneOutlined';
 import { useAppState, useSetAppState } from 'contexts/appState';
 import { ResponsiveIconButton } from 'components/shared/ResponsiveIconButton';
+import { Helmet } from 'react-helmet';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -36,6 +37,10 @@ export const WorktimeToolbar: FC<Props> = ({ onApproveClick }): ReactElement => 
         {t('ui:records.title')}
         {isFetching ? <StyledProgress size={24} /> : null}
       </Title>
+
+      <Helmet>
+        <title>{t('ui:records.title')} — zarządzanie czasem pracy</title>
+      </Helmet>
 
       <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'auto auto' }}>
         <ResponsiveIconButton

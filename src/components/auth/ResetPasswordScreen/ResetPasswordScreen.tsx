@@ -12,6 +12,7 @@ import { formErrorHandler } from 'utils/errorHandlers';
 import { ResetPasswordData, useResetPassword } from 'api/auth';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Helmet } from 'react-helmet';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { resetPasswordFormSchema } from './schema';
 
@@ -104,6 +105,10 @@ export const ResetPasswordScreen: FC = () => {
           <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
         </CardContent>
       </StyledCard>
+
+      <Helmet>
+        <title>{t('ui:password_reset.title')} — zarządzanie czasem pracy</title>
+      </Helmet>
     </Container>
   );
 };

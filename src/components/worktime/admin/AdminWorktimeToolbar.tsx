@@ -9,6 +9,7 @@ import ListViewIcon from '@material-ui/icons/ViewHeadlineOutlined';
 import { useAppState, useSetAppState } from 'contexts/appState';
 import { User } from 'api/users';
 import { ResponsiveIconButton } from 'components/shared/ResponsiveIconButton';
+import { Helmet } from 'react-helmet';
 
 // #region styles
 const StyledProgress = styled(CircularProgress)(({ theme }) => ({
@@ -47,6 +48,10 @@ export const AdminWorktimeToolbar: FC<Props> = ({ user }): ReactElement => {
         {user?.name || t('ui:records.title')}
         {isFetching ? <StyledProgress size={24} /> : null}
       </Typography>
+
+      <Helmet>
+        <title>{user?.name || t('ui:records.title')} — zarządzanie czasem pracy</title>
+      </Helmet>
 
       {user && (
         <div>

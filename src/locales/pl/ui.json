@@ -214,6 +214,7 @@
   },
 
   "archive": {
+    "title": "Archiwizacja",
     "loading": "Ładowanie...",
     "no_options": "Brak wyników",
     "export": "Pobierz plik CSV",
