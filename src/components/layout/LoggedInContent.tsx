@@ -11,6 +11,7 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
 import StatisticsIcon from '@material-ui/icons/ShowChartOutlined';
 import ArchiveIcon from '@material-ui/icons/ArchiveOutlined';
+import TimesheetIcon from '@material-ui/icons/DescriptionOutlined';
 import {
   Root, getDrawerSidebar,
 } from '@mui-treasury/layout';
@@ -111,6 +112,12 @@ export const LoggedInContent: FC = () => {
                           name={t('ui:navigation.worktime')}
                           icon={TimeReportingIcon}
                           to={routeUrls.worktime}
+                          onClick={closeDrawer}
+                        />
+                        <NavigationItem
+                          name={t('ui:navigation.timesheets')}
+                          icon={TimesheetIcon}
+                          to={routeUrls.timesheets}
                           onClick={closeDrawer}
                         />
                       </>

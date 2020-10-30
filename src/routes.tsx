@@ -35,6 +35,7 @@ export const routeUrls = {
     user: ':userId',
   }),
   archive: '/archiwizacja',
+  timesheets: '/karty-pracy',
 
   // GUEST
   login: '/logowanie',
@@ -70,6 +71,11 @@ export const userRoutes: RouteConfig[] = [
   {
     path: routeUrls.worktime,
     component: WorktimeScreen,
+  },
+  {
+    path: routeUrls.timesheets,
+    // eslint-disable-next-line no-return-assign
+    render: () => <>{window.location.href = `${process.env.REACT_APP_API_URL}/generator/worktime`}</>,
   },
   ...commonRoutes,
 ];
