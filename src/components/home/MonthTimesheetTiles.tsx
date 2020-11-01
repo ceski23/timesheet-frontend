@@ -1,6 +1,6 @@
 import { Typography, Paper, styled } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { RecordType } from 'api/records';
+import { RECORD_TYPES } from 'api/records';
 import { QuickMonthStatsObj } from 'api/stats';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { formatDuration } from 'date-fns';
@@ -58,7 +58,7 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
         {t('ui:quickMonthStats.title')}
       </Typography>
 
-      {data.missing && (
+      {(data.missing > 0) && (
         <StyledAlert severity="warning" variant="standard">
           {t('ui:quickMonthStats.missing_1')}
           <b>{formatDuration({ days: data.missing }, { locale })}</b>
@@ -67,8 +67,9 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
       )}
 
       <TilesContainer>
-        {Object.entries(data.stats).map(([type, value]) => {
-          const { color, icon } = getRecordData(type as RecordType);
+        {RECORD_TYPES.map(type => {
+          const { color, icon } = getRecordData(type);
+          const value = data.stats[type] || 0;
 
           return (
             <Tile key={type}>
