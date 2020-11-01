@@ -9,4 +9,6 @@ export const addEmployeeSchema = yup.object({
   email: yup.string()
     .email(i18next.t('form:validation.email.format'))
     .required(i18next.t('form:validation.email.required')),
+  norm: yup.number()
+    .min(0, i18next.t('form:validation.norm.min')),
 });

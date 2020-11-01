@@ -15,7 +15,8 @@
     "record_type": "Typ rekordu",
     "record_details": "Szczegóły",
     "approve_month": "Miesiąc",
-    "month": "Miesiąc"
+    "month": "Miesiąc",
+    "norm": "Norma godzinowa"
   },
 
   "loading": {
@@ -73,6 +74,15 @@
     },
     "record_type": {
       "match": "Dozwolone rodzaje to: Praca, Urlop wypoczynkowy, Urlop szkoleniowy, Urlop na żądanie, Zwolnienie lekarskie, Opieka nad dzieckiem"
+    },
+    "norm": {
+      "min": "Minimalna ilość godzin to 0"
     }
+  },
+
+  "extra": {
+    "hours_0": "godzina",
+    "hours_1": "godziny",
+    "hours_2": "godzin"
   }
 }

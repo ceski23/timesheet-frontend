@@ -115,12 +115,12 @@ export const EmployeesScreen: FC = (): ReactElement => {
             page: users.resolvedData?.currentPage,
           }}
         >
-          {users.resolvedData?.data.map(({ name, email, ...rest }, i) => (
+          {users.resolvedData?.data.map(({ name, email, norm, ...rest }, i) => (
           // eslint-disable-next-line react/no-array-index-key
             <ListItem
               button
               key={i}
-              onClick={() => editEmployeeDialog.setOpen({ name, email, id: rest._id })}
+              onClick={() => editEmployeeDialog.setOpen({ name, email, id: rest._id, norm })}
             >
               <ListItemIcon>
                 <Avatar>{name[0]}</Avatar>
@@ -130,7 +130,7 @@ export const EmployeesScreen: FC = (): ReactElement => {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={() => deleteEmployeeDialog.setOpen({ name, email, ...rest })}
+                  onClick={() => deleteEmployeeDialog.setOpen({ name, email, norm, ...rest })}
                 >
                   <DeleteIcon />
                 </IconButton>

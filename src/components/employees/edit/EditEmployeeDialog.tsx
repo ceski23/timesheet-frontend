@@ -54,6 +54,7 @@ export const EditEmployeeDialog: FC<Props> = ({
     defaultValues: {
       name: '',
       email: '',
+      norm: 8,
     },
     resolver: yupResolver(addEmployeeSchema),
   });

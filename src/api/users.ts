@@ -11,6 +11,7 @@ export interface User {
   email: string;
   role: 'admin' | 'user';
   activated: boolean;
+  norm: number;
 }
 
 export interface UsersFiltersState {
@@ -29,11 +30,13 @@ export interface UsersFindParams {
 export interface AddUserParams {
   name: string;
   email: string;
+  norm: number;
 }
 
 export interface EditUserParams {
   name: string;
   email: string;
+  norm: number;
 }
 
 export interface ID {

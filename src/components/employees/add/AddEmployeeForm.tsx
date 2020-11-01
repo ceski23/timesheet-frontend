@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, styled, TextField } from '@material-ui/core';
+import {
+  Button, InputAdornment, styled, TextField,
+} from '@material-ui/core';
 import { FormParams2, Stylable } from 'utils/types';
 import { AddUserParams } from 'api/users';
 
@@ -24,8 +26,9 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
 }) => {
   const { t } = useTranslation();
   const {
-    handleSubmit, errors, formState, register,
+    handleSubmit, errors, formState, register, watch,
   } = form;
+  const norm = watch('norm');
 
   return (
     <StyledForm {...props} onSubmit={handleSubmit(onSubmit)}>
@@ -52,6 +55,25 @@ export const AddEmployeeForm: FC<FormParams2<AddUserParams> & Stylable> = ({
         margin="normal"
         error={!!errors.email}
         helperText={errors.email?.message || ''}
+      />
+      <TextField
+        id="employee-norm"
+        type="number"
+        name="norm"
+        label={t('form:fields.norm')}
+        required
+        variant="outlined"
+        inputRef={register}
+        margin="normal"
+        error={!!errors.norm}
+        helperText={errors.norm?.message || ''}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              {t('form:extra.hours', { count: Number(norm) })}
+            </InputAdornment>
+          ),
+        }}
       />
       <SubmitButton
         variant="contained"
