@@ -8,14 +8,14 @@ import {
 import { Autocomplete } from '@material-ui/lab';
 import { User, useUsers } from 'api/users';
 import { useDebounce } from 'use-lodash-debounce';
-import { archiveEmployees } from 'api/archive';
+import { archiveEmployees, archiveEmployeesPdf } from 'api/archive';
 import fileDownload from 'js-file-download';
 import Notificator from 'utils/Notificator';
 
 // #region styles
 const FieldsWrapper = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '1fr auto',
+  gridTemplateColumns: '1fr auto auto',
   gap: '32px 16px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
@@ -62,6 +62,19 @@ export const ArchiveEmployees = () => {
     }
   };
 
+  const handleExportEmployeesPdf = async () => {
+    if (selectedEmployees.length === 0) setError(t('ui:archive.employees.required'));
+    else {
+      try {
+        const data = await archiveEmployeesPdf(selectedEmployees.map(e => e._id));
+        fileDownload(data, 'employees.pdf');
+        setSelected([]);
+      } catch (err) {
+        Notificator.error(t('ui:notifications.failure.archive'));
+      }
+    }
+  };
+
   return (
     <Container>
       <Typography variant="h6" style={{ marginBottom: 16 }}>
@@ -101,6 +114,14 @@ export const ArchiveEmployees = () => {
           onClick={handleExportEmployees}
         >
           {t('ui:archive.export')}
+        </DownloadButton>
+
+        <DownloadButton
+          color="primary"
+          variant="contained"
+          onClick={handleExportEmployeesPdf}
+        >
+          {t('ui:archive.export_pdf')}
         </DownloadButton>
       </FieldsWrapper>
     </Container>

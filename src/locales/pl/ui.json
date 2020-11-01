@@ -47,14 +47,14 @@
     "dashboard": "Przegląd",
     "employees": "Pracownicy",
     "logout": "Wyloguj",
-    "worktime": "Czas pracy",
+    "worktime": "Raportowanie czasu",
     "settings": "Ustawienia",
     "schedules": "Rozkłady",
     "statistics": "Statystyki",
     "archive": "Archiwizacja",
     "back": "Wróć",
     "close": "Zamknij",
-    "timesheets": "Moje karty pracy"
+    "timesheets": "Mój czas pracy"
   },
 
   "list": {
@@ -134,7 +134,7 @@
   },
 
   "records": {
-    "title": "Czas pracy",
+    "title": "Raportowanie czasu",
     "list_title": "Lista rekordów",
     "type": {
       "normal": "Praca",
@@ -218,6 +218,7 @@
     "loading": "Ładowanie...",
     "no_options": "Brak wyników",
     "export": "Pobierz plik CSV",
+    "export_pdf": "Pobierz plik PDF",
     "employees": {
       "placeholder": "Wpisz imię lub nazwisko",
       "label": "Pracownicy",
@@ -234,5 +235,12 @@
       "title": "Archiwizacja rekordów",
       "required": "Wybierz co najmniej jeden rozkład"
     }
+  },
+
+  "timesheets": {
+    "title": "Mój czas pracy",
+    "timesheet": "Karta czasu pracy",
+    "download_timesheet": "Pobierz kartę czasu pracy",
+    "stats": "Statystyki"
   }
 }

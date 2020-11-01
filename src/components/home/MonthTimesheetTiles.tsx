@@ -54,10 +54,6 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
 
   return (
     <>
-      <Typography variant="h6" component="h2" style={{ margin: 16, marginBottom: 0 }}>
-        {t('ui:quickMonthStats.title')}
-      </Typography>
-
       {(data.missing > 0) && (
         <StyledAlert severity="warning" variant="standard">
           {t('ui:quickMonthStats.missing_1')}

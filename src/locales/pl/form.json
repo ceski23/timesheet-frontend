@@ -14,7 +14,8 @@
     "record_range": "Zakres rekordu",
     "record_type": "Typ rekordu",
     "record_details": "Szczegóły",
-    "approve_month": "Miesiąc"
+    "approve_month": "Miesiąc",
+    "month": "Miesiąc"
   },
 
   "loading": {

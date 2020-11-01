@@ -8,7 +8,7 @@ import {
 import { Autocomplete } from '@material-ui/lab';
 import { useDebounce } from 'use-lodash-debounce';
 import fileDownload from 'js-file-download';
-import { archiveRecords } from 'api/archive';
+import { archiveRecords, archiveRecordsPdf } from 'api/archive';
 import Notificator from 'utils/Notificator';
 import { DatePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
@@ -21,7 +21,7 @@ import { User, useUsers } from 'api/users';
 // #region styles
 const FieldsWrapper = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '1fr auto auto',
+  gridTemplateColumns: '1fr auto auto auto',
   gap: '32px 16px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
@@ -85,6 +85,23 @@ export const ArchiveRecords = () => {
           dateTo,
         });
         fileDownload(data, 'records.csv');
+        setSelected([]);
+      } catch (err) {
+        Notificator.error(t('ui:notifications.failure.archive'));
+      }
+    }
+  };
+
+  const handleExportEmployeesPdf = async () => {
+    if (selectedEmployees.length === 0) setError(t('ui:archive.employees.required'));
+    else {
+      try {
+        const data = await archiveRecordsPdf({
+          id: selectedEmployees.map(e => e._id),
+          dateFrom,
+          dateTo,
+        });
+        fileDownload(data, 'records.pdf');
         setSelected([]);
       } catch (err) {
         Notificator.error(t('ui:notifications.failure.archive'));
@@ -157,6 +174,14 @@ export const ArchiveRecords = () => {
           onClick={handleExportEmployees}
         >
           {t('ui:archive.export')}
+        </DownloadButton>
+
+        <DownloadButton
+          color="primary"
+          variant="contained"
+          onClick={handleExportEmployeesPdf}
+        >
+          {t('ui:archive.export_pdf')}
         </DownloadButton>
       </FieldsWrapper>
     </Container>

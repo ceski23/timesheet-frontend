@@ -17,6 +17,7 @@ import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 import { AdminWorktimeScreen } from 'components/worktime/admin/AdminWorktimeScreen';
 import { AdminWorktimeScreenNoUser } from 'components/worktime/admin/AdminWorktimeScreenNoUser';
 import { ArchiveScreen } from 'components/archive/ArchiveScreen';
+import { TimesheetsScreen } from 'components/timesheets/TimesheetsScreen';
 // import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 
 export const routeUrls = {
@@ -74,8 +75,7 @@ export const userRoutes: RouteConfig[] = [
   },
   {
     path: routeUrls.timesheets,
-    // eslint-disable-next-line no-return-assign
-    render: () => <>{window.location.href = `${process.env.REACT_APP_API_URL}/generator/worktime`}</>,
+    component: TimesheetsScreen,
   },
   ...commonRoutes,
 ];

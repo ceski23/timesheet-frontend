@@ -9,13 +9,13 @@ import { Autocomplete } from '@material-ui/lab';
 import { useDebounce } from 'use-lodash-debounce';
 import { Schedule, useSchedules } from 'api/schedules';
 import fileDownload from 'js-file-download';
-import { archiveSchedules } from 'api/archive';
+import { archiveSchedules, archiveSchedulesPdf } from 'api/archive';
 import Notificator from 'utils/Notificator';
 
 // #region styles
 const FieldsWrapper = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '1fr auto',
+  gridTemplateColumns: '1fr auto auto',
   gap: '32px 16px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
@@ -62,6 +62,19 @@ export const ArchiveSchedules = () => {
     }
   };
 
+  const handleExportEmployeesPdf = async () => {
+    if (selectedSchedules.length === 0) setError(t('ui:archive.schedules.required'));
+    else {
+      try {
+        const data = await archiveSchedulesPdf(selectedSchedules.map(e => e._id));
+        fileDownload(data, 'schedules.pdf');
+        setSelected([]);
+      } catch (err) {
+        Notificator.error(t('ui:notifications.failure.archive'));
+      }
+    }
+  };
+
   return (
     <Container>
       <Typography variant="h6" style={{ marginBottom: 16 }}>
@@ -101,6 +114,14 @@ export const ArchiveSchedules = () => {
           onClick={handleExportEmployees}
         >
           {t('ui:archive.export')}
+        </DownloadButton>
+
+        <DownloadButton
+          color="primary"
+          variant="contained"
+          onClick={handleExportEmployeesPdf}
+        >
+          {t('ui:archive.export_pdf')}
         </DownloadButton>
       </FieldsWrapper>
     </Container>

@@ -75,7 +75,12 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
       </Paper>
 
       {quickMonthStats.data && (
-        <MonthTimesheetTiles data={quickMonthStats.data} />
+        <>
+          <Typography variant="h6" component="h2" style={{ margin: 16, marginBottom: 0 }}>
+            {t('ui:quickMonthStats.title')}
+          </Typography>
+          <MonthTimesheetTiles data={quickMonthStats.data} />
+        </>
       )}
 
       {/* <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
