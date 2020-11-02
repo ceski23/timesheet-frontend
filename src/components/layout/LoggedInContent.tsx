@@ -89,8 +89,7 @@ export const LoggedInContent: FC = () => {
                         <NavigationItem
                           name={t('ui:navigation.statistics')}
                           icon={StatisticsIcon}
-                          to={String(routeUrls.adminWorktime)}
-                          disabled
+                          to={String(routeUrls.stats)}
                         />
                         <NavigationItem
                           name={t('ui:navigation.archive')}

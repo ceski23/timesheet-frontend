@@ -242,5 +242,22 @@
     "timesheet": "Karta czasu pracy",
     "download_timesheet": "Pobierz kartę czasu pracy",
     "stats": "Statystyki"
+  },
+
+  "stats": {
+    "no_results": "Brak wyników",
+    "overtime": "Nadgodziny",
+    "missing_days": "Brakujące dni",
+    "title": "Statystyki"
+  },
+
+  "extra": {
+    "hours_0": "{{count}} godzina",
+    "hours_1": "{{count}} godziny",
+    "hours_2": "{{count}} godzin",
+    
+    "days_0": "{{count}} dzień",
+    "days_1": "{{count}} dni",
+    "days_2": "{{count}} dni"
   }
 }

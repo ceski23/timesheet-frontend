@@ -18,6 +18,7 @@ import { AdminWorktimeScreen } from 'components/worktime/admin/AdminWorktimeScre
 import { AdminWorktimeScreenNoUser } from 'components/worktime/admin/AdminWorktimeScreenNoUser';
 import { ArchiveScreen } from 'components/archive/ArchiveScreen';
 import { TimesheetsScreen } from 'components/timesheets/TimesheetsScreen';
+import { AdminStatsScreen } from 'components/stats/AdminStatsScreen';
 // import { WorktimeScreen } from 'components/worktime/WorktimeScreen';
 
 export const routeUrls = {
@@ -37,6 +38,7 @@ export const routeUrls = {
   }),
   archive: '/archiwizacja',
   timesheets: '/karty-pracy',
+  stats: '/statystyki',
 
   // GUEST
   login: '/logowanie',
@@ -103,6 +105,10 @@ export const adminRoutes: RouteConfig[] = [
   {
     path: String(routeUrls.adminWorktime),
     component: AdminWorktimeScreenNoUser,
+  },
+  {
+    path: routeUrls.stats,
+    component: AdminStatsScreen,
   },
   {
     path: routeUrls.archive,

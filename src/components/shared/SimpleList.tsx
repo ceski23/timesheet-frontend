@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
   styled, Paper, List, Typography,
 } from '@material-ui/core';
@@ -5,6 +6,7 @@ import { Pagination } from '@material-ui/lab';
 import { withStyles } from '@material-ui/styles';
 import React, { ChangeEvent, FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Stylable } from 'utils/types';
 import { Loader } from './Loader';
 
 // #region styles
@@ -42,15 +44,15 @@ const EmptyListContainer = styled('div')({
 interface Props {
   header: React.ReactNode;
   loading: boolean;
-  pagination: {
+  pagination?: {
     count?: number;
     page?: number;
   };
-  onPageChange: (event: ChangeEvent<unknown>, page: number) => void;
+  onPageChange?: (event: ChangeEvent<unknown>, page: number) => void;
 }
 
-export const SimpleList: FC<Props> = ({
-  header, loading, children, pagination, onPageChange,
+export const SimpleList: FC<Props & Stylable> = ({
+  header, loading, children, pagination, onPageChange, ...props
 }) => {
   const { t } = useTranslation();
 
@@ -58,7 +60,7 @@ export const SimpleList: FC<Props> = ({
     <ListContainer>
       {header}
 
-      <UsersList>
+      <UsersList {...props}>
         <Loader loading={loading}>
           {children}
 
@@ -70,7 +72,7 @@ export const SimpleList: FC<Props> = ({
         </Loader>
       </UsersList>
 
-      {pagination.page && (
+      {pagination && (
       <ListPagination
         count={pagination.count}
         page={pagination.page}
