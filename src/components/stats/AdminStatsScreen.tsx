@@ -3,7 +3,7 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Avatar, Divider, styled, TextField, Typography,
+  Avatar, Divider, styled, TextField, Typography, useTheme,
 } from '@material-ui/core';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { DatePicker } from '@material-ui/pickers';
@@ -21,6 +21,7 @@ import { Autocomplete } from '@material-ui/lab';
 import {
   DataGrid, RowsProp, ColDef, ValueFormatterParams, GridOverlay,
 } from '@material-ui/data-grid';
+import { withStyles } from '@material-ui/styles';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
@@ -41,6 +42,17 @@ const UserItem = styled('div')({
 const Grid = styled(DataGrid)({
   borderRadius: 0,
 });
+
+const FilterActions = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr auto auto',
+  margin: '0 16px 16px',
+  gap: '16px',
+  [theme.breakpoints.down('sm')]: {
+    gridTemplateColumns: '1fr 1fr',
+    gridTemplateRows: 'auto auto',
+  },
+}));
 // #endregion
 
 export const AdminStatsScreen = () => {
@@ -130,7 +142,7 @@ export const AdminStatsScreen = () => {
           loading={stats.isLoading}
           header={(
             <>
-              <div style={{ display: 'flex', flexDirection: 'row', margin: '0 16px 16px' }}>
+              <FilterActions>
                 <Autocomplete
                   multiple
                   id="stats-employees"
@@ -144,7 +156,7 @@ export const AdminStatsScreen = () => {
                   value={selectedEmployees}
                   loadingText={t('ui:archive.loading')}
                   noOptionsText={t('ui:archive.no_options')}
-                  style={{ marginRight: 16, flex: 1 }}
+                  style={{ gridColumn: '1 / 3' }}
                   renderInput={params => (
                     <TextField
                       {...params}
@@ -167,7 +179,6 @@ export const AdminStatsScreen = () => {
                   inputVariant="outlined"
                   value={dateFrom}
                   onChange={handleChangeDateFrom}
-                  style={{ marginRight: 16 }}
                   maxDate={dateTo}
                 />
                 <DatePicker
@@ -181,7 +192,7 @@ export const AdminStatsScreen = () => {
                   onChange={handleChangeDateTo}
                   minDate={dateFrom}
                 />
-              </div>
+              </FilterActions>
               <Divider />
             </>
           )}
