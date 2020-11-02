@@ -12,7 +12,7 @@ export const theme = (type: PaletteType): ThemeOptions => ({
     },
     background: {
       default: (type === 'light') ? '#f4f4f4' : '#000000',
-      paper: (type === 'light') ? '#ffffff' : '#0d0d0d',
+      paper: (type === 'light') ? '#ffffff' : '#1a1a1a',
     },
     type,
   },

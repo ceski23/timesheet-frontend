@@ -76,7 +76,7 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
 
       {quickMonthStats.data && (
         <>
-          <Typography variant="h6" component="h2" style={{ margin: 16, marginBottom: 0 }}>
+          <Typography variant="h6" component="h2" style={{ margin: 16, marginBottom: 0 }} color="textPrimary">
             {t('ui:quickMonthStats.title')}
           </Typography>
           <MonthTimesheetTiles data={quickMonthStats.data} />
