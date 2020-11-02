@@ -138,6 +138,7 @@ export const EventInfo: FC<Props> = ({
             deleteDialog?.setOpen(event);
             close();
           }}
+          disabled={isDisabled}
         >
           <DeleteIcon />
         </IconButton>

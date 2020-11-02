@@ -8,7 +8,7 @@ interface TimesheetState {
   numOfDays: NumOfDays;
   firstDay: Date;
   lastDay: Date;
-  selectedEvent?: Record;
+  selectedEvent?: string;
   mousePos?: {
     x: number;
     y: number;

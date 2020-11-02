@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
   FC, ReactElement, useEffect,
@@ -62,7 +63,7 @@ const TimesheetContent: FC<Props> = ({
     <Container>
       <Header />
 
-      <Content records={records.data || []} />
+      <Content records={user ? (records.data || []) : []} />
 
       <Popover
         open={isOpen}
@@ -82,15 +83,15 @@ const TimesheetContent: FC<Props> = ({
         anchorPosition={{ left: mousePos?.x || 0, top: mousePos?.y || 0 }}
       >
         {selectedEvent && (
-        <EventInfo
-          event={selectedEvent}
-          close={() => {
-            setClose();
-            setTimesheetState({ selectedEvent: undefined });
-          }}
-          onApprove={onApprove}
-          onDisapprove={onDisapprove}
-        />
+          <EventInfo
+            event={records.data?.find(r => r._id === selectedEvent) as Record}
+            close={() => {
+              setClose();
+              setTimesheetState({ selectedEvent: undefined });
+            }}
+            onApprove={onApprove}
+            onDisapprove={onDisapprove}
+          />
         )}
       </Popover>
     </Container>

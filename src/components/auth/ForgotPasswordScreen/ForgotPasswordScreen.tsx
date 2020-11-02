@@ -18,41 +18,60 @@ import { ForgotPasswordForm } from '.';
 import { forgotPasswordFormSchema } from './schema';
 
 // #region styles
+const BackButton = styled(IconButton)(({ theme }) => ({
+  marginRight: theme.spacing(1),
+}));
+
 const StyledCard = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2),
   width: '30%',
   [theme.breakpoints.down('sm')]: {
     width: '80%',
   },
+  textAlign: 'center',
 }));
 
 const MainImage = styled(ForgotPasswordImage)(({ theme }) => ({
   width: '30%',
   height: '100%',
+  marginRight: '12vw',
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
 }));
 
-const Logo = styled('img')(({ theme }) => ({
-  position: 'fixed',
-  left: theme.spacing(5),
-  top: theme.spacing(5),
-  height: 40,
-}));
+const Logo = styled('img')({
+  height: 50,
+});
 
 const Container = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   width: '100%',
   height: '100%',
   justifyContent: 'space-evenly',
-  alignItems: 'center',
 });
 
-const BackButton = styled(IconButton)(({ theme }) => ({
-  marginRight: theme.spacing(1),
+const LogoContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '90%',
+  height: 150,
+  alignItems: 'center',
+  margin: '0 auto',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+  },
 }));
+
+const Content = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 128,
+});
 // #endregion
 
 export const ForgotPasswordScreen: FC = () => {
@@ -91,29 +110,34 @@ export const ForgotPasswordScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} title="Timesheet" />
-      <MainImage />
-      <StyledCard>
-        <CardContent>
-          <Grid container alignItems="center">
-            <BackButton onClick={handleBackClick} title={t('ui:navigation.back')}>
-              <BackIcon />
-            </BackButton>
-            <Typography variant="h6" component="h1">{t('ui:forgot_password.title')}</Typography>
-          </Grid>
-          <Typography
-            gutterBottom
-            variant="subtitle1"
-            component="p"
-            style={{
-              marginBottom: 8,
-              marginTop: 8,
-            }}
-          >{t('ui:forgot_password.subtitle')}
-          </Typography>
-          <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
-        </CardContent>
-      </StyledCard>
+      <LogoContainer>
+        <Logo src={AppLogo} title="Timesheet" />
+      </LogoContainer>
+      <Content>
+        <MainImage />
+        <StyledCard>
+          <CardContent>
+            <Grid container alignItems="center">
+              <BackButton onClick={handleBackClick} title={t('ui:navigation.back')}>
+                <BackIcon />
+              </BackButton>
+              <Typography variant="h6" component="h1">{t('ui:forgot_password.title')}</Typography>
+            </Grid>
+            <Typography
+              gutterBottom
+              variant="subtitle1"
+              component="p"
+              style={{
+                marginBottom: 8,
+                marginTop: 8,
+                textAlign: 'left',
+              }}
+            >{t('ui:forgot_password.subtitle')}
+            </Typography>
+            <ForgotPasswordForm onSubmit={handleForgotPassword} form={forgotPasswordForm} />
+          </CardContent>
+        </StyledCard>
+      </Content>
 
       <Helmet>
         <title>{t('ui:forgot_password.title')} — zarządzanie czasem pracy</title>

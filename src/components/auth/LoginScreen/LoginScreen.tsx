@@ -30,25 +30,43 @@ const StyledCard = styled(Card)(({ theme }) => ({
 const MainImage = styled(LoginImage)(({ theme }) => ({
   width: '30%',
   height: '100%',
+  marginRight: '12vw',
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
 }));
 
-const Logo = styled('img')(({ theme }) => ({
-  position: 'fixed',
-  left: theme.spacing(5),
-  top: theme.spacing(5),
-  height: 40,
-}));
+const Logo = styled('img')({
+  height: 50,
+});
 
 const Container = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   width: '100%',
   height: '100%',
   justifyContent: 'space-evenly',
+});
+
+const LogoContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '90%',
+  height: 150,
   alignItems: 'center',
+  margin: '0 auto',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+  },
+}));
+
+const Content = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 128,
 });
 // #endregion
 
@@ -84,28 +102,32 @@ export const LoginScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} title="Timesheet" />
-      <MainImage />
-      <StyledCard>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h1">{t('ui:login.title')}</Typography>
-          <Typography gutterBottom variant="subtitle1" component="p">{t('ui:login.subtitle')}</Typography>
+      <LogoContainer>
+        <Logo src={AppLogo} title="Timesheet" />
+      </LogoContainer>
+      <Content>
+        <MainImage />
+        <StyledCard>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h1">{t('ui:login.title')}</Typography>
+            <Typography gutterBottom variant="subtitle1" component="p">{t('ui:login.subtitle')}</Typography>
 
-          <LoginForm onSubmit={handleSubmit} form={loginForm} />
+            <LoginForm onSubmit={handleSubmit} form={loginForm} />
 
-          <Button
-            fullWidth
-            color="primary"
-            type="button"
-            size="small"
-            style={{ marginTop: 10 }}
-            component={Link}
-            to={routeUrls.forgotPassword}
-          >
-            {t('ui:login.forgot_password')}
-          </Button>
-        </CardContent>
-      </StyledCard>
+            <Button
+              fullWidth
+              color="primary"
+              type="button"
+              size="small"
+              style={{ marginTop: 10 }}
+              component={Link}
+              to={routeUrls.forgotPassword}
+            >
+              {t('ui:login.forgot_password')}
+            </Button>
+          </CardContent>
+        </StyledCard>
+      </Content>
     </Container>
   );
 };

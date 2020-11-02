@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
   styled, Divider, List,
 } from '@material-ui/core';
@@ -24,6 +24,7 @@ import { usePreferences } from 'contexts/preferences';
 import { getDateLocale } from 'hooks/useDateFormatter';
 import { useAuth } from 'contexts/auth';
 import SchedulesIcon from '@material-ui/icons/TodayOutlined';
+import { TimesheetDownloadDialog } from 'components/timesheets/TimesheetDownloadDialog';
 import layoutScheme from './layoutScheme';
 import { NavigationHeader } from './NavigationHeader';
 import { NavigationItem } from './NavigationItem';
@@ -35,6 +36,7 @@ export const LoggedInContent: FC = () => {
   const theme = useAppTheme();
   const { language } = usePreferences();
   const { user } = useAuth();
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <Root scheme={layoutScheme()} theme={theme}>
@@ -90,11 +92,21 @@ export const LoggedInContent: FC = () => {
                           name={t('ui:navigation.statistics')}
                           icon={StatisticsIcon}
                           to={String(routeUrls.stats)}
+                          onClick={closeDrawer}
                         />
                         <NavigationItem
                           name={t('ui:navigation.archive')}
                           icon={ArchiveIcon}
                           to={String(routeUrls.archive)}
+                          onClick={closeDrawer}
+                        />
+                        <NavigationItem
+                          name={t('ui:navigation.download_timesheets')}
+                          icon={TimesheetIcon}
+                          onClick={() => {
+                            closeDrawer();
+                            setDialogOpen(true);
+                          }}
                         />
                       </>
                     )}
@@ -139,6 +151,13 @@ export const LoggedInContent: FC = () => {
                   </List>
                 )}
               </DrawerSidebar>
+
+              {user?.role === 'admin' && (
+                <TimesheetDownloadDialog
+                  isOpen={dialogOpen}
+                  setClose={() => setDialogOpen(false)}
+                />
+              )}
 
               {renderRoutes(user?.role === 'admin' ? adminRoutes : userRoutes)}
             </MuiPickersUtilsProvider>

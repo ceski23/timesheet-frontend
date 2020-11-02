@@ -56,9 +56,9 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
     <>
       {(data.missing > 0) && (
         <StyledAlert severity="warning" variant="standard">
-          {t('ui:quickMonthStats.missing_1')}
-          <b>{formatDuration({ days: data.missing }, { locale })}</b>
-          {t('ui:quickMonthStats.missing_2')}
+          {t('ui:quickMonthStats.missing_p1')}
+          <b>{t('ui:quickMonthStats.missing', { count: data.missing })}</b>
+          {t('ui:quickMonthStats.missing_p2')}
         </StyledAlert>
       )}
 

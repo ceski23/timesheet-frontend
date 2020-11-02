@@ -52,6 +52,7 @@ const Container = styled('div')({
   flexDirection: 'row',
   marginTop: 8,
   marginRight: 16,
+  minWidth: 800,
 });
 
 const Grid = styled('div')({

@@ -31,6 +31,7 @@ const Container = styled('div')(({ theme }) => ({
   ...gridSpacingVertical(theme.spacing(2)),
   display: 'flex',
   flex: 1,
+  flexDirection: 'column',
 }));
 
 const AddEmployeeButton = styled(Fab)({

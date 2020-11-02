@@ -3,7 +3,7 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Avatar, Divider, styled, TextField, Typography, useTheme,
+  Avatar, Divider, styled, TextField, Typography,
 } from '@material-ui/core';
 import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import { DatePicker } from '@material-ui/pickers';
@@ -21,7 +21,6 @@ import { Autocomplete } from '@material-ui/lab';
 import {
   DataGrid, RowsProp, ColDef, ValueFormatterParams, GridOverlay,
 } from '@material-ui/data-grid';
-import { withStyles } from '@material-ui/styles';
 
 // #region styles
 const Container = styled('div')(({ theme }) => ({
@@ -140,6 +139,7 @@ export const AdminStatsScreen = () => {
       <Container>
         <SimpleList
           loading={stats.isLoading}
+          style={{ minHeight: 300 }}
           header={(
             <>
               <FilterActions>

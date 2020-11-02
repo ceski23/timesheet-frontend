@@ -8,20 +8,25 @@ import { ScreenWrapper } from 'components/layout/ScreenWrapper';
 import React, { useState } from 'react';
 import TimesheetIcon from '@material-ui/icons/DescriptionOutlined';
 import { useTranslation } from 'react-i18next';
-import { startOfDay } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import { pdf } from 'api/archive';
 import fileDownload from 'js-file-download';
 import Notificator from 'utils/Notificator';
+import { useAuth } from 'contexts/auth';
+import { useDateLocale } from 'hooks/useDateFormatter';
 
 export const TimesheetsScreen = () => {
   const [month, setMonth] = useState(new Date());
   const quickMonthStats = useQuickMonthStats();
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const locale = useDateLocale();
 
   const handleClick = async () => {
     try {
       const file = await pdf(startOfDay(month));
-      fileDownload(file, 'Bezary_Cober_listopad_2020.pdf');
+      const fileName = `${user?.name} ${format(month, 'LLLL yyyy', { locale })}`.replaceAll(' ', '_');
+      fileDownload(file, `${fileName}.pdf`);
     } catch (error) {
       Notificator.error('Wystąpił błąd podczas pobierania karty');
     }

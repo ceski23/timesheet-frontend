@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React, {
   FC, ReactElement,
 } from 'react';
@@ -65,7 +66,7 @@ export const Event: FC<Props> = ({ interval, height, event }): ReactElement => {
     ev.persist();
     const { clientX: x, pageY: y } = ev.nativeEvent;
     setTimesheetState({
-      mousePos: { x, y }, selectedEvent: event,
+      mousePos: { x, y }, selectedEvent: event._id,
     });
   };
 

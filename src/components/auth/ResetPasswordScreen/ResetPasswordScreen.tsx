@@ -23,30 +23,49 @@ const StyledCard = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '80%',
   },
+  textAlign: 'center',
 }));
 
 const MainImage = styled(ForgotPasswordImage)(({ theme }) => ({
   width: '30%',
   height: '100%',
+  marginRight: '12vw',
   [theme.breakpoints.down('sm')]: {
     display: 'none',
   },
 }));
 
-const Logo = styled('img')(({ theme }) => ({
-  position: 'fixed',
-  left: theme.spacing(5),
-  top: theme.spacing(5),
-  height: 40,
-}));
+const Logo = styled('img')({
+  height: 50,
+});
 
 const Container = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'column',
   width: '100%',
   height: '100%',
   justifyContent: 'space-evenly',
+});
+
+const LogoContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '90%',
+  height: 150,
   alignItems: 'center',
+  margin: '0 auto',
+  [theme.breakpoints.down('sm')]: {
+    justifyContent: 'center',
+  },
+}));
+
+const Content = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  flex: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 128,
 });
 // #endregion
 
@@ -97,14 +116,18 @@ export const ResetPasswordScreen: FC = () => {
 
   return (
     <Container>
-      <Logo src={AppLogo} title="Timesheet" />
-      <MainImage />
-      <StyledCard>
-        <CardContent>
-          <Typography gutterBottom variant="h6" component="h1">{t('ui:password_reset.title')}</Typography>
-          <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
-        </CardContent>
-      </StyledCard>
+      <LogoContainer>
+        <Logo src={AppLogo} title="Timesheet" />
+      </LogoContainer>
+      <Content>
+        <MainImage />
+        <StyledCard>
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h1">{t('ui:password_reset.title')}</Typography>
+            <ResetPasswordForm onSubmit={handleResetPassword} form={resetPasswordForm} />
+          </CardContent>
+        </StyledCard>
+      </Content>
 
       <Helmet>
         <title>{t('ui:password_reset.title')} — zarządzanie czasem pracy</title>

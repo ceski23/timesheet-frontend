@@ -19,6 +19,7 @@ const Container = styled(Paper)(({ theme }) => ({
   background: theme.palette.background.default,
   zIndex: 1,
   paddingRight: 16,
+  minWidth: 800,
 }));
 // #endregion
 

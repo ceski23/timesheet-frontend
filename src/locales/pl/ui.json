@@ -54,7 +54,8 @@
     "archive": "Archiwizacja",
     "back": "Wróć",
     "close": "Zamknij",
-    "timesheets": "Mój czas pracy"
+    "timesheets": "Mój czas pracy",
+    "download_timesheets": "Pobierz karty pracy"
   },
 
   "list": {
@@ -176,7 +177,7 @@
   },
 
   "timesheet": {
-    "today": "Dzisiaj"
+    "today": "Aktualny tydzień"
   },
 
   "not_found": {
@@ -209,8 +210,11 @@
 
   "quickMonthStats": {
     "title": "Ewidencja w tym miesiącu",
-    "missing_1": "Nie zaraportowałeś(aś) ",
-    "missing_2": " w tym miesiącu!"
+    "missing_p1": "Nie zaraportowałeś(aś) ",
+    "missing_p2": " w tym miesiącu!",
+    "missing_0": "{{count}} dnia",
+    "missing_1": "{{count}} dni",
+    "missing_2": "{{count}} dni"
   },
 
   "archive": {
@@ -241,7 +245,8 @@
     "title": "Mój czas pracy",
     "timesheet": "Karta czasu pracy",
     "download_timesheet": "Pobierz kartę czasu pracy",
-    "stats": "Statystyki"
+    "stats": "Statystyki",
+    "download": "Pobierz"
   },
 
   "stats": {
@@ -249,6 +254,10 @@
     "overtime": "Nadgodziny",
     "missing_days": "Brakujące dni",
     "title": "Statystyki"
+  },
+
+  "home": {
+    "your_norm": "Twoja dzienna norma godzinowa: "
   },
 
   "extra": {

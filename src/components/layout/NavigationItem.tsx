@@ -3,14 +3,14 @@ import React, {
   FC, ReactElement,
 } from 'react';
 import {
-  ListItem, ListItemIcon, ListItemText, styled, fade, Badge, SvgIconProps,
+  ListItem, ListItemIcon, ListItemText, styled, fade, Badge, SvgIconProps, Button,
 } from '@material-ui/core';
 import { Link as RouterLink, LinkProps as RouterLinkProps, useRouteMatch } from 'react-router-dom';
 
 interface Props {
   name: string;
   icon: (props: SvgIconProps) => JSX.Element;
-  to: string;
+  to?: string;
   badge?: boolean;
   onClick?: () => void;
   exact?: boolean;
@@ -23,6 +23,18 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
   padding: '4px 8px',
   width: 'auto',
   '&.Mui-selected, &.Mui-selected:hover, &:hover': {
+    borderRadius: 4,
+    color: theme.palette.primary.dark,
+    backgroundColor: fade(theme.palette.primary.main, 0.1),
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(1),
+  padding: '4px 8px',
+  width: '-webkit-fill-available',
+  textTransform: 'none',
+  '&:hover': {
     borderRadius: 4,
     color: theme.palette.primary.dark,
     backgroundColor: fade(theme.palette.primary.main, 0.1),
@@ -41,14 +53,14 @@ export const NavigationItem: FC<Props> = ({
   const renderLink = React.useMemo(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     () => React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-      <StyledLink innerRef={ref} to={to} {...itemProps} />
+      <StyledLink innerRef={ref} to={to || ''} {...itemProps} />
     )),
     [to],
   );
 
   return (
     <ListItem
-      component={renderLink}
+      component={to ? renderLink : StyledButton}
       button
       selected={!!match}
       onClick={onClick}

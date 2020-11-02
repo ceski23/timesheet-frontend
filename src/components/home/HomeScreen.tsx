@@ -11,6 +11,7 @@ import { addRecordSchema } from 'components/worktime/add/schema';
 import { formErrorHandler } from 'utils/errorHandlers';
 import Notificator from 'utils/Notificator';
 import { useQuickMonthStats } from 'api/stats';
+import { useAuth } from 'contexts/auth';
 import { QuickAddRecordForm } from './QuickAddRecordForm';
 import { MonthTimesheetTiles } from './MonthTimesheetTiles';
 
@@ -23,6 +24,7 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
   const { t } = useTranslation();
   const quickMonthStats = useQuickMonthStats();
   const [addRecord] = useAddRecord();
+  const { user } = useAuth();
 
   const addRecordForm = useForm<AddRecordParams>({
     defaultValues: {
@@ -73,6 +75,15 @@ export const HomeScreen: FC<Props> = (): ReactElement => {
         </Typography>
         <QuickAddRecordForm form={addRecordForm} onSubmit={handleSubmit} />
       </Paper>
+
+      {user && user.role === 'user' && (
+        <Paper style={{ display: 'grid', margin: 16, padding: 16 }}>
+          <Typography style={{ }}>
+            {t('ui:home.your_norm')}
+            <b>{t('ui:extra.hours', { count: user.norm })}</b>
+          </Typography>
+        </Paper>
+      )}
 
       {quickMonthStats.data && (
         <>

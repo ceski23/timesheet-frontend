@@ -6,12 +6,12 @@ import { styled } from '@material-ui/core';
 // #region styles
 const Container = styled('main')(({ theme }) => ({
   width: '100vw',
-  height: '100vh',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   background: theme.palette.background.default,
+  flex: 1,
 }));
 // #endregion
 
