@@ -72,12 +72,12 @@ export const SimpleList: FC<Props & Stylable> = ({
         </Loader>
       </UsersList>
 
-      {pagination && (
-      <ListPagination
-        count={pagination.count}
-        page={pagination.page}
-        onChange={onPageChange}
-      />
+      {pagination && pagination.count && (
+        <ListPagination
+          count={pagination.count}
+          page={pagination.page}
+          onChange={onPageChange}
+        />
       )}
     </ListContainer>
   );
