@@ -13,7 +13,9 @@ export const useAuthGuard = () => {
       fetchMe().then(userData => {
         setAuth({ user: userData, status: 'authorized' });
       }).catch(() => {
-        setAuth({ user: undefined, status: 'unauthorized' });
+        if (window.navigator.onLine) {
+          setAuth({ user: undefined, status: 'unauthorized' });
+        }
       });
     }
   }, []);

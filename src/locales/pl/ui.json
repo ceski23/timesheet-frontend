@@ -268,5 +268,7 @@
     "days_0": "{{count}} dzień",
     "days_1": "{{count}} dni",
     "days_2": "{{count}} dni"
-  }
+  },
+
+  "offline": "Jesteś offline. Aplikacja może nie działać poprawnie."
 }

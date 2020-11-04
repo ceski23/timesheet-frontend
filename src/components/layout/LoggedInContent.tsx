@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   styled, Divider, List,
 } from '@material-ui/core';
@@ -25,6 +25,8 @@ import { getDateLocale } from 'hooks/useDateFormatter';
 import { useAuth } from 'contexts/auth';
 import SchedulesIcon from '@material-ui/icons/TodayOutlined';
 import { TimesheetDownloadDialog } from 'components/timesheets/TimesheetDownloadDialog';
+import { useOffline } from 'hooks/useOffline';
+import { useSnackbar } from 'notistack';
 import layoutScheme from './layoutScheme';
 import { NavigationHeader } from './NavigationHeader';
 import { NavigationItem } from './NavigationItem';
@@ -37,6 +39,20 @@ export const LoggedInContent: FC = () => {
   const { language } = usePreferences();
   const { user } = useAuth();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const isOffline = useOffline();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (isOffline) {
+      enqueueSnackbar(t('ui:offline'), {
+        key: 'offline',
+        persist: true,
+        variant: 'info',
+      });
+    } else {
+      closeSnackbar('offline');
+    }
+  }, [isOffline]);
 
   return (
     <Root scheme={layoutScheme()} theme={theme}>
