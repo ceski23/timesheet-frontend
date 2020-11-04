@@ -30,6 +30,8 @@ export const App: React.FC = () => {
         }
       },
       retry: (_count, error) => {
+        if (error instanceof Error && error.message === 'offline') return false;
+
         const err = error as ApiError;
         if (!(err instanceof Error) && err.statusCode === 401) return false;
         return (_count < 2);

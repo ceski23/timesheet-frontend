@@ -51,7 +51,11 @@ client.interceptors.response.use(
       }
       return Promise.reject(error.response.data);
     }
-    // client never received a response, or request never left
-    return Promise.reject(Error(i18next.t('ui:notifications.failure.internal_error')));
+
+    if (window.navigator.onLine) {
+      // client never received a response, or request never left
+      return Promise.reject(Error(i18next.t('ui:notifications.failure.internal_error')));
+    }
+    return Promise.reject(Error('offline'));
   },
 );
