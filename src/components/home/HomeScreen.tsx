@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
 import { useAppScreen } from 'hooks/useAppScreen';
 import { AddRecordParams, useAddRecord } from 'api/records';
 import { addHours, set } from 'date-fns';
@@ -15,14 +15,11 @@ import { useAuth } from 'contexts/auth';
 import { QuickAddRecordForm } from './QuickAddRecordForm';
 import { MonthTimesheetTiles } from './MonthTimesheetTiles';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {
-}
-
-export const HomeScreen: FC<Props> = (): ReactElement => {
+export const HomeScreen: FC = (): ReactElement => {
   useAppScreen('home');
   const { t } = useTranslation();
-  const quickMonthStats = useQuickMonthStats();
+  const [month] = useState(new Date());
+  const quickMonthStats = useQuickMonthStats(month);
   const [addRecord] = useAddRecord();
   const { user } = useAuth();
 
