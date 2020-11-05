@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import TimesheetIcon from '@material-ui/icons/DescriptionOutlined';
 import { useTranslation } from 'react-i18next';
 import { format, startOfDay } from 'date-fns';
-import { pdf } from 'api/archive';
+import { timesheetPdf } from 'api/archive';
 import fileDownload from 'js-file-download';
 import Notificator from 'utils/Notificator';
 import { useAuth } from 'contexts/auth';
@@ -24,7 +24,7 @@ export const TimesheetsScreen = () => {
 
   const handleClick = async () => {
     try {
-      const file = await pdf(startOfDay(month));
+      const file = await timesheetPdf(startOfDay(month));
       const fileName = `${user?.name} ${format(month, 'LLLL yyyy', { locale })}`.replaceAll(' ', '_');
       fileDownload(file, `${fileName}.pdf`);
     } catch (error) {

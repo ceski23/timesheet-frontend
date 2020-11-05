@@ -33,8 +33,11 @@ export const archiveRecordsPdf = async (params: ArchiveRecordsParams) => (
   client.get<unknown, Blob>('archive/records/pdf', { params, responseType: 'blob' })
 );
 
-export const pdf = async (date: Date) => (
-  client.get<unknown, Blob>('generator/worktime', { params: { month: date }, responseType: 'blob' })
+export const timesheetPdf = async (date: Date, userId?: string) => (
+  client.get<unknown, Blob>('generator/worktime', {
+    params: { month: date, userId },
+    responseType: 'blob',
+  })
 );
 // #endregion
 

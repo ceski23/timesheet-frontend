@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { ChangeEvent, FC, useState } from 'react';
@@ -15,7 +16,7 @@ import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { Autocomplete } from '@material-ui/lab';
 import { useDebounce } from 'use-lodash-debounce';
 import { DatePicker } from '@material-ui/pickers';
-import { pdf } from 'api/archive';
+import { timesheetPdf } from 'api/archive';
 import { startOfDay, format } from 'date-fns';
 import fileDownload from 'js-file-download';
 import { useDateLocale } from 'hooks/useDateFormatter';
@@ -79,7 +80,7 @@ export const TimesheetDownloadDialog: FC<Props> = ({
     if (!selectedEmployee) setError(t('ui:archive.employees.required'));
     else {
       try {
-        const file = await pdf(startOfDay(month));
+        const file = await timesheetPdf(startOfDay(month), selectedEmployee._id);
         const fileName = `${selectedEmployee.name} ${format(month, 'LLLL yyyy', { locale })}`.replaceAll(' ', '_');
         fileDownload(file, `${fileName}.pdf`);
         setSelected(undefined);
