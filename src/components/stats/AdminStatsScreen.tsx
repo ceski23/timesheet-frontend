@@ -92,6 +92,9 @@ export const AdminStatsScreen = () => {
           <Typography>{(params.value as User).name}</Typography>
         </UserItem>
       ),
+      sortComparator: (user1, user2) => (
+        (user1 as User).name.localeCompare((user2 as User).name)
+      ),
     },
     ...RECORD_TYPES.map(type => ({
       headerName: t(`ui:records.type.${type}`),
