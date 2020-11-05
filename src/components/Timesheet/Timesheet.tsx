@@ -15,6 +15,7 @@ import {
 } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
 import { User } from 'api/users';
+import { useAuth } from 'contexts/auth';
 import { EventInfo } from './EventInfo';
 
 interface Props {
@@ -45,6 +46,7 @@ const TimesheetContent: FC<Props> = ({
   } = useTimesheetState();
   const locale = useDateLocale();
   const records = useRecords({ dateFrom: firstDay, dateTo: lastDay, userId: user?._id });
+  const auth = useAuth();
 
   useEffect(() => {
     if (selectedEvent) setOpen();
@@ -63,7 +65,11 @@ const TimesheetContent: FC<Props> = ({
     <Container>
       <Header />
 
-      <Content records={user ? (records.data || []) : []} />
+      {auth.user?.role === 'admin' ? (
+        <Content records={user ? (records.data || []) : []} />
+      ) : (
+        <Content records={records.data || []} />
+      )}
 
       <Popover
         open={isOpen}
