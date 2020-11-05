@@ -65,17 +65,17 @@ export const LoggedInContent: FC = () => {
               utils={DateFnsUtils}
               locale={getDateLocale(language)}
             >
+              <>
+                <DrawerSidebar sidebarId="primarySidebar">
+                  <NavigationHeader
+                    name={user?.name}
+                    email={user?.email}
+                    collapsed={sidebar.primarySidebar.collapsed}
+                  />
 
-              <DrawerSidebar sidebarId="primarySidebar">
-                <NavigationHeader
-                  name={user?.name}
-                  email={user?.email}
-                  collapsed={sidebar.primarySidebar.collapsed}
-                />
+                  <Divider />
 
-                <Divider />
-
-                {user && (
+                  {user && (
                   <List component="nav">
                     {user.role === 'admin' && (
                       <>
@@ -165,17 +165,18 @@ export const LoggedInContent: FC = () => {
                       onClick={closeDrawer}
                     />
                   </List>
-                )}
-              </DrawerSidebar>
+                  )}
+                </DrawerSidebar>
 
-              {user?.role === 'admin' && (
-                <TimesheetDownloadDialog
-                  isOpen={dialogOpen}
-                  setClose={() => setDialogOpen(false)}
-                />
+                {user?.role === 'admin' && (
+                  <TimesheetDownloadDialog
+                    isOpen={dialogOpen}
+                    setClose={() => setDialogOpen(false)}
+                  />
               )}
 
-              {renderRoutes(user?.role === 'admin' ? adminRoutes : userRoutes)}
+                {renderRoutes(user?.role === 'admin' ? adminRoutes : userRoutes)}
+              </>
             </MuiPickersUtilsProvider>
           </>
         );
