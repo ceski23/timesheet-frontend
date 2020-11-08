@@ -2,13 +2,10 @@
 import {
   ListItem, ListItemSecondaryAction, IconButton, styled,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from '@material-ui/core';
 import React, { FC, useMemo } from 'react';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import CalendarStart from '@material-ui/icons/EventAvailable';
-import CalendarEnd from '@material-ui/icons/EventBusy';
 import { useDateFormatter } from 'hooks/useDateFormatter';
 import { Record } from 'api/records';
 import { useTranslation } from 'react-i18next';
@@ -19,14 +16,6 @@ import ApprovedIcon from '@material-ui/icons/DoneOutlined';
 import DisapprovedIcon from '@material-ui/icons/CloseOutlined';
 
 // #region styles
-const DatesContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: theme.palette.text.secondary,
-}));
-
 const ScheduleDate = styled('div')({
   display: 'flex',
   flexDirection: 'row',
@@ -37,24 +26,12 @@ const ScheduleDate = styled('div')({
   },
 });
 
-const Divider = styled('div')(({ theme }) => ({
-  marginLeft: 16,
-  marginRight: 16,
-  [theme.breakpoints.down('xs')]: {
-    marginLeft: 8,
-    marginRight: 8,
-  },
-}));
-
-const DateText = styled('p')(({ theme }) => ({
+const DateText = styled('p')({
   marginTop: 8,
   marginBottom: 8,
   marginLeft: 8,
   fontSize: '0.8rem',
-  [theme.breakpoints.down('xs')]: {
-    marginLeft: 0,
-  },
-}));
+});
 
 const Name = styled(Typography)({
   fontSize: '1.1rem',
@@ -63,10 +40,6 @@ const Name = styled(Typography)({
 const StyledIcon = styled(ColoredIcon)(({ theme }) => ({
   marginRight: theme.spacing(2),
 }));
-
-const CalendarIcon = styled(CalendarStart)({
-  marginRight: 8,
-});
 // #endregion
 
 interface Props {
@@ -84,8 +57,6 @@ export const RecordListItem: FC<Props> = ({
   const { t } = useTranslation();
   const { color, icon } = useMemo(() => getRecordData(data.type), [data]);
   const { user } = useAuth();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'), { noSsr: true });
 
   const isDisabled = data.approved && user?.role === 'user';
 
@@ -102,36 +73,13 @@ export const RecordListItem: FC<Props> = ({
         <Name variant="h6">{t(`ui:records.type.${data.type}`)}</Name>
 
         {data.details && (
-        <Typography variant="body2" style={{ marginBottom: 8 }}>{data.details}</Typography>
+          <Typography variant="body2" style={{ marginBottom: 8 }}>{data.details}</Typography>
         )}
 
-        <DatesContainer>
-          {isMobile && <CalendarIcon color="disabled" />}
-
-          <ScheduleDate>
-            {isMobile ? (
-              <DateText>{format(new Date(data.dateFrom), 'dd.MM.yyyy')}</DateText>
-            ) : (
-              <>
-                <CalendarStart color="disabled" />
-                <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
-              </>
-            )}
-          </ScheduleDate>
-
-          <Divider>—</Divider>
-
-          <ScheduleDate>
-            {isMobile ? (
-              <DateText>{format(new Date(data.dateTo), 'dd.MM.yyyy')}</DateText>
-            ) : (
-              <>
-                <CalendarEnd color="disabled" />
-                <DateText>{format(new Date(data.dateTo), 'dd MMMM yyyy')}</DateText>
-              </>
-            )}
-          </ScheduleDate>
-        </DatesContainer>
+        <ScheduleDate>
+          <CalendarStart color="disabled" />
+          <DateText>{format(new Date(data.dateFrom), 'dd MMMM yyyy')}</DateText>
+        </ScheduleDate>
       </div>
 
       <ListItemSecondaryAction>

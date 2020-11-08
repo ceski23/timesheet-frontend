@@ -151,7 +151,9 @@
     "edit_disabled": "Ten rekord jest już zatwierdzony",
     "approve": "Zatwierdzanie",
     "approve_button": "Zatwierdź",
-    "disapprove_button": "Anuluj zatwierdzenie"
+    "disapprove_button": "Anuluj zatwierdzenie",
+    "month_approved": "ZATWIERDZONY",
+    "month_not_approved": "NIEZATWIERDZONY"
   },
 
   "add_record": {

@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
@@ -106,7 +107,7 @@ const TimesheetContent: FC<Props> = ({
 
 export const Timesheet: FC<Props> = props => (
   <TimesheetStateProvider>
-    <TimesheetToolbar />
+    <TimesheetToolbar userId={props.user?._id} />
     <TimesheetContent {...props} />
   </TimesheetStateProvider>
 );

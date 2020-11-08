@@ -44,6 +44,11 @@ export type PaginatedRecordFindParams = {
 export interface ApproveRecordsParams {
   date: Date;
 }
+
+export interface MonthApprovedParams {
+  month: Date;
+  userId?: string;
+}
 // #endregion
 
 // #region API calls
@@ -98,6 +103,10 @@ export const approve = async (id: string) => (
 
 export const disapprove = async (id: string) => (
   client.post<unknown, void>(`records/admin/disapprove/${id}`)
+);
+
+export const checkMonthApproved = async (params: MonthApprovedParams) => (
+  client.get<unknown, {approved: boolean}>('records/monthApproved', { params })
 );
 // #endregion
 
@@ -159,4 +168,8 @@ export const useDisapproveRecord = () => useMutation(disapprove, {
     queryCache.invalidateQueries('records');
   },
 });
+
+export const useMonthApproved = (params: MonthApprovedParams) => (
+  useQuery(['records', params], checkMonthApproved)
+);
 // #endregion
