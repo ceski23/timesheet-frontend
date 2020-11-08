@@ -1,3 +1,274 @@
 {
-  
+  "notifications": {
+    "success": {
+      "forgot_password": "A link to reset the password has been sent to the e-mail address provided.",
+      "login": "You have been logged in!",
+      "reset_password": "Your password has been changed!",
+      "employee_added": "Employee {{name}} added",
+      "employee_deleted": "{{name}} has been deleted",
+      "schedule_added": "Schedule {{name}} added",
+      "schedule_deleted": "Schedule {{name}} deleted",
+      "record_deleted": "Record deleted",
+      "record_added": "Record added",
+      "record_updated": "Record edited",
+      "records_approved": "Records approved for {{date}}",
+      "record_approved": "Record approved",
+      "record_disapproved": "The approval of the records was canceled",
+      "employee_edited": "{{name}} was edited",
+      "schedule_edited": "Schedule {{name}} was edited"
+    },
+    "failure": {
+      "find_employees": "There was an error loading employees",
+      "delete_employee": "An error occurred while deleting the employee",
+      "add_schedule": "An error occurred while adding the schedule",
+      "delete_schedule": "An error occurred while removing the schedule",
+      "delete_record": "An error occurred while deleting the record",
+      "add_record": "There was an error adding the record",
+      "internal_error": "There was an error communicating with the server, please try again later",
+      "records_overlap": "There is already a record at this time",
+      "update_record": "An error occurred while editing the record",
+      "approve_records": "There was an error validating the records",
+      "disapprove_records": "An error occurred while canceling the approval of the records",
+      "login": "There was an error logging in",
+      "invalid_credentials": "Invalid login details",
+      "schedules_overlap": "The schedules cannot overlap",
+      "update_schedule": "An error occurred while editing the schedule",
+      "employee_not_found": "No such employee was found",
+      "add_employee": "There was an error adding an employee",
+      "edit_employee": "An error occurred while editing the employee",
+      "forgot_password": "An error occurred while resetting the password",
+      "archive": "An error occurred while trying to retrieve the data",
+      "records_dayoff": "The selected day is a day off"
+    },
+    "too_many_requests": "You are making too many requests. Take a moment to rest"
+  },
+
+  "navigation": {
+    "dashboard": "Dashboard",
+    "employees": "Employees",
+    "logout": "Log out",
+    "worktime": "Time reporting",
+    "settings": "Settings",
+    "schedules": "Schedules",
+    "statistics": "Statistics",
+    "archive": "Archiving",
+    "back": "Back",
+    "close": "Close",
+    "timesheets": "My work time",
+    "download_timesheets": "Download worksheets"
+  },
+
+  "list": {
+    "empty": "There are no items to display"
+  },
+
+  "forgot_password": {
+    "title": "Reset your password",
+    "subtitle": "Enter your email address and we will send you a link to reset your password."
+  },
+
+  "login": {
+    "title": "Login",
+    "subtitle": "To use the application, log in to your account.",
+    "forgot_password": "Forgot your password?"
+  },
+
+  "password_reset": {
+    "title": "Reset your password",
+    "invalid_token": "Incorrect code"
+  },
+
+  "add_employee": {
+    "title": "Adding an employee",
+    "email_exist": "An employee with this email address already exists"
+  },
+
+  "employees": {
+    "title": "Employees",
+    "list_title": "Employees list",
+    "searchbox": "Search...",
+    "add_button": "Add"
+  },
+
+  "delete_employee": {
+    "confirm": "Delete",
+    "text": "Are you sure you want to delete {{name}}?",
+    "title": "Removing an employee"
+  },
+
+  "add_schedule": {
+    "title": "Adding a schedule",
+    "add_weekends": "Add Saturdays and Sundays in the range",
+    "remove_freedays": "Delete all days off",
+    "fromDate_unique": "There is already a schedule starting on this date",
+    "toDate_unique": "There is already a schedule ending on this date"
+  },
+
+  "schedules": {
+    "title": "Schedules",
+    "list_title": "Schedules list",
+    "add_button": "Add"
+  },
+
+  "delete_schedule": {
+    "confirm": "Delete",
+    "text": "Are you sure you want to delete schedule {{name}}?",
+    "title": "Deleting schedule"
+  },
+
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "appearance": "Appearance",
+    "theme_type": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "contrast": "High contrast"
+    }
+  },
+
+  "confirm_dialog": {
+    "confirm": "Yes",
+    "cancel": "Cancel"
+  },
+
+  "records": {
+    "title": "Time reporting",
+    "list_title": "List of records",
+    "type": {
+      "normal": "Work",
+      "vacationLeave": "Annual leave",
+      "trainingLeave": "Educational leave",
+      "leaveOnRequest": "Leave on demand",
+      "sickLeave": "Sick leave",
+      "childcare": "Childcare"
+    },
+    "add_button": "Add",
+    "timesheet_view": "Grid view",
+    "list_view": "List view",
+    "edit_disabled": "This record is already approved",
+    "approve": "Approval",
+    "approve_button": "Approve",
+    "disapprove_button": "Cancel approval",
+    "month_approved": "APPROVED",
+    "month_not_approved": "NOT APPROVED"
+  },
+
+  "add_record": {
+    "title": "Adding a record"
+  },
+
+  "update_record": {
+    "title": "Edit record"
+  },
+
+  "delete_record": {
+    "confirm": "Delete",
+    "text": "Are you sure you want to delete this record?",
+    "title": "Delete a record"
+  },
+
+  "tooltips": {
+    "edit": "Edit",
+    "close": "Close",
+    "delete": "Delete",
+    "prev": "Previous",
+    "next": "Next"
+  },
+
+  "timesheet": {
+    "today": "Current week"
+  },
+
+  "not_found": {
+    "go_back": "Back",
+    "text": "Page not found",
+    "title": "Not found"
+  },
+
+  "admin_worktime": {
+    "select_user": "Select a user from the list",
+    "no_options": "No results",
+    "loading": "Loading..."
+  },
+
+  "dashboard": {
+    "quick_records_title": "Working time reporting"
+  },
+
+  "approve_records": {
+    "title": "Approval of records"
+  },
+
+  "edit_employee": {
+    "title": "Edit an employee"
+  },
+
+  "edit_schedule": {
+    "title": "Editing the schedule"
+  },
+
+  "quickMonthStats": {
+    "title": "Records this month",
+    "missing_p1": "You have not reported ",
+    "missing_p2": " this month!",
+    "missing": "{{count}} day",
+    "missing_plural": "{{count}} days"
+  },
+
+  "archive": {
+    "title": "Archiving",
+    "loading": "Loading...",
+    "no_options": "No results",
+    "export": "Download CSV",
+    "export_pdf": "Download PDF",
+    "employees": {
+      "placeholder": "Enter first or last name",
+      "label": "Employees",
+      "title": "Archiving of employees",
+      "required": "Please select at least one employee"
+    },
+    "schedules": {
+      "placeholder": "Enter a name for the schedule",
+      "label": "Schedules",
+      "title": "Archiving of schedules",
+      "required": "Please select at least one schedule"
+    },
+    "records": {
+      "title": "Archiving of records",
+      "required": "Please select at least one employee",
+      "select_all_employees": "Select all employees"
+    }
+  },
+
+  "timesheets": {
+    "title": "My work time",
+    "timesheet": "Timesheet",
+    "download_timesheet": "Download a timesheet",
+    "stats": "Statistics (approved only)",
+    "download": "Download"
+  },
+
+  "stats": {
+    "no_results": "No results",
+    "overtime": "Overtime",
+    "missing_days": "Missing days",
+    "title": "Statistics"
+  },
+
+  "home": {
+    "your_norm": "Your daily hourly norm: "
+  },
+
+  "extra": {
+    "hours": "{{count}} hour",
+    "hours_plural": "{{count}} hours",
+    
+    "days": "{{count}} day",
+    "days_plural": "{{count}} days"
+  },
+
+  "offline": "You are offline. The application may not function properly."
 }

@@ -1,3 +1,88 @@
 {
-    
+  "fields": {
+    "email": "E-mail",
+    "password": "Password",
+    "reset_token": "Code from email",
+    "new_password": "New password",
+    "repeat_password": "Repeat password",
+    "name": "Full name",
+    "schedule_name": "Schedule name",
+    "schedule_range": "Schedule range",
+    "date_from": "Beginning",
+    "date_to": "End",
+    "schedule_freedays": "Days off",
+    "record_range": "Record range",
+    "record_type": "Record type",
+    "record_details": "Details",
+    "approve_month": "Month",
+    "month": "Month",
+    "norm": "Hours norm",
+    "employee": "Employee"
+  },
+
+  "loading": {
+    "default": "Loading...",
+    "login": "Logging in...",
+    "reset_password": "Resetting password...",
+    "add_employee": "Saving employee...",
+    "add_schedule": "Saving schedule...",
+    "add_record": "Saving record...",
+    "approve_records": "Approval..."
+  },
+
+  "submit": {
+    "forgot_password": "Send me link",
+    "login": "Log in",
+    "reset_password": "Change password",
+    "add_employee": "Save employee",
+    "add_schedule": "Save schedule",
+    "add_record": "Save record",
+    "approve_records": "Approve"
+  },
+
+  "validation": {
+    "email": {
+      "format": "Please enter a valid email address", 
+      "required": "Email address is required"
+    },
+    "password": {
+      "match": "The password should be at least 8 characters long, contain at least 1 number, 1 letter and 1 special character",
+      "required": "Password is required",
+      "alpha": "Password should contain at least 1 letter",
+      "digit": "Password should contain at least 1 digit",
+      "min": "Password should contain at least 8 characters",
+      "repeat": "Passwords must match",
+      "special": "The password should contain at least 1 special character (#?!@$%^&*-)"
+    },
+    "reset_token": {
+      "format": "Please enter a valid code",
+      "required": "Code is required"
+    },
+    "name": {
+      "min": "Minimum length is {{min}}",
+      "max": "Maximum length is {{max}}",
+      "required": "Name is required"
+    },
+    "schedule_name": {
+      "required": "The name of the schedule is required"
+    },
+    "date_from": {
+      "required": "The start date is required"
+    },
+    "date_to": {
+      "required": "End date is required",
+      "min": "The end date must be after the start date"
+    },
+    "record_type": {
+      "match": "The types allowed are: Work, Annual leave, Educational leave, Leave on demand, Sick leave, Childcare"
+    },
+    "norm": {
+      "min": "The minimum number of hours is 0"
+    }
+  },
+
+  "extra": {
+    "hours": "hour",
+    "hours_plural": "hours"
+  }
 }
