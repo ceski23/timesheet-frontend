@@ -31,7 +31,7 @@ interface ExtraStats {
   user: User;
 }
 
-type EmployeeStats = BasicStats & ExtraStats;
+export type EmployeeStats = BasicStats & ExtraStats;
 
 interface EmployeStatsParams {
   id: string[];
@@ -39,25 +39,30 @@ interface EmployeStatsParams {
   dateTo: Date;
 }
 
-export const fetchQuickMonthStats = async (month: Date) => (
-  client.get<unknown, QuickMonthStatsObj>('stats/quickMonth', { params: { month } })
+interface QuickMonthParams {
+  month: Date;
+  approved: boolean;
+}
+
+export const fetchQuickMonthStats = async (params: QuickMonthParams) => (
+  client.get<unknown, EmployeeStats>('stats/quickMonth', { params })
 );
 
-export const fetchMonthStats = async (month: Date) => (
-  client.get<unknown, QuickMonthStatsObj>('stats/month', { params: { month } })
-);
+// export const fetchMonthStats = async (month: Date) => (
+//   client.get<unknown, QuickMonthStatsObj>('stats/month', { params: { month } })
+// );
 
 export const fetchEmployeesStats = async (params: EmployeStatsParams) => (
   client.get<unknown, EmployeeStats[]>('stats/admin/stats', { params })
 );
 
-export const useQuickMonthStats = (month: Date) => (
-  useQuery(['quickMonth', month], fetchQuickMonthStats)
+export const useQuickMonthStats = (params: QuickMonthParams) => (
+  useQuery(['quickMonth', params], fetchQuickMonthStats)
 );
 
-export const useMonthStats = (month: Date) => (
-  useQuery(['month', month], fetchMonthStats)
-);
+// export const useMonthStats = (month: Date) => (
+//   useQuery(['month', month], fetchMonthStats)
+// );
 
 export const useEmployeesStats = (
   params: EmployeStatsParams, config?: QueryConfig<EmployeeStats[]>,

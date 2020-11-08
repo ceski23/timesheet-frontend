@@ -1,7 +1,7 @@
 import { Typography, Paper, styled } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { RECORD_TYPES } from 'api/records';
-import { QuickMonthStatsObj } from 'api/stats';
+import { EmployeeStats } from 'api/stats';
 import { ColoredIcon } from 'components/shared/ColoredIcon';
 import { formatDuration } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
@@ -45,7 +45,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
 // #endregion
 
 interface Props {
-  data: QuickMonthStatsObj;
+  data: EmployeeStats;
 }
 
 export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
@@ -54,10 +54,10 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
 
   return (
     <>
-      {(data.missing > 0) && (
+      {(data.missingDays > 0) && (
         <StyledAlert severity="warning" variant="standard">
           {t('ui:quickMonthStats.missing_p1')}
-          <b>{t('ui:quickMonthStats.missing', { count: data.missing })}</b>
+          <b>{t('ui:quickMonthStats.missing', { count: data.missingDays })}</b>
           {t('ui:quickMonthStats.missing_p2')}
         </StyledAlert>
       )}
@@ -65,7 +65,7 @@ export const MonthTimesheetTiles: FC<Props> = ({ data }) => {
       <TilesContainer>
         {RECORD_TYPES.map(type => {
           const { color, icon } = getRecordData(type);
-          const value = data.stats[type] || 0;
+          const value = data.hours[type] || 0;
 
           return (
             <Tile key={type}>

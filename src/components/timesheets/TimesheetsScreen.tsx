@@ -17,7 +17,7 @@ import { useDateLocale } from 'hooks/useDateFormatter';
 
 export const TimesheetsScreen = () => {
   const [month, setMonth] = useState(new Date());
-  const quickMonthStats = useQuickMonthStats(month);
+  const quickMonthStats = useQuickMonthStats({ month, approved: true });
   const { t } = useTranslation();
   const { user } = useAuth();
   const locale = useDateLocale();
