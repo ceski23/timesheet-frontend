@@ -64,6 +64,10 @@ export const addUser = async (params: AddUserParams) => (
 export const updateUser = async ({ id, ...params }: EditUserParams & ID) => (
   client.patch<unknown, User>(`users/admin/${id}`, params)
 );
+
+export const fetchAllUsers = async () => (
+  client.get<unknown, User[]>('users/admin/all')
+);
 // #endregion
 
 // #region API hooks
@@ -92,4 +96,8 @@ export const useEditUser = () => useMutation(updateUser, {
     queryCache.invalidateQueries('users');
   },
 });
+
+export const useAllUsers = () => (
+  usePaginatedQuery(['users'], fetchAllUsers)
+);
 // #endregion

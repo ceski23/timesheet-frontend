@@ -239,7 +239,8 @@
     },
     "records": {
       "title": "Archiwizacja rekordów",
-      "required": "Wybierz co najmniej jeden rozkład"
+      "required": "Wybierz co najmniej jeden rozkład",
+      "select_all_employees": "Wybierz wszystkich pracowników"
     }
   },
 

@@ -16,12 +16,13 @@ import {
   startOfWeek, startOfDay, endOfWeek, endOfDay,
 } from 'date-fns';
 import { useDateLocale } from 'hooks/useDateFormatter';
-import { User, useUsers } from 'api/users';
+import { fetchAllUsers, User, useUsers } from 'api/users';
 
 // #region styles
 const FieldsWrapper = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: '1fr auto auto auto',
+  gridTemplateColumns: '1fr auto',
+  gridTemplateRows: 'auto auto',
   gap: '32px 16px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
@@ -42,6 +43,12 @@ const Container = styled(Paper)({
 const DownloadButton = styled(Button)({
   maxHeight: 56,
 });
+
+const SelectAllButton = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+  },
+}));
 // #endregion
 
 export const ArchiveRecords = () => {
@@ -109,6 +116,15 @@ export const ArchiveRecords = () => {
     }
   };
 
+  const handleSelectAll = async () => {
+    try {
+      const allUsers = await fetchAllUsers();
+      setSelected(allUsers);
+    } catch (_e) {
+      Notificator.error(t('ui:notifications.failure.find_employees'));
+    }
+  };
+
   return (
     <Container>
       <Typography variant="h6" style={{ marginBottom: 16 }}>
@@ -168,21 +184,29 @@ export const ArchiveRecords = () => {
           />
         </RangeWrapper>
 
-        <DownloadButton
-          color="primary"
-          variant="contained"
-          onClick={handleExportEmployees}
-        >
-          {t('ui:archive.export')}
-        </DownloadButton>
+        <div>
+          <SelectAllButton variant="outlined" onClick={handleSelectAll}>
+            {t('ui:archive.records.select_all_employees')}
+          </SelectAllButton>
+        </div>
 
-        <DownloadButton
-          color="primary"
-          variant="contained"
-          onClick={handleExportEmployeesPdf}
-        >
-          {t('ui:archive.export_pdf')}
-        </DownloadButton>
+        <div style={{ display: 'grid', gap: '16px', gridTemplateColumns: 'auto auto' }}>
+          <DownloadButton
+            color="primary"
+            variant="contained"
+            onClick={handleExportEmployees}
+          >
+            {t('ui:archive.export')}
+          </DownloadButton>
+
+          <DownloadButton
+            color="primary"
+            variant="contained"
+            onClick={handleExportEmployeesPdf}
+          >
+            {t('ui:archive.export_pdf')}
+          </DownloadButton>
+        </div>
       </FieldsWrapper>
     </Container>
   );
