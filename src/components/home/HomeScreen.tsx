@@ -19,7 +19,7 @@ export const HomeScreen: FC = (): ReactElement => {
   useAppScreen('home');
   const { t } = useTranslation();
   const [month] = useState(new Date());
-  const quickMonthStats = useQuickMonthStats({ month, approved: false });
+  const quickMonthStats = useQuickMonthStats({ month, onlyApproved: false });
   const [addRecord] = useAddRecord();
   const { user } = useAuth();
 

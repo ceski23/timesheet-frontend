@@ -41,7 +41,7 @@ interface EmployeStatsParams {
 
 interface QuickMonthParams {
   month: Date;
-  approved: boolean;
+  onlyApproved: boolean;
 }
 
 export const fetchQuickMonthStats = async (params: QuickMonthParams) => (
