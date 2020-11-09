@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useAuthGuard } from 'hooks/useAuthGuard';
 import { Helmet } from 'react-helmet';
 import { useAppTheme } from 'hooks/useAppTheme';
@@ -11,6 +11,8 @@ import { ReactQueryDevtools } from 'react-query-devtools';
 import { ReactQueryConfigProvider, ReactQueryConfig } from 'react-query';
 import { ApiError } from 'utils/api';
 import { useSetAuth } from 'contexts/auth';
+import { useTranslation } from 'react-i18next';
+import { usePreferences } from 'contexts/preferences';
 
 const LoggedInContent = React.lazy(() => import('components/layout/LoggedInContent'));
 const GuestContent = React.lazy(() => import('components/layout/GuestContent'));
@@ -19,6 +21,12 @@ export const App: React.FC = () => {
   const theme = useAppTheme();
   const { status } = useAuthGuard();
   const setAuth = useSetAuth();
+  const { i18n } = useTranslation();
+  const { language } = usePreferences();
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
 
   const reactQueryConfig: ReactQueryConfig = React.useMemo(() => ({
     queries: {

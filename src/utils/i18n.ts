@@ -10,7 +10,7 @@ import enUi from 'locales/en/ui.json';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18n
-  .use(LanguageDetector)
+  // .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'pl',
