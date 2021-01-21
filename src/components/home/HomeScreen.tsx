@@ -51,16 +51,6 @@ export const HomeScreen: FC = (): ReactElement => {
     });
   };
 
-  // const renderTooltip = ({ label, payload, active }: TooltipProps) => (active ? (
-  //   <Paper style={{ padding: 16 }}>
-  //     <Typography variant="caption">{label}</Typography>
-  //     <Typography variant="subtitle1" color="primary">
-  // eslint-disable-next-line max-len
-  //       {formatDuration({ hours: Number.parseInt(`${payload && payload[0].value}`, 10) }, { locale })}
-  //     </Typography>
-  //   </Paper>
-  // ) : null);
-
   return (
     <ScreenWrapper>
       <Paper style={{ display: 'grid', margin: 16, padding: 16 }}>
@@ -90,24 +80,6 @@ export const HomeScreen: FC = (): ReactElement => {
           <MonthTimesheetTiles data={quickMonthStats.data} />
         </>
       )}
-
-      {/* <Paper style={{ display: 'grid', margin: 16, paddingBottom: 16 }}>
-        <Typography
-          variant="h6"
-          style={{ margin: 24 }}
-          component="h2"
-        >Czas pracy w tym tygodniu
-        </Typography>
-        <Divider style={{ marginBottom: 32 }} />
-        <ResponsiveContainer height={500} width="98%">
-          <BarChart data={data}>
-            <XAxis dataKey="name" />
-            <YAxis unit="h" />
-            <Tooltip content={renderTooltip} isAnimationActive={false} cursor={false} />
-            <Bar dataKey="value" fill={theme.palette.primary.main} />
-          </BarChart>
-        </ResponsiveContainer>
-      </Paper> */}
     </ScreenWrapper>
   );
 };
