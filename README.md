@@ -39,10 +39,10 @@ App also needs proper backend from another repository.
 
 ## Screenshots
 
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_add_record_dialog.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_admin_stats.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_dashboard_user.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_employees.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_schedules_dialog.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_worktime_list.png" />
-<img width="300" src="https://github.com/ceski23/reciper/blob/master/.github/screenshots/screen_worktime.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_add_record_dialog.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_admin_stats.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_dashboard_user.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_employees.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_schedules_dialog.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_worktime_list.png" />
+<img width="300" src="https://github.com/ceski23/timesheet-frontend/blob/master/.github/screenshots/screen_worktime.png" />
